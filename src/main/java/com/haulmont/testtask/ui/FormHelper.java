@@ -1,9 +1,9 @@
 package com.haulmont.testtask.ui;
 
-import com.haulmont.testtask.data.ClientDataSet;
 import com.haulmont.testtask.data.EnumEntity;
-import com.haulmont.testtask.data.MechanicDataSet;
-import com.haulmont.testtask.data.OrderDataSet;
+import com.haulmont.testtask.data.dataSets.ClientDataSet;
+import com.haulmont.testtask.data.dataSets.MechanicDataSet;
+import com.haulmont.testtask.data.dataSets.OrderDataSet;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;

@@ -1,21 +1,12 @@
-package com.haulmont.testtask.data;
+package com.haulmont.testtask.data.dataSets;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "client")
-@SuppressWarnings("serial")
-public class ClientDataSet implements Serializable, Cloneable {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class ClientDataSet extends SuperDataSet {
 
 	@Column(name = "first_name")
 	private String firstName = "";
@@ -27,15 +18,7 @@ public class ClientDataSet implements Serializable, Cloneable {
 	private String patronnymic = "";
 	
 	@Column(name = "phone")
-	private String phone = "";
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	private String phone = "";	
 
 	public String getLastName() {
 		return lastName;

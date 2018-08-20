@@ -1,26 +1,19 @@
-package com.haulmont.testtask.data;
+package com.haulmont.testtask.data.dataSets;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Currency;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.haulmont.testtask.data.EnumOrderStatus;
+
 @Entity
 @Table(name = "order")
-@SuppressWarnings("serial")
-public class OrderDataSet implements Serializable, Cloneable {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class OrderDataSet extends SuperDataSet {
 
 	@Column(name = "description")
 	private String description = "";
@@ -44,14 +37,6 @@ public class OrderDataSet implements Serializable, Cloneable {
 
 	@Column(name = "status")
 	private String status;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getDescription() {
 		return description;

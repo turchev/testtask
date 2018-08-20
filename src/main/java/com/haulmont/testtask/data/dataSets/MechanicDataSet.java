@@ -1,22 +1,14 @@
-package com.haulmont.testtask.data;
+package com.haulmont.testtask.data.dataSets;
 
-import java.io.Serializable;
 import java.util.Currency;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "mechanic")
-@SuppressWarnings("serial")
-public class MechanicDataSet implements Serializable, Cloneable {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class MechanicDataSet extends SuperDataSet {
 
 	@Column(name = "first_name")
 	private String firstName = "";
@@ -29,14 +21,7 @@ public class MechanicDataSet implements Serializable, Cloneable {
 
 	@Column(name = "wages")	
 	private Currency wages = Currency.getInstance("RUB");
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 
 	public String getFirstName() {
 		return firstName;
