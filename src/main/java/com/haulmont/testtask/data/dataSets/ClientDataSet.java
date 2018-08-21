@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "client")
-public class ClientDataSet extends SuperDataSet {
+public class ClientDataSet extends AbstractDataSet {
 
 	@Column(name = "first_name")
 	private String firstName = "";

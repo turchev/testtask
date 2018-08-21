@@ -13,7 +13,7 @@ import com.haulmont.testtask.data.EnumOrderStatus;
 
 @Entity
 @Table(name = "order")
-public class OrderDataSet extends SuperDataSet {
+public class OrderDataSet extends AbstractDataSet {
 
 	@Column(name = "description")
 	private String description = "";

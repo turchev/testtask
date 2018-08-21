@@ -5,8 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.haulmont.testtask.data.DBConnection;
 import com.haulmont.testtask.data.EnumEntity;
+import com.haulmont.testtask.data.dbService.DBConnection;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.TabSheet;

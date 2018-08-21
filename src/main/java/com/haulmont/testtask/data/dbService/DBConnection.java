@@ -1,4 +1,4 @@
-package com.haulmont.testtask.data;
+package com.haulmont.testtask.data.dbService;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "mechanic")
-public class MechanicDataSet extends SuperDataSet {
+public class MechanicDataSet extends AbstractDataSet {
 
 	@Column(name = "first_name")
 	private String firstName = "";
