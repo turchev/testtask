@@ -1,4 +1,4 @@
-package com.haulmont.testtask.data.dataSets;
+package com.haulmont.testtask.data.entity;
 
 import java.time.LocalDate;
 import java.util.Currency;
@@ -9,11 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.haulmont.testtask.data.EnumOrderStatus;
+import com.haulmont.testtask.util.OrderStatusType;
 
 @Entity
 @Table(name = "order")
-public class OrderDataSet extends AbstractDataSet {
+public class Order extends AbstractEntity {
 
 	@Column(name = "description")
 	private String description = "";
@@ -90,7 +90,7 @@ public class OrderDataSet extends AbstractDataSet {
 		return status;
 	}
 
-	public void setStatus(EnumOrderStatus status) {
+	public void setStatus(OrderStatusType status) {
 		this.status = status.name();
 	}
 

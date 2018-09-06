@@ -1,7 +1,7 @@
 package com.haulmont.testtask.data.dao;
 
-import com.haulmont.testtask.data.dataSets.MechanicDataSet;
+import com.haulmont.testtask.data.entity.Mechanic;
 
-public interface MechanicDao extends Dao<MechanicDataSet>{
+public interface MechanicDao extends AbstractDao<Mechanic>{
 
 }

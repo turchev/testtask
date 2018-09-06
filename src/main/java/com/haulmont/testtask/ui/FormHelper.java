@@ -1,9 +1,9 @@
 package com.haulmont.testtask.ui;
 
-import com.haulmont.testtask.data.EnumEntity;
-import com.haulmont.testtask.data.dataSets.ClientDataSet;
-import com.haulmont.testtask.data.dataSets.MechanicDataSet;
-import com.haulmont.testtask.data.dataSets.OrderDataSet;
+import com.haulmont.testtask.data.entity.Client;
+import com.haulmont.testtask.data.entity.EntityType;
+import com.haulmont.testtask.data.entity.Mechanic;
+import com.haulmont.testtask.data.entity.Order;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
@@ -32,19 +32,19 @@ public class FormHelper {
 	/**
 	 * Возвращает VerticalLayout для формирования экранной формы "Клиенты, Механики, Заказы" 	 
 	 */
-	public VerticalLayout getPage(EnumEntity entityType) {
+	public VerticalLayout getPage(EntityType entityType) {
 		webPage = new VerticalLayout();
 		
 		switch (entityType) {
 		case CLIENT:			
-			grid = new Grid<>(ClientDataSet.class);					
+			grid = new Grid<>(Client.class);					
 			break;
 		case MECHANIC:			
-			grid = new Grid<>(MechanicDataSet.class);			
+			grid = new Grid<>(Mechanic.class);			
 			break;
 		case ORDER:			
 			webPage.addComponent(getFilterPanel());
-			grid = new Grid<>(OrderDataSet.class);			
+			grid = new Grid<>(Order.class);			
 			break;
 		default:
 			return null;

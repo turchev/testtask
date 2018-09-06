@@ -1,4 +1,4 @@
-package com.haulmont.testtask.data.dataSets;
+package com.haulmont.testtask.data.entity;
 
 import java.util.Currency;
 
@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "mechanic")
-public class MechanicDataSet extends AbstractDataSet {
+public class Mechanic extends AbstractEntity {
 
 	@Column(name = "first_name")
 	private String firstName = "";

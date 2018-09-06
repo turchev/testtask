@@ -2,32 +2,32 @@ package com.haulmont.testtask.data.dao.impl;
 
 import java.util.List;
 
-import com.haulmont.testtask.data.DataException;
 import com.haulmont.testtask.data.dao.MechanicDao;
-import com.haulmont.testtask.data.dataSets.MechanicDataSet;
+import com.haulmont.testtask.data.dao.exeption.DaoException;
+import com.haulmont.testtask.data.entity.Mechanic;
 
 public class MechanicDaoImpl implements MechanicDao{
 
 	@Override
-	public MechanicDataSet read(long id) throws DataException {
+	public Mechanic read(long id) throws DaoException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<MechanicDataSet> readAll() throws DataException {
+	public List<Mechanic> readAll() throws DaoException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void save(MechanicDataSet dataSet) throws DataException {
+	public void save(Mechanic dataSet) throws DaoException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void shutdown() throws DataException {
+	public void shutdown() throws DaoException {
 		// TODO Auto-generated method stub
 		
 	}

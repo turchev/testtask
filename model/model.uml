@@ -3,12 +3,8 @@
   <packageImport xmi:type="uml:PackageImport" xmi:id="_O8SUwLDdEeif9IzReTP8Xw">
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
   </packageImport>
-  <packagedElement xmi:type="uml:Actor" xmi:id="_KF85ILD3Eeif9IzReTP8Xw" name="Customer"/>
-  <packagedElement xmi:type="uml:Package" xmi:id="_Vqg1kLEEEeif9IzReTP8Xw" name="ui">
-    <packagedElement xmi:type="uml:UseCase" xmi:id="_SSQOYLEGEeif9IzReTP8Xw" name="UseCase1"/>
-    <packagedElement xmi:type="uml:UseCase" xmi:id="_SunaQLEGEeif9IzReTP8Xw" name="UseCase2"/>
-    <packagedElement xmi:type="uml:UseCase" xmi:id="_TKI4oLEGEeif9IzReTP8Xw" name="UseCase3"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_Je73YLHyEeixEMCFF8Fiew" name="ui">
+    <packagedElement xmi:type="uml:Class" xmi:id="_PxpLkLHyEeixEMCFF8Fiew" name="Class1"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_QYrWYLHyEeixEMCFF8Fiew" name="Class2"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Package" xmi:id="_WA4uMLEEEeif9IzReTP8Xw" name="domain"/>
-  <packagedElement xmi:type="uml:Package" xmi:id="_WU7rkLEEEeif9IzReTP8Xw" name="data"/>
 </uml:Model>

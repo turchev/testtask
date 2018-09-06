@@ -1,8 +1,8 @@
-package com.haulmont.testtask.data;
+package com.haulmont.testtask.util;
 
 /**
  * Статусы заказа
  */
-public enum EnumOrderStatus {
+public enum OrderStatusType {
 	PLANNED, FULFILLED, ACCEPTED
 }
