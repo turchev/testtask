@@ -1,4 +1,4 @@
-package com.haulmont.testtask.data.dataSets;
+package com.haulmont.testtask.data.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "client")
-public class ClientDataSet extends AbstractDataSet {
+public class Client extends AbstractEntity {
 
 	@Column(name = "first_name")
 	private String firstName = "";

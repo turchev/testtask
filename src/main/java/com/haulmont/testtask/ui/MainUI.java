@@ -5,8 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.haulmont.testtask.data.EnumEntity;
-import com.haulmont.testtask.data.dbService.DBConnection;
+import com.haulmont.testtask.data.entity.EntityType;
+import com.haulmont.testtask.util.DBConnection;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.TabSheet;
@@ -35,15 +35,15 @@ public class MainUI extends UI {
 		tabsheet.addStyleName(ValoTheme.TABSHEET_FRAMED);
 		tabsheet.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
 				
-		TabSheet.Tab tab1 = tabsheet.addTab(helper.getPage(EnumEntity.CLIENT));		
+		TabSheet.Tab tab1 = tabsheet.addTab(helper.getPage(EntityType.CLIENT));		
 		tab1.setCaption("Клиенты");
 		tab1.setDescription("Список клиентов");
 				
-		TabSheet.Tab tab2 = tabsheet.addTab(helper.getPage(EnumEntity.MECHANIC));
+		TabSheet.Tab tab2 = tabsheet.addTab(helper.getPage(EntityType.MECHANIC));
 		tab2.setCaption("Механики");
 		tab2.setDescription("Список механиков");
 		
-		TabSheet.Tab tab3 = tabsheet.addTab(helper.getPage(EnumEntity.ORDER));
+		TabSheet.Tab tab3 = tabsheet.addTab(helper.getPage(EntityType.ORDER));
 		tab3.setCaption("Заказы");
 		tab3.setDescription("Список заказов");
 				        
