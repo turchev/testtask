@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_OvxiwLDdEeif9IzReTP8Xw" name="UseCaseDiagram">
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_OvxiwLDdEeif9IzReTP8Xw" name="UseCaseDiagram">
   <packageImport xmi:type="uml:PackageImport" xmi:id="_O8SUwLDdEeif9IzReTP8Xw">
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
   </packageImport>
   <packagedElement xmi:type="uml:Actor" xmi:id="_KF85ILD3Eeif9IzReTP8Xw" name="Customer"/>
   <packagedElement xmi:type="uml:Package" xmi:id="_Vqg1kLEEEeif9IzReTP8Xw" name="ui">
     <packagedElement xmi:type="uml:UseCase" xmi:id="_SSQOYLEGEeif9IzReTP8Xw" name="UseCase1"/>
-    <packagedElement xmi:type="uml:UseCase" xmi:id="_SunaQLEGEeif9IzReTP8Xw" name="UseCase2"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_SunaQLEGEeif9IzReTP8Xw" name="MainForm"/>
     <packagedElement xmi:type="uml:UseCase" xmi:id="_TKI4oLEGEeif9IzReTP8Xw" name="UseCase3"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_sNoBoLG-EeiC2P7YBTpfAg" client="_TKI4oLEGEeif9IzReTP8Xw" supplier="_SunaQLEGEeif9IzReTP8Xw"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_vGJt8LG-EeiC2P7YBTpfAg" client="_SSQOYLEGEeif9IzReTP8Xw" supplier="_SunaQLEGEeif9IzReTP8Xw"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_WA4uMLEEEeif9IzReTP8Xw" name="domain"/>
   <packagedElement xmi:type="uml:Package" xmi:id="_WU7rkLEEEeif9IzReTP8Xw" name="data"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_YIdDILG-EeiC2P7YBTpfAg" memberEnd="_YI0PgLG-EeiC2P7YBTpfAg _YI69MLG-EeiC2P7YBTpfAg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_YIzBYLG-EeiC2P7YBTpfAg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_YIzBYbG-EeiC2P7YBTpfAg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_YI0PgLG-EeiC2P7YBTpfAg" name="usecase2" type="_SunaQLEGEeif9IzReTP8Xw" association="_YIdDILG-EeiC2P7YBTpfAg"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_YI69MLG-EeiC2P7YBTpfAg" name="customer" type="_KF85ILD3Eeif9IzReTP8Xw" association="_YIdDILG-EeiC2P7YBTpfAg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_zMMWQLG-EeiC2P7YBTpfAg" memberEnd="_zMOLcLG-EeiC2P7YBTpfAg _zMOygLG-EeiC2P7YBTpfAg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zMM9ULG-EeiC2P7YBTpfAg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_zMNkYLG-EeiC2P7YBTpfAg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_zMOLcLG-EeiC2P7YBTpfAg" name="usecase3" type="_TKI4oLEGEeif9IzReTP8Xw" association="_zMMWQLG-EeiC2P7YBTpfAg"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_zMOygLG-EeiC2P7YBTpfAg" name="customer" type="_KF85ILD3Eeif9IzReTP8Xw" association="_zMMWQLG-EeiC2P7YBTpfAg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_0oG6oLG-EeiC2P7YBTpfAg" memberEnd="_0oHhsrG-EeiC2P7YBTpfAg _0oIIwLG-EeiC2P7YBTpfAg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_0oHhsLG-EeiC2P7YBTpfAg" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_0oHhsbG-EeiC2P7YBTpfAg" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_0oHhsrG-EeiC2P7YBTpfAg" name="usecase1" type="_SSQOYLEGEeif9IzReTP8Xw" association="_0oG6oLG-EeiC2P7YBTpfAg"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_0oIIwLG-EeiC2P7YBTpfAg" name="customer" type="_KF85ILD3Eeif9IzReTP8Xw" association="_0oG6oLG-EeiC2P7YBTpfAg"/>
+  </packagedElement>
 </uml:Model>
