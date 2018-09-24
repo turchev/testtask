@@ -3,7 +3,7 @@
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="com.haulmont.testtask.ui.DataEditorClient" project="testtask" 
     file="/testtask/src/main/java/com/haulmont/testtask/ui/DataEditorClient.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="408" y="132"/>    
+    <position height="-1" width="-1" x="514" y="193"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <interface id="2" language="java" name="com.haulmont.testtask.ui.SaveAndEdit" project="testtask" 
     file="/testtask/src/main/java/com/haulmont/testtask/ui/SaveAndEdit.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="343" y="368"/>    
+    <position height="-1" width="-1" x="591" y="416"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,253 +21,259 @@
   </interface>  
   <class id="3" language="java" name="com.haulmont.testtask.ui.MainUI" project="testtask" 
     file="/testtask/src/main/java/com/haulmont/testtask/ui/MainUI.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="136" y="355"/>    
+    <position height="-1" width="-1" x="159" y="165"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="com.haulmont.testtask.ui.FormHelper" project="testtask" 
-    file="/testtask/src/main/java/com/haulmont/testtask/ui/FormHelper.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="140" y="126"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="5" language="java" name="com.haulmont.testtask.ui.DataEditorMechanic" project="testtask" 
-    file="/testtask/src/main/java/com/haulmont/testtask/ui/DataEditorMechanic.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="511" y="349"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="6" language="java" name="com.haulmont.testtask.ui.DataEditorOrder" project="testtask" 
-    file="/testtask/src/main/java/com/haulmont/testtask/ui/DataEditorOrder.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="359" y="564"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="7" language="java" name="com.haulmont.testtask.ui.WebpageTab" project="testtask" 
-    file="/testtask/src/main/java/com/haulmont/testtask/ui/WebpageTab.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="385" y="-110"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <class id="8" language="java" name="com.haulmont.testtask.ui.WebpageTabAbstract" project="testtask" 
+  <class id="4" language="java" name="com.haulmont.testtask.ui.WebpageTabAbstract" project="testtask" 
     file="/testtask/src/main/java/com/haulmont/testtask/ui/WebpageTabAbstract.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="185" y="-125"/>    
+    <position height="-1" width="-1" x="334" y="159"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="com.haulmont.testtask.util.DBConnection" project="testtask" 
-    file="/testtask/src/main/java/com/haulmont/testtask/util/DBConnection.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="807" y="-116"/>    
+  <class id="5" language="java" name="com.haulmont.testtask.ui.FormHelper" project="testtask" 
+    file="/testtask/src/main/java/com/haulmont/testtask/ui/FormHelper.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="193" y="496"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="10" language="java" name="com.haulmont.testtask.util.OrderStatusType" project="testtask" 
-    file="/testtask/src/main/java/com/haulmont/testtask/util/OrderStatusType.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="588" y="-98"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </enumeration>  
-  <enumeration id="11" language="java" name="com.haulmont.testtask.data.entity.EntityType" project="testtask" 
-    file="/testtask/src/main/java/com/haulmont/testtask/data/entity/EntityType.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1000" y="-96"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </enumeration>  
-  <class id="12" language="java" name="com.haulmont.testtask.data.entity.Client" project="testtask" 
-    file="/testtask/src/main/java/com/haulmont/testtask/data/entity/Client.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1288" y="450"/>    
+  <class id="6" language="java" name="com.haulmont.testtask.ui.DataEditorMechanic" project="testtask" 
+    file="/testtask/src/main/java/com/haulmont/testtask/ui/DataEditorMechanic.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="133" width="140" x="620" y="204"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="com.haulmont.testtask.data.entity.AbstractEntity" project="testtask" 
-    file="/testtask/src/main/java/com/haulmont/testtask/data/entity/AbstractEntity.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1234" y="122"/>    
+  <class id="7" language="java" name="com.haulmont.testtask.ui.DataEditorOrder" project="testtask" 
+    file="/testtask/src/main/java/com/haulmont/testtask/ui/DataEditorOrder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="604" y="621"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="com.haulmont.testtask.data.entity.Mechanic" project="testtask" 
-    file="/testtask/src/main/java/com/haulmont/testtask/data/entity/Mechanic.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1491" y="335"/>    
+  <interface id="8" language="java" name="com.haulmont.testtask.ui.WebpageTab" project="testtask" 
+    file="/testtask/src/main/java/com/haulmont/testtask/ui/WebpageTab.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="417" y="455"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
-  </class>  
-  <class id="15" language="java" name="com.haulmont.testtask.data.entity.Order" project="testtask" 
-    file="/testtask/src/main/java/com/haulmont/testtask/data/entity/Order.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1510" y="-78"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="16" language="java" name="com.haulmont.testtask.data.dao.ClientDao" project="testtask" 
+  </interface>  
+  <interface id="9" language="java" name="com.haulmont.testtask.data.dao.ClientDao" project="testtask" 
     file="/testtask/src/main/java/com/haulmont/testtask/data/dao/ClientDao.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="732" y="350"/>    
+    <position height="61" width="145" x="1089" y="97"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="17" language="java" name="com.haulmont.testtask.data.dao.MechanicDao" project="testtask" 
+  <interface id="10" language="java" name="com.haulmont.testtask.data.dao.MechanicDao" project="testtask" 
     file="/testtask/src/main/java/com/haulmont/testtask/data/dao/MechanicDao.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="850" y="451"/>    
+    <position height="61" width="145" x="1274" y="97"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="18" language="java" name="com.haulmont.testtask.data.dao.AbstractDao" project="testtask" 
+  <interface id="11" language="java" name="com.haulmont.testtask.data.dao.AbstractDao" project="testtask" 
     file="/testtask/src/main/java/com/haulmont/testtask/data/dao/AbstractDao.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="834" y="160"/>    
+    <position height="133" width="145" x="1274" y="-76"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="19" language="java" name="com.haulmont.testtask.data.dao.OrderDao" project="testtask" 
+  <interface id="12" language="java" name="com.haulmont.testtask.data.dao.OrderDao" project="testtask" 
     file="/testtask/src/main/java/com/haulmont/testtask/data/dao/OrderDao.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="983" y="296"/>    
+    <position height="61" width="145" x="1459" y="97"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="20" language="java" name="com.haulmont.testtask.data.dao.impl.ClientDaoImpl" project="testtask" 
+  <class id="13" language="java" name="com.haulmont.testtask.data.dao.exeption.DaoException" project="testtask" 
+    file="/testtask/src/main/java/com/haulmont/testtask/data/dao/exeption/DaoException.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="79" width="183" x="990" y="238"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="com.haulmont.testtask.data.dao.impl.ClientDaoImpl" project="testtask" 
     file="/testtask/src/main/java/com/haulmont/testtask/data/dao/impl/ClientDaoImpl.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="639" y="657"/>    
+    <position height="-1" width="-1" x="932" y="146"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="21" language="java" name="com.haulmont.testtask.data.dao.impl.OrderDaoImpl" project="testtask" 
+  <class id="15" language="java" name="com.haulmont.testtask.data.dao.impl.OrderDaoImpl" project="testtask" 
     file="/testtask/src/main/java/com/haulmont/testtask/data/dao/impl/OrderDaoImpl.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1018" y="685"/>    
+    <position height="-1" width="-1" x="1510" y="383"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="22" language="java" name="com.haulmont.testtask.data.dao.impl.MechanicDaoImpl" project="testtask" 
+  <class id="16" language="java" name="com.haulmont.testtask.data.dao.impl.MechanicDaoImpl" project="testtask" 
     file="/testtask/src/main/java/com/haulmont/testtask/data/dao/impl/MechanicDaoImpl.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="833" y="682"/>    
+    <position height="-1" width="-1" x="1297" y="386"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="23">    
-    <end type="SOURCE" refId="15"/>    
-    <end type="TARGET" refId="13"/>  
-  </generalization>  
+  <enumeration id="17" language="java" name="com.haulmont.testtask.data.entity.EntityType" project="testtask" 
+    file="/testtask/src/main/java/com/haulmont/testtask/data/entity/EntityType.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="133" width="153" x="916" y="502"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="18" language="java" name="com.haulmont.testtask.data.entity.Client" project="testtask" 
+    file="/testtask/src/main/java/com/haulmont/testtask/data/entity/Client.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="920" y="834"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="com.haulmont.testtask.data.entity.AbstractEntity" project="testtask" 
+    file="/testtask/src/main/java/com/haulmont/testtask/data/entity/AbstractEntity.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="133" width="153" x="1111" y="502"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="com.haulmont.testtask.data.entity.Mechanic" project="testtask" 
+    file="/testtask/src/main/java/com/haulmont/testtask/data/entity/Mechanic.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="313" width="157" x="1111" y="675"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="com.haulmont.testtask.data.entity.Order" project="testtask" 
+    file="/testtask/src/main/java/com/haulmont/testtask/data/entity/Order.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1452" y="845"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="com.haulmont.testtask.util.DBConnection" project="testtask" 
+    file="/testtask/src/main/java/com/haulmont/testtask/util/DBConnection.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="462" y="-10"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="23" language="java" name="com.haulmont.testtask.util.OrderStatusType" project="testtask" 
+    file="/testtask/src/main/java/com/haulmont/testtask/util/OrderStatusType.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="680" y="-2"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
   <realization id="24">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="16"/>  
-  </realization>  
-  <generalization id="25">    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="18"/>  
-  </generalization>  
-  <realization id="26">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="17"/>  
-  </realization>  
-  <generalization id="27">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="13"/>  
-  </generalization>  
-  <realization id="28">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="7"/>  
-  </realization>  
-  <realization id="29">    
-    <end type="SOURCE" refId="21"/>    
-    <end type="TARGET" refId="19"/>  
-  </realization>  
-  <realization id="30">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="2"/>  
-  </realization>  
-  <realization id="31">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="2"/>  
   </realization>  
-  <realization id="32">    
+  <generalization id="25">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <generalization id="26">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="19"/>  
+  </generalization>  
+  <realization id="27">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="12"/>  
+  </realization>  
+  <realization id="28">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <generalization id="29">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <association id="30">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="31" name="helper"/>      
+      <multiplicity id="32" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="33">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="10"/>  
+  </realization>  
+  <generalization id="34">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="19"/>  
+  </generalization>  
+  <realization id="35">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <generalization id="36">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="19"/>  
+  </generalization>  
+  <realization id="37">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <realization id="38">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="2"/>  
   </realization>  
-  <generalization id="33">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="18"/>  
+  <generalization id="39">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="11"/>  
   </generalization>  
-  <generalization id="34">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="13"/>  
-  </generalization>  
-  <generalization id="35">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="18"/>  
-  </generalization>  
-  <association id="36">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="37" name="helper">        
-        <position height="0" width="0" x="-294" y="-230"/>      
-      </attribute>      
-      <multiplicity id="38" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-294" y="-230"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
