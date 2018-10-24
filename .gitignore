@@ -7,9 +7,9 @@ target/
 .classpath
 
 #=== modelio ===
-#.runtime/
-#data/
-#project.conf
+.runtime/
+data/
+project.conf
 
 #=== netbeans ===
 #netbeans
