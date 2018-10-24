@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="impl" version="4">
+  <OBJECT>
+    <ID name="impl" mc="Standard.Package" uid="b0bea0a4-3c08-480f-8f08-f003d68fd27c"/>
+    <PID name="dao" mc="Standard.Package" uid="24b16014-c25c-449f-822d-bf7b270e40d6"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[impl]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="OrderDaoImpl" mc="Standard.Class" uid="0f9ef8c1-fb6b-4ebd-b58e-8482432226a4"/>
+        <COMPID name="ClientDaoImpl" mc="Standard.Class" uid="c979a973-eac6-4cee-b0ec-fb719526b401"/>
+        <COMPID name="MechanicDaoImpl" mc="Standard.Class" uid="daff73af-3f2a-4a80-8798-5c2ef20bb727"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

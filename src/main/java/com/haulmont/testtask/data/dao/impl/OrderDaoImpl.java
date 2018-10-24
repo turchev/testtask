@@ -6,29 +6,29 @@ import com.haulmont.testtask.data.dao.exeption.DaoException;
 import com.haulmont.testtask.data.entity.Order;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-@objid ("903ec2ce-fc72-49d1-a5d1-c1c3b7a51740")
+@objid ("0f9ef8c1-fb6b-4ebd-b58e-8482432226a4")
 public class OrderDaoImpl implements OrderDao {
-    @objid ("c79afea8-1266-419c-9d69-359059278664")
+    @objid ("25173ce6-58a5-4062-aed0-9644a1e56c09")
     @Override
     public Order read(long id) throws DaoException {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @objid ("c51504e3-059a-4cfd-bd15-d34098d0f26f")
+    @objid ("90404d0e-5353-44d4-9599-32b7d8b6d580")
     @Override
     public List<Order> readAll() throws DaoException {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @objid ("d10b8bf3-39b9-47c6-be93-444aa15d05af")
+    @objid ("651b9395-b258-4086-8d68-9eb21ee40fe7")
     @Override
     public void save(Order dataSet) throws DaoException {
         // TODO Auto-generated method stub
     }
 
-    @objid ("8bfd236c-b148-4add-ba05-10dc11dd26c4")
+    @objid ("eea39baa-d835-4205-91da-4de59b03f81c")
     @Override
     public void shutdown() throws DaoException {
         // TODO Auto-generated method stub

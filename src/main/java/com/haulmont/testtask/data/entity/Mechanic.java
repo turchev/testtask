@@ -6,67 +6,67 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-@objid ("5824edf0-7629-445a-939f-3e96551e933c")
+@objid ("37d9b8f5-096a-4b6c-8106-94d530444b9e")
 @Entity
 @Table(name = "mechanic")
 public class Mechanic extends AbstractEntity {
-    @objid ("3a5d002d-e37a-4f74-b993-4bbbb222e097")
+    @objid ("c9ebff9c-d576-4012-968e-95a431be2ef2")
     @Column(name = "first_name")
     private String firstName = "";
 
-    @objid ("7f2a0c5e-0be7-43bd-a7de-76dc14244358")
+    @objid ("01c1231e-bd18-4973-bb71-40e82914f0ca")
     @Column(name = "last_name")
     private String lastName = "";
 
-    @objid ("bbb09d4e-a96e-4ee2-a57c-bf3321c51117")
+    @objid ("29411397-0966-42f8-a284-1ef9218ffbf7")
     @Column(name = "patronnymic")
     private String patronnymic = "";
 
-    @objid ("be89d255-e292-422d-95da-6a4e6d97bc8c")
+    @objid ("7636f399-cf61-4b77-b3b4-b802839db51b")
     @Column(name = "wages")
     private Currency wages = Currency.getInstance("RUB");
 
-    @objid ("c63524d1-82c1-40da-b0f8-1b59590d0b39")
+    @objid ("3436b4f2-ef9e-4b20-b164-d21341ad36e3")
     public String getFirstName() {
         return firstName;
     }
 
-    @objid ("33c7f562-b1aa-48b8-93e9-cb517123ec65")
+    @objid ("a83ac8bf-ddf6-4f80-8e4b-007d224a9f4a")
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    @objid ("a3141885-883f-46aa-a123-730eeedd6bef")
+    @objid ("8fee3a29-00ca-443b-a9d9-c5ce10fcb114")
     public String getLastName() {
         return lastName;
     }
 
-    @objid ("657cacc5-0cc0-4fb2-a8a4-a53ba7e45a05")
+    @objid ("6ff98f8f-0707-427c-a3b7-1c3c507d0aba")
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    @objid ("2d9c04bd-3527-420e-a2af-43ac5f4f6fa3")
+    @objid ("218de782-3669-4d29-96a2-a804dafef24c")
     public String getPatronnymic() {
         return patronnymic;
     }
 
-    @objid ("7ce1556a-a51d-4b8c-9752-83b1a905cc82")
+    @objid ("02c4a03b-6fde-42ed-ade0-49372d2e4ece")
     public void setPatronnymic(String patronnymic) {
         this.patronnymic = patronnymic;
     }
 
-    @objid ("e94c718f-f58b-4967-938b-f4ab6517fba7")
+    @objid ("cc80dcd6-be2b-499e-b227-1aee74cb0c4f")
     public Currency getWages() {
         return wages;
     }
 
-    @objid ("088149f0-01c3-4365-9dba-d0acdaa07b16")
+    @objid ("d7f52c58-7b1c-4104-a8e8-836c910001ac")
     public void setWages(Currency wages) {
         this.wages = wages;
     }
 
-    @objid ("bf0c29f0-7ea2-43c0-99c1-6231ef1903ed")
+    @objid ("0653ca64-0580-470d-95e9-181b66f79f3a")
     @Override
     public String toString() {
         return lastName + " " + firstName;

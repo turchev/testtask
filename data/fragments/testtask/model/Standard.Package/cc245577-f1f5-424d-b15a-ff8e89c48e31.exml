@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="ui" version="4">
+  <OBJECT>
+    <ID name="ui" mc="Standard.Package" uid="cc245577-f1f5-424d-b15a-ff8e89c48e31"/>
+    <PID name="vaadin" mc="Standard.Package" uid="07d8d60d-eea3-4f7a-bf0a-36ba86efc6f4"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[ui]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="themes" mc="Standard.Package" uid="4c4092e7-7edd-44dc-b20d-970132e607b6"/>
+        <COMPID name="VerticalLayout" mc="Standard.Class" uid="e3e48879-3429-49b5-93fc-673352786066"/>
+        <COMPID name="TextField" mc="Standard.Class" uid="4f9ae6fe-e83b-4135-8e28-96222ab261bd"/>
+        <COMPID name="Window" mc="Standard.Class" uid="c5a110c6-af9a-4912-b5bc-21b376e61bff"/>
+        <COMPID name="Notification" mc="Standard.Class" uid="09692502-7af6-4363-826b-8f9033adc537"/>
+        <COMPID name="Button" mc="Standard.Class" uid="85c26f35-bdf8-4547-bf18-8d74230282dd"/>
+        <COMPID name="UI" mc="Standard.Class" uid="bdbeab44-490a-44cd-aea6-723aadb3429e"/>
+        <COMPID name="TabSheet" mc="Standard.Class" uid="0015e6cf-583a-46ff-8b55-7c7447e9d1fa"/>
+        <COMPID name="HorizontalLayout" mc="Standard.Class" uid="68031077-2379-4a45-8247-c842c02330cd"/>
+        <COMPID name="Grid" mc="Standard.Class" uid="bdf72866-ef5c-485c-967d-756dc2135db7"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+      <COMP relation="Tag">
+        <OBJECT>
+          <ID name="" mc="Infrastructure.TaggedValue" uid="9bad1453-8f2d-402c-b836-e704ed89d6a0"/>
+          <ATTRIBUTES>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Definition">
+              <FOREIGNID name="JavaExtern" mc="Infrastructure.TagType" uid="003800a8-0000-0197-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

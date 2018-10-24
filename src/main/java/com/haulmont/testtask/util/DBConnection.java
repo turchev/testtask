@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-@objid ("2cafd17d-69c7-4062-869f-55d9c6bd9d78")
+@objid ("13b6e265-b088-4954-a9ac-c9201d3c6291")
 public class DBConnection {
-    @objid ("1cf13b37-cc4c-4a85-963b-73dd0eb486f3")
+    @objid ("ee8a2283-50dc-43b4-9007-4a6154524b42")
     public static Connection getConnection() {
         Connection con = null;
         

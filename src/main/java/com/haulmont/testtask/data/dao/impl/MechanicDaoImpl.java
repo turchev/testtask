@@ -6,29 +6,29 @@ import com.haulmont.testtask.data.dao.exeption.DaoException;
 import com.haulmont.testtask.data.entity.Mechanic;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-@objid ("60c08b66-78de-4089-9525-921b253964d2")
+@objid ("daff73af-3f2a-4a80-8798-5c2ef20bb727")
 public class MechanicDaoImpl implements MechanicDao {
-    @objid ("683927af-2880-447a-9cc1-75488c7f8423")
+    @objid ("eced59eb-82c8-465b-a01a-c4200b44d3de")
     @Override
     public Mechanic read(long id) throws DaoException {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @objid ("9bd60e2e-2589-40e4-b950-6456b25e49e4")
+    @objid ("239e0573-a387-4b6f-a130-046c38913775")
     @Override
     public List<Mechanic> readAll() throws DaoException {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @objid ("85a13f98-370c-4c93-aadd-b5436bf36d4d")
+    @objid ("d9d033cb-1dca-4b05-8306-5d31ac78c7bf")
     @Override
     public void save(Mechanic dataSet) throws DaoException {
         // TODO Auto-generated method stub
     }
 
-    @objid ("e950f289-30af-4a62-a70a-96bd07a052ea")
+    @objid ("b1a8ee8c-98cc-44c5-b9b7-b1b4809970bf")
     @Override
     public void shutdown() throws DaoException {
         // TODO Auto-generated method stub

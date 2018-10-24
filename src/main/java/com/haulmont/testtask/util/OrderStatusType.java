@@ -2,7 +2,7 @@ package com.haulmont.testtask.util;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-@objid ("3c198dee-92b3-4e1e-ba4a-e8bc7abcd01c")
+@objid ("f970ca26-84f1-4055-99a8-c5143a20e4f7")
 public enum OrderStatusType {
     PLANNED,
     FULFILLED,

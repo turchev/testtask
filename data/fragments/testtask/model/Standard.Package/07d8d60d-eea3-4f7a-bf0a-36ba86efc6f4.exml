@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="vaadin" version="4">
+  <OBJECT>
+    <ID name="vaadin" mc="Standard.Package" uid="07d8d60d-eea3-4f7a-bf0a-36ba86efc6f4"/>
+    <PID name="com" mc="Standard.Package" uid="b5d51470-288b-4f49-96ab-afcfe59da562"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[vaadin]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="ui" mc="Standard.Package" uid="cc245577-f1f5-424d-b15a-ff8e89c48e31"/>
+        <COMPID name="annotations" mc="Standard.Package" uid="0bfe076e-19dd-4e40-9968-4d6170c32d55"/>
+        <COMPID name="server" mc="Standard.Package" uid="55593493-f058-4c02-b81d-608f56705bf0"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+      <COMP relation="Tag">
+        <OBJECT>
+          <ID name="" mc="Infrastructure.TaggedValue" uid="ea4466f6-bc4e-45e2-8a8b-f111bb7ed7a6"/>
+          <ATTRIBUTES>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Definition">
+              <FOREIGNID name="JavaExtern" mc="Infrastructure.TagType" uid="003800a8-0000-0197-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

@@ -3,7 +3,7 @@ package com.haulmont.testtask.ui;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import com.vaadin.ui.Window;
 
-@objid ("d235389c-7682-4ab5-a588-6b3ec0864d70")
+@objid ("a5507e59-6cfe-474b-b67f-79d15a3364d8")
 @SuppressWarnings("serial")
 public class DataEditorClient extends Window implements SaveAndEdit {
 //    private VerticalLayout verticalLayout;
@@ -29,20 +29,20 @@ public class DataEditorClient extends Window implements SaveAndEdit {
 //        });
 //        // TODO Auto-generated constructor stub
 //    }
-    @objid ("36644e54-0aaf-49a7-a614-7da533ad3d29")
+    @objid ("52d18e8f-19c7-42ae-b397-c86dbf5cbb31")
     @Override
     public void save() {
         // TODO Сохранение данных в таблицу client
         update();
     }
 
-    @objid ("53732d13-a197-46d8-92f5-dc6f003f7f0e")
+    @objid ("2076e65d-907c-4e81-a770-063b92243122")
     @Override
     public void cancel() {
         // TODO Отмена действий
     }
 
-    @objid ("647485f2-47b9-4625-ad1b-696d38233ca9")
+    @objid ("9924cf06-60da-4e0a-a5fc-a066f2c7d644")
     @Override
     public void update() {
         // TODO Обновление отображаемых данных

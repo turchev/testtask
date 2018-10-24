@@ -10,111 +10,111 @@ import javax.persistence.Table;
 import com.haulmont.testtask.util.OrderStatusType;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-@objid ("1da13095-1cbd-468e-8dbd-533c3f7d47da")
+@objid ("88df2090-b4f5-4afa-b720-06ae8808bcb0")
 @Entity
 @Table(name = "order")
 public class Order extends AbstractEntity {
-    @objid ("dc477dbc-ffe8-408a-948e-cd0da611ec06")
+    @objid ("38848aea-e92c-49a4-87c3-d0d3078b6585")
     @Column(name = "description")
     private String description = "";
 
-    @objid ("669a2569-1414-4ba2-a555-16bc2d8cba62")
+    @objid ("be00852f-75be-47ca-908c-2d5606c790e6")
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Long clientId;
 
-    @objid ("7fab71ea-e81d-4657-91cd-94b6bd2d3047")
+    @objid ("baa34cff-d2c7-4ea7-a7c2-9674d475282a")
     @ManyToOne
     @JoinColumn(name = "mechanic_id")
     private Long mechanicId;
 
-    @objid ("fe219bda-dbe9-43d3-8a5b-652a91f24391")
+    @objid ("b42ee264-2f11-46ab-9ae6-ff0d661a0815")
     @Column(name = "status")
     private String status;
 
-    @objid ("3e1ce512-d56e-4e36-9543-9834e5f43279")
+    @objid ("95e08821-1a1d-4e83-acd6-3f69b4cf588e")
     @Column(name = "date_creat")
     private LocalDate dateCreat;
 
-    @objid ("3c5523e7-3ef3-437c-8079-c200a2f1b58a")
+    @objid ("59877acc-3cc0-43c4-8a1f-fbab4b5fa33a")
     @Column(name = "completion_date")
     private LocalDate completionDate;
 
-    @objid ("bcbfd16d-1af2-487a-8c54-b7f7f0d59821")
+    @objid ("cfb6132b-f4ca-4447-a8cb-a8a9bf861be8")
     @Column(name = "price")
     private Currency price = Currency.getInstance("RUB");
 
-    @objid ("516d7766-1904-4e52-a936-1f00cda63817")
+    @objid ("9a3a7488-f7b5-43d1-b38c-0acccc16037a")
     public String getDescription() {
         return description;
     }
 
-    @objid ("231c882d-cecc-434e-b696-2db1c2aea3f2")
+    @objid ("0dfae66d-b6e9-4b4f-93fa-8a7de06895ff")
     public void setDescription(String description) {
         this.description = description;
     }
 
-    @objid ("f5adaddc-0aae-4e98-97cd-edb37f7efa0e")
+    @objid ("fb2a8824-c2dd-44f8-a332-0e2f263821c7")
     public Long getClientId() {
         return clientId;
     }
 
-    @objid ("1d043e37-fc3f-4a8a-8fd0-d22304eb4c26")
+    @objid ("ef576714-f017-4159-9c1c-125617e4cb40")
     public void setClientId(Long clientId) {
         this.clientId = clientId;
     }
 
-    @objid ("4cad4ed0-22f0-4968-a881-c953a9b04b72")
+    @objid ("99da2e07-f32c-49ad-8d9e-a60c42642f75")
     public Long getMechanicId() {
         return mechanicId;
     }
 
-    @objid ("993579e7-ef47-4db1-a467-6b08644fc9ee")
+    @objid ("49ca6c34-ee62-426f-87d4-286906348e4e")
     public void setMechanicId(Long mechanicId) {
         this.mechanicId = mechanicId;
     }
 
-    @objid ("1dd2a600-d1bf-4903-bfca-26be3a142d02")
+    @objid ("1533a9df-1d1a-4ae2-ba4e-b9c336a495bf")
     public LocalDate getDateCreat() {
         return dateCreat;
     }
 
-    @objid ("69e7c5b4-b4b3-4339-afd8-16d46e2cd4f1")
+    @objid ("3245f39c-48d9-4fb6-96fa-fa2e1b2efd60")
     public void setDateCreat(LocalDate dateCreat) {
         this.dateCreat = dateCreat;
     }
 
-    @objid ("c9fba36f-944d-4f39-a45e-529c6638d0d7")
+    @objid ("74e14113-b7d1-4d48-bda8-0d3d8ba71b12")
     public LocalDate getCompletionDate() {
         return completionDate;
     }
 
-    @objid ("5c052846-e6c1-45a1-84c4-5e769cda0487")
+    @objid ("2c19c19b-b3d8-4d90-9529-6aef16dbd336")
     public void setCompletionDate(LocalDate completionDate) {
         this.completionDate = completionDate;
     }
 
-    @objid ("691409c1-e9ac-4598-a5bd-8ab8271c121e")
+    @objid ("f890deb5-753d-49fc-bb1c-ca560eec755f")
     public Currency getPrice() {
         return price;
     }
 
-    @objid ("1be7f442-f1ca-4c0e-9208-fafcbdaef9ad")
+    @objid ("21ebf489-7fc7-4d32-8ab1-285941f054cc")
     public void setPrice(Currency price) {
         this.price = price;
     }
 
-    @objid ("d220d3a4-cb68-4d63-bbf8-316067ef72fc")
+    @objid ("6e506d99-fa3e-48e4-8dcf-9d5a4827ecda")
     public String getStatus() {
         return status;
     }
 
-    @objid ("97aa6d7a-14df-4c67-a8ca-14e4f4c61b62")
+    @objid ("e5d1ec49-68de-4430-9932-50f2801b3677")
     public void setStatus(OrderStatusType status) {
         this.status = status.name();
     }
 
-    @objid ("cf96ab66-20f8-4103-ba67-4d8f14d57a39")
+    @objid ("00a731b3-649e-4ea1-8915-53f577f95acc")
     @Override
     public String toString() {
         return description + " " + status;

@@ -3,28 +3,28 @@ package com.haulmont.testtask.ui;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import com.vaadin.ui.Window;
 
-@objid ("cd11c14b-606e-4ebd-8509-503a30b9230e")
+@objid ("d18c81ef-a9df-46c1-9107-b905e426f126")
 @SuppressWarnings("serial")
 public class DataEditorMechanic extends Window implements SaveAndEdit {
-    @objid ("8ecca5e4-95b9-4cd8-9ba6-bf09ebb99dba")
+    @objid ("70c8b765-0c2c-4ebd-a3b7-dd3f1e2e38a5")
     public DataEditorMechanic() {
         // TODO Auto-generated constructor stub
     }
 
-    @objid ("6621d960-9eb3-49b8-9c95-654cbaf9eeca")
+    @objid ("5519c5e6-38ab-401c-afb6-050ecc185f6d")
     @Override
     public void save() {
         // TODO Сохранение данных в таблицу mechanic
         update();
     }
 
-    @objid ("a8fe65e8-c3f3-4e96-a11c-ec0307083421")
+    @objid ("5d02fbd2-f631-433c-ac1d-27bc56a00b24")
     @Override
     public void cancel() {
         // TODO Отмена действий
     }
 
-    @objid ("385b6bd2-5a5a-4895-a7b8-f2ef134da66a")
+    @objid ("81d0a6c8-641d-48d3-b050-5b2aef23c7b5")
     @Override
     public void update() {
         // TODO Обновление отображаемых данных

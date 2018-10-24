@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="data" version="4">
+  <OBJECT>
+    <ID name="data" mc="Standard.Package" uid="c8dfbf36-66fa-4e02-b3f8-2d77e738678c"/>
+    <PID name="testtask" mc="Standard.Package" uid="14ee29c9-a736-4f4c-8987-9954e2842f13"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[data]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="entity" mc="Standard.Package" uid="c6c171c5-b6cb-4a87-bb1b-be56cd402864"/>
+        <COMPID name="dao" mc="Standard.Package" uid="24b16014-c25c-449f-822d-bf7b270e40d6"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

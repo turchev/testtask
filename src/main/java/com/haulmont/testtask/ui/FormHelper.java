@@ -13,26 +13,26 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-@objid ("40d417dd-2516-4326-bc6b-adcbacf0f0a1")
+@objid ("b79d9210-963d-4ac0-aef4-dcf0f3f5f659")
 public class FormHelper {
-    @objid ("26502c8f-2567-4a8d-8f92-682c5fdf9180")
+    @objid ("9c03661a-a967-42fa-a9c8-86d79f9f32ba")
     private HorizontalLayout groupButtons;
 
-    @objid ("b937aa31-3a89-46c4-9e54-8875db8c10a3")
+    @objid ("596302b5-64f3-4ab8-b246-32b57874372b")
     private VerticalLayout webPage;
 
-    @objid ("83304016-b8bc-4302-8fb4-c41786566bad")
+    @objid ("923d3415-9ce2-4faf-9f78-ed4bf2bf1037")
     @SuppressWarnings("rawtypes")
     private Grid grid;
 
-    @objid ("8d5c9f2d-18f6-4cde-a6d0-62a0849288b9")
+    @objid ("1f8380b8-e8e7-47cf-b3dd-f5f42bcc9a87")
     private HorizontalLayout filterPanel;
 
-    @objid ("2a90c6be-062d-4aee-b576-cc35b3370f25")
+    @objid ("8eb41e6f-4e3b-4a81-a207-cfd5abba511a")
     public FormHelper() {
     }
 
-    @objid ("e371fb55-0d57-41fc-9fee-10d5d1379a73")
+    @objid ("702f426f-f43c-4e85-9e72-76d548bcd908")
     public VerticalLayout getPage(EntityType entityType) {
         webPage = new VerticalLayout();
         
@@ -58,7 +58,7 @@ public class FormHelper {
         return webPage;
     }
 
-    @objid ("e6106c47-ec43-4fa8-aaa7-595bd1f1fc0e")
+    @objid ("1e0b8ccf-f06d-46fe-a5ac-41e31cc01c49")
     private HorizontalLayout getLowerGroupButtons() {
         groupButtons = new HorizontalLayout();
         final Button btnAdd = new Button("Добавить");
@@ -79,7 +79,7 @@ public class FormHelper {
         return groupButtons;
     }
 
-    @objid ("bdff2131-db96-489e-a661-9664ab4a2a62")
+    @objid ("849f8152-b763-4b91-a582-e1388e759eaf")
     private HorizontalLayout getFilterPanel() {
         TextField description = new TextField("Описание");
         TextField status = new TextField("Статус");

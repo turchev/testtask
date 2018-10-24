@@ -2,15 +2,15 @@ package com.haulmont.testtask.ui;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-@objid ("2436f1f2-2b17-4287-956d-f996c4ceaa7b")
+@objid ("7e1a871e-d911-4d2d-a482-d593d36fad50")
 public interface SaveAndEdit {
-    @objid ("87f6c8cb-19fb-4714-86c2-94703bd3395d")
+    @objid ("104410f8-9160-42e6-b167-15015a5159d7")
     void save();
 
-    @objid ("5a0b2161-2f7c-43eb-b894-302099bdff68")
+    @objid ("77c26872-2bfd-4126-8d9d-63fbdd1b2285")
     void cancel();
 
-    @objid ("e368cdb7-ce35-4523-a9df-f4fdc61c4414")
+    @objid ("ee063386-29e3-4d5a-8230-3c19130571eb")
     void update();
 
 }

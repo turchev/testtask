@@ -6,10 +6,10 @@ import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-@objid ("7d992f7b-17ad-4ea4-a052-d4aa805e2ef6")
+@objid ("bd055d5e-91c4-4c54-94ef-c07a56d1df3d")
 @SuppressWarnings("serial")
 public class MainLayot extends VerticalLayout {
-    @objid ("9bc9762a-077e-49e0-97e6-8f0c0201c04c")
+    @objid ("cecdeb32-c772-4fc3-ac8c-ddfd20d6ac32")
     public MainLayot() {
         final FormHelper helper = new FormHelper();
         this.setMargin(true);

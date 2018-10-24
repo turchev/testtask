@@ -9,20 +9,20 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-@objid ("be92bb14-a3f5-4571-a2ca-990153c6bbfc")
+@objid ("526e9cf6-9ae4-4b7a-9a47-bca2d9aca95c")
 @MappedSuperclass
 public abstract class AbstractEntity {
-    @objid ("d6a9bad3-cb02-46a4-b3b3-6e478f8aa6e4")
+    @objid ("5c1a5caf-84ac-4164-9e55-58c2636f817c")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @objid ("ce5902c7-1c29-4567-9ee4-7b3f4e598f6d")
+    @objid ("9e5d39de-1102-41f5-af23-5dd25d07fe71")
     long getId() {
         return id;
     }
 
-    @objid ("892d03a7-b498-4033-a8ae-a99dd1343eac")
+    @objid ("10ebf2b0-594e-46dc-9b22-0c95d58c5a40")
     void setId(long id) {
         this.id = id;
     }

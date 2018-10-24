@@ -5,18 +5,18 @@ import com.haulmont.testtask.data.dao.exeption.DaoException;
 import com.haulmont.testtask.data.entity.AbstractEntity;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-@objid ("79d100fe-c52f-4417-ac49-88bc88fda119")
+@objid ("533d2b59-9149-430e-9eeb-910d76fb6942")
 public interface AbstractDao<T extends AbstractEntity> {
-    @objid ("5a0b4067-3509-4b4e-ada3-9f529963bde5")
+    @objid ("f68244b5-d3a9-4388-8ddf-e6477d6d1931")
     T read(long id) throws DaoException;
 
-    @objid ("be0101a7-42ae-4963-b041-708792b6bc8b")
+    @objid ("c8151aec-882d-4be7-8e99-74fba954066d")
     List<T> readAll() throws DaoException;
 
-    @objid ("30ba1a3d-07b3-459b-90c4-b68dbca00c61")
+    @objid ("8daf8f58-ca9b-4457-8a77-2994e9bd7c1a")
     void save(T dataSet) throws DaoException;
 
-    @objid ("169ce19f-42d5-4e92-97f2-7812edb977b4")
+    @objid ("e3142f9a-dd61-403c-8b91-3ad8f614fed8")
     void shutdown() throws DaoException;
 
 }

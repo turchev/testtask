@@ -3,6 +3,6 @@ package com.haulmont.testtask.data.dao;
 import com.haulmont.testtask.data.entity.Order;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-@objid ("23bccda9-f031-45a5-aad5-537e203c67b8")
+@objid ("a8b4c28f-207c-4251-81e7-ac903ff83492")
 public interface OrderDao extends AbstractDao<Order> {
 }

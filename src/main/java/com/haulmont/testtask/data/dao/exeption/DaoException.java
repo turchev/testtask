@@ -2,10 +2,10 @@ package com.haulmont.testtask.data.dao.exeption;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-@objid ("52c38a9a-966d-4cc5-b5b0-abf24b6c7c12")
+@objid ("485393f1-117f-4db5-93e4-d7c427a74b39")
 @SuppressWarnings("serial")
 public class DaoException extends Exception {
-    @objid ("6d9a0602-5655-46e1-b88a-616e709f0513")
+    @objid ("0cf10e23-39d9-48ee-b493-0c841eea5ffc")
     public DaoException(Throwable throwable) {
         super(throwable);
     }

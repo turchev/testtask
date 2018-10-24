@@ -6,29 +6,29 @@ import com.haulmont.testtask.data.dao.exeption.DaoException;
 import com.haulmont.testtask.data.entity.Client;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-@objid ("fd159f53-7aba-4203-835a-26bac3a3abfa")
+@objid ("c979a973-eac6-4cee-b0ec-fb719526b401")
 public class ClientDaoImpl implements ClientDao {
-    @objid ("f4d4e966-36e1-40d3-a79d-3a34f412475a")
+    @objid ("5d39df1e-a0e7-41a0-aeef-76bcfd115716")
     @Override
     public Client read(long id) throws DaoException {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @objid ("2f515f5a-742f-47d5-b8d6-64c4b52328e2")
+    @objid ("5bd174fe-d378-4d9f-9dd0-af3ebcbcf7b1")
     @Override
     public List<Client> readAll() throws DaoException {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @objid ("f4b1fc0c-73ef-47a0-a3e2-bf7f3d5207df")
+    @objid ("98a0d411-2e4d-41f6-a3a2-939a0a59a7a2")
     @Override
     public void save(Client dataSet) throws DaoException {
         // TODO Auto-generated method stub
     }
 
-    @objid ("43d52b8d-cfbf-4b58-87ce-7cdbb532b8e9")
+    @objid ("b495f346-7da2-4c94-a0fb-8f11c235c1f0")
     @Override
     public void shutdown() throws DaoException {
         // TODO Auto-generated method stub

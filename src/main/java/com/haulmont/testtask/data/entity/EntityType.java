@@ -2,7 +2,7 @@ package com.haulmont.testtask.data.entity;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-@objid ("3515e6d0-bcb8-4134-89c9-bde0447e07d1")
+@objid ("a0b48624-eacf-48be-9fe7-91b572102766")
 public enum EntityType {
     CLIENT,
     MECHANIC,
