@@ -9,21 +9,23 @@ import com.vaadin.ui.TextField;
 
 @objid ("269fdf60-641b-4bce-82e4-c8d38b8f912f")
 public class PageTabOrder extends PageTabAbstract {
+	
+	private HorizontalLayout filterPanel;
+	
     @objid ("5a9294f7-5bf0-4d54-a59d-d365255ed70b")
     public PageTabOrder() {
-        webPage.addComponent(getFilterPanel());
+    	TextField description = new TextField("Описание");
+        TextField status = new TextField("Статус");
+        TextField client = new TextField("Клиент");
+        filterPanel = new HorizontalLayout(description, status, client);
+        webPage.addComponent(filterPanel);
         grid = new Grid<>(Order.class);        
         grid.setWidth(100.0f, Unit.PERCENTAGE);        
         webPage.addComponent(grid);
     }
 
     @objid ("6341a673-92f1-4584-b7d5-2bd895d6ff54")
-    private HorizontalLayout getFilterPanel() {
-        TextField description = new TextField("Описание");
-        TextField status = new TextField("Статус");
-        TextField client = new TextField("Клиент");
-        
-        HorizontalLayout filterPanel = new HorizontalLayout(description, status, client);
+    private HorizontalLayout getFilterPanel() { 	
         return filterPanel;
     }
 
