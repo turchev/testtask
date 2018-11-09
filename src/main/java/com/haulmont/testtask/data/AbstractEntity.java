@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.haulmont.testtask.data.entity;
+package com.haulmont.testtask.data;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

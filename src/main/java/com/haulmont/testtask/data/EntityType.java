@@ -1,4 +1,4 @@
-package com.haulmont.testtask.data.entity;
+package com.haulmont.testtask.data;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 

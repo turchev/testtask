@@ -1,4 +1,4 @@
-package com.haulmont.testtask.data.entity;
+package com.haulmont.testtask.data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

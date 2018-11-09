@@ -1,4 +1,4 @@
-package com.haulmont.testtask.data.entity;
+package com.haulmont.testtask.data;
 
 import java.time.LocalDate;
 import java.util.Currency;
@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import com.haulmont.testtask.util.OrderStatusType;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("88df2090-b4f5-4afa-b720-06ae8808bcb0")

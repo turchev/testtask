@@ -1,6 +1,6 @@
 package com.haulmont.testtask.ui;
 
-import com.haulmont.testtask.data.entity.Order;
+import com.haulmont.testtask.data.Order;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Grid;

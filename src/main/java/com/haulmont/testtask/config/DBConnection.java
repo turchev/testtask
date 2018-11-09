@@ -1,4 +1,4 @@
-package com.haulmont.testtask.util;
+package com.haulmont.testtask.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

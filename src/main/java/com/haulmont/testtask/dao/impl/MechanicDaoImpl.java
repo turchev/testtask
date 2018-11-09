@@ -1,9 +1,10 @@
-package com.haulmont.testtask.data.dao.impl;
+package com.haulmont.testtask.dao.impl;
 
 import java.util.List;
-import com.haulmont.testtask.data.dao.MechanicDao;
-import com.haulmont.testtask.data.dao.exeption.DaoException;
-import com.haulmont.testtask.data.entity.Mechanic;
+
+import com.haulmont.testtask.dao.DaoException;
+import com.haulmont.testtask.dao.MechanicDao;
+import com.haulmont.testtask.data.Mechanic;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("daff73af-3f2a-4a80-8798-5c2ef20bb727")
