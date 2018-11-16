@@ -1,37 +1,32 @@
 package com.haulmont.testtask.ui;
 
-//import com.vaadin.ui.Button;
-//import com.vaadin.ui.Label;
-//import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
 public class DataEditorClient extends Window implements SaveAndEdit {
-
-//	private VerticalLayout verticalLayout;
-//	final Button open = new Button("Окрыть модальное окно");
+//    private VerticalLayout verticalLayout;
+//    final Button open = new Button("Окрыть модальное окно");
 //
-//	public DataEditorClient() {		
+//    public DataEditorClient() {
 //        super("Subs on Sale"); // Set window caption
 //        setModal(true);
 //        center();
 //        setClosable(false);
 //        setContent(new Button("Close me", event -> close()));
 //
-//		open.addClickListener(event -> {
-//			// Create a sub-window and set the content
-//			setCaption("Sub-window");
-//			
-//			// Put some components in it
-//			verticalLayout.addComponent(new Label("Meatball sub"));
-//			verticalLayout.addComponent(new Button("Awlright"));
-//			// Center it in the browser window
-//			center();
-//			setContent(verticalLayout);
-//		});
-//		// TODO Auto-generated constructor stub
-//	}
-	
+//        open.addClickListener(event -> {
+//            // Create a sub-window and set the content
+//            setCaption("Sub-window");
+//
+//            // Put some components in it
+//            verticalLayout.addComponent(new Label("Meatball sub"));
+//            verticalLayout.addComponent(new Button("Awlright"));
+//            // Center it in the browser window
+//            center();
+//            setContent(verticalLayout);
+//        });
+//        // TODO Auto-generated constructor stub
+//    }
 
 	@Override
 	public void save() {
