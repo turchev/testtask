@@ -19,13 +19,13 @@
 		<vaadin.version>8.5.0</vaadin.version>
 		<jetty.version>9.4.11.v20180605</jetty.version>
 		<javax.servlet.version>3.1.0</javax.servlet.version>
-		<hibernate.core.version>5.3.3.Final</hibernate.core.version>
+		<!-- <hibernate.core.version>5.3.3.Final</hibernate.core.version> -->
 		<maven.compiler.plugin.version>3.5.1</maven.compiler.plugin.version>
 		<maven.war.plugin>3.2.0</maven.war.plugin>
 		<javax.persistence.api.version>2.2</javax.persistence.api.version>
 		<hsqldb.version>2.4.1</hsqldb.version>
-		<hikaricp.version>3.1.0</hikaricp.version>
-		<slf4j.version>1.7.25</slf4j.version>
+		<!-- <hikaricp.version>3.1.0</hikaricp.version> -->
+		<!-- <slf4j.version>1.7.25</slf4j.version> -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -79,11 +79,11 @@
 			<version>${javax.servlet.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>${hibernate.core.version}</version>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.hibernate</groupId> -->
+		<!-- <artifactId>hibernate-core</artifactId> -->
+		<!-- <version>${hibernate.core.version}</version> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>javax.persistence</groupId>
 			<artifactId>javax.persistence-api</artifactId>
@@ -96,16 +96,56 @@
 			<!-- <scope>test</scope> -->
 		</dependency>
 		<dependency>
-			<groupId>com.zaxxer</groupId>
-			<artifactId>HikariCP</artifactId>
-			<version>${hikaricp.version}</version>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>sqltool</artifactId>
+			<version>${hsqldb.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>com.zaxxer</groupId> -->
+		<!-- <artifactId>HikariCP</artifactId> -->
+		<!-- <version>${hikaricp.version}</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.slf4j</groupId> -->
+		<!-- <artifactId>slf4j-api</artifactId> -->
+		<!-- <version>${slf4j.version}</version> -->
+		<!-- </dependency> -->
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-site -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.slf4j</groupId> -->
+		<!-- <artifactId>slf4j-site</artifactId> -->
+		<!-- <version>1.7.25</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.slf4j</groupId> -->
+		<!-- <artifactId>jul-to-slf4j</artifactId> -->
+		<!-- <version>1.7.25</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.slf4j</groupId> -->
+		<!-- <artifactId>slf4j-parent</artifactId> -->
+		<!-- <version>1.7.25</version> -->
+		<!-- <type>pom</type> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.slf4j</groupId> -->
+		<!-- <artifactId>slf4j-jdk14</artifactId> -->
+		<!-- <version>1.7.25</version> -->
+		<!-- <scope>test</scope> -->
+		<!-- </dependency> -->
+		<!-- <groupId>org.slf4j</groupId> -->
+		<!-- <artifactId>slf4j-ext</artifactId> -->
+		<!-- <version>1.7.25</version> -->
+		<!-- </dependency> -->
+
+		<!-- <dependency> -->
+		<!-- <groupId>org.slf4j</groupId> -->
+		<!-- <artifactId>slf4j-nop</artifactId> -->
+		<!-- <version>1.7.25</version> -->
+		<!-- <scope>test</scope> -->
+		<!-- </dependency> -->
 	</dependencies>
+
 
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>

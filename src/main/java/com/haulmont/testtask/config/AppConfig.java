@@ -16,7 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import com.haulmont.testtask.ui.MainUI;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinServlet;
-import com.zaxxer.hikari.HikariConfig;
+//import com.zaxxer.hikari.HikariConfig;
 
 public class AppConfig {
 
@@ -47,7 +47,7 @@ public class AppConfig {
 			try (InputStream stream = new FileInputStream(CONFIG_FILE_DIRECTORY + "/" + DS_FILE_PROPERTIES);) {	
 				Properties prop = new Properties();
 				prop.load(stream);
-				HikariConfig config = new HikariConfig(prop);
+//				HikariConfig config = new HikariConfig(prop);
 				config.validate();
 			} catch (Exception e) {
 				LOG.log(Level.SEVERE, "Datasources properties not loaded ", e);
