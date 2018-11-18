@@ -1,8 +1,5 @@
 package com.haulmont.testtask.dao;
 
-
-
-
 @SuppressWarnings("serial")
 public class DaoException extends Exception {
     

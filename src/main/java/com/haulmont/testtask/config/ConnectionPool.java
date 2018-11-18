@@ -1,56 +1,57 @@
 package com.haulmont.testtask.config;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Properties;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
 import org.hsqldb.jdbc.JDBCPool;
 
-public class ConnectionPool {
+public final class ConnectionPool {
+	public static Logger LOG = Logger.getLogger(ConnectionPool.class.getName());
 
-	private static final int INIT_POOL_SIZE = 8;
-	private static final int WAIT_SHUTDOWN_SECONDS = 3;
-	private static final String USERNAME = "SA";
-	private static final String PASSWORD = "";
+	private static final String CONFIG_FILE_DIRECTORY = "etc";
+	private static final String DS_FILE_PROPERTIES = "ds.properties";
 
-	private static JDBCPool pool;
+	private String jdbcUrl = "jdbc:hsqldb:file:db/car_service_db;shutdown=true;ifexists=true";
+	private String user = "SA";
+	private String password = "";
+	private int maxPoolSize = 8;
 
-	private static DataSource getDatasource() {
-		if (pool == null) {
-			// setup datasource if null
-			synchronized (ConnectionPool.class) {
-				Logger.log("intializing hsqldb JDBCPool with a size of " + INIT_POOL_SIZE);
-				if (pool == null) {
-					pool = new JDBCPool(INIT_POOL_SIZE);
-					pool.setUrl("jdbc:hsqldb:file:/opt/db/testdb;ifexists=false");
-					pool.setUser(USERNAME);
-					pool.setPassword(PASSWORD);
-				}
-			}
+	private static DataSource ds;
+
+	private ConnectionPool() throws ConfigExeption {
+		try (InputStream stream = new FileInputStream(CONFIG_FILE_DIRECTORY + "/" + DS_FILE_PROPERTIES);) {
+			Properties prop = new Properties();
+			prop.load(stream);
+			jdbcUrl = prop.getProperty("ds.jdbcUrl");
+			user = prop.getProperty("ds.user");
+			password = prop.getProperty("ds.password");
+			maxPoolSize = Integer.parseInt(prop.getProperty("ds.maxPoolSize"), 10);
+			JDBCPool pool = new JDBCPool(maxPoolSize);
+			pool.setUrl(jdbcUrl);
+			pool.setUser(user);
+			pool.setPassword(password);
+			ds = pool;
+		} catch (IOException e) {
+			LOG.log(Level.WARNING, "Datasources properties not loaded ", e);
+			throw new ConfigExeption(e);
 		}
+	}
 
-		return pool;
+	public static DataSource getDataSoursce() {
+		return ds;
 	}
 
 	public static Connection getConnection() throws SQLException {
-		DataSource ds = (JDBCPool) getDatasource();
 		Connection conn = ds.getConnection();
-		conn.setAutoCommit(false);
+//		conn.setAutoCommit(false);
 		return conn;
-	}
-
-	public static void shutdown() throws SQLException {
-		try (Connection conn = getConnection()) {
-			try (Statement stmnt = conn.createStatement()) {
-				stmnt.execute("SHUTDOWN");
-				Logger.log("running database SHUTDOWN..");
-			}
-		}
-		Logger.log("closing pool..");
-		pool.close(WAIT_SHUTDOWN_SECONDS);
-		Logger.log("closed!");
 	}
 }
