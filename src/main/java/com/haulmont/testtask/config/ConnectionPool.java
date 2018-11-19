@@ -18,22 +18,24 @@ public final class ConnectionPool {
 
 	private static final String CONFIG_FILE_DIRECTORY = "etc";
 	private static final String DS_FILE_PROPERTIES = "ds.properties";
+	private static final String DEFAULT_JDBC_URL = "jdbc:hsqldb:file:db/car_service_db;shutdown=true;ifexists=true";
+	private static final String DEFAULT_USER = "SA";
+	private static final String DEFAULT_PASSWORD = "";
+	private static final String DEFAULT_MAX_POOL_SIZE = "8";
 
-	private String jdbcUrl = "jdbc:hsqldb:file:db/car_service_db;shutdown=true;ifexists=true";
-	private String user = "SA";
-	private String password = "";
-	private int maxPoolSize = 8;
+	protected static DataSource ds;
 
-	private static DataSource ds;
+	private ConnectionPool() {
+	}
 
-	private ConnectionPool() throws ConfigExeption {
+	public static ConnectionPool getInstance() throws ConfigExeption {
 		try (InputStream stream = new FileInputStream(CONFIG_FILE_DIRECTORY + "/" + DS_FILE_PROPERTIES);) {
 			Properties prop = new Properties();
 			prop.load(stream);
-			jdbcUrl = prop.getProperty("ds.jdbcUrl");
-			user = prop.getProperty("ds.user");
-			password = prop.getProperty("ds.password");
-			maxPoolSize = Integer.parseInt(prop.getProperty("ds.maxPoolSize"), 10);
+			String jdbcUrl = prop.getProperty("ds.jdbcUrl", DEFAULT_JDBC_URL);
+			String user = prop.getProperty("ds.user", DEFAULT_USER);
+			String password = prop.getProperty("ds.password", DEFAULT_PASSWORD);
+			int maxPoolSize = Integer.parseInt(prop.getProperty("ds.maxPoolSize", DEFAULT_MAX_POOL_SIZE), 10);
 			JDBCPool pool = new JDBCPool(maxPoolSize);
 			pool.setUrl(jdbcUrl);
 			pool.setUser(user);
@@ -43,15 +45,21 @@ public final class ConnectionPool {
 			LOG.log(Level.WARNING, "Datasources properties not loaded ", e);
 			throw new ConfigExeption(e);
 		}
+		return SingletonHandler.INSTANCE;
 	}
 
-	public static DataSource getDataSoursce() {
+	private static class SingletonHandler {
+		private static ConnectionPool INSTANCE = new ConnectionPool();
+	}
+
+	public DataSource getDataSoursce() {
 		return ds;
 	}
 
-	public static Connection getConnection() throws SQLException {
+	public Connection getConnection() throws SQLException {
 		Connection conn = ds.getConnection();
 //		conn.setAutoCommit(false);
+		System.out.println("HSQLDB Connection Created");
 		return conn;
 	}
 }

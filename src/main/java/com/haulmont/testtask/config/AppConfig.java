@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
@@ -14,7 +13,6 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
-import javax.sql.DataSource;
 
 import com.haulmont.testtask.ui.MainUI;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -45,13 +43,11 @@ public class AppConfig {
 				System.exit(110);
 			}
 
-			try (
-
-					Connection conn = ConnectionPool.getConnection();) {
-//					Statement stmnt = conn.createStatement();) {
-//				stmnt.execute("SELECT SCHEMA_NAME " 
-//						+ "FROM INFORMATION_SCHEMA.SCHEMATA "
-//						+ "WHERE SCHEMA_NAME = 'car_service_db'");
+			try (Connection conn = ConnectionPool.getInstance().getConnection();
+					Statement stmnt = conn.createStatement();) {
+				stmnt.execute("SELECT SCHEMA_NAME " + "FROM INFORMATION_SCHEMA.SCHEMATA "
+						+ "WHERE SCHEMA_NAME = 'car_service_db'");
+				System.out.println(stmnt);
 
 			} catch (Exception e) {
 				LOG.log(Level.SEVERE, "Logger properties not loaded ", e);
