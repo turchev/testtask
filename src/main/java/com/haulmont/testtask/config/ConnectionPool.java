@@ -4,7 +4,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,24 +20,21 @@ public final class ConnectionPool {
 
 	private static final String CONFIG_FILE_DIRECTORY = "etc";
 	private static final String DS_FILE_PROPERTIES = "ds.properties";
-	private static final String DEFAULT_JDBC_URL = "jdbc:hsqldb:file:db/car_service_db;shutdown=true;ifexists=true";
-	private static final String DEFAULT_USER = "SA";
-	private static final String DEFAULT_PASSWORD = "";
-	private static final String DEFAULT_MAX_POOL_SIZE = "8";
 
-	protected static DataSource ds;
+	private static DataSource ds;
+	private static Properties prop;
 
 	private ConnectionPool() {
 	}
 
 	public static ConnectionPool getInstance() throws ConfigExeption {
 		try (InputStream stream = new FileInputStream(CONFIG_FILE_DIRECTORY + "/" + DS_FILE_PROPERTIES);) {
-			Properties prop = new Properties();
+			prop = new Properties();
 			prop.load(stream);
-			String jdbcUrl = prop.getProperty("ds.jdbcUrl", DEFAULT_JDBC_URL);
-			String user = prop.getProperty("ds.user", DEFAULT_USER);
-			String password = prop.getProperty("ds.password", DEFAULT_PASSWORD);
-			int maxPoolSize = Integer.parseInt(prop.getProperty("ds.maxPoolSize", DEFAULT_MAX_POOL_SIZE), 10);
+			String jdbcUrl = prop.getProperty("ds.jdbcUrl");
+			String user = prop.getProperty("ds.user");
+			String password = prop.getProperty("ds.password");
+			int maxPoolSize = Integer.parseInt(prop.getProperty("ds.maxPoolSize"), 10);
 			JDBCPool pool = new JDBCPool(maxPoolSize);
 			pool.setUrl(jdbcUrl);
 			pool.setUser(user);
@@ -48,18 +47,27 @@ public final class ConnectionPool {
 		return SingletonHandler.INSTANCE;
 	}
 
-	private static class SingletonHandler {
-		private static ConnectionPool INSTANCE = new ConnectionPool();
-	}
-
-	public DataSource getDataSoursce() {
-		return ds;
-	}
-
 	public Connection getConnection() throws SQLException {
 		Connection conn = ds.getConnection();
 //		conn.setAutoCommit(false);
 		System.out.println("HSQLDB Connection Created");
 		return conn;
+	}
+
+	public boolean testConnection() {
+		try (Connection conn = getConnection(); Statement stmnt = conn.createStatement();) {
+			ResultSet rs = stmnt.executeQuery("SELECT * FROM INFORMATION_SCHEMA.SYSTEM_SESSIONS " + "WHERE USER_NAME='"
+					+ prop.getProperty("ds.user") + "'");
+			if (rs.next() == true) {
+				return true;
+			}
+		} catch (SQLException e) {
+			return false;
+		}
+		return false;
+	}
+
+	private static class SingletonHandler {
+		private static ConnectionPool INSTANCE = new ConnectionPool();
 	}
 }
