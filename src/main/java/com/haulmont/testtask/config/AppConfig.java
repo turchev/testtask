@@ -45,12 +45,11 @@ public class AppConfig {
 
 			try (Connection conn = ConnectionPool.getInstance().getConnection();
 					Statement stmnt = conn.createStatement();) {
-				stmnt.execute("SELECT SCHEMA_NAME " + "FROM INFORMATION_SCHEMA.SCHEMATA "
+				stmnt.execute("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA "
 						+ "WHERE SCHEMA_NAME = 'car_service_db'");
 				System.out.println(stmnt);
-
 			} catch (Exception e) {
-				LOG.log(Level.SEVERE, "Logger properties not loaded ", e);
+				LOG.log(Level.SEVERE, "Test connection to database not established ", e);
 				System.exit(111);
 			}
 		}
