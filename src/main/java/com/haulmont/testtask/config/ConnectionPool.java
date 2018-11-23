@@ -18,9 +18,10 @@ import org.hsqldb.jdbc.JDBCPool;
 public final class ConnectionPool {
 	public static Logger LOG = Logger.getLogger(ConnectionPool.class.getName());
 
+	private static final int WAIT_SHUTDOWN_SECONDS = 3;
 	private static final String CONFIG_FILE_DIRECTORY = "etc";
 	private static final String DS_FILE_PROPERTIES = "ds.properties";
-
+	private static JDBCPool pool;
 	private static DataSource ds;
 	private static Properties prop;
 
@@ -35,7 +36,7 @@ public final class ConnectionPool {
 			String user = prop.getProperty("ds.user");
 			String password = prop.getProperty("ds.password");
 			int maxPoolSize = Integer.parseInt(prop.getProperty("ds.maxPoolSize"), 10);
-			JDBCPool pool = new JDBCPool(maxPoolSize);
+			pool = new JDBCPool(maxPoolSize);
 			pool.setUrl(jdbcUrl);
 			pool.setUser(user);
 			pool.setPassword(password);
@@ -65,6 +66,18 @@ public final class ConnectionPool {
 			return false;
 		}
 		return false;
+	}
+	
+	public void shutdown() throws SQLException {
+        try (Connection conn = getConnection()) {
+            try (Statement stmnt = conn.createStatement()) {
+                stmnt.execute("SHUTDOWN");
+                LOG.log(Level.ALL, "running database SHUTDOWN..");
+            }
+        }
+        LOG.log(Level.ALL, "closing pool..");
+        pool.close(WAIT_SHUTDOWN_SECONDS);
+        LOG.log(Level.ALL, "closed!");
 	}
 
 	private static class SingletonHandler {
