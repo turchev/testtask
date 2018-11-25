@@ -35,26 +35,34 @@ public class AppManager {
 
 		@Override
 		public void contextInitialized(ServletContextEvent sce) {
-			try (InputStream stream = new FileInputStream(CONFIG_FILE_DIRECTORY + "/" + LOGGING_FILE_PROPERTIES);) {
-				LogManager.getLogManager().readConfiguration(stream);
-			} catch (IOException e) {
-				LOG.log(Level.SEVERE, "Logger properties not loaded ", e);
+			
+			ConfigFactory cfgMap = ConfigFactory.getInstans();
+			if (cfgMap.isConfigured() == false) {
+				LOG.severe("Logger properties not loaded ");
 				System.exit(110);
 			}
-
-			try {
-				if (ConnectionPool.getInstance().testConnection() == false) {
-					LOG.log(Level.ALL, "Test connection to database not established ");					
-					System.exit(111);
-				}
-			} catch (ConfigExeption e) {
-				e.printStackTrace();
-				System.exit(112);
-			}
-			LOG.info("Test database connection established ");
-			System.out.println();
+//			LogManager.getLogManager().
 			
-			Properties prop = ConfigFactory.getInstans().getPropertiesFull();
+//			try (InputStream stream = new FileInputStream(CONFIG_FILE_DIRECTORY + "/" + LOGGING_FILE_PROPERTIES);) {
+//				LogManager.getLogManager().readConfiguration(stream);
+//			} catch (IOException e) {
+//				LOG.log(Level.SEVERE, "Logger properties not loaded ", e);
+//				System.exit(110);
+//			}
+//
+//			try {
+//				if (ConnectionPool.getInstance().testConnection() == false) {
+//					LOG.log(Level.ALL, "Test connection to database not established ");					
+//					System.exit(111);
+//				}
+//			} catch (ConfigExeption e) {
+//				e.printStackTrace();
+//				System.exit(112);
+//			}
+//			LOG.info("Test database connection established ");
+//			System.out.println();
+			
+			
 		}
 
 		@Override
