@@ -24,6 +24,7 @@
 		<maven.war.plugin>3.2.0</maven.war.plugin>
 		<javax.persistence.api.version>2.2</javax.persistence.api.version>
 		<hsqldb.version>2.4.1</hsqldb.version>
+		<log4j.version>2.11.1</log4j.version>
 		<!-- <hikaricp.version>3.1.0</hikaricp.version> -->
 		<!-- <slf4j.version>1.7.25</slf4j.version> -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -100,6 +101,16 @@
 			<artifactId>sqltool</artifactId>
 			<version>${hsqldb.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
 		<!-- <dependency> -->
 		<!-- <groupId>com.zaxxer</groupId> -->
 		<!-- <artifactId>HikariCP</artifactId> -->
@@ -137,7 +148,6 @@
 		<!-- <artifactId>slf4j-ext</artifactId> -->
 		<!-- <version>1.7.25</version> -->
 		<!-- </dependency> -->
-
 		<!-- <dependency> -->
 		<!-- <groupId>org.slf4j</groupId> -->
 		<!-- <artifactId>slf4j-nop</artifactId> -->

@@ -1,84 +1,79 @@
+
 package com.haulmont.testtask.config;
 
 import java.io.File;
-import java.io.FilenameFilter;
+import java.io.FileInputStream;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
-import java.util.logging.Logger;
 
-public final class ConfigFactory {
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-	public static Logger LOG = Logger.getLogger(ConfigFactory.class.getName());
-	private static final String CONFIG_DIRECTORY = "etc"; // Initializing the default configuration directory
+@SuppressWarnings("serial")
+public final class ConfigFactory extends HashMap<String, Properties> {
 
-	private Properties propertiesFull = new Properties();
-	private Map<String, Properties> propMap = new HashMap<String, Properties>();
+	private static final Logger LOG = LogManager.getLogger();
+
+	private static final String CONFIG_DIRECTORY = "etc"; // Директория для конфигурационных файлов
+	private boolean configured = false; // Флаг чтения конфигурационных файлов
+	private Properties propertyFull = new Properties();
 
 	private ConfigFactory() {
+		if (configured == false)
+			readСonfigurationt();
 	}
 
 	public static ConfigFactory getInstans() {
 		return ConfigHandler.INSTANS;
 	}
 
-	public Properties getPropertiesFull() {
-		File configDir = new File(CONFIG_DIRECTORY);
-		final String[] mask = { ".xml", ".properties" };
-		String[] files = configDir.list(new FilenameFilter() {
-			@Override
-			public boolean accept(File folder, String name) {
-				for (String s : mask)
-					if (name.toLowerCase().endsWith(s))
-						return true;
-
-				return false;
-			}
-		});
-		for (String fileName : files)
-			System.out.println("File: " + fileName);
-
-		return propertiesFull;
-	}
-
-	public Properties getPropertiesByName(String fileName) {
-		return null;
-	}
-
 	private static final class ConfigHandler {
 		private static ConfigFactory INSTANS = new ConfigFactory();
 	}
+
+	private void readСonfigurationt() {
+
+		try {
+
+			File configDir = new File(CONFIG_DIRECTORY);
+			String[] files = configDir.list();
+
+			for (String fileName : files) {
+				LOG.info("Configuration File: " + fileName);
+				try (FileInputStream fis = new FileInputStream(CONFIG_DIRECTORY + "/" + fileName);) {
+					Properties prop = new Properties();
+					if (fileName.toLowerCase().endsWith(".properties")) {
+						prop.load(fis);
+						this.put(fileName, prop);
+						propertyFull.putAll(prop);
+						continue;
+					}
+					if (fileName.toLowerCase().endsWith(".xml")) {
+						prop.loadFromXML(fis);
+						this.put(fileName, prop);
+						propertyFull.putAll(prop);
+						continue;
+					}
+				}
+			}
+		} catch (Exception e) {
+			this.clear();
+			this.configured = false;
+			LOG.warn("Reading configuration failed ", e);
+		}
+
+		this.configured = true;
+	}
+
+	public boolean isConfigured() {
+		return configured;
+	}
+
+	public Properties getPropertiesByFileName(String fileName) {
+		return this.get(fileName);
+	}
+
+	public String getPropertyByKey(String key) {
+		return propertyFull.getProperty(key);
+	}
 }
-//private static Properties loadProperties(final String cfg) {
-//
-//	Properties propertiesResult = new Properties();
-//	File configDir = new File(cfg);
-//	String[] files = null;
-//	
-//	files = configDir.list();
-
-//
-//	files = configDir.list((File folder, String name) -> {
-//
-//		String fileName = cfg + "/" + name;				
-//		Properties prp = new Properties();
-//		try (FileInputStream fis = new FileInputStream(fileName);){			
-//
-//			if (name.toLowerCase().endsWith(".xml")) {
-//				prp.loadFromXML(fis);
-//				propertiesResult.putAll(prp);
-//				return true;
-//			}
-//			if (name.toLowerCase().endsWith(".properties")) {
-//				prp.load(fis);
-//				propertiesResult.putAll(prp);
-//				return true;
-//			}				
-//		} catch (Exception ex) {
-////			LOG.error("Can not load property file: " + fileName);
-//		} 
-//		return false;
-//	});
-//	return propertiesResult;
-
-//}
