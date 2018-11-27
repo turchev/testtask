@@ -1,17 +1,12 @@
 package com.haulmont.testtask.config;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.haulmont.testtask.ui.MainUI;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -26,19 +21,18 @@ public class AppManager {
 	}
 
 	@WebListener
-	public static class AppServletContextListener implements ServletContextListener {
+	public static class AppServletContextListener implements ServletContextListener {		
+		private static final Logger LOG = LogManager.getLogger();
 
-		public static Logger LOG = Logger.getLogger(AppServletContextListener.class.getName());
-
-		private static final String CONFIG_FILE_DIRECTORY = "etc";
-		private static final String LOGGING_FILE_PROPERTIES = "logging.properties";
+//		private static final String CONFIG_FILE_DIRECTORY = "etc";
+//		private static final String LOGGING_FILE_PROPERTIES = "logging.properties";
 
 		@Override
 		public void contextInitialized(ServletContextEvent sce) {
 			
 			ConfigFactory cfgMap = ConfigFactory.getInstans();
 			if (cfgMap.isConfigured() == false) {
-				LOG.severe("Logger properties not loaded ");
+				LOG.error("Properties not loaded ");
 				System.exit(110);
 			}
 //			LogManager.getLogManager().

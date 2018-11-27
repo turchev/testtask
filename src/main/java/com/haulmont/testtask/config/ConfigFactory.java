@@ -4,13 +4,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @SuppressWarnings("serial")
 public final class ConfigFactory extends HashMap<String, Properties> {
 
-	public static Logger LOG = Logger.getLogger(ConfigFactory.class.getName());
+	private static final Logger LOG = LogManager.getLogger();
+	
 	private static final String CONFIG_DIRECTORY = "etc"; // Директория для конфигурационных файлов
 	private boolean configured = false; // Флаг чтения конфигурационных файлов
 	private Properties propertyFull = new Properties();
@@ -56,7 +58,7 @@ public final class ConfigFactory extends HashMap<String, Properties> {
 		} catch (Exception e) {
 			this.clear();
 			this.configured = false;
-			LOG.log(Level.WARNING, "Reading configuration failed ", e);
+			LOG.warn("Reading configuration failed ", e);
 		}
 
 		this.configured = true;
