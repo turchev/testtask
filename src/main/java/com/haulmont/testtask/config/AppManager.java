@@ -35,6 +35,7 @@ public class AppManager {
 				LOG.error("Properties not loaded ");
 				System.exit(110);
 			}
+			LOG.debug("Properties loaded: {}",cfgMap.toString());
 //			LogManager.getLogManager().
 			
 //			try (InputStream stream = new FileInputStream(CONFIG_FILE_DIRECTORY + "/" + LOGGING_FILE_PROPERTIES);) {

@@ -1,4 +1,3 @@
-
 package com.haulmont.testtask.config;
 
 import java.io.File;
