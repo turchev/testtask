@@ -15,7 +15,6 @@ public final class ConfigFactory extends HashMap<String, Properties> {
 
 	private static final String CONFIG_DIRECTORY = "etc"; // Директория для конфигурационных файлов
 	private boolean configured = false; // Флаг чтения конфигурационных файлов
-	private Properties propertyFull = new Properties();
 
 	private ConfigFactory() {
 		if (configured == false)
@@ -38,19 +37,18 @@ public final class ConfigFactory extends HashMap<String, Properties> {
 			String[] files = configDir.list();
 
 			for (String fileName : files) {
-				LOG.info("Configuration File: " + fileName);
+				LOG.debug("Configuration File: {}", fileName);
 				try (FileInputStream fis = new FileInputStream(CONFIG_DIRECTORY + "/" + fileName);) {
 					Properties prop = new Properties();
-					if (fileName.toLowerCase().endsWith(".properties")) {
-						prop.load(fis);
-						this.put(fileName, prop);
-						propertyFull.putAll(prop);
+					fileName = fileName.toLowerCase();
+					if (fileName.endsWith(".properties")) {
+						prop.load(fis);						
+						this.put((fileName.substring(0, fileName.length() - 11)), prop);
 						continue;
 					}
-					if (fileName.toLowerCase().endsWith(".xml")) {
+					if (fileName.endsWith(".xml")) {
 						prop.loadFromXML(fis);
-						this.put(fileName, prop);
-						propertyFull.putAll(prop);
+						this.put((fileName.substring(0, fileName.length() - 4)), prop);
 						continue;
 					}
 				}
@@ -59,6 +57,7 @@ public final class ConfigFactory extends HashMap<String, Properties> {
 			this.clear();
 			this.configured = false;
 			LOG.warn("Reading configuration failed ", e);
+			return;
 		}
 
 		this.configured = true;
@@ -73,6 +72,6 @@ public final class ConfigFactory extends HashMap<String, Properties> {
 	}
 
 	public String getPropertyByKey(String key) {
-		return propertyFull.getProperty(key);
+		return null;
 	}
 }

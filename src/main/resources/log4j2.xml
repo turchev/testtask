@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
 	<Appenders>
-		<File name="File" fileName="app.$${sd:type}.log">
+		<File name="File" fileName="testtask.log">
 			<PatternLayout>
 				<Pattern>%d [%p] [%t] %c{1.} %m%n</Pattern>
 			</PatternLayout>
