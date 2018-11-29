@@ -21,48 +21,31 @@ public class AppManager {
 	}
 
 	@WebListener
-	public static class AppServletContextListener implements ServletContextListener {		
+	public static class AppServletContextListener implements ServletContextListener {
 		private static final Logger LOG = LogManager.getLogger();
-
-//		private static final String CONFIG_FILE_DIRECTORY = "etc";
-//		private static final String LOGGING_FILE_PROPERTIES = "logging.properties";
 
 		@Override
 		public void contextInitialized(ServletContextEvent sce) {
-			
-			ConfigFactory cfgMap = ConfigFactory.getInstans();
+
+			PropertiesFactory cfgMap = PropertiesFactory.getInstans();
 			if (cfgMap.isConfigured() == false) {
 				LOG.error("Properties not loaded ");
 				System.exit(110);
 			}
-			LOG.debug("Properties loaded: {}",cfgMap.toString());
-//			LogManager.getLogManager().
-			
-//			try (InputStream stream = new FileInputStream(CONFIG_FILE_DIRECTORY + "/" + LOGGING_FILE_PROPERTIES);) {
-//				LogManager.getLogManager().readConfiguration(stream);
-//			} catch (IOException e) {
-//				LOG.log(Level.SEVERE, "Logger properties not loaded ", e);
-//				System.exit(110);
-//			}
-//
-//			try {
-//				if (ConnectionPool.getInstance().testConnection() == false) {
-//					LOG.log(Level.ALL, "Test connection to database not established ");					
-//					System.exit(111);
-//				}
-//			} catch (ConfigExeption e) {
-//				e.printStackTrace();
-//				System.exit(112);
-//			}
-//			LOG.info("Test database connection established ");
-//			System.out.println();
-			
-			
+			LOG.debug("Properties loaded: {}", cfgMap.toString());
+
+			if (ConnectionPool.getInstance().testConnection() == false) {
+				LOG.error("Test connection to database not established ");
+				System.exit(111);
+			}
+			LOG.info("Test database connection established ");
+			System.out.println();
+
 		}
 
 		@Override
 		public void contextDestroyed(ServletContextEvent sce) {
-			
+
 		}
 	}
 }

@@ -1,37 +1,36 @@
 package com.haulmont.testtask.config;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hsqldb.jdbc.JDBCPool;
 
 public final class ConnectionPool {
-	public static Logger LOG = Logger.getLogger(ConnectionPool.class.getName());
+	private static final Logger LOG = LogManager.getLogger();
 
 	private static final int WAIT_SHUTDOWN_SECONDS = 3;
-	private static final String CONFIG_FILE_DIRECTORY = "etc";
-	private static final String DS_FILE_PROPERTIES = "ds.properties";
 	private static JDBCPool pool;
 	private static DataSource ds;
-	private static Properties prop;
+	private boolean configured = false; // Флаг чтения конфигурационных файлов
 
-	private ConnectionPool() {
+	private Properties prop;
+
+	private ConnectionPool(){
+
+		if (configured == false)
+			readСonfigurationt();
 	}
 
-	public static ConnectionPool getInstance() throws ConfigExeption {
-		try (InputStream stream = new FileInputStream(CONFIG_FILE_DIRECTORY + "/" + DS_FILE_PROPERTIES);) {
-			prop = new Properties();
-			prop.load(stream);
+	private void readСonfigurationt(){
+		try {
+			prop = PropertiesFactory.getInstans().getPropertiesByFileName("ds");
 			String jdbcUrl = prop.getProperty("ds.jdbcUrl");
 			String user = prop.getProperty("ds.user");
 			String password = prop.getProperty("ds.password");
@@ -41,11 +40,11 @@ public final class ConnectionPool {
 			pool.setUser(user);
 			pool.setPassword(password);
 			ds = pool;
-		} catch (IOException e) {
-			LOG.log(Level.WARNING, "Datasources properties not loaded ", e);
-			throw new ConfigExeption(e);
+			System.out.println("Свойства ПУЛА: " + prop);
+		} catch (Exception e) {
+			e.printStackTrace();;
 		}
-		return SingletonHandler.INSTANCE;
+
 	}
 
 	public Connection getConnection() throws SQLException {
@@ -67,17 +66,21 @@ public final class ConnectionPool {
 		}
 		return false;
 	}
-	
+
 	public void shutdown() throws SQLException {
-        try (Connection conn = getConnection()) {
-            try (Statement stmnt = conn.createStatement()) {
-                stmnt.execute("SHUTDOWN");
-                LOG.log(Level.ALL, "running database SHUTDOWN..");
-            }
-        }
-        LOG.log(Level.ALL, "closing pool..");
-        pool.close(WAIT_SHUTDOWN_SECONDS);
-        LOG.log(Level.ALL, "closed!");
+		try (Connection conn = getConnection()) {
+			try (Statement stmnt = conn.createStatement()) {
+				stmnt.execute("SHUTDOWN");
+//				LOG.log(Level.ALL, "running database SHUTDOWN..");
+			}
+		}
+//		LOG.log(Level.ALL, "closing pool..");
+		pool.close(WAIT_SHUTDOWN_SECONDS);
+//		LOG.log(Level.ALL, "closed!");
+	}
+
+	public static ConnectionPool getInstance() {
+		return SingletonHandler.INSTANCE;
 	}
 
 	private static class SingletonHandler {

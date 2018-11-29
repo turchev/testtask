@@ -9,24 +9,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @SuppressWarnings("serial")
-public final class ConfigFactory extends HashMap<String, Properties> {
+public final class PropertiesFactory extends HashMap<String, Properties> {
 
 	private static final Logger LOG = LogManager.getLogger();
 
 	private static final String CONFIG_DIRECTORY = "etc"; // Директория для конфигурационных файлов
 	private boolean configured = false; // Флаг чтения конфигурационных файлов
 
-	private ConfigFactory() {
+	private PropertiesFactory() {
 		if (configured == false)
 			readСonfigurationt();
-	}
-
-	public static ConfigFactory getInstans() {
-		return ConfigHandler.INSTANS;
-	}
-
-	private static final class ConfigHandler {
-		private static ConfigFactory INSTANS = new ConfigFactory();
 	}
 
 	private void readСonfigurationt() {
@@ -42,7 +34,7 @@ public final class ConfigFactory extends HashMap<String, Properties> {
 					Properties prop = new Properties();
 					fileName = fileName.toLowerCase();
 					if (fileName.endsWith(".properties")) {
-						prop.load(fis);						
+						prop.load(fis);
 						this.put((fileName.substring(0, fileName.length() - 11)), prop);
 						continue;
 					}
@@ -73,5 +65,13 @@ public final class ConfigFactory extends HashMap<String, Properties> {
 
 	public String getPropertyByKey(String key) {
 		return null;
+	}
+
+	public static PropertiesFactory getInstans() {
+		return SingletonHandler.INSTANS;
+	}
+
+	private static final class SingletonHandler {
+		private static PropertiesFactory INSTANS = new PropertiesFactory();
 	}
 }
