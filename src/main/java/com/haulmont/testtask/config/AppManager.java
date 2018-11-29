@@ -27,19 +27,28 @@ public class AppManager {
 		@Override
 		public void contextInitialized(ServletContextEvent sce) {
 
-			PropertiesFactory cfgMap = PropertiesFactory.getInstans();
-			if (cfgMap.isConfigured() == false) {
-				LOG.error("Properties not loaded ");
-				System.exit(110);
-			}
-			LOG.debug("Properties loaded: {}", cfgMap.toString());
+			try {
+				PropertiesFactory cfgMap = PropertiesFactory.getInstans();
+				if (cfgMap.isConfigured() == false) {
+					LOG.error("Properties not loaded ");
+					System.exit(110);
+				}
+				LOG.debug("Properties loaded: {}", cfgMap.toString());
+				
+				System.out.println("!!!!!" + ConnectionPool.getInstance().testConnection());
 
-			if (ConnectionPool.getInstance().testConnection() == false) {
-				LOG.error("Test connection to database not established ");
-				System.exit(111);
+				if (ConnectionPool.getInstance().testConnection() == true) {
+					LOG.info("Test database connection established ");
+				} else {
+					LOG.error("Test connection to database not established ");
+					System.exit(111);
+				}
+				
+			} catch (Exception e) {
+				LOG.error("Application failed initialization ", e);
+				System.exit(100);
 			}
-			LOG.info("Test database connection established ");
-			System.out.println();
+			
 
 		}
 

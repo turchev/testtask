@@ -22,15 +22,14 @@ public final class ConnectionPool {
 
 	private Properties prop;
 
-	private ConnectionPool(){
-
+	private ConnectionPool() {
 		if (configured == false)
 			readСonfigurationt();
 	}
 
-	private void readСonfigurationt(){
+	private void readСonfigurationt() {
 		try {
-			prop = PropertiesFactory.getInstans().getPropertiesByFileName("ds");
+			prop = PropertiesFactory.getInstans().getPropertiesByKey("ds.prope!!!!!rties");
 			String jdbcUrl = prop.getProperty("ds.jdbcUrl");
 			String user = prop.getProperty("ds.user");
 			String password = prop.getProperty("ds.password");
@@ -42,7 +41,8 @@ public final class ConnectionPool {
 			ds = pool;
 			System.out.println("Свойства ПУЛА: " + prop);
 		} catch (Exception e) {
-			e.printStackTrace();;
+			e.printStackTrace();
+			configured = false;
 		}
 
 	}
@@ -54,6 +54,7 @@ public final class ConnectionPool {
 		return conn;
 	}
 
+	// Проверка соединения с базой данных - успешное, если имя пользователя найдено в сессиях
 	public boolean testConnection() {
 		try (Connection conn = getConnection(); Statement stmnt = conn.createStatement();) {
 			ResultSet rs = stmnt.executeQuery("SELECT * FROM INFORMATION_SCHEMA.SYSTEM_SESSIONS " + "WHERE USER_NAME='"
@@ -62,6 +63,7 @@ public final class ConnectionPool {
 				return true;
 			}
 		} catch (SQLException e) {
+			LOG.debug(e);
 			return false;
 		}
 		return false;
@@ -71,12 +73,12 @@ public final class ConnectionPool {
 		try (Connection conn = getConnection()) {
 			try (Statement stmnt = conn.createStatement()) {
 				stmnt.execute("SHUTDOWN");
-//				LOG.log(Level.ALL, "running database SHUTDOWN..");
+				LOG.debug("running database SHUTDOWN..");
 			}
 		}
-//		LOG.log(Level.ALL, "closing pool..");
+		LOG.debug("closing pool..");
 		pool.close(WAIT_SHUTDOWN_SECONDS);
-//		LOG.log(Level.ALL, "closed!");
+		LOG.debug("closed!");
 	}
 
 	public static ConnectionPool getInstance() {
