@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,18 +18,16 @@ public final class PropertiesFactory {
 	private PropertiesFactory() {
 	}
 
-	public boolean isConfigured() {
-		return configured;
+	public Map<String, Properties> getPropHashMap() {
+		return propHashMap;
 	}
-
+	
 	public Properties getPropertiesByKey(String shortFileName) {
 		return propHashMap.get(shortFileName);
 	}
 
-	public static PropertiesFactory getInstans() throws ConfigExeption {
-		
-		if (configured == false) {
-			
+	public static PropertiesFactory getInstans() throws ConfigException {		
+		if (configured == false) {			
 			try {
 				File configDir = new File(CONFIG_DIRECTORY);
 				String[] files = configDir.list();
@@ -54,12 +51,10 @@ public final class PropertiesFactory {
 			} catch (Exception e) {
 				propHashMap.clear();
 				configured = false;
-				throw new ConfigExeption(e);				
-			}
-			
+				throw new ConfigException(e);				
+			}			
 			configured = true;
-		}
-		
+		}		
 		return SingletonHandler.INSTANS;
 	}
 

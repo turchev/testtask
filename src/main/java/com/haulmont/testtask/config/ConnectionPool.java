@@ -14,47 +14,29 @@ import org.hsqldb.jdbc.JDBCPool;
 
 public final class ConnectionPool {
 	private static final Logger LOG = LogManager.getLogger();
-
 	private static final int WAIT_SHUTDOWN_SECONDS = 3;
 	private static JDBCPool pool;
-	private static DataSource ds;
-	private boolean configured = false; // Флаг чтения конфигурационных файлов
-
-	private Properties prop;
-
-	private ConnectionPool() {
-		if (configured == false)
-			readСonfigurationt();
+	
+	public JDBCPool getPool() {
+		return pool;
 	}
 
-	private void readСonfigurationt() {
-		try {
-			prop = PropertiesFactory.getInstans().getPropertiesByKey("ds.prope!!!!!rties");
-			String jdbcUrl = prop.getProperty("ds.jdbcUrl");
-			String user = prop.getProperty("ds.user");
-			String password = prop.getProperty("ds.password");
-			int maxPoolSize = Integer.parseInt(prop.getProperty("ds.maxPoolSize"), 10);
-			pool = new JDBCPool(maxPoolSize);
-			pool.setUrl(jdbcUrl);
-			pool.setUser(user);
-			pool.setPassword(password);
-			ds = pool;
-			System.out.println("Свойства ПУЛА: " + prop);
-		} catch (Exception e) {
-			e.printStackTrace();
-			configured = false;
-		}
+	private static DataSource ds;
+	private static boolean configured = false; // Флаг готовности
+	private static Properties prop;
 
+	private ConnectionPool() {
 	}
 
 	public Connection getConnection() throws SQLException {
 		Connection conn = ds.getConnection();
 //		conn.setAutoCommit(false);
-		System.out.println("HSQLDB Connection Created");
+		LOG.debug("HSQLDB Connection Created");
 		return conn;
 	}
 
-	// Проверка соединения с базой данных - успешное, если имя пользователя найдено в сессиях
+	// Проверка соединения с базой данных - успешное, если имя пользователя найдено
+	// в сессиях
 	public boolean testConnection() {
 		try (Connection conn = getConnection(); Statement stmnt = conn.createStatement();) {
 			ResultSet rs = stmnt.executeQuery("SELECT * FROM INFORMATION_SCHEMA.SYSTEM_SESSIONS " + "WHERE USER_NAME='"
@@ -62,26 +44,40 @@ public final class ConnectionPool {
 			if (rs.next() == true) {
 				return true;
 			}
-		} catch (SQLException e) {
-			LOG.debug(e);
+		} catch (Exception e) {
+			LOG.error("Test connection failed: \n ", e);
 			return false;
 		}
 		return false;
 	}
 
-	public void shutdown() throws SQLException {
-		try (Connection conn = getConnection()) {
-			try (Statement stmnt = conn.createStatement()) {
-				stmnt.execute("SHUTDOWN");
-				LOG.debug("running database SHUTDOWN..");
-			}
-		}
-		LOG.debug("closing pool..");
+	public void shutdown() throws SQLException {		
+		try (Connection conn = getConnection(); Statement stmnt = conn.createStatement();) {
+			stmnt.execute("SHUTDOWN");
+			LOG.debug("running database SHUTDOWN..");
+		}		
 		pool.close(WAIT_SHUTDOWN_SECONDS);
 		LOG.debug("closed!");
 	}
 
-	public static ConnectionPool getInstance() {
+	public static ConnectionPool getInstance() throws ConfigException {		
+		// Начальная конфигурация пула HSQLDB
+		if (configured == false)			
+			try {
+				prop = PropertiesFactory.getInstans().getPropertiesByKey("ds.properties");
+				String jdbcUrl = prop.getProperty("ds.jdbcUrl");
+				String user = prop.getProperty("ds.user");
+				String password = prop.getProperty("ds.password");
+				int maxPoolSize = Integer.parseInt(prop.getProperty("ds.maxPoolSize"), 10);
+				pool = new JDBCPool(maxPoolSize);
+				pool.setUrl(jdbcUrl);
+				pool.setUser(user);
+				pool.setPassword(password);
+				ds = pool;
+			} catch (Exception e) {
+				throw new ConfigException(e);
+			}		
+		configured = true;
 		return SingletonHandler.INSTANCE;
 	}
 
