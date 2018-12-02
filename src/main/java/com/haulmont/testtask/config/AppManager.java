@@ -1,12 +1,15 @@
 package com.haulmont.testtask.config;
 
 import java.sql.SQLException;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.haulmont.testtask.ui.MainUI;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinServlet;
@@ -27,7 +30,6 @@ public class AppManager {
 
 		@Override
 		public void contextInitialized(ServletContextEvent sce) {
-
 			try {
 				// Загрузка конфигурации с файлов (некоторые не требуются в программе, просто для тестирования)
 				propFactory = PropertiesFactory.getInstans();
@@ -45,15 +47,14 @@ public class AppManager {
 			} catch (Exception e) {
 				LOG.error("Application failed initialization ", e);
 				System.exit(100);
-			}			
-
+			}
 		}
 
 		@Override
 		public void contextDestroyed(ServletContextEvent sce) {
 			try {
 				conPool.shutdown();
-			} catch (SQLException e) {				
+			} catch (SQLException e) {
 				LOG.error(e);
 			}
 		}

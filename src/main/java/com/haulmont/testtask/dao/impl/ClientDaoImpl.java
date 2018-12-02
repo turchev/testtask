@@ -7,7 +7,6 @@ import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.data.Client;
 
 
-
 public class ClientDaoImpl implements ClientDao {
     
     @Override

@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 
-
 @Entity
 @Table(name = "mechanic")
 public class Mechanic extends AbstractEntity {

@@ -1,16 +1,11 @@
 package com.haulmont.testtask.ui;
 
-
-
-
 public interface SaveAndEdit {
-    
-    void save();
 
-    
-    void cancel();
+	void save();
 
-    
-    void update();
+	void cancel();
+
+	void update();
 
 }

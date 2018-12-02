@@ -9,8 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
-
-
 @Entity
 @Table(name = "order")
 public class Order extends AbstractEntity {

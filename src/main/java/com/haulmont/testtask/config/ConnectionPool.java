@@ -5,9 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
-
 import javax.sql.DataSource;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hsqldb.jdbc.JDBCPool;
@@ -72,7 +70,7 @@ public final class ConnectionPool {
 				pool = new JDBCPool(maxPoolSize);
 				pool.setUrl(jdbcUrl);
 				pool.setUser(user);
-				pool.setPassword(password);
+				pool.setPassword(password);					
 				ds = pool;
 			} catch (Exception e) {
 				throw new ConfigException(e);
