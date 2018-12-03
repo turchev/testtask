@@ -31,19 +31,23 @@ public class AppManager {
 		@Override
 		public void contextInitialized(ServletContextEvent sce) {
 			try {
-				// Загрузка конфигурации с файлов (некоторые не требуются в программе, просто для тестирования)
+				// Загрузка конфигурации с файлов (некоторые не требуются в программе, просто
+				// для тестирования)
 				propFactory = PropertiesFactory.getInstans();
 				for (String key : propFactory.getPropHashMap().keySet()) {
-				    System.out.println("Uploaded property files: " + key);
+					System.out.println("Uploaded property files: " + key);
 				}
 				// Установка пула соединений с базой данных HSQLDB
-				conPool = ConnectionPool.getInstance();					
+				conPool = ConnectionPool.getInstance();
+				conPool.initDB();
 				if (conPool.testConnection() == true) {
 					LOG.debug("Connection pool created: {}", conPool.getPool().getDescription());
 				} else {
-					throw new ConfigException("Test connection to database not established ");					
+					throw new ConfigException(
+							"Test database connection not established. If the database has not been created yet, "
+									+ "clear the 'db' directory, set the property 'ifexists=false' and run the program again. ");
 				}
-				
+
 			} catch (Exception e) {
 				LOG.error("Application failed initialization ", e);
 				System.exit(100);
