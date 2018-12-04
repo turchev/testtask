@@ -1,18 +1,17 @@
 package com.haulmont.testtask.data;
 
-import java.time.LocalDate;
-import java.util.Currency;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "order")
-public class Order extends AbstractEntity {
+@Table(name = "orders")
+public class Orders extends AbstractEntity {
 
 	@Column(name = "description", length = 5000)
 	private String description = "";
@@ -29,13 +28,13 @@ public class Order extends AbstractEntity {
 	private String status;
 
 	@Column(name = "date_creat")
-	private LocalDate dateCreat;
+	private Timestamp dateCreat;
 
 	@Column(name = "completion_date")
-	private LocalDate completionDate;
+	private Timestamp completionDate;
 
 	@Column(name = "price")
-	private Currency price = Currency.getInstance("RUB");
+	private BigDecimal price;
 
 	public String getDescription() {
 		return description;
@@ -61,27 +60,27 @@ public class Order extends AbstractEntity {
 		this.mechanicId = mechanicId;
 	}
 
-	public LocalDate getDateCreat() {
+	public Timestamp getDateCreat() {
 		return dateCreat;
 	}
 
-	public void setDateCreat(LocalDate dateCreat) {
+	public void setDateCreat(Timestamp dateCreat) {
 		this.dateCreat = dateCreat;
 	}
 
-	public LocalDate getCompletionDate() {
+	public Timestamp getCompletionDate() {
 		return completionDate;
 	}
 
-	public void setCompletionDate(LocalDate completionDate) {
+	public void setCompletionDate(Timestamp completionDate) {
 		this.completionDate = completionDate;
 	}
 
-	public Currency getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(Currency price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
