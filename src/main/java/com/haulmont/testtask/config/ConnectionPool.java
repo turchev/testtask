@@ -53,12 +53,12 @@ public final class ConnectionPool {
 	public void initDB() throws ConfigException {
 		try {
 			if (jdbcUrl.toLowerCase().indexOf("ifexists=false") > 15) {
-				LOG.debug("'property = false' parameter found in jdbcUrl string ");
+				LOG.debug("'property=false' parameter found in jdbcUrl string ");
+				
 			}
 		} catch (Exception e) {
 			throw new ConfigException(e);
 		}
-
 	}
 
 	public void shutdown() throws SQLException {

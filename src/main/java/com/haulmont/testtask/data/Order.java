@@ -2,120 +2,99 @@ package com.haulmont.testtask.data;
 
 import java.time.LocalDate;
 import java.util.Currency;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "order")
 public class Order extends AbstractEntity {
-    
-    @Column(name = "description")
-    private String description = "";
 
-    
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Long clientId;
+	@Column(name = "description", length = 5000)
+	private String description = "";
 
-    
-    @ManyToOne
-    @JoinColumn(name = "mechanic_id")
-    private Long mechanicId;
+	@ManyToOne
+	@JoinColumn(name = "client_id")	
+	private Long clientId;
 
-    
-    @Column(name = "status")
-    private String status;
+	@ManyToOne
+	@JoinColumn(name = "mechanic_id")
+	private Long mechanicId;
 
-    
-    @Column(name = "date_creat")
-    private LocalDate dateCreat;
+	@Column(name = "status")
+	private String status;
 
-    
-    @Column(name = "completion_date")
-    private LocalDate completionDate;
+	@Column(name = "date_creat")
+	private LocalDate dateCreat;
 
-    
-    @Column(name = "price")
-    private Currency price = Currency.getInstance("RUB");
+	@Column(name = "completion_date")
+	private LocalDate completionDate;
 
-    
-    public String getDescription() {
-        return description;
-    }
+	@Column(name = "price")
+	private Currency price = Currency.getInstance("RUB");
 
-    
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    
-    public Long getClientId() {
-        return clientId;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    
-    public void setClientId(Long clientId) {
-        this.clientId = clientId;
-    }
+	public Long getClientId() {
+		return clientId;
+	}
 
-    
-    public Long getMechanicId() {
-        return mechanicId;
-    }
+	public void setClientId(Long clientId) {
+		this.clientId = clientId;
+	}
 
-    
-    public void setMechanicId(Long mechanicId) {
-        this.mechanicId = mechanicId;
-    }
+	public Long getMechanicId() {
+		return mechanicId;
+	}
 
-    
-    public LocalDate getDateCreat() {
-        return dateCreat;
-    }
+	public void setMechanicId(Long mechanicId) {
+		this.mechanicId = mechanicId;
+	}
 
-    
-    public void setDateCreat(LocalDate dateCreat) {
-        this.dateCreat = dateCreat;
-    }
+	public LocalDate getDateCreat() {
+		return dateCreat;
+	}
 
-    
-    public LocalDate getCompletionDate() {
-        return completionDate;
-    }
+	public void setDateCreat(LocalDate dateCreat) {
+		this.dateCreat = dateCreat;
+	}
 
-    
-    public void setCompletionDate(LocalDate completionDate) {
-        this.completionDate = completionDate;
-    }
+	public LocalDate getCompletionDate() {
+		return completionDate;
+	}
 
-    
-    public Currency getPrice() {
-        return price;
-    }
+	public void setCompletionDate(LocalDate completionDate) {
+		this.completionDate = completionDate;
+	}
 
-    
-    public void setPrice(Currency price) {
-        this.price = price;
-    }
+	public Currency getPrice() {
+		return price;
+	}
 
-    
-    public String getStatus() {
-        return status;
-    }
+	public void setPrice(Currency price) {
+		this.price = price;
+	}
 
-    
-    public void setStatus(OrderStatusType status) {
-        this.status = status.name();
-    }
+	public String getStatus() {
+		return status;
+	}
 
-    
-    @Override
-    public String toString() {
-        return description + " " + status;
-    }
+	public void setStatus(OrderStatusType status) {
+		this.status = status.name();
+	}
 
+	@Override
+	public String toString() {
+		return description + " " + status;
+	}
 }
