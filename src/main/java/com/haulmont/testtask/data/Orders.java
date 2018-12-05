@@ -25,7 +25,7 @@ public class Orders extends AbstractEntity {
 	private Long mechanicId;
 
 	@Column(name = "status")
-	private String status;
+	private OrderStatusType status;
 
 	@Column(name = "date_creat")
 	private Timestamp dateCreat;
@@ -84,12 +84,12 @@ public class Orders extends AbstractEntity {
 		this.price = price;
 	}
 
-	public String getStatus() {
+	public OrderStatusType getStatus() {
 		return status;
 	}
 
 	public void setStatus(OrderStatusType status) {
-		this.status = status.name();
+		this.status = status;
 	}
 
 	@Override
