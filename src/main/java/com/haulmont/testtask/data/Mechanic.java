@@ -1,7 +1,6 @@
 package com.haulmont.testtask.data;
 
-import java.math.BigDecimal;
-
+import java.util.Currency;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -20,7 +19,7 @@ public class Mechanic extends AbstractEntity {
     private String patronnymic = "";
     
     @Column(name = "wages")
-    private BigDecimal wages;
+    private Currency wages = Currency.getInstance("RUB");    
     
     public String getFirstName() {
         return firstName;
@@ -46,11 +45,11 @@ public class Mechanic extends AbstractEntity {
         this.patronnymic = patronnymic;
     }
     
-    public BigDecimal getWages() {
+    public Currency getWages() {
         return wages;
     }
     
-    public void setWages(BigDecimal wages) {
+    public void setWages(Currency wages) {
         this.wages = wages;
     }
     

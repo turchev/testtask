@@ -28,4 +28,22 @@ CREATE TABLE orders (
 	FOREIGN KEY (mechanic_id) REFERENCES mechanic(id)
 );  
 
+INSERT INTO client (first_name, last_name, patronnymic, phone)
+VALUES ('Сидоров', 'Сидор', 'Сидорович', '+7(311)311-11-11');
+INSERT INTO client (first_name, last_name, patronnymic, phone)
+VALUES ('Петров', 'Петр', 'Петрович', '+7(311)322-22-21');
+INSERT INTO client (first_name, last_name, patronnymic, phone)
+VALUES ('Иванов', 'Иван', 'Иванович', '+7(311)525-25-21');
+INSERT INTO client (first_name, last_name, patronnymic, phone)
+VALUES ('Максимов', 'Максим', 'Максимович', '+7(311)22-55-99');
+INSERT INTO client (first_name, last_name, patronnymic, phone)
+VALUES ('Федоров', 'Федор', 'Федорович', '+7(311)337-77-77');
+
+INSERT INTO mechanic (first_name, last_name, patronnymic, wages, phone)
+VALUES ('Сидоров', 'Сидор', 'Сидорович', '+7(311)311-11-11');
+INSERT INTO mechanic (first_name, last_name, patronnymic, wages, phone)
+VALUES ('Петров', 'Петр', 'Петрович', '+7(311)322-22-21');
+
+
+
 SHUTDOWN;
