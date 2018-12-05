@@ -20,7 +20,7 @@ project.conf
 #*.iml
 
 #===  package ===
-!lib/*.jar
+!lib/
 *.jar
 *.war
 *.ear
