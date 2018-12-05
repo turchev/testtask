@@ -34,7 +34,6 @@ project.conf
 *.class
 
 #=== other ===
-!lib/
 other/
 tmp/
 out/

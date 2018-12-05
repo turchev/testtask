@@ -1,7 +1,6 @@
 package com.haulmont.testtask.ui;
 
 import com.haulmont.testtask.data.Orders;
-
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
