@@ -20,7 +20,6 @@ project.conf
 #*.iml
 
 #===  package ===
-!lib/
 *.jar
 *.war
 *.ear
@@ -35,6 +34,7 @@ project.conf
 *.class
 
 #=== other ===
+!lib/
 other/
 tmp/
 out/
