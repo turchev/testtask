@@ -28,5 +28,4 @@ public class MainLayot extends VerticalLayout {
 		
 		this.addComponent(tabSheet);
 	}
-
 }

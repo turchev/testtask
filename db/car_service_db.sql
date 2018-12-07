@@ -42,12 +42,10 @@ VALUES ('Федоров', 'Федор', 'Федорович', '+7(311)337-77-77'
 INSERT INTO client (first_name, last_name, patronnymic, phone)
 VALUES ('Николаев', 'Николай', 'Николаевич', '+7(522)555-79-79');
 
-
 INSERT INTO mechanic (first_name, last_name, patronnymic, wages, phone)
 VALUES ('Петров', 'Петр', 'Петрович', '200.50', '+7(311)311-11-11');
 INSERT INTO mechanic (first_name, last_name, patronnymic, wages, phone)
 VALUES ('Павлов', 'Павел', 'Павлович', '325.85', '+7(311)322-22-21');
-
 
 INSERT INTO orders (description, client_id, mechanic_id, status, date_creat, completion_date, price)
 VALUES (

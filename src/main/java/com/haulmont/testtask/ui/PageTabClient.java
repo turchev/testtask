@@ -9,7 +9,7 @@ import com.vaadin.ui.Grid;
 public class PageTabClient extends PageTabAbstract {
     
     public PageTabClient() {
-        grid = new Grid<>(Client.class);    
+        grid = new Grid<>(Client.class);           
         grid.setWidth(100.0f, Unit.PERCENTAGE);        
         webPage.addComponent(grid);
     }

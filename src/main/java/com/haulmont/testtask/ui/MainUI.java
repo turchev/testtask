@@ -26,5 +26,4 @@ public class MainUI extends UI {
 		log.log(Level.FINE, "{0}: Message level: SEVERE", formatForDateNow.format(date));
         setContent(mainLayot);
     }
-
 }
