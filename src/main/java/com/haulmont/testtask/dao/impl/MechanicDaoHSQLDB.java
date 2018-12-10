@@ -3,29 +3,29 @@ package com.haulmont.testtask.dao.impl;
 import java.util.List;
 
 import com.haulmont.testtask.dao.DaoException;
-import com.haulmont.testtask.dao.OrdersDao;
-import com.haulmont.testtask.data.Orders;
+import com.haulmont.testtask.dao.MechanicDao;
+import com.haulmont.testtask.data.Mechanic;
 
 
 
-public class OrdersDaoImpl implements OrdersDao {
+public class MechanicDaoHSQLDB implements MechanicDao {
     
     @Override
-    public Orders read(long id) throws DaoException {
+    public Mechanic read(long id) throws DaoException {
         // TODO Auto-generated method stub
         return null;
     }
 
     
     @Override
-    public List<Orders> readAll() throws DaoException {
+    public List<Mechanic> readAll() throws DaoException {
         // TODO Auto-generated method stub
         return null;
     }
 
     
     @Override
-    public void save(Orders dataSet) throws DaoException {
+    public void save(Mechanic dataSet) throws DaoException {
         // TODO Auto-generated method stub
     }
 

@@ -6,7 +6,7 @@ import com.haulmont.testtask.data.AbstractEntity;
 
 
 
-public interface AbstractDao<T extends AbstractEntity> {
+public interface IDao<T extends AbstractEntity> {
     
     T read(long id) throws DaoException;
 

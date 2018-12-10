@@ -4,5 +4,5 @@ import com.haulmont.testtask.data.Client;
 
 
 
-public interface ClientDao extends AbstractDao<Client> {
+public interface ClientDao extends IDao<Client> {
 }

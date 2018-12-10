@@ -2,29 +2,30 @@ package com.haulmont.testtask.dao.impl;
 
 import java.util.List;
 
-import com.haulmont.testtask.dao.ClientDao;
 import com.haulmont.testtask.dao.DaoException;
-import com.haulmont.testtask.data.Client;
+import com.haulmont.testtask.dao.OrdersDao;
+import com.haulmont.testtask.data.Orders;
 
 
-public class ClientDaoImpl implements ClientDao {
+
+public class OrdersDaoHSQLDB implements OrdersDao {
     
     @Override
-    public Client read(long id) throws DaoException {
+    public Orders read(long id) throws DaoException {
         // TODO Auto-generated method stub
         return null;
     }
 
     
     @Override
-    public List<Client> readAll() throws DaoException {
+    public List<Orders> readAll() throws DaoException {
         // TODO Auto-generated method stub
         return null;
     }
 
     
     @Override
-    public void save(Client dataSet) throws DaoException {
+    public void save(Orders dataSet) throws DaoException {
         // TODO Auto-generated method stub
     }
 
