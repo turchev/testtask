@@ -1,13 +1,12 @@
-package com.haulmont.testtask.data;
+package com.haulmont.testtask.entity;
 
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "mechanic")
-public class Mechanic extends AbstractEntity {
+@Table(name = "client")
+public class Client extends AEntity {
     
     @Column(name = "first_name")
     private String firstName = "";
@@ -18,16 +17,8 @@ public class Mechanic extends AbstractEntity {
     @Column(name = "patronnymic")
     private String patronnymic = "";
     
-    @Column(name = "wages")
-    private BigDecimal wages;    
-    
-    public String getFirstName() {
-        return firstName;
-    }
-    
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+    @Column(name = "phone")
+    private String phone = "";
     
     public String getLastName() {
         return lastName;
@@ -35,6 +26,14 @@ public class Mechanic extends AbstractEntity {
     
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+    
+    public String getFirstName() {
+        return firstName;
+    }
+    
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
     
     public String getPatronnymic() {
@@ -45,12 +44,12 @@ public class Mechanic extends AbstractEntity {
         this.patronnymic = patronnymic;
     }
     
-    public BigDecimal getWages() {
-        return wages;
+    public String getPhone() {
+        return phone;
     }
     
-    public void setWages(BigDecimal wages) {
-        this.wages = wages;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
     
     @Override

@@ -1,4 +1,4 @@
-package com.haulmont.testtask.data;
+package com.haulmont.testtask.entity;
 
 public enum OrderStatusType {
     PLANNED,

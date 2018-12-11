@@ -120,8 +120,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="com.haulmont.testtask.data.Client" project="testtask" 
-    file="/testtask/src/main/java/com/haulmont/testtask/data/Client.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="14" language="java" name="com.haulmont.testtask.entity.Client" project="testtask" 
+    file="/testtask/src/main/java/com/haulmont/testtask/entity/Client.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="920" y="834"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -129,8 +129,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="com.haulmont.testtask.data.AbstractEntity" project="testtask" 
-    file="/testtask/src/main/java/com/haulmont/testtask/data/AbstractEntity.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="15" language="java" name="com.haulmont.testtask.entity.AEntity" project="testtask" 
+    file="/testtask/src/main/java/com/haulmont/testtask/entity/AEntity.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="133" width="153" x="1111" y="502"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -138,8 +138,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="com.haulmont.testtask.data.Mechanic" project="testtask" 
-    file="/testtask/src/main/java/com/haulmont/testtask/data/Mechanic.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="16" language="java" name="com.haulmont.testtask.entity.Mechanic" project="testtask" 
+    file="/testtask/src/main/java/com/haulmont/testtask/entity/Mechanic.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="313" width="157" x="1111" y="675"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -147,8 +147,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="17" language="java" name="com.haulmont.testtask.data.OrderStatusType" project="testtask" 
-    file="/testtask/src/main/java/com/haulmont/testtask/data/OrderStatusType.java" binary="false" corner="BOTTOM_RIGHT">    
+  <enumeration id="17" language="java" name="com.haulmont.testtask.entity.OrderStatusType" project="testtask" 
+    file="/testtask/src/main/java/com/haulmont/testtask/entity/OrderStatusType.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="677" y="8"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      

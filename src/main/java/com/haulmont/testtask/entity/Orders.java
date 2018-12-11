@@ -1,4 +1,4 @@
-package com.haulmont.testtask.data;
+package com.haulmont.testtask.entity;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "orders")
-public class Orders extends AbstractEntity {
+public class Orders extends AEntity {
 
 	@Column(name = "description", length = 5000)
 	private String description = "";

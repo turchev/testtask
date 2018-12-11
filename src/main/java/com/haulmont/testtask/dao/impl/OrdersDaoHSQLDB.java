@@ -4,21 +4,21 @@ import java.util.List;
 
 import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.dao.OrdersDao;
-import com.haulmont.testtask.data.Orders;
+import com.haulmont.testtask.entity.Orders;
 
 
 
 public class OrdersDaoHSQLDB implements OrdersDao {
     
     @Override
-    public Orders read(long id) throws DaoException {
+    public Orders getById(long id) throws DaoException {
         // TODO Auto-generated method stub
         return null;
     }
 
     
     @Override
-    public List<Orders> readAll() throws DaoException {
+    public List<Orders> findAll() throws DaoException {
         // TODO Auto-generated method stub
         return null;
     }

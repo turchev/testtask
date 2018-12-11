@@ -1,7 +1,6 @@
 package com.haulmont.testtask.ui;
 
-import com.haulmont.testtask.data.Client;
-
+import com.haulmont.testtask.entity.Client;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Grid;
 
