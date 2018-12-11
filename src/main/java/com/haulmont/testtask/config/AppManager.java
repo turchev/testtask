@@ -38,15 +38,15 @@ public class AppManager {
 					System.out.println("Uploaded property files: " + key);
 				}
 				// Установка пула соединений с базой данных HSQLDB
-				conPool = ConnectionPool.getInstance();
-				conPool.initDB();
+				conPool = ConnectionPool.getInstance();				
 				if (conPool.testConnection() == true) {
-					LOG.debug("Connection pool created: {}", conPool.getPool().getDescription());
+					LOG.debug("Connection pool created: {}", conPool.toString());
 				} else {
 					throw new ConfigException(
 							"Test database connection not established. If the database has not been created yet, "
 									+ "clear the 'db' directory, set the property 'ifexists=false' and run the program again. ");
 				}
+//				conPool.initDB();
 
 			} catch (Exception e) {
 				LOG.error("Application failed initialization ", e);

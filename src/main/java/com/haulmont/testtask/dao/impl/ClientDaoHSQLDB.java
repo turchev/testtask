@@ -10,7 +10,7 @@ import com.haulmont.testtask.entity.Client;
 public class ClientDaoHSQLDB implements ClientDao {
     
     @Override
-    public Client getById(long id) throws DaoException {
+    public Client findById(long id) throws DaoException {
         // TODO Auto-generated method stub
         return null;
     }

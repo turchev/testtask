@@ -11,7 +11,7 @@ import com.haulmont.testtask.entity.Orders;
 public class OrdersDaoHSQLDB implements OrdersDao {
     
     @Override
-    public Orders getById(long id) throws DaoException {
+    public Orders findById(long id) throws DaoException {
         // TODO Auto-generated method stub
         return null;
     }

@@ -15,9 +15,9 @@ public final class ConnectionPool {
 	private static final int WAIT_SHUTDOWN_SECONDS = 3;
 	private static JDBCPool pool;
 
-	public JDBCPool getPool() {
-		return pool;
-	}
+//	public JDBCPool getPool() {
+//		return pool;
+//	}
 
 	private static DataSource ds;
 	private static boolean configured = false; // Флаг готовности
@@ -26,7 +26,28 @@ public final class ConnectionPool {
 
 	private ConnectionPool() {
 	}
-
+	
+	public static ConnectionPool getInstance() throws ConfigException {
+		// Начальная конфигурация пула HSQLDB
+		if (configured == false)
+			try {
+				prop = PropertiesFactory.getInstans().getPropertiesByKey("ds.properties");
+				jdbcUrl = prop.getProperty("ds.jdbcUrl");
+				String user = prop.getProperty("ds.user");
+				String password = prop.getProperty("ds.password");
+				int maxPoolSize = Integer.parseInt(prop.getProperty("ds.maxPoolSize"), 10);
+				pool = new JDBCPool(maxPoolSize);
+				pool.setUrl(jdbcUrl);
+				pool.setUser(user);
+				pool.setPassword(password);
+				ds = pool;
+			} catch (Exception e) {
+				throw new ConfigException(e);
+			}
+		configured = true;
+		return SingletonHandler.INSTANCE;
+	}
+	
 	public Connection getConnection() throws SQLException {
 		Connection conn = ds.getConnection();
 //		conn.setAutoCommit(false);
@@ -50,16 +71,16 @@ public final class ConnectionPool {
 		return false;
 	}
 
-	public void initDB() throws ConfigException {
-		try {
-			if (jdbcUrl.toLowerCase().indexOf("ifexists=false") > 15) {
-				LOG.debug("'property=false' parameter found in jdbcUrl string ");
-				
-			}
-		} catch (Exception e) {
-			throw new ConfigException(e);
-		}
-	}
+//	public void initDB() throws ConfigException {
+//		try {
+//			if (jdbcUrl.toLowerCase().indexOf("ifexists=false") > 15) {
+//				LOG.debug("'property=false' parameter found in jdbcUrl string ");
+//				
+//			}
+//		} catch (Exception e) {
+//			throw new ConfigException(e);
+//		}
+//	}
 
 	public void shutdown() throws SQLException {
 		try (Connection conn = getConnection(); Statement stmnt = conn.createStatement();) {
@@ -69,28 +90,12 @@ public final class ConnectionPool {
 		pool.close(WAIT_SHUTDOWN_SECONDS);
 		LOG.debug("closed!");
 	}
-
-	public static ConnectionPool getInstance() throws ConfigException {
-		// Начальная конфигурация пула HSQLDB
-		if (configured == false)
-			try {
-				prop = PropertiesFactory.getInstans().getPropertiesByKey("ds.properties");
-				jdbcUrl = prop.getProperty("ds.jdbcUrl");
-				String user = prop.getProperty("ds.user");
-				String password = prop.getProperty("ds.password");
-				int maxPoolSize = Integer.parseInt(prop.getProperty("ds.maxPoolSize"), 10);
-				pool = new JDBCPool(maxPoolSize);
-				pool.setUrl(jdbcUrl);
-				pool.setUser(user);
-				pool.setPassword(password);
-				ds = pool;
-			} catch (Exception e) {
-				throw new ConfigException(e);
-			}
-		configured = true;
-		return SingletonHandler.INSTANCE;
-	}
-
+	
+	@Override
+	public String toString() {		
+		return pool.getDescription();
+	}	
+	
 	private static class SingletonHandler {
 		private static ConnectionPool INSTANCE = new ConnectionPool();
 	}

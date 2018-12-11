@@ -11,7 +11,7 @@ import com.haulmont.testtask.entity.Mechanic;
 public class MechanicDaoHSQLDB implements MechanicDao {
     
     @Override
-    public Mechanic getById(long id) throws DaoException {
+    public Mechanic findById(long id) throws DaoException {
         // TODO Auto-generated method stub
         return null;
     }
