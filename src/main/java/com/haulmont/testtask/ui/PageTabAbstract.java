@@ -10,12 +10,8 @@ import com.vaadin.ui.VerticalLayout;
 
 public abstract class PageTabAbstract implements PageTab {
     
-     VerticalLayout webPage = null;
-
-    
-     HorizontalLayout groupButtons = null;
-
-    
+     VerticalLayout webPage = null;    
+     HorizontalLayout groupButtons = null;    
      Grid<?> grid = null;
 
     

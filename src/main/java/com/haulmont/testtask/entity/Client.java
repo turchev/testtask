@@ -19,6 +19,14 @@ public class Client extends AEntity {
     
     @Column(name = "phone")
     private String phone = "";
+          
+    public String getFirstName() {
+        return firstName;
+    }
+    
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
     
     public String getLastName() {
         return lastName;
@@ -26,14 +34,6 @@ public class Client extends AEntity {
     
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-    
-    public String getFirstName() {
-        return firstName;
-    }
-    
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
     
     public String getPatronnymic() {
