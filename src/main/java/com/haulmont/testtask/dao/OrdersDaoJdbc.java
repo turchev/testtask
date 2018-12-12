@@ -1,16 +1,20 @@
-package com.haulmont.testtask.dao.impl;
+package com.haulmont.testtask.dao;
 
 import java.util.List;
 
-import com.haulmont.testtask.dao.DaoException;
-import com.haulmont.testtask.dao.OrdersDao;
+import javax.sql.DataSource;
+
 import com.haulmont.testtask.entity.Orders;
 
 
 
-public class OrdersDaoHSQLDB implements OrdersDao {
+public class OrdersDaoJdbc implements OrdersDao {
     
-    @Override
+    public OrdersDaoJdbc(DataSource ds) {		
+	}
+
+
+	@Override
     public Orders findById(long id) throws DaoException {
         // TODO Auto-generated method stub
         return null;

@@ -100,9 +100,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="com.haulmont.testtask.dao.impl.ClientDaoHSQLDB" project="testtask" 
-    file="/testtask/src/main/java/com/haulmont/testtask/dao/impl/ClientDaoHSQLDB.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="12" language="java" name="com.haulmont.testtask.dao.ClientDaoJdbc" project="testtask" 
+    file="/testtask/src/main/java/com/haulmont/testtask/dao/ClientDaoJdbc.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="952" y="190"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -110,9 +109,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="com.haulmont.testtask.dao.impl.MechanicDaoHSQLDB" project="testtask" 
-    file="/testtask/src/main/java/com/haulmont/testtask/dao/impl/MechanicDaoHSQLDB.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="13" language="java" name="com.haulmont.testtask.dao.MechanicDaoJdbc" project="testtask" 
+    file="/testtask/src/main/java/com/haulmont/testtask/dao/MechanicDaoJdbc.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1297" y="386"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      

@@ -1,16 +1,20 @@
-package com.haulmont.testtask.dao.impl;
+package com.haulmont.testtask.dao;
 
 import java.util.List;
 
-import com.haulmont.testtask.dao.DaoException;
-import com.haulmont.testtask.dao.MechanicDao;
+import javax.sql.DataSource;
+
 import com.haulmont.testtask.entity.Mechanic;
 
 
 
-public class MechanicDaoHSQLDB implements MechanicDao {
+public class MechanicDaoJdbc implements MechanicDao {
     
-    @Override
+    public MechanicDaoJdbc(DataSource ds) {		
+	}
+
+
+	@Override
     public Mechanic findById(long id) throws DaoException {
         // TODO Auto-generated method stub
         return null;

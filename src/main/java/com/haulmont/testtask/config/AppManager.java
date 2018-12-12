@@ -10,6 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.haulmont.testtask.dao.DaoFactory;
+import com.haulmont.testtask.dao.DaoFactory.TypeDb;
 import com.haulmont.testtask.ui.MainUI;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinServlet;
@@ -25,22 +27,24 @@ public class AppManager {
 	@WebListener
 	public static class AppServletContextListener implements ServletContextListener {
 		private static final Logger LOG = LogManager.getLogger();
-		PropertiesFactory propFactory = null;
-		ConnectionPool conPool = null;
+		PropertiesFactory propFactory;
+//		ConnectionPoolHSQLDB conPool = null;
+		DaoFactory hsqlDaoFactory;
 
 		@Override
 		public void contextInitialized(ServletContextEvent sce) {
-			try {
+			try {				
 				// Загрузка конфигурации с файлов (некоторые не требуются в программе, просто
 				// для тестирования)
 				propFactory = PropertiesFactory.getInstans();
 				for (String key : propFactory.getPropHashMap().keySet()) {
 					System.out.println("Uploaded property files: " + key);
 				}
-				// Установка пула соединений с базой данных HSQLDB
-				conPool = ConnectionPool.getInstance();				
-				if (conPool.testConnection() == true) {
-					LOG.debug("Connection pool created: {}", conPool.toString());
+				// Проверка пула соединений с базой данных HSQLDB
+				hsqlDaoFactory = DaoFactory.get(TypeDb.HSQLDB);
+//				conPool = ConnectionPoolHSQLDB.getInstance();				
+				if (hsqlDaoFactory.testConnection() == true) {
+					LOG.debug("Connection pool created: {}", hsqlDaoFactory.toString());
 				} else {
 					throw new ConfigException(
 							"Test database connection not established. If the database has not been created yet, "
@@ -51,13 +55,13 @@ public class AppManager {
 			} catch (Exception e) {
 				LOG.error("Application failed initialization ", e);
 				System.exit(100);
-			}
+			}						
 		}
 
 		@Override
 		public void contextDestroyed(ServletContextEvent sce) {
 			try {
-				conPool.shutdown();
+				hsqlDaoFactory.shutdown();
 			} catch (SQLException e) {
 				LOG.error(e);
 			}
