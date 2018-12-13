@@ -1,4 +1,4 @@
-package com.haulmont.testtask.connection;
+package com.haulmont.testtask.ds;
 
 @SuppressWarnings("serial")
 public class DsExeption extends Exception {

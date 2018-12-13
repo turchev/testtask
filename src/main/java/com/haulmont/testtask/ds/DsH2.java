@@ -1,15 +1,15 @@
-package com.haulmont.testtask.connection;
+package com.haulmont.testtask.ds;
 
 import javax.sql.DataSource;
 
-public class DsH2impl extends DsFactoryA implements DsFactory{
+class DsH2 extends DsFactory {
 
 	public static DsFactory getInstans() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	public DsH2impl() {
+	public DsH2() {
 		// TODO Auto-generated constructor stub
 	}
 

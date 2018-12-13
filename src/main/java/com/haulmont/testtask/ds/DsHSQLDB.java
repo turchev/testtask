@@ -1,0 +1,82 @@
+package com.haulmont.testtask.ds;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Properties;
+import javax.sql.DataSource;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.hsqldb.jdbc.JDBCPool;
+import com.haulmont.testtask.config.PropertiesFactory;
+import com.haulmont.testtask.dao.DaoException;
+
+class DsHSQLDB extends DsFactory {
+	private static final Logger LOG = LogManager.getLogger();
+	private static final int WAIT_SHUTDOWN_SECONDS = 3;
+	private static JDBCPool pool;
+	private static DataSource ds;
+	private static Properties prop;
+	private static String jdbcUrl;
+
+	private DsHSQLDB() {
+	}
+
+	public static DsFactory getInstans() throws DaoException {
+		// Начальная конфигурация пула HSQLDB
+		if (ds == null)
+			try {
+				prop = PropertiesFactory.getInstans().getPropertiesByKey("ds.properties");
+				jdbcUrl = prop.getProperty("ds.jdbcUrl");
+				String user = prop.getProperty("ds.user").trim();
+				String password = prop.getProperty("ds.password");
+				int maxPoolSize = Integer.parseInt(prop.getProperty("ds.maxPoolSize"), 10);
+				pool = new JDBCPool(maxPoolSize);
+				pool.setUrl(jdbcUrl);
+				pool.setUser(user);
+				pool.setPassword(password);
+				ds = pool;
+			} catch (Exception e) {
+				throw new DaoException(e);
+			}
+		return SingletonHandler.INSTANCE;
+	}
+
+	@Override
+	public DataSource getDataSource() {
+		return ds;
+	}
+
+	@Override
+	public void shutdown() throws DsExeption {
+		try (Connection conn = ds.getConnection(); Statement stmnt = conn.createStatement();) {
+			stmnt.execute("SHUTDOWN");
+			LOG.debug("running database SHUTDOWN..");
+			pool.close(WAIT_SHUTDOWN_SECONDS);
+		} catch (Exception e) {
+			throw new DsExeption(e);
+		}
+		LOG.debug("DataSource closed!");
+	}
+
+	@Override
+	// Проверка соединения с базой данных - успешное, если имя пользователя найдено
+	// в сессиях
+	public boolean testConnection() {
+		try (Connection conn = ds.getConnection(); Statement stmnt = conn.createStatement();) {
+			ResultSet rs = stmnt.executeQuery("SELECT * FROM INFORMATION_SCHEMA.SYSTEM_SESSIONS " + "WHERE USER_NAME='"
+					+ prop.getProperty("ds.user") + "'");
+			if (rs.next() == true) {
+				return true;
+			}
+		} catch (Exception e) {
+			LOG.error("Test connection failed: \n ", e);
+			return false;
+		}
+		return false;
+	}
+
+	private static class SingletonHandler {
+		private static DsHSQLDB INSTANCE = new DsHSQLDB();
+	}
+}
