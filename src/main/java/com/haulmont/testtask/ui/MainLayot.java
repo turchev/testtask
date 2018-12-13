@@ -1,5 +1,6 @@
 package com.haulmont.testtask.ui;
 
+import com.haulmont.testtask.dao.DaoException;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
@@ -9,7 +10,7 @@ public class MainLayot extends VerticalLayout {
 	
 	private TabSheet tabSheet;
 	
-	public MainLayot() {
+	public MainLayot() throws DaoException {
         tabSheet = new TabSheet();  
 		tabSheet.addStyleName(ValoTheme.TABSHEET_FRAMED);
 		tabSheet.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);

@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.haulmont.testtask.dao.DaoException;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
@@ -20,7 +22,12 @@ public class MainUI extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
     	
-        mainLayot = new MainLayot();       
+        try {
+			mainLayot = new MainLayot();
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}       
                
 		log.log(Level.SEVERE, "{0}: Message level: SEVERE", formatForDateNow.format(date));
 		log.log(Level.FINE, "{0}: Message level: SEVERE", formatForDateNow.format(date));

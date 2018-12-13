@@ -29,7 +29,7 @@ public class DaoFactoryHSQLDB extends DaoFactory {
 			try {
 				prop = PropertiesFactory.getInstans().getPropertiesByKey("ds.properties");
 				jdbcUrl = prop.getProperty("ds.jdbcUrl");
-				String user = prop.getProperty("ds.user");
+				String user = prop.getProperty("ds.user").trim();
 				String password = prop.getProperty("ds.password");
 				int maxPoolSize = Integer.parseInt(prop.getProperty("ds.maxPoolSize"), 10);
 				pool = new JDBCPool(maxPoolSize);

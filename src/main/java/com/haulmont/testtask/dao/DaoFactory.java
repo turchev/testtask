@@ -1,6 +1,7 @@
 package com.haulmont.testtask.dao;
 
 import java.sql.SQLException;
+import com.haulmont.testtask.connection.DsType;
 
 public abstract class DaoFactory {
 
@@ -10,7 +11,7 @@ public abstract class DaoFactory {
 	public abstract boolean testConnection();
 	public abstract void shutdown() throws SQLException;
 
-	public static DaoFactory get(TypeDb type) throws DaoException {
+	public static DaoFactory get(DsType type) throws DaoException {
 		try {
 			switch (type) {
 			case H2:
@@ -22,11 +23,6 @@ public abstract class DaoFactory {
 			}
 		} catch (Exception e) {
 			throw new DaoException(e);
-		}
-		
-	}
-
-	public enum TypeDb {
-		HSQLDB, H2
-	}
+		}		
+	}	
 }

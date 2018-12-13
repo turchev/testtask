@@ -1,17 +1,14 @@
 package com.haulmont.testtask.config;
 
 import java.sql.SQLException;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
+import com.haulmont.testtask.connection.DsType;
 import com.haulmont.testtask.dao.DaoFactory;
-import com.haulmont.testtask.dao.DaoFactory.TypeDb;
 import com.haulmont.testtask.ui.MainUI;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinServlet;
@@ -28,7 +25,6 @@ public class AppManager {
 	public static class AppServletContextListener implements ServletContextListener {
 		private static final Logger LOG = LogManager.getLogger();
 		PropertiesFactory propFactory;
-//		ConnectionPoolHSQLDB conPool = null;
 		DaoFactory hsqlDaoFactory;
 
 		@Override
@@ -41,8 +37,7 @@ public class AppManager {
 					System.out.println("Uploaded property files: " + key);
 				}
 				// Проверка пула соединений с базой данных HSQLDB
-				hsqlDaoFactory = DaoFactory.get(TypeDb.HSQLDB);
-//				conPool = ConnectionPoolHSQLDB.getInstance();				
+				hsqlDaoFactory = DaoFactory.get(DsType.HSQLDB);			
 				if (hsqlDaoFactory.testConnection() == true) {
 					LOG.debug("Connection pool created: {}", hsqlDaoFactory.toString());
 				} else {
@@ -50,7 +45,6 @@ public class AppManager {
 							"Test database connection not established. If the database has not been created yet, "
 									+ "clear the 'db' directory, set the property 'ifexists=false' and run the program again. ");
 				}
-//				conPool.initDB();
 
 			} catch (Exception e) {
 				LOG.error("Application failed initialization ", e);

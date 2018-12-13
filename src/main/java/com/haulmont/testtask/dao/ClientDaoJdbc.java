@@ -1,8 +1,8 @@
 package com.haulmont.testtask.dao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +12,7 @@ import com.haulmont.testtask.entity.Client;
 
 public class ClientDaoJdbc implements ClientDao {
 	private DataSource ds = null;
-	private static final String SELECT_ALL = "SELECT * FROM client";
+	private static final String SELECT_ALL = "select * from client;";
 
 	public ClientDaoJdbc(DataSource ds) {
 		this.ds = ds;
@@ -28,8 +28,8 @@ public class ClientDaoJdbc implements ClientDao {
 	public List<Client> findAll() throws DaoException {
 		List<Client> result = new ArrayList<Client>();
 		try (Connection connection = ds.getConnection();
-				PreparedStatement statement = connection.prepareStatement(SELECT_ALL);) {
-			ResultSet rs = statement.executeQuery();
+				Statement statement = connection.createStatement();) {
+			ResultSet rs = statement.executeQuery(SELECT_ALL);
 			while (rs.next()) {
 				Client client = new Client();
 				client.setId(rs.getLong("id"));
