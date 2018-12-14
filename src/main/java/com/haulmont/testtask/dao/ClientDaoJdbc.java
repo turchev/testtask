@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 
 import com.haulmont.testtask.entity.Client;
 
-public class ClientDaoJdbc implements ClientDao {
+class ClientDaoJdbc implements ClientDao {
 	private DataSource ds = null;
 	private static final String SELECT_ALL = "select * from client;";
 

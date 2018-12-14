@@ -4,7 +4,7 @@ import javax.sql.DataSource;
 
 public abstract class DsFactory {
 
-	public static DsFactory getFactory(DsType typeDb) throws DsExeption {
+	public static DsFactory getFactory(DsType typeDb) throws DsException {
 		try {
 			switch (typeDb) {
 			case HSQLDB:
@@ -16,13 +16,13 @@ public abstract class DsFactory {
 			}
 
 		} catch (Exception e) {
-			throw new DsExeption(e);
+			throw new DsException(e);
 		}
 	}
 
 	public abstract DataSource getDataSource();
 
-	public abstract void shutdown() throws DsExeption;
+	public abstract void shutdown() throws DsException;
 
 	public abstract boolean testConnection();
 }

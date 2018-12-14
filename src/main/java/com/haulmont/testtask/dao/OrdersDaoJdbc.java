@@ -4,7 +4,7 @@ import java.util.List;
 import javax.sql.DataSource;
 import com.haulmont.testtask.entity.Orders;
 
-public class OrdersDaoJdbc implements OrdersDao {
+class OrdersDaoJdbc implements OrdersDao {
 
 	public OrdersDaoJdbc(DataSource ds) {
 	}

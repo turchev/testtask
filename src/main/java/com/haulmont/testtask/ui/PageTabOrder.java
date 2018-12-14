@@ -7,7 +7,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 
 
-public class PageTabOrder extends PageTabAbstract {
+public class PageTabOrder extends PageTabFactory {
 	
 	private HorizontalLayout filterPanel;
 	

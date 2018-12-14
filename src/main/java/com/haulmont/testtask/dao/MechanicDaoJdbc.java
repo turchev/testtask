@@ -4,7 +4,7 @@ import java.util.List;
 import javax.sql.DataSource;
 import com.haulmont.testtask.entity.Mechanic;
 
-public class MechanicDaoJdbc implements MechanicDao {
+class MechanicDaoJdbc implements MechanicDao {
 
 	public MechanicDaoJdbc(DataSource ds) {
 	}

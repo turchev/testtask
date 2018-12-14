@@ -7,7 +7,7 @@ import org.hsqldb.jdbc.JDBCPool;
 import com.haulmont.testtask.ds.DsFactory;
 import com.haulmont.testtask.ds.DsType;
 
-public class DaoFactoryHSQLDB extends DaoFactory {	
+class DaoFactoryHSQLDB extends DaoFactory {	
 	private static JDBCPool pool;
 	private static DataSource ds;
 

@@ -155,52 +155,43 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="18" language="java" name="com.haulmont.testtask.ui.MainLayot" project="testtask" 
-    file="/testtask/src/main/java/com/haulmont/testtask/ui/MainLayot.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="151" y="-17"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <generalization id="19">    
+  <generalization id="18">    
     <end type="SOURCE" refId="16"/>    
     <end type="TARGET" refId="15"/>  
   </generalization>  
-  <realization id="20">    
+  <realization id="19">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="2"/>  
   </realization>  
-  <realization id="21">    
+  <realization id="20">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="2"/>  
   </realization>  
-  <generalization id="22">    
+  <generalization id="21">    
     <end type="SOURCE" refId="9"/>    
     <end type="TARGET" refId="10"/>  
   </generalization>  
-  <generalization id="23">    
+  <generalization id="22">    
     <end type="SOURCE" refId="14"/>    
     <end type="TARGET" refId="15"/>  
   </generalization>  
-  <realization id="24">    
+  <realization id="23">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="7"/>  
   </realization>  
-  <realization id="25">    
+  <realization id="24">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="2"/>  
   </realization>  
-  <realization id="26">    
+  <realization id="25">    
     <end type="SOURCE" refId="12"/>    
     <end type="TARGET" refId="8"/>  
   </realization>  
-  <realization id="27">    
+  <realization id="26">    
     <end type="SOURCE" refId="13"/>    
     <end type="TARGET" refId="9"/>  
   </realization>  
-  <generalization id="28">    
+  <generalization id="27">    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="10"/>  
   </generalization>  

@@ -5,7 +5,7 @@ import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Grid;
 
 
-public class PageTabMechanic extends PageTabAbstract {
+public class PageTabMechanic extends PageTabFactory {
     
     public PageTabMechanic() {
         grid = new Grid<>(Mechanic.class);

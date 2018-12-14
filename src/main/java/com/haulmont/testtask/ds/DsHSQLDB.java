@@ -48,13 +48,13 @@ class DsHSQLDB extends DsFactory {
 	}
 
 	@Override
-	public void shutdown() throws DsExeption {
+	public void shutdown() throws DsException {
 		try (Connection conn = ds.getConnection(); Statement stmnt = conn.createStatement();) {
 			stmnt.execute("SHUTDOWN");
 			LOG.debug("running database SHUTDOWN..");
 			pool.close(WAIT_SHUTDOWN_SECONDS);
 		} catch (Exception e) {
-			throw new DsExeption(e);
+			throw new DsException(e);
 		}
 		LOG.debug("DataSource closed!");
 	}

@@ -1,9 +1,9 @@
 package com.haulmont.testtask.ds;
 
 @SuppressWarnings("serial")
-public class DsExeption extends Exception {
+public class DsException extends Exception {
 	
-	public DsExeption(Throwable throwable) {
+	public DsException(Throwable throwable) {
 		super(throwable);
 	}
 }

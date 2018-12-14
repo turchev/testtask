@@ -1,6 +1,6 @@
 package com.haulmont.testtask.dao;
 
-public  class DaoFactoryH2 extends DaoFactory{
+class DaoFactoryH2 extends DaoFactory{
 
 	@Override
 	public
