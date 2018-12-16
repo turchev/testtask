@@ -10,19 +10,19 @@ class OrdersDaoJdbc implements OrdersDao {
 	}
 
 	@Override
-	public Orders findById(long id) throws DaoException {
+	public synchronized Orders findById(long id) throws DaoException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Orders> findAll() throws DaoException {
+	public synchronized List<Orders> findAll() throws DaoException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void save(Orders dataSet) throws DaoException {
+	public synchronized void save(Orders dataSet) throws DaoException {
 		// TODO Auto-generated method stub
 	}
 }

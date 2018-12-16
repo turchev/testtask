@@ -10,19 +10,19 @@ class MechanicDaoJdbc implements MechanicDao {
 	}
 
 	@Override
-	public Mechanic findById(long id) throws DaoException {
+	public synchronized Mechanic findById(long id) throws DaoException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Mechanic> findAll() throws DaoException {
+	public synchronized List<Mechanic> findAll() throws DaoException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void save(Mechanic dataSet) throws DaoException {
+	public synchronized void save(Mechanic dataSet) throws DaoException {
 		// TODO Auto-generated method stub
 	}	
 }
