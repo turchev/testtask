@@ -1,6 +1,7 @@
-package com.haulmont.testtask.ui;
+package com.haulmont.testtask.view;
 
 import java.util.List;
+
 import com.haulmont.testtask.dao.ClientDao;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.ds.DsType;
@@ -8,7 +9,7 @@ import com.haulmont.testtask.entity.Client;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Grid;
 
-public class PageTabClient extends PageTabFactory {
+public class PageTabClient extends PageTabFactory  {
 	DaoFactory hsqlDaoFactory;
 	ClientDao clientDao;	
 

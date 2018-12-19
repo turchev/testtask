@@ -1,20 +1,20 @@
-package com.haulmont.testtask.ui;
+package com.haulmont.testtask.view;
 
 
 import com.vaadin.ui.Window;
 
 
 @SuppressWarnings("serial")
-public class DataEditorMechanic extends Window implements SaveAndEdit {
+public class DataEditorOrder extends Window implements SaveAndEdit {
     
-    public DataEditorMechanic() {
+    public DataEditorOrder() {
         // TODO Auto-generated constructor stub
     }
 
     
     @Override
     public void save() {
-        // TODO Сохранение данных в таблицу mechanic
+        // TODO Сохранение данных в таблицу order
         update();
     }
 

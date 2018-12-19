@@ -8,9 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.haulmont.testtask.MainUI;
 import com.haulmont.testtask.ds.DsFactory;
 import com.haulmont.testtask.ds.DsType;
-import com.haulmont.testtask.ui.MainUI;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinServlet;
 

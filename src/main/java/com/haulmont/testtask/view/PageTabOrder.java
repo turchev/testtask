@@ -1,4 +1,4 @@
-package com.haulmont.testtask.ui;
+package com.haulmont.testtask.view;
 
 import com.haulmont.testtask.entity.Orders;
 import com.vaadin.server.Sizeable.Unit;

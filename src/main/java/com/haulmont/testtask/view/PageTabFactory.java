@@ -1,4 +1,4 @@
-package com.haulmont.testtask.ui;
+package com.haulmont.testtask.view;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;

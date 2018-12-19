@@ -1,4 +1,4 @@
-package com.haulmont.testtask.ui;
+package com.haulmont.testtask.view;
 
 public interface SaveAndEdit {
 

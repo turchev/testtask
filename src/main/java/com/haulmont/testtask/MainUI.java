@@ -1,7 +1,10 @@
-package com.haulmont.testtask.ui;
+package com.haulmont.testtask;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.haulmont.testtask.view.PageTabClient;
+import com.haulmont.testtask.view.PageTabMechanic;
+import com.haulmont.testtask.view.PageTabOrder;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.TabSheet;
@@ -33,7 +36,7 @@ public class MainUI extends UI {
 			TabSheet.Tab tab3 = tabSheet.addTab(new PageTabOrder().getPageTab());
 			tab3.setCaption("Заказы");
 			tab3.setDescription("Список заказов");
-			verticalLayot.addComponent(tabSheet);
+			verticalLayot.addComponent(tabSheet);			
 
 		} catch (Exception e) {			
 			LOG.error(e);		
