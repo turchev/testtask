@@ -6,14 +6,17 @@ import com.haulmont.testtask.dao.ClientDao;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.ds.DsType;
 import com.haulmont.testtask.entity.Client;
-import com.vaadin.server.Sizeable.Unit;
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.Notification;
 
-public class PageTabClient extends PageTabFactory  {
+@SuppressWarnings("serial")
+public class ClientView extends AbstractView implements View {
 	DaoFactory hsqlDaoFactory;
 	ClientDao clientDao;	
 
-	public PageTabClient() throws UiException{
+	public ClientView() throws UiException{
 		try {
 			Grid<Client> grid = new Grid<Client>(Client.class);
 			grid.setWidth(100.0f, Unit.PERCENTAGE);
@@ -21,7 +24,7 @@ public class PageTabClient extends PageTabFactory  {
 			clientDao = hsqlDaoFactory.getClientDAO();
 			List<Client> clients = clientDao.findAll();
 			grid.setItems(clients);
-			webPage.addComponent(grid);
+			this.addComponent(grid);
 		} catch (Exception e) {
 			throw new UiException(e);
 		}		
@@ -43,5 +46,10 @@ public class PageTabClient extends PageTabFactory  {
 	void btnDeleteClick() {
 		// TODO Auto-generated method stub
 
-	}
+	}	
+
+	@Override
+    public void enter(ViewChangeEvent event) {
+        Notification.show("Welcome to Clients View");
+    }
 }

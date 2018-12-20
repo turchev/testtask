@@ -1,20 +1,17 @@
 package com.haulmont.testtask.view;
 
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 
-public abstract class PageTabFactory implements PageTab{
+@SuppressWarnings("serial")
+public abstract class AbstractView extends VerticalLayout {	
 	
-	VerticalLayout webPage;
-	HorizontalLayout groupButtons;
-	Grid<?> grid = null;
+	HorizontalLayout groupButtons;	
 	
-	protected PageTabFactory() {
-		webPage = new VerticalLayout();
-		webPage.setMargin(true);
+	protected AbstractView() {		
+		this.setMargin(true);
 		groupButtons = new HorizontalLayout();
 		final Button btnAdd = new Button("Добавить");
 		final Button btnChange = new Button("Изменить");
@@ -31,25 +28,8 @@ public abstract class PageTabFactory implements PageTab{
 		groupButtons.addComponent(btnAdd);
 		groupButtons.addComponent(btnChange);
 		groupButtons.addComponent(btnDelete);
-		webPage.addComponent(getLowerGroupButtons());
+		this.addComponent(getLowerGroupButtons());
 	}
-	
-	public static PageTabFactory  getFactory(PageTabType type) throws UiException {
-		try {
-			switch (type) {
-			case CLIENT:
-				return new PageTabClient();
-			case MECHANIC:
-				return new PageTabMechanic();
-			case ORDER:
-				return new PageTabOrder();
-			default:
-				throw new IllegalArgumentException(type.toString());
-			}
-		} catch (Exception e) {
-			throw new UiException(e);
-		}
-	}	
 	
 	private HorizontalLayout getLowerGroupButtons() {
 		groupButtons = new HorizontalLayout();
@@ -74,14 +54,9 @@ public abstract class PageTabFactory implements PageTab{
 		return groupButtons;
 	}
 	
-	@Override
-	public VerticalLayout getPageTab() {
-		return webPage;
-	}
-	
 	abstract void btnAddClick();
-
+	
 	abstract void btnChangeClick();
-
+	
 	abstract void btnDeleteClick();
 }
