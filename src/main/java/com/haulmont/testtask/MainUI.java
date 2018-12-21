@@ -28,8 +28,8 @@ public class MainUI extends UI {
 		VerticalLayout verticalLayot = new VerticalLayout();
 		// Create a navigator to control the views
 		navigator = new Navigator(UI.getCurrent(), verticalLayot);
-		new View(verticalLayot);
-		final String viewClassName = view.getClass().getSimpleName();
+		
+		final String viewClassName = verticalLayot.getClass().getSimpleName();
 		navigator.addView(viewClassName, view);
 		menu.addItem(viewClassName, selectedItem -> navigator.navigateTo(viewClassName));
 
