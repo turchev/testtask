@@ -29,9 +29,9 @@ public class MainUI extends UI {
 		// Create a navigator to control the views
 		navigator = new Navigator(UI.getCurrent(), verticalLayot);
 		
-		final String viewClassName = verticalLayot.getClass().getSimpleName();
-		navigator.addView(viewClassName, view);
-		menu.addItem(viewClassName, selectedItem -> navigator.navigateTo(viewClassName));
+//		final String viewClassName = verticalLayot.getClass().getSimpleName();
+		
+//		menu.addItem(viewClassName, selectedItem -> navigator.navigateTo(viewClassName));
 
 		try {
 			TabSheet tabSheet = new TabSheet();
@@ -50,6 +50,10 @@ public class MainUI extends UI {
 			tab3.setCaption("Заказы");
 			tab3.setDescription("Список заказов");
 			verticalLayot.addComponent(tabSheet);
+			
+			navigator.addView("tab1", ClientView.class);
+//			navigator.addView("tab2", (View) tab2);
+//			navigator.addView("tab3", (View) tab3);
 
 		} catch (Exception e) {
 			LOG.error(e);
