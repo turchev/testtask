@@ -8,9 +8,9 @@ import com.haulmont.testtask.view.MechanicView;
 import com.haulmont.testtask.view.OrderView;
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
+import com.vaadin.navigator.View;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.TabSheet;
-import com.vaadin.navigator.View;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
@@ -19,15 +19,13 @@ import com.vaadin.ui.themes.ValoTheme;
 @SuppressWarnings("serial")
 public class MainUI extends UI {
 	private static final Logger LOG = LogManager.getLogger();
-	Navigator navigator;
+	
 	protected static final String MAINVIEW = "main";
 
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
 
-		VerticalLayout verticalLayot = new VerticalLayout();
-		// Create a navigator to control the views
-		navigator = new Navigator(UI.getCurrent(), verticalLayot);
+		VerticalLayout verticalLayot = new VerticalLayout();			
 		
 //		final String viewClassName = verticalLayot.getClass().getSimpleName();
 		
@@ -51,14 +49,14 @@ public class MainUI extends UI {
 			tab3.setDescription("Список заказов");
 			verticalLayot.addComponent(tabSheet);
 			
-			navigator.addView("tab1", ClientView.class);
-//			navigator.addView("tab2", (View) tab2);
-//			navigator.addView("tab3", (View) tab3);
+			setContent(verticalLayot);
+			Navigator navigator = new Navigator(UI.getCurrent(), verticalLayot);		
+			navigator.addView("tab1", (View) tab1);
+			navigator.addView("tab2", (View) tab2);
+			navigator.addView("tab3", (View) tab3);
 
 		} catch (Exception e) {
 			LOG.error(e);
-		}
-
-		setContent(verticalLayot);
+		}		
 	}
 }
