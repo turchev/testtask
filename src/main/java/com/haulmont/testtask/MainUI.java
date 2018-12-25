@@ -19,36 +19,36 @@ import com.vaadin.ui.themes.ValoTheme;
 @SuppressWarnings("serial")
 public class MainUI extends UI {
 	private static final Logger LOG = LogManager.getLogger();
-	protected static final String MAINVIEW = "main";
+	
 
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
-//	        Label title = new Label("Menu");
-//	        title.addStyleName(ValoTheme.MENU_TITLE);
-//		addStyleName(ValoTheme.UI_WITH_MENU);
-
-		Button btnClient = new Button("Client", e -> getNavigator().navigateTo(""));
-		btnClient.addStyleNames(ValoTheme.BUTTON_LINK, ValoTheme.MENU_ITEM);
-		Button btnMechanic = new Button("Mechanic", e -> getNavigator().navigateTo("Mechanic"));
-		btnMechanic.addStyleNames(ValoTheme.BUTTON_LINK, ValoTheme.MENU_ITEM);
-		Button btnOrders = new Button("Orders", e -> getNavigator().navigateTo("Orders"));
-		btnOrders.addStyleNames(ValoTheme.BUTTON_LINK, ValoTheme.MENU_ITEM);
+		
+		Button btnClient = new Button("Клиент", e -> getNavigator().navigateTo("Client"));
+		btnClient.addStyleNames(ValoTheme.BUTTON_QUIET, ValoTheme.MENU_TITLE);
+		Button btnMechanic = new Button("Механик", e -> getNavigator().navigateTo("Mechanic"));
+		btnMechanic.addStyleNames(ValoTheme.BUTTON_QUIET, ValoTheme.MENU_TITLE);
+		Button btnOrders = new Button("Заказы", e -> getNavigator().navigateTo("Orders"));
+		btnOrders.addStyleNames(ValoTheme.BUTTON_QUIET, ValoTheme.MENU_TITLE);
 
 		CssLayout menu = new CssLayout(btnClient, btnMechanic, btnOrders);
-//	        HorizontalLayout menu = new HorizontalLayout(title, view1, view2);
 		menu.addStyleName(ValoTheme.MENU_ROOT);
+		menu.setSizeUndefined();
 
 		CssLayout viewContainer = new CssLayout();
+		viewContainer.setSizeFull();		
+//		viewContainer.setSizeUndefined();
 
-//	        VerticalLayout mainLayout = new VerticalLayout(menu, viewContainer);
 		HorizontalLayout mainLayout = new HorizontalLayout(menu, viewContainer);
+		mainLayout.setExpandRatio(viewContainer, 1.0f);
+//		mainLayout.setComponentAlignment(viewContainer, Alignment.TOP_LEFT);
 		mainLayout.setSizeFull();
 		setContent(mainLayout);
 
 		Navigator navigator = new Navigator(this, viewContainer);
-		navigator.addView("", ClientView.class);
+		navigator.addView("Client", ClientView.class);
 		navigator.addView("Mechanic", MechanicView.class);
-		navigator.addView("Orders", OrderView.class);
+		navigator.addView("Orders", OrderView.class);		
 	}
 
 //	@Override

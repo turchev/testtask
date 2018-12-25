@@ -11,7 +11,7 @@ public abstract class AbstractView extends VerticalLayout {
 	HorizontalLayout groupButtons;	
 	
 	protected AbstractView() {		
-		this.setMargin(true);
+		this.setMargin(true);	
 		groupButtons = new HorizontalLayout();
 		final Button btnAdd = new Button("Добавить");
 		final Button btnChange = new Button("Изменить");
