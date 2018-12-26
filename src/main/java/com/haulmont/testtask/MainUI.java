@@ -4,10 +4,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.haulmont.testtask.view.ClientView;
+import com.haulmont.testtask.view.ErrorView;
 import com.haulmont.testtask.view.MechanicView;
 import com.haulmont.testtask.view.OrderView;
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
+import com.vaadin.navigator.View;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CssLayout;
@@ -19,36 +21,40 @@ import com.vaadin.ui.themes.ValoTheme;
 @SuppressWarnings("serial")
 public class MainUI extends UI {
 	private static final Logger LOG = LogManager.getLogger();
-	
 
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
+		try {
+			Button btnOrders = new Button("Заказы", e -> getNavigator().navigateTo("Orders"));
+			btnOrders.addStyleNames(ValoTheme.BUTTON_QUIET, ValoTheme.MENU_TITLE);
+			Button btnClient = new Button("Клиент", e -> getNavigator().navigateTo("Client"));
+			btnClient.addStyleNames(ValoTheme.BUTTON_QUIET, ValoTheme.MENU_TITLE);
+			Button btnMechanic = new Button("Механик", e -> getNavigator().navigateTo("Mechanic"));
+			btnMechanic.addStyleNames(ValoTheme.BUTTON_QUIET, ValoTheme.MENU_TITLE);
+
+			CssLayout menu = new CssLayout(btnOrders, btnClient, btnMechanic);
+			menu.addStyleName(ValoTheme.MENU_ROOT);
+			menu.setSizeUndefined();
+
+			CssLayout viewContainer = new CssLayout();
+			viewContainer.setSizeFull();
+
+			HorizontalLayout mainLayout = new HorizontalLayout(menu, viewContainer);
+			mainLayout.setExpandRatio(viewContainer, 1.0f);
+			mainLayout.setSizeFull();
+			setContent(mainLayout);
+
+			Navigator navigator = new Navigator(this, viewContainer);
+			navigator.addView("Orders", OrderView.class);
+			navigator.addView("Client", ClientView.class);
+			navigator.addView("Mechanic", MechanicView.class);
+			navigator.setErrorView(ErrorView.class);
+			
+		} catch (Exception e) {
+			LOG.error(e);
+//			this.getNavigator().setErrorView(ErrorView.class);
+		}
 		
-		Button btnClient = new Button("Клиент", e -> getNavigator().navigateTo("Client"));
-		btnClient.addStyleNames(ValoTheme.BUTTON_QUIET, ValoTheme.MENU_TITLE);
-		Button btnMechanic = new Button("Механик", e -> getNavigator().navigateTo("Mechanic"));
-		btnMechanic.addStyleNames(ValoTheme.BUTTON_QUIET, ValoTheme.MENU_TITLE);
-		Button btnOrders = new Button("Заказы", e -> getNavigator().navigateTo("Orders"));
-		btnOrders.addStyleNames(ValoTheme.BUTTON_QUIET, ValoTheme.MENU_TITLE);
-
-		CssLayout menu = new CssLayout(btnClient, btnMechanic, btnOrders);
-		menu.addStyleName(ValoTheme.MENU_ROOT);
-		menu.setSizeUndefined();
-
-		CssLayout viewContainer = new CssLayout();
-		viewContainer.setSizeFull();		
-//		viewContainer.setSizeUndefined();
-
-		HorizontalLayout mainLayout = new HorizontalLayout(menu, viewContainer);
-		mainLayout.setExpandRatio(viewContainer, 1.0f);
-//		mainLayout.setComponentAlignment(viewContainer, Alignment.TOP_LEFT);
-		mainLayout.setSizeFull();
-		setContent(mainLayout);
-
-		Navigator navigator = new Navigator(this, viewContainer);
-		navigator.addView("Client", ClientView.class);
-		navigator.addView("Mechanic", MechanicView.class);
-		navigator.addView("Orders", OrderView.class);		
 	}
 
 //	@Override
