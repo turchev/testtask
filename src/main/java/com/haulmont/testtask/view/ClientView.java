@@ -13,8 +13,8 @@ import com.vaadin.ui.Notification;
 
 @SuppressWarnings("serial")
 public class ClientView extends AbstractView implements View {
-	DaoFactory hsqlDaoFactory;
-	ClientDao clientDao;	
+	private DaoFactory hsqlDaoFactory;
+	private ClientDao clientDao;	
 
 	public ClientView() throws UiException{
 		try {
@@ -39,7 +39,6 @@ public class ClientView extends AbstractView implements View {
 	@Override
 	void btnChangeClick() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override

@@ -34,5 +34,14 @@
 @mixin mytheme {
   @include valo;
 
-  // Insert your own theme rules here 
+  .v-label-errorLabel {
+    background: none;
+    text-align: center;
+    font-family: Arial;
+    color: red;
+    font-weight: bold;
+    font-size: 140pt;    
+    line-height: 140pt;
+    padding: 5px;
+  }
 }

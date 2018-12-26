@@ -15049,3 +15049,14 @@ div.v-layout.v-horizontal.v-widget {
 	width: 19px;
 	overflow: hidden;
 }
+
+.mytheme .v-label-errorLabel {
+	background: none;
+	text-align: center;
+	font-family: Arial;
+	color: red;
+	font-weight: bold;
+	font-size: 140pt;
+	line-height: 140pt;
+	padding: 5px;
+}
