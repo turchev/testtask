@@ -31,8 +31,8 @@ class OrdersDaoJdbc implements OrdersDao {
 				orders.setClientId(rs.getLong("client_id"));
 				orders.setMechanicId(rs.getLong("mechanic_id"));
 				orders.setStatus(OrderStatusType.valueOf(rs.getString("status")));
-				orders.setDateCreat(rs.getTimestamp(rs.getString("date_creat")));
-				orders.setCompletionDate(rs.getTimestamp(rs.getString("completion_date")));
+				orders.setDateCreat(rs.getTimestamp("date_creat"));
+				orders.setCompletionDate(rs.getTimestamp("completion_date"));
 				orders.setPrice(rs.getBigDecimal("price"));
 				result.add(orders);
 			}
