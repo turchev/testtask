@@ -55,6 +55,6 @@ public class Mechanic extends AEntity {
     
     @Override
     public String toString() {
-        return lastName + " " + firstName;
+        return lastName + " " + firstName + " " + patronnymic;
     }
 }

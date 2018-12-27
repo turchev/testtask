@@ -18,12 +18,13 @@ public class ClientView extends AbstractView implements View {
 
 	public ClientView() throws UiException{
 		try {
-			Grid<Client> grid = new Grid<Client>(Client.class);
-			grid.setWidth(100.0f, Unit.PERCENTAGE);
+			Grid<Client> grid = new Grid<Client>(Client.class);			
+			grid.setWidth(100.0f, Unit.PERCENTAGE);			
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			clientDao = hsqlDaoFactory.getClientDAO();
 			List<Client> clients = clientDao.findAll();
 			grid.setItems(clients);
+			grid.setColumnOrder("id", "firstName", "lastName", "patronnymic", "phone");
 			this.addComponent(grid);
 		} catch (Exception e) {
 			throw new UiException(e);

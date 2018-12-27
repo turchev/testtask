@@ -25,6 +25,7 @@ public class MechanicView extends AbstractView implements View {
 		hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 		mechanicDao = hsqlDaoFactory.getMechanicDao();
 		List<Mechanic> mechanic = mechanicDao.findAll();
+		grid.setColumnOrder("id", "firstName", "lastName", "patronnymic", "wages");
 		grid.setItems(mechanic);
 		this.addComponent(grid);
 		

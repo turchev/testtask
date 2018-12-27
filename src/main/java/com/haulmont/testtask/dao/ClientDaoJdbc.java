@@ -19,12 +19,6 @@ class ClientDaoJdbc implements ClientDao {
 	}
 
 	@Override
-	public synchronized Client findById(long id) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public synchronized List<Client> findAll() throws DaoException {
 		List<Client> result = new ArrayList<Client>();
 		try (Connection connection = ds.getConnection();
@@ -43,6 +37,12 @@ class ClientDaoJdbc implements ClientDao {
 			throw new DaoException(e);
 		} 		
 		return result;
+	}
+	
+	@Override
+	public synchronized Client findById(long id) throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
