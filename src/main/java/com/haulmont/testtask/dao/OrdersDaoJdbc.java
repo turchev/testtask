@@ -6,7 +6,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
-
 import com.haulmont.testtask.entity.OrderStatusType;
 import com.haulmont.testtask.entity.Orders;
 
