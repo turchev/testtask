@@ -18,11 +18,11 @@ public class Orders extends AEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "client_id")	
-	private Long clientId;
+	private Client client;	
 
 	@ManyToOne
 	@JoinColumn(name = "mechanic_id")
-	private Long mechanicId;
+	private Mechanic mechanic;
 
 	@Column(name = "status")
 	private OrderStatusType status;
@@ -43,21 +43,21 @@ public class Orders extends AEntity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public Long getClientId() {
-		return clientId;
+	
+	public Client getClient() {
+		return client;
 	}
 
-	public void setClientId(Long clientId) {
-		this.clientId = clientId;
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
-	public Long getMechanicId() {
-		return mechanicId;
+	public Mechanic getMechanic() {
+		return mechanic;
 	}
 
-	public void setMechanicId(Long mechanicId) {
-		this.mechanicId = mechanicId;
+	public void setMechanic(Mechanic mechanic) {
+		this.mechanic = mechanic;
 	}
 
 	public Timestamp getDateCreat() {
