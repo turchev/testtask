@@ -19,17 +19,24 @@ public class MechanicView extends AbstractView implements View {
     private DaoFactory hsqlDaoFactory;
 	private MechanicDao mechanicDao;
 
-	public MechanicView() throws DaoException {
-    	Grid<Mechanic> grid = new Grid<>(Mechanic.class);
-        grid.setWidth(100.0f, Unit.PERCENTAGE);        
+	public MechanicView() throws DaoException, UiException {		                
 		hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 		mechanicDao = hsqlDaoFactory.getMechanicDao();
-		List<Mechanic> mechanic = mechanicDao.findAll();
-		grid.setColumnOrder("id", "firstName", "lastName", "patronnymic", "wages");
-		grid.setItems(mechanic);
-		this.addComponent(grid);
-		
+		refresh();
     }
+	
+	public void refresh() throws UiException {
+		try {
+			Grid<Mechanic> grid = new Grid<>(Mechanic.class);
+			List<Mechanic> mechanic = mechanicDao.findAll();
+			grid.setWidth(100.0f, Unit.PERCENTAGE);
+			grid.setColumnOrder("id", "firstName", "lastName", "patronnymic", "wages");
+			grid.setItems(mechanic);
+			this.addComponent(grid);
+		} catch (Exception e) {	
+			throw new UiException(e);
+		}
+	}
 
 	@Override
 	void btnAddClick() {

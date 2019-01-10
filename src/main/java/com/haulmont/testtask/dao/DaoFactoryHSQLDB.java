@@ -1,9 +1,7 @@
 package com.haulmont.testtask.dao;
 
 import javax.sql.DataSource;
-
 import org.hsqldb.jdbc.JDBCPool;
-
 import com.haulmont.testtask.ds.DsFactory;
 import com.haulmont.testtask.ds.DsType;
 

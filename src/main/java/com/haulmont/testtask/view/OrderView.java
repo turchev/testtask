@@ -1,6 +1,8 @@
 package com.haulmont.testtask.view;
 
 import java.util.List;
+
+import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.OrdersDao;
 import com.haulmont.testtask.ds.DsType;
@@ -18,16 +20,20 @@ public class OrderView extends AbstractView implements View {
 	private OrdersDao orderDao;
 	private HorizontalLayout filterPanel;
 
-	public OrderView() throws UiException {
-		try {
-			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
-			orderDao = hsqlDaoFactory.getOrderDao();
+	public OrderView() throws DaoException, UiException {
+		hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
+		orderDao = hsqlDaoFactory.getOrderDao();
+		TextField description = new TextField("Описание");
+		TextField status = new TextField("Статус");
+		TextField client = new TextField("Клиент");
+		filterPanel = new HorizontalLayout(description, status, client);
+		this.addComponent(filterPanel);
+		refresh();
+	}
+
+	public void refresh() throws UiException  {
+		try {			
 			List<Orders> orders = orderDao.findAll();
-			TextField description = new TextField("Описание");
-			TextField status = new TextField("Статус");
-			TextField client = new TextField("Клиент");
-			filterPanel = new HorizontalLayout(description, status, client);
-			this.addComponent(filterPanel);
 			Grid<Orders> grid = new Grid<>();
 			grid.setWidth(100.0f, Unit.PERCENTAGE);
 			grid.setItems(orders);
@@ -42,7 +48,7 @@ public class OrderView extends AbstractView implements View {
 			grid.setColumnOrder("id", "description", "clientId", "mechanicId", "status", "dateCreat", "completionDate",
 					"price");
 			this.addComponent(grid);
-		} catch (Exception e) {
+		} catch (Exception e) {	
 			throw new UiException(e);
 		}
 	}
