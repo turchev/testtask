@@ -29,6 +29,15 @@ CREATE TABLE orders (
 	FOREIGN KEY (mechanic_id) REFERENCES mechanic(id)
 );  
 
+CREATE VIEW orders_with_fio AS
+SELECT orders.id, orders.description, orders.status, orders.date_creat, orders.completion_date, orders.price,
+	CONCAT(client.first_name, ' ', client.last_name, ' ', client.patronnymic) AS client_fio,
+	CONCAT(mechanic.first_name, ' ', mechanic.last_name) AS mechanic_fio
+	FROM orders
+LEFT JOIN client ON orders.client_id = client.id
+LEFT JOIN mechanic ON orders.mechanic_id = mechanic.id;
+
+
 INSERT INTO client (first_name, last_name, patronnymic, phone)
 VALUES ('Семенова', 'София', 'Семеновна', '+7(311)311-11-11');
 INSERT INTO client (first_name, last_name, patronnymic, phone)
