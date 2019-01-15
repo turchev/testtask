@@ -39,15 +39,17 @@ public class OrderView extends AbstractView implements View {
 			grid.setItems(orders);
 			grid.addColumn(OrdersWithFio::getId).setId("id").setCaption("№");
 			grid.addColumn(OrdersWithFio::getDescription).setId("description").setCaption("Описание");
-			grid.addColumn(OrdersWithFio::getClientId).setId("clientId").setCaption("Клиент");
+//			grid.addColumn(OrdersWithFio::getClientId).setId("clientId").setCaption("Клиент");
 			grid.addColumn(OrdersWithFio::getClientFio).setId("clientFio").setCaption("Клиент ФИО");
-			grid.addColumn(OrdersWithFio::getMechanicId).setId("mechanicId").setCaption("Механик");
+//			grid.addColumn(OrdersWithFio::getMechanicId).setId("mechanicId").setCaption("Механик");
 			grid.addColumn(OrdersWithFio::getMechanicFio).setId("mechanicFio").setCaption("Механик ФИО");
 			grid.addColumn(OrdersWithFio::getDateCreat).setId("dateCreat").setCaption("Дата создания заявки");
 			grid.addColumn(OrdersWithFio::getCompletionDate).setId("completionDate").setCaption("Дата окончания работ");
 			grid.addColumn(OrdersWithFio::getPrice).setId("price").setCaption("Цена");
 			grid.addColumn(OrdersWithFio::getStatus).setId("status").setCaption("Статус");
-			grid.setColumnOrder("id", "description", "clientId", "clientFio", "mechanicId", "mechanicFio", "status", "dateCreat", "completionDate",
+//			grid.setColumnOrder("id", "description", "clientId", "clientFio", "mechanicId", "mechanicFio", "status", "dateCreat", "completionDate",
+//					"price");
+			grid.setColumnOrder("id", "description", "clientFio", "mechanicFio", "status", "dateCreat", "completionDate",
 					"price");
 			this.addComponent(grid);
 		} catch (Exception e) {	
