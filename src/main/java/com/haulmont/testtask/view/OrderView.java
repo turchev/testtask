@@ -6,7 +6,7 @@ import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.OrdersDao;
 import com.haulmont.testtask.ds.DsType;
-import com.haulmont.testtask.entity.Orders;
+import com.haulmont.testtask.entity.OrdersWithFio;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Grid;
@@ -33,19 +33,21 @@ public class OrderView extends AbstractView implements View {
 
 	public void refresh() throws UiException  {
 		try {			
-			List<Orders> orders = orderDao.findAll();
-			Grid<Orders> grid = new Grid<>();
+			List<OrdersWithFio> orders = orderDao.findAll();
+			Grid<OrdersWithFio> grid = new Grid<>();
 			grid.setWidth(100.0f, Unit.PERCENTAGE);
 			grid.setItems(orders);
-			grid.addColumn(Orders::getId).setId("id").setCaption("№");
-			grid.addColumn(Orders::getDescription).setId("description").setCaption("Описание");
-			grid.addColumn(Orders::getClientId).setId("clientId").setCaption("Клиент");
-			grid.addColumn(Orders::getMechanicId).setId("mechanicId").setCaption("Механик");
-			grid.addColumn(Orders::getDateCreat).setId("dateCreat").setCaption("Дата создания заявки");
-			grid.addColumn(Orders::getCompletionDate).setId("completionDate").setCaption("Дата окончания работ");
-			grid.addColumn(Orders::getPrice).setId("price").setCaption("Цена");
-			grid.addColumn(Orders::getStatus).setId("status").setCaption("Статус");
-			grid.setColumnOrder("id", "description", "clientId", "mechanicId", "status", "dateCreat", "completionDate",
+			grid.addColumn(OrdersWithFio::getId).setId("id").setCaption("№");
+			grid.addColumn(OrdersWithFio::getDescription).setId("description").setCaption("Описание");
+			grid.addColumn(OrdersWithFio::getClientId).setId("clientId").setCaption("Клиент");
+			grid.addColumn(OrdersWithFio::getClientFio).setId("clientFio").setCaption("Клиент ФИО");
+			grid.addColumn(OrdersWithFio::getMechanicId).setId("mechanicId").setCaption("Механик");
+			grid.addColumn(OrdersWithFio::getMechanicFio).setId("mechanicFio").setCaption("Механик ФИО");
+			grid.addColumn(OrdersWithFio::getDateCreat).setId("dateCreat").setCaption("Дата создания заявки");
+			grid.addColumn(OrdersWithFio::getCompletionDate).setId("completionDate").setCaption("Дата окончания работ");
+			grid.addColumn(OrdersWithFio::getPrice).setId("price").setCaption("Цена");
+			grid.addColumn(OrdersWithFio::getStatus).setId("status").setCaption("Статус");
+			grid.setColumnOrder("id", "description", "clientId", "clientFio", "mechanicId", "mechanicFio", "status", "dateCreat", "completionDate",
 					"price");
 			this.addComponent(grid);
 		} catch (Exception e) {	

@@ -30,10 +30,11 @@ CREATE TABLE orders (
 );  
 
 CREATE VIEW orders_with_fio AS
-SELECT orders.id, orders.description, orders.status, orders.date_creat, orders.completion_date, orders.price,
+SELECT orders.id, orders.description, orders.client_id, orders.mechanic_id, 
+		orders.status, orders.date_creat, orders.completion_date, orders.price,
 	CONCAT(client.first_name, ' ', client.last_name, ' ', client.patronnymic) AS client_fio,
 	CONCAT(mechanic.first_name, ' ', mechanic.last_name) AS mechanic_fio
-	FROM orders
+FROM orders
 LEFT JOIN client ON orders.client_id = client.id
 LEFT JOIN mechanic ON orders.mechanic_id = mechanic.id;
 

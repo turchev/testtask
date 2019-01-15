@@ -6,12 +6,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.sql.DataSource;
-
 import com.haulmont.testtask.entity.Client;
-import com.haulmont.testtask.entity.OrderStatusType;
-import com.haulmont.testtask.entity.Orders;
 
 class ClientDaoJdbc implements ClientDao {
 	private DataSource ds = null;
