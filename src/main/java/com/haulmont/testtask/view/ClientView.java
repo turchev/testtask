@@ -37,19 +37,15 @@ public class ClientView extends AbstractView implements View {
 
 	@Override
 	void btnAddClick() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
-	void btnChangeClick() {
-		// TODO Auto-generated method stub
+	void btnChangeClick() {		
 	}
 
 	@Override
-	void btnDeleteClick() {
-		// TODO Auto-generated method stub
-
+	void btnDeleteClick() {		
 	}
 
 	@Override
