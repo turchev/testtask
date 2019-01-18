@@ -13,6 +13,7 @@ class ClientDaoJdbc implements ClientDao {
 	private DataSource ds = null;
 	private static final String SELECT_ALL_CLIENT = "select * from client;";
 	private static final String SELECT_BY_ID = "select * from client where id=?;";;
+	private static final String SELECT_LAST_NAME = "select last_name from client;";;
 
 	public ClientDaoJdbc(DataSource ds) {
 		this.ds = ds;
@@ -32,6 +33,21 @@ class ClientDaoJdbc implements ClientDao {
 				client.setPatronnymic(rs.getString("patronnymic"));
 				client.setPhone(rs.getString("phone"));
 				result.add(client);
+			}
+		} catch (Exception e) {
+			throw new DaoException(e);
+		} 		
+		return result;
+	}
+	
+	@Override
+	public List<String> getLastNameList() throws DaoException {
+		List<String> result = new ArrayList<String>();
+		try (Connection connection = ds.getConnection();
+				Statement statement = connection.createStatement();) {
+			ResultSet rs = statement.executeQuery(SELECT_LAST_NAME);
+			while (rs.next()) {				
+				result.add(rs.getString("last_name"));
 			}
 		} catch (Exception e) {
 			throw new DaoException(e);
@@ -61,5 +77,5 @@ class ClientDaoJdbc implements ClientDao {
 	@Override
 	public synchronized void save(Client dataSet) throws DaoException {
 		// TODO Auto-generated method stub
-	}
+	}	
 }
