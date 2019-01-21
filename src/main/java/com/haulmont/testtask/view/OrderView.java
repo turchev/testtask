@@ -3,7 +3,6 @@ package com.haulmont.testtask.view;
 import java.util.List;
 
 import com.haulmont.testtask.dao.ClientDao;
-import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.OrdersDao;
 import com.haulmont.testtask.ds.DsType;
@@ -27,51 +26,22 @@ public class OrderView extends AbstractView implements View {
 	private TextField filterDescription;
 	private NativeSelect<String> filterClient;
 	private NativeSelect<OrderStatusType> filterStatus;
-	private Button btnUpdateToFilter, btnCleanFilter;
+	private Button btnAppleFilter, btnCleanFilter;
+	private Grid<OrdersWithFio> grid = new Grid<>();;
 
-	public OrderView() throws DaoException, UiException {
-		hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
-		orderDao = hsqlDaoFactory.getOrderDao();
-		clientDao = hsqlDaoFactory.getClientDAO();
-		this.addComponent(getFilterPanel());
+	public OrderView() throws UiException {
+		init();
 		refresh();
 	}
-
-	HorizontalLayout getFilterPanel() throws UiException {
+	
+	private void init() throws UiException{
 		try {
-			filterDescription = new TextField("Описание");
-
-			filterStatus = new NativeSelect<>("Статус");
-			filterStatus.setItems(OrderStatusType.values());
-
-			filterClient = new NativeSelect<>("Фамилия клиента");
-			filterClient.setItems(clientDao.getLastNameList());
-
-			btnUpdateToFilter = new Button("Обновить с учетом фильтра");
-			btnUpdateToFilter.addClickListener(event -> {
-				btnUpdateToFilterClick();
-			});
-			btnCleanFilter = new Button("Очистить фильтр");
-			btnCleanFilter.addClickListener(event -> {
-				btnCleanFilterClick();
-			});
-			HorizontalLayout filterPanel = new HorizontalLayout(filterDescription, filterStatus, filterClient,
-					btnUpdateToFilter, btnCleanFilter);
-
-			return filterPanel;
-			
-		} catch (Exception e) {
-			throw new UiException(e);
-		}
-	}
-
-	public void refresh() throws UiException {
-		try {
-			List<OrdersWithFio> orders = orderDao.findAll();
-			Grid<OrdersWithFio> grid = new Grid<>();
+			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
+			orderDao = hsqlDaoFactory.getOrderDao();
+			clientDao = hsqlDaoFactory.getClientDAO();			
+			this.addComponent(getFilterPanel());			
 			grid.setWidth(100.0f, Unit.PERCENTAGE);
 			grid.setSelectionMode(SelectionMode.SINGLE);
-			grid.setItems(orders);
 			grid.addColumn(OrdersWithFio::getId).setId("id").setCaption("№");
 			grid.addColumn(OrdersWithFio::getDescription).setId("description").setCaption("Описание").setWidth(500);
 			grid.addColumn(OrdersWithFio::getClientFio).setId("clientFio").setCaption("Клиент ФИО");
@@ -82,36 +52,71 @@ public class OrderView extends AbstractView implements View {
 			grid.addColumn(OrdersWithFio::getStatus).setId("status").setCaption("Статус");
 			grid.setColumnOrder("id", "description", "clientFio", "mechanicFio", "status", "dateCreat",
 					"completionDate", "price");
-			this.addComponent(grid);
+			this.addComponent(grid);			
 		} catch (Exception e) {
 			throw new UiException(e);
 		}
 	}
 
-	void btnUpdateToFilterClick() {
-		Notification.show("TODO", "Обновить", Notification.Type.HUMANIZED_MESSAGE);
+	private HorizontalLayout getFilterPanel() throws UiException {
+		try {
+			filterDescription = new TextField("Описание");
+
+			filterStatus = new NativeSelect<>("Статус");
+			filterStatus.setItems(OrderStatusType.values());
+
+			filterClient = new NativeSelect<>("Фамилия клиента");
+			filterClient.setItems(clientDao.getLastNameList());
+
+			btnAppleFilter = new Button("Выполнить фильтр");
+			btnAppleFilter.addClickListener(event -> {
+				btnAppleFilterClick();
+			});
+			btnCleanFilter = new Button("Очистить фильтр");
+			btnCleanFilter.addClickListener(event -> {
+				btnCleanFilterClick();
+			});
+			HorizontalLayout filterPanel = new HorizontalLayout(filterDescription, filterStatus, filterClient,
+					btnAppleFilter, btnCleanFilter);
+
+			return filterPanel;
+
+		} catch (Exception e) {
+			throw new UiException(e);
+		}
 	}
 
-	void btnCleanFilterClick() {
+	private void refresh() throws UiException {
+		try {
+			List<OrdersWithFio> orders = orderDao.findAll();
+			grid.setItems(orders);
+		} catch (Exception e) {
+			throw new UiException(e);
+		}
+	}
+
+	private void btnAppleFilterClick() {
+		grid.sort("price");
+		grid.getDataProvider().refreshAll();
+	}
+
+	private void btnCleanFilterClick() {
 		Notification.show("TODO", "Очистить", Notification.Type.HUMANIZED_MESSAGE);
 	}
 
 	@Override
 	void btnAddClick() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	void btnChangeClick() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	void btnDeleteClick() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override

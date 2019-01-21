@@ -22,14 +22,6 @@ class OrdersDaoJdbc implements OrdersDao {
 	@Override
 	public synchronized List<OrdersWithFio> findAll() throws DaoException {
 		
-//		CREATE VIEW orders_with_fio AS
-//		SELECT orders.id, orders.description, orders.client_id, orders.mechanic_id, orders.status, orders.date_creat, orders.completion_date, orders.price,
-//			CONCAT(client.first_name, ' ', client.last_name, ' ', client.patronnymic) AS client_fio,
-//			CONCAT(mechanic.first_name, ' ', mechanic.last_name) AS mechanic_fio
-//			FROM orders
-//		LEFT JOIN client ON orders.client_id = client.id
-//		LEFT JOIN mechanic ON orders.mechanic_id = mechanic.id;		
-		
 		List<OrdersWithFio> result = new ArrayList<OrdersWithFio>();
 		try (Connection connection = ds.getConnection();
 				Statement statement = connection.createStatement();) {

@@ -23,7 +23,7 @@ VALUES (
 		SELECT client.id FROM client WHERE last_name LIKE '%Иванов%'
 	), (
 		SELECT mechanic.id FROM mechanic WHERE last_name LIKE '%Павлов%'
-	), 'PLANNED', '2018-09-01 12:00:00', '2018-09-01 14:00:00', '2500.50'
+	), 'Запланирован', '2018-09-01 12:00:00', '2018-09-01 14:00:00', '2500.50'
 );
 
 INSERT INTO orders (description, client_id, mechanic_id, status, date_creat, completion_date, price)
@@ -32,7 +32,7 @@ VALUES (
 		SELECT client.id FROM client WHERE last_name LIKE '%Сидорова%'
 	), (
 		SELECT mechanic.id FROM mechanic WHERE last_name LIKE '%Петров%'
-	), 'PLANNED', '2018-09-01 13:00:00', '2018-09-01 13:30:00', '350.80'
+	), 'Запланирован', '2018-09-01 13:00:00', '2018-09-01 13:30:00', '350.80'
 );
 
 INSERT INTO orders (description, client_id, mechanic_id, status, date_creat, completion_date, price)
@@ -41,7 +41,7 @@ VALUES (
 		SELECT client.id FROM client WHERE last_name LIKE '%Семенова%'
 	), (
 		SELECT mechanic.id FROM mechanic WHERE last_name LIKE '%Павлов%'
-	), 'FULFILLED', '2018-09-02 10:00:00', '2018-09-03 14:00:00', '125000.30'
+	), 'Выполнен', '2018-09-02 10:00:00', '2018-09-03 14:00:00', '125000.30'
 );
 
 INSERT INTO orders (description, client_id, mechanic_id, status, date_creat, completion_date, price)
@@ -50,7 +50,7 @@ VALUES (
 		SELECT client.id FROM client WHERE last_name LIKE '%Федоров%'
 	), (
 		SELECT mechanic.id FROM mechanic WHERE last_name LIKE '%Петров%'
-	), 'FULFILLED', '2018-09-05 13:20:00', '2018-09-05 16:30:00', '3350.20'
+	), 'Выполнен', '2018-09-05 13:20:00', '2018-09-05 16:30:00', '3350.20'
 );
 
 INSERT INTO orders (description, client_id, mechanic_id, status, date_creat, completion_date, price)
@@ -59,7 +59,7 @@ VALUES (
 		SELECT client.id FROM client WHERE last_name LIKE '%Максимов%'
 	), (
 		SELECT mechanic.id FROM mechanic WHERE last_name LIKE '%Петров%'
-	), 'ACCEPTED', '2018-11-01 13:00:00', '2018-11-01 14:00:00', '1000.00'
+	), 'Принят', '2018-11-01 13:00:00', '2018-11-01 14:00:00', '1000.00'
 );
 
 INSERT INTO orders (description, client_id, mechanic_id, status, date_creat, completion_date, price)
@@ -68,7 +68,7 @@ VALUES (
 		SELECT client.id FROM client WHERE last_name LIKE '%Николаев%'
 	), (
 		SELECT mechanic.id FROM mechanic WHERE last_name LIKE '%Петров%'
-	), 'ACCEPTED', '2018-10-10 10:00:00', '2018-10-10 11:00:00', '1000.00'
+	), 'Принят', '2018-10-10 10:00:00', '2018-10-10 11:00:00', '1000.00'
 );
 
 SHUTDOWN;
