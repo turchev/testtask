@@ -31,7 +31,7 @@ public class OrderView extends AbstractView implements View {
 
 	public OrderView() throws UiException {
 		init();
-		refresh();
+		showAll();
 	}
 	
 	private void init() throws UiException{
@@ -56,6 +56,27 @@ public class OrderView extends AbstractView implements View {
 		} catch (Exception e) {
 			throw new UiException(e);
 		}
+	}
+	
+	private void showAll() throws UiException {
+		try {
+			List<OrdersWithFio> orders = orderDao.findAll();
+			grid.setItems(orders);
+		} catch (Exception e) {
+			throw new UiException(e);
+		}
+	}
+	
+	private void findUsingFilter() throws UiException {
+		try {
+			String p1, p2;
+			p1 = "За";
+			p2 = "Запланирован";
+			List<OrdersWithFio> orders = orderDao.findUsingFilter(p1, p2, 1L);
+			grid.setItems(orders);
+		} catch (Exception e) {
+			throw new UiException(e);
+		}		
 	}
 
 	private HorizontalLayout getFilterPanel() throws UiException {
@@ -86,22 +107,19 @@ public class OrderView extends AbstractView implements View {
 		}
 	}
 
-	private void refresh() throws UiException {
-		try {
-			List<OrdersWithFio> orders = orderDao.findAll();
-			grid.setItems(orders);
-		} catch (Exception e) {
-			throw new UiException(e);
-		}
-	}
-
 	private void btnAppleFilterClick() {
-		grid.sort("price");
+		grid.sort("price");		
 		grid.getDataProvider().refreshAll();
 	}
 
 	private void btnCleanFilterClick() {
-		Notification.show("TODO", "Очистить", Notification.Type.HUMANIZED_MESSAGE);
+		try {
+			findUsingFilter();
+		} catch (UiException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		grid.getDataProvider().refreshAll();
 	}
 
 	@Override
@@ -123,5 +141,4 @@ public class OrderView extends AbstractView implements View {
 	public void enter(ViewChangeEvent event) {
 		Notification.show("Welcome to Orders View");
 	}
-
 }
