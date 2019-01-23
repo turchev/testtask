@@ -10,11 +10,7 @@ import javax.sql.DataSource;
 import com.haulmont.testtask.entity.OrderStatusType;
 import com.haulmont.testtask.entity.OrdersWithFio;
 
-class OrdersDaoJdbc implements OrdersDao {
-	private static final String SELECT_ALL = "SELECT * FROM orders_with_fio;";
-	private static final String SELECT_BY_ID = "SELECT * FROM orders where id=?;";
-	private static final String SELECT_USING_FILTER = "SELECT * FROM orders_with_fio "
-			+ "WHERE LOWER(description) LIKE LOWER('%?%') AND status='?' AND client_id=?;";
+class OrdersDaoJdbc implements OrdersDao {		
 
 	private DataSource ds = null;
 
@@ -23,10 +19,10 @@ class OrdersDaoJdbc implements OrdersDao {
 	}
 
 	@Override
-	public synchronized List<OrdersWithFio> findAll() throws DaoException {
+	public List<OrdersWithFio> findAll() throws DaoException {
 		List<OrdersWithFio> result = new ArrayList<OrdersWithFio>();
 		try (Connection connection = ds.getConnection(); Statement statement = connection.createStatement();) {
-			ResultSet rs = statement.executeQuery(SELECT_ALL);
+			ResultSet rs = statement.executeQuery("SELECT * FROM orders_with_fio;");
 			while (rs.next()) {
 				OrdersWithFio orders = new OrdersWithFio();
 				orders.setId(rs.getLong("id"));
@@ -45,18 +41,18 @@ class OrdersDaoJdbc implements OrdersDao {
 			throw new DaoException(e);
 		}
 		return result;
-	}
+	}	
 
 	@Override
-	public List<OrdersWithFio> findUsingFilter(String findDescription, String status, Long clientId) throws DaoException {
-		List<OrdersWithFio> result = new ArrayList<OrdersWithFio>();
+	public List<OrdersWithFio> findUsingFilter(String findDescription, String status, String clientFio) throws DaoException {
+		List<OrdersWithFio> result = new ArrayList<OrdersWithFio>();	
 		try (Connection connection = ds.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM orders_with_fio "
 						+ "WHERE LOWER(description) LIKE LOWER('%" + findDescription + "%') "
 						+ "AND status = ? "
-						+ "AND client_id = ?;");) {					
+						+ "AND LOWER(client_fio) LIKE LOWER('%" + clientFio + "%');");
+				) {					
 			pstmt.setString(1, status);
-			pstmt.setLong(2, clientId);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				OrdersWithFio orders = new OrdersWithFio();
@@ -81,7 +77,7 @@ class OrdersDaoJdbc implements OrdersDao {
 	@Override
 	public synchronized OrdersWithFio findById(long id) throws DaoException {
 		try (Connection connection = ds.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(SELECT_BY_ID);) {
+				PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM orders where id=?;");) {
 			pstmt.setLong(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			rs.next();

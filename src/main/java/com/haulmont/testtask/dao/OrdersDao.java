@@ -6,6 +6,6 @@ import com.haulmont.testtask.entity.OrdersWithFio;
 
 public interface OrdersDao extends IDao<OrdersWithFio> {	
 
-	List<OrdersWithFio> findUsingFilter(String description, String status, Long clientId) throws DaoException;
+	List<OrdersWithFio> findUsingFilter(String findDescription, String status, String clientFio) throws DaoException;
 	
 }

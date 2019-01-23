@@ -33,13 +33,13 @@ public class OrderView extends AbstractView implements View {
 		init();
 		showAll();
 	}
-	
-	private void init() throws UiException{
+
+	private void init() throws UiException {
 		try {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			orderDao = hsqlDaoFactory.getOrderDao();
-			clientDao = hsqlDaoFactory.getClientDAO();			
-			this.addComponent(getFilterPanel());			
+			clientDao = hsqlDaoFactory.getClientDAO();
+			this.addComponent(getFilterPanel());
 			grid.setWidth(100.0f, Unit.PERCENTAGE);
 			grid.setSelectionMode(SelectionMode.SINGLE);
 			grid.addColumn(OrdersWithFio::getId).setId("id").setCaption("№");
@@ -52,12 +52,12 @@ public class OrderView extends AbstractView implements View {
 			grid.addColumn(OrdersWithFio::getStatus).setId("status").setCaption("Статус");
 			grid.setColumnOrder("id", "description", "clientFio", "mechanicFio", "status", "dateCreat",
 					"completionDate", "price");
-			this.addComponent(grid);			
+			this.addComponent(grid);
 		} catch (Exception e) {
 			throw new UiException(e);
 		}
 	}
-	
+
 	private void showAll() throws UiException {
 		try {
 			List<OrdersWithFio> orders = orderDao.findAll();
@@ -65,18 +65,6 @@ public class OrderView extends AbstractView implements View {
 		} catch (Exception e) {
 			throw new UiException(e);
 		}
-	}
-	
-	private void findUsingFilter() throws UiException {
-		try {
-			String p1, p2;
-			p1 = "За";
-			p2 = "Запланирован";
-			List<OrdersWithFio> orders = orderDao.findUsingFilter(p1, p2, 1L);
-			grid.setItems(orders);
-		} catch (Exception e) {
-			throw new UiException(e);
-		}		
 	}
 
 	private HorizontalLayout getFilterPanel() throws UiException {
@@ -108,18 +96,24 @@ public class OrderView extends AbstractView implements View {
 	}
 
 	private void btnAppleFilterClick() {
-		grid.sort("price");		
-		grid.getDataProvider().refreshAll();
+		try {
+			List<OrdersWithFio> orders = orderDao.findUsingFilter(filterDescription.getValue(),
+					filterStatus.getValue().toString(), filterClient.getValue());
+			grid.setItems(orders);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void btnCleanFilterClick() {
 		try {
-			findUsingFilter();
-		} catch (UiException e) {
-			// TODO Auto-generated catch block
+		filterDescription.clear();
+		filterStatus.clear();
+		filterClient.clear();		
+			showAll();
+		} catch (UiException e) {			
 			e.printStackTrace();
-		}		
-		grid.getDataProvider().refreshAll();
+		}
 	}
 
 	@Override
