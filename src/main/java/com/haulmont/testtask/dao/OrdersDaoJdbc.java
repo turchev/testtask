@@ -43,7 +43,7 @@ class OrdersDaoJdbc implements OrdersDao {
 		return result;
 	}	
 
-	@Override
+	@Override	
 	public List<OrdersWithFio> findUsingFilter(String findDescription, String status, String clientFio) throws DaoException {
 		List<OrdersWithFio> result = new ArrayList<OrdersWithFio>();	
 		try (Connection connection = ds.getConnection();

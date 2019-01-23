@@ -97,8 +97,18 @@ public class OrderView extends AbstractView implements View {
 
 	private void btnAppleFilterClick() {
 		try {
-			List<OrdersWithFio> orders = orderDao.findUsingFilter(filterDescription.getValue(),
-					filterStatus.getValue().toString(), filterClient.getValue());
+			String findDescription = null;
+			String status = null;
+			String clientFio = null;
+
+			if (!filterDescription.isEmpty())
+				findDescription = filterDescription.getValue();
+			if (!filterStatus.isEmpty())
+				status = filterStatus.getValue().toString();
+			if (!filterClient.isEmpty())
+				clientFio = filterClient.getValue();
+
+			List<OrdersWithFio> orders = orderDao.findUsingFilter(findDescription, status, clientFio);
 			grid.setItems(orders);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -107,11 +117,11 @@ public class OrderView extends AbstractView implements View {
 
 	private void btnCleanFilterClick() {
 		try {
-		filterDescription.clear();
-		filterStatus.clear();
-		filterClient.clear();		
+			filterDescription.clear();
+			filterStatus.clear();
+			filterClient.clear();
 			showAll();
-		} catch (UiException e) {			
+		} catch (UiException e) {
 			e.printStackTrace();
 		}
 	}
