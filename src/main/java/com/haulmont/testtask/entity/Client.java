@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "client")
-public class Client extends AEntity {
+public class Client extends AbstractEntity {
     
     @Column(name = "first_name")
     private String firstName = "";

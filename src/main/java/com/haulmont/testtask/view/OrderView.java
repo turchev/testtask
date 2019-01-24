@@ -77,7 +77,7 @@ public class OrderView extends AbstractView implements View {
 			filterClient = new NativeSelect<>("Фамилия клиента");
 			filterClient.setItems(clientDao.getLastNameList());
 
-			btnAppleFilter = new Button("Выполнить фильтр");
+			btnAppleFilter = new Button("Применить фильтр");
 			btnAppleFilter.addClickListener(event -> {
 				btnAppleFilterClick();
 			});
@@ -97,16 +97,12 @@ public class OrderView extends AbstractView implements View {
 
 	private void btnAppleFilterClick() {
 		try {
-			String findDescription = null;
-			String status = null;
-			String clientFio = null;
-
-			if (!filterDescription.isEmpty())
-				findDescription = filterDescription.getValue();
+			String findDescription = filterDescription.getValue();			
+			String clientFio = filterClient.getValue();
+			
+			String status = null;			
 			if (!filterStatus.isEmpty())
-				status = filterStatus.getValue().toString();
-			if (!filterClient.isEmpty())
-				clientFio = filterClient.getValue();
+				status = filterStatus.getValue().toString();			
 
 			List<OrdersWithFio> orders = orderDao.findUsingFilter(findDescription, status, clientFio);
 			grid.setItems(orders);

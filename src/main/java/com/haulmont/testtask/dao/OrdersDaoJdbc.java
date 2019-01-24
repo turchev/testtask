@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 import com.haulmont.testtask.entity.OrderStatusType;
 import com.haulmont.testtask.entity.OrdersWithFio;
 
-class OrdersDaoJdbc implements OrdersDao {		
+class OrdersDaoJdbc implements OrdersDao {
 
 	private DataSource ds = null;
 
@@ -41,19 +41,39 @@ class OrdersDaoJdbc implements OrdersDao {
 			throw new DaoException(e);
 		}
 		return result;
-	}	
+	}
 
-	@Override	
-	public List<OrdersWithFio> findUsingFilter(String findDescription, String status, String clientFio) throws DaoException {
-		List<OrdersWithFio> result = new ArrayList<OrdersWithFio>();	
+	@Override
+	public List<OrdersWithFio> findUsingFilter(String findDescription, String status, String clientFio)
+			throws DaoException {
+
+		List<OrdersWithFio> result = new ArrayList<OrdersWithFio>();
+		
+		String sqlLikeDescription, sqlLikeStatus, sqlLikeClientFio;		
 		try (Connection connection = ds.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM orders_with_fio "
-						+ "WHERE LOWER(description) LIKE LOWER('%" + findDescription + "%') "
-						+ "AND status = ? "
-						+ "AND LOWER(client_fio) LIKE LOWER('%" + clientFio + "%');");
-				) {					
-			pstmt.setString(1, status);
-			ResultSet rs = pstmt.executeQuery();
+				Statement statement = connection.createStatement();) {
+			
+			if (findDescription == null || findDescription.isEmpty()) {
+				sqlLikeDescription = "'%'";
+			} else {
+				sqlLikeDescription = "'%" + findDescription + "%'";
+			}
+			if (status == null || status.isEmpty()) {
+				sqlLikeStatus = "'%'";
+			} else {
+				sqlLikeStatus = "'%" + status + "%'";
+			}
+			if (clientFio == null || clientFio.isEmpty()) {
+				sqlLikeClientFio = "'%'";
+			} else {
+				sqlLikeClientFio = "'%" + clientFio + "%'";
+			}
+
+			String sqlResult = "SELECT * FROM orders_with_fio WHERE LOWER(description) LIKE LOWER(" + sqlLikeDescription
+					+ ") AND LOWER(status) LIKE LOWER(" + sqlLikeStatus + ") AND LOWER(client_fio) LIKE LOWER("
+					+ sqlLikeClientFio + ");";
+			
+			ResultSet rs = statement.executeQuery(sqlResult);
 			while (rs.next()) {
 				OrdersWithFio orders = new OrdersWithFio();
 				orders.setId(rs.getLong("id"));
