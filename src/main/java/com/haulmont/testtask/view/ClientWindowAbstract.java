@@ -7,18 +7,26 @@ import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
 public abstract class ClientWindowAbstract extends Window implements SaveAndEdit {	
+	private Button btnApple;
 
 	public ClientWindowAbstract() {
 		init();		
 	}
 	
 	private void init() {
-		VerticalLayout vlLayout = new VerticalLayout();
+		VerticalLayout vlLayout = new VerticalLayout();		
 		vlLayout.addComponent(new Label("Test Label"));
-		vlLayout.addComponent(new Button("Test Button"));
-		this.setModal(true);
-		this.setContent(vlLayout);		
+		this.setWidth(400.0f, Unit.PIXELS);
+		this.setModal(true);			
+		btnApple = new Button("Применить");
+		btnApple.addClickListener(event -> {
+			btnAppleClick();
+		});
+		vlLayout.addComponent(btnApple);
+		this.setContent(vlLayout);	
 	}
+
+	protected abstract void btnAppleClick();
 
 	@Override
 	public void save() {

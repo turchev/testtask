@@ -12,30 +12,14 @@ public abstract class AbstractView extends VerticalLayout {
 	
 	protected AbstractView() {		
 		this.setMargin(true);	
-//		groupButtons = new HorizontalLayout();
-//		final Button btnAdd = new Button("Добавить");
-//		final Button btnChange = new Button("Изменить");
-//		final Button btnDelete = new Button("Удалить");
-//		btnAdd.addClickListener(event -> {
-//			Notification.show("TODO", "Добавить", Notification.Type.HUMANIZED_MESSAGE);			
-//		});
-//		btnChange.addClickListener(event -> {
-//			Notification.show("TODO", "Изменить", Notification.Type.HUMANIZED_MESSAGE);
-//		});
-//		btnDelete.addClickListener(event -> {
-//			Notification.show("TODO", "Удалить", Notification.Type.HUMANIZED_MESSAGE);
-//		});
-//		groupButtons.addComponent(btnAdd);
-//		groupButtons.addComponent(btnChange);
-//		groupButtons.addComponent(btnDelete);
 		this.addComponent(getLowerGroupButtons());
 	}
 	
 	private HorizontalLayout getLowerGroupButtons() {
 		groupButtons = new HorizontalLayout();
-		final Button btnAdd = new Button("Добавить");
-		final Button btnChange = new Button("Изменить");
-		final Button btnDelete = new Button("Удалить");
+		Button btnAdd = new Button("Добавить");
+		Button btnChange = new Button("Изменить");
+		Button btnDelete = new Button("Удалить");
 		btnAdd.addClickListener(event -> {
 			Notification.show("TODO", "Добавить", Notification.Type.HUMANIZED_MESSAGE);			
 			btnAddClick();
