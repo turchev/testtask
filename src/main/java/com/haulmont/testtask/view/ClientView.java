@@ -28,7 +28,7 @@ public class ClientView extends AbstractView implements View {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			clientDao = hsqlDaoFactory.getClientDAO();
 			grid.setWidth(100.0f, Unit.PERCENTAGE);
-			grid.setSelectionMode(SelectionMode.SINGLE);		
+			grid.setSelectionMode(SelectionMode.SINGLE);
 			grid.addColumn(Client::getId).setId("id").setCaption("№");
 			grid.addColumn(Client::getLastName).setId("lastName").setCaption("Фамилия").setWidth(500);
 			grid.addColumn(Client::getFirstName).setId("firstName").setCaption("Имя");
@@ -57,8 +57,12 @@ public class ClientView extends AbstractView implements View {
 	}
 
 	@Override
-	void btnChangeClick() {			
-		Client selectedClient = grid.asSingleSelect().getValue();		
+	void btnChangeClick() {
+		if (grid.asSingleSelect().isEmpty()) {
+			Notification.show("Выберите клиента из списка");
+			return;
+		}
+		Client selectedClient = grid.asSingleSelect().getValue();
 		ClientWindowEdit subWindowEdit = new ClientWindowEdit(selectedClient.getId());
 		UI.getCurrent().addWindow(subWindowEdit);
 	}

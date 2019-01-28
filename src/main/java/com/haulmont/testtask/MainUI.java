@@ -44,9 +44,10 @@ public class MainUI extends UI {
 			setContent(mainLayout);
 
 			Navigator navigator = new Navigator(this, viewContainer);
+			navigator.addView("", OrderView.class);
 			navigator.addView("orders", OrderView.class);
 			navigator.addView("client", ClientView.class);
-			navigator.addView("mechanic", MechanicView.class);
+			navigator.addView("mechanic", MechanicView.class);					
 			navigator.setErrorView(ErrorView.class);
 
 		} catch (Exception e) {
