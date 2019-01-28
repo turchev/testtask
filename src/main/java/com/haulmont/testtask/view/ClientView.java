@@ -1,8 +1,6 @@
 package com.haulmont.testtask.view;
 
 import java.util.List;
-import java.util.Set;
-
 import com.haulmont.testtask.dao.ClientDao;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.ds.DsType;
@@ -19,7 +17,6 @@ public class ClientView extends AbstractView implements View {
 	private DaoFactory hsqlDaoFactory;
 	private ClientDao clientDao;
 	private Grid<Client> grid = new Grid<>();
-	Set<Client> selected;
 
 	public ClientView() throws UiException {
 		init();
@@ -31,10 +28,7 @@ public class ClientView extends AbstractView implements View {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			clientDao = hsqlDaoFactory.getClientDAO();
 			grid.setWidth(100.0f, Unit.PERCENTAGE);
-			grid.setSelectionMode(SelectionMode.SINGLE);
-			grid.addSelectionListener(event -> {
-				Set<Client> selected = event.getAllSelectedItems();					
-			});
+			grid.setSelectionMode(SelectionMode.SINGLE);		
 			grid.addColumn(Client::getId).setId("id").setCaption("№");
 			grid.addColumn(Client::getLastName).setId("lastName").setCaption("Фамилия").setWidth(500);
 			grid.addColumn(Client::getFirstName).setId("firstName").setCaption("Имя");
@@ -63,9 +57,10 @@ public class ClientView extends AbstractView implements View {
 	}
 
 	@Override
-	void btnChangeClick() {	
-		ClientWindowEdit subWindowEdit = new ClientWindowEdit();
-		UI.getCurrent().addWindow(subWindowEdit);		
+	void btnChangeClick() {			
+		Client selectedClient = grid.asSingleSelect().getValue();		
+		ClientWindowEdit subWindowEdit = new ClientWindowEdit(selectedClient.getId());
+		UI.getCurrent().addWindow(subWindowEdit);
 	}
 
 	@Override

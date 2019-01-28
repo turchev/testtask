@@ -14,7 +14,8 @@ import com.vaadin.ui.Window;
 @SuppressWarnings("serial")
 public abstract class ClientWindowAbstract extends Window implements SaveAndEdit {
 	private static final Logger LOG = LogManager.getLogger();
-	private ClientDao clientDao;
+	protected ClientDao clientDao;	
+	protected TextField txtFirstName, txtLastName, txtPatronnymic, ptxtPhone;
 
 	public ClientWindowAbstract() {
 		try {
@@ -27,21 +28,21 @@ public abstract class ClientWindowAbstract extends Window implements SaveAndEdit
 	}
 
 	private void init() {
-		TextField txtFirstName = new TextField("Фамилия");
+		txtFirstName = new TextField("Имя");
 		txtFirstName.setSizeFull();
-		TextField txtLastName = new TextField("Имя");
+		txtLastName = new TextField("Фамилия");
 		txtLastName.setSizeFull();
-		TextField patronnymic = new TextField("Отчество");
-		patronnymic.setSizeFull();
-		TextField phone = new TextField("Телефон");
-		phone.setSizeFull();
-		VerticalLayout vlLayout = new VerticalLayout(txtFirstName, txtLastName, patronnymic, phone);
+		txtPatronnymic = new TextField("Отчество");
+		txtPatronnymic.setSizeFull();
+		ptxtPhone = new TextField("Телефон");
+		ptxtPhone.setSizeFull();
+		VerticalLayout vlLayout = new VerticalLayout(txtFirstName, txtLastName, txtPatronnymic, ptxtPhone);
 		this.setWidth(400.0f, Unit.PIXELS);
 		this.setModal(true);
 		this.setResizable(false);
 		Button btnApple = new Button("Ok");
 		btnApple.addClickListener(event -> {
-			btnAppleClick(clientDao);
+			btnAppleClick();
 		});
 		Button btnCancel = new Button("Отменить");
 		btnCancel.addClickListener(event -> {
@@ -54,7 +55,7 @@ public abstract class ClientWindowAbstract extends Window implements SaveAndEdit
 
 	protected abstract void btnCancelClick();
 
-	protected abstract void btnAppleClick(ClientDao clientDao);
+	protected abstract void btnAppleClick();
 
 	@Override
 	public void save() {

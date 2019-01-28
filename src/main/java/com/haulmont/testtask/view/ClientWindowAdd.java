@@ -1,6 +1,5 @@
 package com.haulmont.testtask.view;
 
-import com.haulmont.testtask.dao.ClientDao;
 import com.vaadin.ui.Notification;
 
 @SuppressWarnings("serial")
@@ -16,7 +15,7 @@ public class ClientWindowAdd extends ClientWindowAbstract {
 	}
 
 	@Override
-	protected void btnAppleClick(ClientDao clientDao) {
+	protected void btnAppleClick() {
 		Notification.show("TODO", "Применить", Notification.Type.HUMANIZED_MESSAGE);
 		// TODO Auto-generated method stub
 	}
