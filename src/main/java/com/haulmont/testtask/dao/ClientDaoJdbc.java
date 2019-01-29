@@ -85,4 +85,18 @@ class ClientDaoJdbc implements ClientDao {
 			throw new DaoException(e);
 		}
 	}
+
+	@Override
+	public void create(Client client) throws DaoException {
+		final String SQL = "INSERT INTO client (last_name, first_name, patronnymic, phone) VALUES (?,?,?,?);";
+		try (Connection connection = ds.getConnection(); PreparedStatement pstmt = connection.prepareStatement(SQL)) {
+			pstmt.setString(1, client.getLastName());
+			pstmt.setString(2, client.getFirstName());
+			pstmt.setString(3, client.getPatronnymic());
+			pstmt.setString(4, client.getPhone());			
+			pstmt.execute();
+		} catch (Exception e) {
+			throw new DaoException(e);
+		}
+	}
 }

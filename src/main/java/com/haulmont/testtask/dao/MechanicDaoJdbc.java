@@ -61,7 +61,13 @@ class MechanicDaoJdbc implements MechanicDao {
 	}
 
 	@Override
-	public synchronized void update(Mechanic dataSet) throws DaoException {
+	public synchronized void update(Mechanic mechanic) throws DaoException {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void create(Mechanic mechanic) throws DaoException {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -10,4 +10,6 @@ public interface IDao<T extends AbstractEntity> {
 	List<T> findAll() throws DaoException;
 
 	void update(T dataSet) throws DaoException;
+	
+	void create(T dataSet) throws DaoException;
 }
