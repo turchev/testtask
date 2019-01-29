@@ -1,6 +1,7 @@
 package com.haulmont.testtask.view;
 
 import java.util.List;
+
 import com.haulmont.testtask.dao.ClientDao;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.ds.DsType;
@@ -37,7 +38,7 @@ public class ClientView extends AbstractView implements View {
 			grid.setColumnOrder("id", "lastName", "firstName", "patronnymic", "phone");
 			this.addComponent(grid);
 		} catch (Exception e) {
-			throw new UiException(e);
+			UI.getCurrent().getNavigator();
 		}
 	}
 
@@ -73,6 +74,5 @@ public class ClientView extends AbstractView implements View {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		Notification.show("Welcome to Clients View");
 	}
 }

@@ -15,7 +15,7 @@ import com.vaadin.ui.Window;
 public abstract class ClientWindowAbstract extends Window implements SaveAndEdit {
 	private static final Logger LOG = LogManager.getLogger();
 	protected ClientDao clientDao;	
-	protected TextField txtFirstName, txtLastName, txtPatronnymic, ptxtPhone;
+	protected TextField txtFirstName, txtLastName, txtPatronnymic, txtPhone;
 
 	public ClientWindowAbstract() {
 		try {
@@ -34,9 +34,9 @@ public abstract class ClientWindowAbstract extends Window implements SaveAndEdit
 		txtLastName.setSizeFull();
 		txtPatronnymic = new TextField("Отчество");
 		txtPatronnymic.setSizeFull();
-		ptxtPhone = new TextField("Телефон");
-		ptxtPhone.setSizeFull();
-		VerticalLayout vlLayout = new VerticalLayout(txtFirstName, txtLastName, txtPatronnymic, ptxtPhone);
+		txtPhone = new TextField("Телефон");
+		txtPhone.setSizeFull();
+		VerticalLayout vlLayout = new VerticalLayout(txtFirstName, txtLastName, txtPatronnymic, txtPhone);
 		this.setWidth(400.0f, Unit.PIXELS);
 		this.setModal(true);
 		this.setResizable(false);

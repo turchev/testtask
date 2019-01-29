@@ -1,7 +1,7 @@
 package com.haulmont.testtask.view;
 import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.entity.Client;
-import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
 public class ClientWindowEdit extends ClientWindowAbstract {
@@ -9,28 +9,36 @@ public class ClientWindowEdit extends ClientWindowAbstract {
 
 	public ClientWindowEdit(Long id) {
 		super.setCaption("Редактировать данные клиента");
-		this.id = id;
-		Client client;
+		this.id = id;		 
 		try {
-			client = clientDao.findById(this.id);
+			Client client = clientDao.findById(this.id);
 			super.txtFirstName.setValue(client.getFirstName());
 			super.txtLastName.setValue(client.getLastName());
 			super.txtPatronnymic.setValue(client.getPatronnymic());
-			super.ptxtPhone.setValue(client.getPhone());
+			super.txtPhone.setValue(client.getPhone());
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-	}
-
+	}	
+	
 	@Override
 	protected void btnCancelClick() {
 		close();
 	}
 
 	@Override
-	protected void btnAppleClick() {
-		Notification.show("TODO", "Редактировать", Notification.Type.HUMANIZED_MESSAGE);		
+	protected synchronized void btnAppleClick() {
+		Client client = new Client(txtLastName.getValue(), txtFirstName.getValue(), txtPatronnymic.getValue());	
+		client.setPhone(txtPhone.getValue());
+		client.setId(id);
+		try {
+			clientDao.update(client);
+			UI.getCurrent().getNavigator().navigateTo("client");
+			close();
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

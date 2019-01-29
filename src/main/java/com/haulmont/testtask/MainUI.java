@@ -2,7 +2,6 @@ package com.haulmont.testtask;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.haulmont.testtask.view.ClientView;
 import com.haulmont.testtask.view.ErrorView;
 import com.haulmont.testtask.view.MechanicView;

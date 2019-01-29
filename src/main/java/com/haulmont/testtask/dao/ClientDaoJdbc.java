@@ -11,9 +11,6 @@ import com.haulmont.testtask.entity.Client;
 
 class ClientDaoJdbc implements ClientDao {
 	private DataSource ds = null;
-	private static final String SELECT_ALL_CLIENT = "select * from client;";
-	private static final String SELECT_BY_ID = "select * from client where id=?;";;
-	private static final String SELECT_LAST_NAME = "select last_name from client;";;
 
 	public ClientDaoJdbc(DataSource ds) {
 		this.ds = ds;
@@ -22,9 +19,9 @@ class ClientDaoJdbc implements ClientDao {
 	@Override
 	public synchronized List<Client> findAll() throws DaoException {
 		List<Client> result = new ArrayList<Client>();
-		try (Connection connection = ds.getConnection();
-				Statement statement = connection.createStatement();) {
-			ResultSet rs = statement.executeQuery(SELECT_ALL_CLIENT);
+		final String SQL = "select * from client;";
+		try (Connection connection = ds.getConnection(); Statement statement = connection.createStatement();) {
+			ResultSet rs = statement.executeQuery(SQL);
 			while (rs.next()) {
 				Client client = new Client();
 				client.setId(rs.getLong("id"));
@@ -36,29 +33,29 @@ class ClientDaoJdbc implements ClientDao {
 			}
 		} catch (Exception e) {
 			throw new DaoException(e);
-		} 		
+		}
 		return result;
 	}
-	
+
 	@Override
 	public List<String> getLastNameList() throws DaoException {
 		List<String> result = new ArrayList<String>();
-		try (Connection connection = ds.getConnection();
-				Statement statement = connection.createStatement();) {
-			ResultSet rs = statement.executeQuery(SELECT_LAST_NAME);
-			while (rs.next()) {				
+		final String SQL = "select last_name from client;";
+		try (Connection connection = ds.getConnection(); Statement statement = connection.createStatement();) {
+			ResultSet rs = statement.executeQuery(SQL);
+			while (rs.next()) {
 				result.add(rs.getString("last_name"));
 			}
 		} catch (Exception e) {
 			throw new DaoException(e);
-		} 		
+		}
 		return result;
 	}
-	
+
 	@Override
 	public synchronized Client findById(long id) throws DaoException {
-		try (Connection connection = ds.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(SELECT_BY_ID);) {
+		final String SQL = "select * from client where id=?;";
+		try (Connection connection = ds.getConnection(); PreparedStatement pstmt = connection.prepareStatement(SQL);) {
 			pstmt.setLong(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			rs.next();
@@ -67,7 +64,7 @@ class ClientDaoJdbc implements ClientDao {
 			client.setFirstName(rs.getString("first_name"));
 			client.setLastName(rs.getString("last_name"));
 			client.setPatronnymic(rs.getString("patronnymic"));
-			client.setPhone(rs.getString("phone"));					
+			client.setPhone(rs.getString("phone"));
 			return client;
 		} catch (Exception e) {
 			throw new DaoException(e);
@@ -75,7 +72,17 @@ class ClientDaoJdbc implements ClientDao {
 	}
 
 	@Override
-	public synchronized void save(Client dataSet) throws DaoException {
-		// TODO Auto-generated method stub
-	}	
+	public synchronized void update(Client client) throws DaoException {
+		final String SQL = "UPDATE client SET last_name=?, first_name=?, patronnymic=?, phone=? WHERE id=?;";
+		try (Connection connection = ds.getConnection(); PreparedStatement pstmt = connection.prepareStatement(SQL)) {
+			pstmt.setString(1, client.getLastName());
+			pstmt.setString(2, client.getFirstName());
+			pstmt.setString(3, client.getPatronnymic());
+			pstmt.setString(4, client.getPhone());
+			pstmt.setLong(5, client.getId());
+			pstmt.execute();
+		} catch (Exception e) {
+			throw new DaoException(e);
+		}
+	}
 }

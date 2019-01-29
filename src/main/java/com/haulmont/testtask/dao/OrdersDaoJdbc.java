@@ -119,7 +119,7 @@ class OrdersDaoJdbc implements OrdersDao {
 	}
 
 	@Override
-	public synchronized void save(OrdersWithFio dataSet) throws DaoException {
+	public synchronized void update(OrdersWithFio dataSet) throws DaoException {
 		// TODO Auto-generated method stub
 	}
 }
