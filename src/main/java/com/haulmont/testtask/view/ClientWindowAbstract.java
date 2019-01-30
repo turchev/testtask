@@ -12,7 +12,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
-public abstract class ClientWindowAbstract extends Window implements SaveAndEdit {
+public abstract class ClientWindowAbstract extends Window {
 	private static final Logger LOG = LogManager.getLogger();
 	protected ClientDao clientDao;	
 	protected TextField txtFirstName, txtLastName, txtPatronnymic, txtPhone;
@@ -56,21 +56,5 @@ public abstract class ClientWindowAbstract extends Window implements SaveAndEdit
 	protected abstract void btnCancelClick();
 
 	protected abstract void btnAppleClick();
-
-	@Override
-	public void save() {
-		// TODO Сохранение данных в таблицу client
-		update();
-	}
-
-	@Override
-	public void cancel() {
-		// TODO Отмена действий
-	}
-
-	@Override
-	public void update() {
-		// TODO Обновление отображаемых данных
-	}
 
 }
