@@ -67,7 +67,15 @@ class MechanicDaoJdbc implements MechanicDao {
 
 	@Override
 	public void create(Mechanic mechanic) throws DaoException {
-		// TODO Auto-generated method stub
-		
+		final String SQL = "INSERT INTO mechanic (last_name, first_name, patronnymic, wages) VALUES (?,?,?,?);";
+		try (Connection connection = ds.getConnection(); PreparedStatement pstmt = connection.prepareStatement(SQL)) {
+			pstmt.setString(1, mechanic.getLastName());
+			pstmt.setString(2, mechanic.getFirstName());
+			pstmt.setString(3, mechanic.getPatronnymic());
+			pstmt.setBigDecimal(4, mechanic.getWages());			
+			pstmt.execute();
+		} catch (Exception e) {
+			throw new DaoException(e);
+		}		
 	}
 }

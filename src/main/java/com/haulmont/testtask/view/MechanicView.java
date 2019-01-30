@@ -11,6 +11,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 
 
 @SuppressWarnings("serial")
@@ -40,8 +41,8 @@ public class MechanicView extends AbstractView implements View {
 
 	@Override
 	void btnAddClick() {
-		// TODO Auto-generated method stub
-		
+		MechanicWindowAdd subWindowAdd = new MechanicWindowAdd();
+		UI.getCurrent().addWindow(subWindowAdd);
 	}
 
 	@Override
