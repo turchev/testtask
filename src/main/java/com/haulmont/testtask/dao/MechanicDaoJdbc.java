@@ -62,7 +62,17 @@ class MechanicDaoJdbc implements MechanicDao {
 
 	@Override
 	public synchronized void update(Mechanic mechanic) throws DaoException {
-		// TODO Auto-generated method stub
+		final String SQL = "UPDATE mechanic SET last_name=?, first_name=?, patronnymic=?, wages=? WHERE id=?;";
+		try (Connection connection = ds.getConnection(); PreparedStatement pstmt = connection.prepareStatement(SQL)) {
+			pstmt.setString(1, mechanic.getLastName());
+			pstmt.setString(2, mechanic.getFirstName());
+			pstmt.setString(3, mechanic.getPatronnymic());
+			pstmt.setBigDecimal(4, mechanic.getWages());
+			pstmt.setLong(5, mechanic.getId());
+			pstmt.execute();
+		} catch (Exception e) {
+			throw new DaoException(e);
+		}
 	}
 
 	@Override

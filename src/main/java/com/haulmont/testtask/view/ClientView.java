@@ -38,7 +38,8 @@ public class ClientView extends AbstractView implements View {
 			grid.setColumnOrder("id", "lastName", "firstName", "patronnymic", "phone");
 			this.addComponent(grid);
 		} catch (Exception e) {
-			UI.getCurrent().getNavigator();
+//			UI.getCurrent().getNavigator().navigateTo("client");
+			throw new UiException(e);
 		}
 	}
 

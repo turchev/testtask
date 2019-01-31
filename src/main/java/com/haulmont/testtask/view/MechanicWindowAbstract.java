@@ -1,5 +1,7 @@
 package com.haulmont.testtask.view;
 
+import java.text.DecimalFormat;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,10 +19,12 @@ public abstract class MechanicWindowAbstract extends Window {
 	private static final Logger LOG = LogManager.getLogger();
 	protected MechanicDao mechanicDao;	
 	protected TextField txtLastName, txtFirstName, txtPatronnymic, txtWages;
+	protected DecimalFormat dcf = new DecimalFormat();	
 
 	public MechanicWindowAbstract() {
 		try {
 			mechanicDao = DaoFactory.getFactory(DsType.HSQLDB).getMechanicDao();
+			dcf.setParseBigDecimal(true);
 		} catch (Exception e) {
 			LOG.error("No mechanic data source", e);
 			close();

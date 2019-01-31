@@ -1,9 +1,7 @@
 package com.haulmont.testtask.view;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.text.ParseException;
-
 import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.entity.Mechanic;
 import com.vaadin.ui.UI;
@@ -23,10 +21,8 @@ public class MechanicWindowAdd extends MechanicWindowAbstract {
 	@Override
 	protected void btnAppleClick() {
 		Mechanic mechanic = new Mechanic(txtLastName.getValue(), txtFirstName.getValue(), txtPatronnymic.getValue());
-		DecimalFormat dcf = new DecimalFormat();
-		dcf.setParseBigDecimal(true);	
 		try {
-			BigDecimal wages = (BigDecimal) dcf.parse(txtWages.getValue());	
+			BigDecimal wages = (BigDecimal) super.dcf.parse(txtWages.getValue());
 			mechanic.setWages(wages);
 			mechanicDao.create(mechanic);
 			UI.getCurrent().getNavigator().navigateTo("mechanic");
