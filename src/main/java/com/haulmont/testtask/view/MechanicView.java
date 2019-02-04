@@ -9,6 +9,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
@@ -64,18 +65,23 @@ public class MechanicView extends AbstractView implements View {
 
 	@Override
 	void btnDeleteClick() {
-//		if (grid.asSingleSelect().isEmpty()) {
-//			Notification.show("Выберите механика из списка");
-//			return;
-//		}
-//
-//		Mechanic selectedMachanic = grid.asSingleSelect().getValue();
-//		MechanicWindowEdit subWindowEdit = new MechanicWindowEdit(selectedMachanic.getId());
-//		UI.getCurrent().addWindow(subWindowEdit);
-	}	
+		try {
+			if (grid.asSingleSelect().isEmpty()) {
+				Notification.show("Выберите механика из списка");
+				return;
+			}
+			Mechanic selectedMachanic = grid.asSingleSelect().getValue();
+			if (Helper.isDialogWindow("Вы действительно хотите удалить " + selectedMachanic.getLastName()
+					+ selectedMachanic.getFirstName() + selectedMachanic.getPatronnymic() + "?") == true) {
+				mechanicDao.delete(selectedMachanic.getId());
+			}
+		} catch (Exception e) {
+			Notification.show("Не удалось выполнить удаление", Type.ERROR_MESSAGE);
+		}
+	}
 
 	@Override
 	public void enter(ViewChangeEvent event) {
 		Notification.show("Welcome to Mechanic View");
-	}	
+	}
 }

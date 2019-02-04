@@ -13,9 +13,7 @@ import com.haulmont.testtask.entity.Mechanic;
 
 class MechanicDaoJdbc implements MechanicDao {
 
-	private DataSource ds = null;
-	private static final String SELECT_ALL_MECHANIC = "select * from mechanic;";
-	private static final String SELECT_BY_ID = "select * from mechanic where id=?;";
+	private DataSource ds = null;	
 
 	public MechanicDaoJdbc(DataSource ds) {
 		this.ds = ds;
@@ -23,9 +21,10 @@ class MechanicDaoJdbc implements MechanicDao {
 
 	@Override
 	public synchronized List<Mechanic> findAll() throws DaoException {
+		final String SQL = "select * from mechanic;";
 		List<Mechanic> result = new ArrayList<Mechanic>();
 		try (Connection connection = ds.getConnection(); Statement statement = connection.createStatement();) {
-			ResultSet rs = statement.executeQuery(SELECT_ALL_MECHANIC);
+			ResultSet rs = statement.executeQuery(SQL);
 			while (rs.next()) {
 				Mechanic mechanic = new Mechanic();
 				mechanic.setId(rs.getLong("id"));
@@ -43,8 +42,9 @@ class MechanicDaoJdbc implements MechanicDao {
 
 	@Override
 	public synchronized Mechanic findById(long id) throws DaoException {
+		final String SQL = "select * from mechanic where id=?;";
 		try (Connection connection = ds.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(SELECT_BY_ID);) {
+				PreparedStatement pstmt = connection.prepareStatement(SQL);) {
 			pstmt.setLong(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			rs.next();
@@ -69,7 +69,7 @@ class MechanicDaoJdbc implements MechanicDao {
 			pstmt.setString(3, mechanic.getPatronnymic());
 			pstmt.setBigDecimal(4, mechanic.getWages());
 			pstmt.setLong(5, mechanic.getId());
-			pstmt.execute();
+			pstmt.executeUpdate();
 		} catch (Exception e) {
 			throw new DaoException(e);
 		}
@@ -83,9 +83,21 @@ class MechanicDaoJdbc implements MechanicDao {
 			pstmt.setString(2, mechanic.getFirstName());
 			pstmt.setString(3, mechanic.getPatronnymic());
 			pstmt.setBigDecimal(4, mechanic.getWages());			
-			pstmt.execute();
+			pstmt.executeUpdate();
 		} catch (Exception e) {
 			throw new DaoException(e);
 		}		
+	}
+
+	@Override
+	public void delete(long id) throws DaoException {
+		final String SQL = "DELETE FROM mechanic WHERE id=?;";
+		try (Connection connection = ds.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(SQL);) {
+			pstmt.setLong(1, id);
+			pstmt.executeUpdate();								
+		} catch (Exception e) {
+			throw new DaoException(e);
+		}
 	}
 }

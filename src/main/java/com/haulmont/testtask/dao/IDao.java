@@ -12,4 +12,6 @@ public interface IDao<T extends AbstractEntity> {
 	void update(T dataSet) throws DaoException;
 	
 	void create(T dataSet) throws DaoException;
+	
+	void delete(long id) throws DaoException;
 }

@@ -99,4 +99,10 @@ class ClientDaoJdbc implements ClientDao {
 			throw new DaoException(e);
 		}
 	}
+
+	@Override
+	public void delete(long id) throws DaoException {
+		// TODO Auto-generated method stub
+		
+	}
 }

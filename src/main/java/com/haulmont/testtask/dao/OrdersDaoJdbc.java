@@ -128,4 +128,10 @@ class OrdersDaoJdbc implements OrdersDao {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void delete(long id) throws DaoException {
+		// TODO Auto-generated method stub
+		
+	}
 }
