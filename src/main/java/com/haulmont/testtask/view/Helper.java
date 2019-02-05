@@ -13,6 +13,7 @@ final class Helper {
 		DialogWindow subWindow = new DialogWindow(message);
 		UI.getCurrent().addWindow(subWindow);
 		return subWindow.btnClickFlag;
+		
 	}
 
 	@SuppressWarnings("serial")
