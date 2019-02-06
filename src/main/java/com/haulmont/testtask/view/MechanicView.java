@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.vaadin.dialogs.ConfirmDialog;
 
+import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.MechanicDao;
 import com.haulmont.testtask.ds.DsType;
@@ -43,7 +44,7 @@ public class MechanicView extends AbstractView implements View {
 	private void showAll() throws UiException {
 		try {
 			List<Mechanic> mechanic = mechanicDao.findAll();
-			grid.setItems(mechanic);
+			grid.setItems(mechanic);			
 		} catch (Exception e) {
 			throw new UiException(e);
 		}
@@ -67,40 +68,44 @@ public class MechanicView extends AbstractView implements View {
 	}
 
 	@Override
-	void btnDeleteClick() {		
+	void btnDeleteClick() {
 		try {
 			if (grid.asSingleSelect().isEmpty()) {
 				Notification.show("Выберите механика из списка");
 				return;
 			}
 			Mechanic selectedMachanic = grid.asSingleSelect().getValue();
-			final String MESSAGE_1 = "Вы действительно хотите удалить " + selectedMachanic.getLastName()
-					+ selectedMachanic.getFirstName() + selectedMachanic.getPatronnymic() + "?";
-			
-//			ConfirmDialog.show(this, repeat(MESSAGE_1), new ConfirmDialog.Listener() {
-//
-//				public void onClose(ConfirmDialog dialog) {
-//					if (dialog.isConfirmed()) {
-//						// Confirmed to continue
-//						feedback(dialog.isConfirmed());
-//					} else {
-//						// User did not confirm
-//						feedback(dialog.isConfirmed());
-//					}
-//				}
-//			});
+			final String MESSAGE_1 = "Удаление записи " + selectedMachanic.getLastName() + " "
+					+ selectedMachanic.getFirstName() + " " + selectedMachanic.getPatronnymic() + "?";
 
-//			if (Helper.isDialogWindow("Вы действительно хотите удалить " + selectedMachanic.getLastName()
-//					+ selectedMachanic.getFirstName() + selectedMachanic.getPatronnymic() + "?") == true) {
-//				mechanicDao.delete(selectedMachanic.getId());
-//			}
+			ConfirmDialog.show(getUI(), "Внимание", MESSAGE_1, "Подтвердить", "Отменить", new ConfirmDialog.Listener() {
+				public void onClose(ConfirmDialog dialog) {
+					if (dialog.isConfirmed()) {
+						try {
+							mechanicDao.delete(selectedMachanic.getId());
+						} catch (DaoException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} else {
+						return;
+					}
+				}
+			});
+
 		} catch (Exception e) {
 			Notification.show("Не удалось выполнить удаление", Type.ERROR_MESSAGE);
 		}
+//		try {
+//			showAll();
+//		} catch (UiException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		Notification.show("Welcome to Mechanic View");
+//		Notification.show("Welcome to Mechanic View");
 	}
 }

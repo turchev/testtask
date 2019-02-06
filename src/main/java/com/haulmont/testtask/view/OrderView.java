@@ -139,6 +139,6 @@ public class OrderView extends AbstractView implements View {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		Notification.show("Welcome to Orders View");
+//		Notification.show("Welcome to Orders View");
 	}
 }
