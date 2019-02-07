@@ -33,15 +33,15 @@ public abstract class MechanicWindowAbstract extends Window {
 	}
 
 	private void init() {
-		txtFirstName = new TextField("Имя");
-		txtFirstName.setSizeFull();
 		txtLastName = new TextField("Фамилия");
 		txtLastName.setSizeFull();
+		txtFirstName = new TextField("Имя");
+		txtFirstName.setSizeFull();		
 		txtPatronnymic = new TextField("Отчество");
 		txtPatronnymic.setSizeFull();
 		txtWages = new TextField("Почасовая оплата");
 		txtWages.setSizeFull();
-		VerticalLayout vlLayout = new VerticalLayout(txtFirstName, txtLastName, txtPatronnymic, txtWages);
+		VerticalLayout vlLayout = new VerticalLayout(txtLastName, txtFirstName, txtPatronnymic, txtWages);
 		this.setWidth(400.0f, Unit.PIXELS);
 		this.setModal(true);
 		this.setResizable(false);

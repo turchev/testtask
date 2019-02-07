@@ -20,7 +20,7 @@ import com.vaadin.ui.UI;
 public class MechanicView extends AbstractView implements View {
 	private DaoFactory hsqlDaoFactory;
 	private MechanicDao mechanicDao;
-	private Grid<Mechanic> grid = new Grid<>();
+	private Grid<Mechanic> grid;
 
 	public MechanicView() throws UiException {
 		init();
@@ -28,7 +28,7 @@ public class MechanicView extends AbstractView implements View {
 	}
 
 	private void init() throws UiException {
-		try {
+		try {			
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			mechanicDao = hsqlDaoFactory.getMechanicDao();
 			grid = new Grid<>(Mechanic.class);
@@ -82,7 +82,13 @@ public class MechanicView extends AbstractView implements View {
 				public void onClose(ConfirmDialog dialog) {
 					if (dialog.isConfirmed()) {
 						try {
-							mechanicDao.delete(selectedMachanic.getId());
+							mechanicDao.delete(selectedMachanic.getId());							
+							try {
+								showAll();
+							} catch (UiException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						} catch (DaoException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -95,7 +101,8 @@ public class MechanicView extends AbstractView implements View {
 
 		} catch (Exception e) {
 			Notification.show("Не удалось выполнить удаление", Type.ERROR_MESSAGE);
-		}
+		}		
+				
 //		try {
 //			showAll();
 //		} catch (UiException e) {

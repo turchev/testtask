@@ -28,15 +28,15 @@ public abstract class ClientWindowAbstract extends Window {
 	}
 
 	private void init() {
-		txtFirstName = new TextField("Имя");
-		txtFirstName.setSizeFull();
 		txtLastName = new TextField("Фамилия");
 		txtLastName.setSizeFull();
+		txtFirstName = new TextField("Имя");
+		txtFirstName.setSizeFull();		
 		txtPatronnymic = new TextField("Отчество");
 		txtPatronnymic.setSizeFull();
 		txtPhone = new TextField("Телефон");
 		txtPhone.setSizeFull();
-		VerticalLayout vlLayout = new VerticalLayout(txtFirstName, txtLastName, txtPatronnymic, txtPhone);
+		VerticalLayout vlLayout = new VerticalLayout(txtLastName, txtFirstName, txtPatronnymic, txtPhone);
 		this.setWidth(400.0f, Unit.PIXELS);
 		this.setModal(true);
 		this.setResizable(false);
