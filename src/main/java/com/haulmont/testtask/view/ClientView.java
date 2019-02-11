@@ -20,14 +20,17 @@ public class ClientView extends AbstractView implements View {
 	private Grid<Client> grid = new Grid<>();
 
 	public ClientView() throws UiException {
+		
 		init();
 		showAll();
 	}
 
 	private void init() throws UiException {
 		try {
-			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
+			
+			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);			
 			clientDao = hsqlDaoFactory.getClientDAO();
+//			throw new EOFException();
 			grid.setWidth(100.0f, Unit.PERCENTAGE);
 			grid.setSelectionMode(SelectionMode.SINGLE);
 			grid.addColumn(Client::getId).setId("id").setCaption("№");
@@ -37,9 +40,11 @@ public class ClientView extends AbstractView implements View {
 			grid.addColumn(Client::getPhone).setId("phone").setCaption("Телефон");
 			grid.setColumnOrder("id", "lastName", "firstName", "patronnymic", "phone");
 			this.addComponent(grid);
+			
 		} catch (Exception e) {
-//			UI.getCurrent().getNavigator().navigateTo("client");
-			throw new UiException(e);
+			
+//			UI.getCurrent().getNavigator().
+//			throw new UiException(e);			
 		}
 	}
 
