@@ -12,6 +12,7 @@ import com.haulmont.testtask.entity.Mechanic;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.UI;
@@ -31,9 +32,15 @@ public class MechanicView extends AbstractView implements View {
 		try {			
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			mechanicDao = hsqlDaoFactory.getMechanicDao();
-			grid = new Grid<>(Mechanic.class);
+			grid = new Grid<>();
 			grid.setWidth(100.0f, Unit.PERCENTAGE);
-			grid.setColumnOrder("id", "firstName", "lastName", "patronnymic", "wages");
+			grid.setSelectionMode(SelectionMode.SINGLE);
+			grid.addColumn(Mechanic::getId).setId("id").setCaption("№");
+			grid.addColumn(Mechanic::getLastName).setId("lastName").setCaption("Фамилия").setWidth(500);
+			grid.addColumn(Mechanic::getFirstName).setId("firstName").setCaption("Имя");
+			grid.addColumn(Mechanic::getPatronnymic).setId("patronnymic").setCaption("Отчество");
+			grid.addColumn(Mechanic::getWages).setId("wages").setCaption("Почасовая оплата");			
+			grid.setColumnOrder("id", "lastName", "firstName", "patronnymic", "wages");
 			this.addComponent(grid);
 		} catch (Exception e) {
 //			UI.getCurrent().getNavigator().navigateTo("mechanic");
@@ -101,14 +108,7 @@ public class MechanicView extends AbstractView implements View {
 
 		} catch (Exception e) {
 			Notification.show("Не удалось выполнить удаление", Type.ERROR_MESSAGE);
-		}		
-				
-//		try {
-//			showAll();
-//		} catch (UiException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		}	
 	}
 
 	@Override
