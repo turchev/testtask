@@ -9,6 +9,8 @@ import com.vaadin.ui.VerticalLayout;
 @Theme("mytheme")
 @SuppressWarnings("serial")
 public class ErrorView extends VerticalLayout implements View {
+	public static final String NAME = "error";
+
 	public ErrorView() {
 		this.setSizeFull();	
 		this.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);

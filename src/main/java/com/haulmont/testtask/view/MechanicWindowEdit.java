@@ -38,7 +38,7 @@ public class MechanicWindowEdit extends MechanicWindowAbstract {
 			mechanic.setWages((BigDecimal) super.dcf.parse(txtWages.getValue()));
 			mechanic.setId(id);
 			mechanicDao.update(mechanic);
-			UI.getCurrent().getNavigator().navigateTo("mechanic");
+			UI.getCurrent().getNavigator().navigateTo(MechanicView.NAME);
 			close();
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block

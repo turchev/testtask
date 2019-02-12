@@ -19,6 +19,7 @@ import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
 public class MechanicView extends AbstractView implements View {
+	public static final String NAME = "mechanic";
 	private DaoFactory hsqlDaoFactory;
 	private MechanicDao mechanicDao;
 	private Grid<Mechanic> grid;
@@ -43,7 +44,7 @@ public class MechanicView extends AbstractView implements View {
 			grid.setColumnOrder("id", "lastName", "firstName", "patronnymic", "wages");
 			this.addComponent(grid);
 		} catch (Exception e) {
-//			UI.getCurrent().getNavigator().navigateTo("mechanic");
+//			UI.getCurrent().getNavigator().navigateTo(ErrorView.NAME);
 			throw new UiException(e);
 		}
 	}

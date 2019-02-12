@@ -34,7 +34,7 @@ public class ClientWindowEdit extends ClientWindowAbstract {
 		client.setId(id);
 		try {
 			clientDao.update(client);
-			UI.getCurrent().getNavigator().navigateTo("client");
+			UI.getCurrent().getNavigator().navigateTo(ClientView.NAME);
 			close();
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block

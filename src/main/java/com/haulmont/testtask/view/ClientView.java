@@ -15,6 +15,7 @@ import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
 public class ClientView extends AbstractView implements View {
+	public static final String NAME = "client";
 	private DaoFactory hsqlDaoFactory;
 	private ClientDao clientDao;
 	private Grid<Client> grid = new Grid<>();

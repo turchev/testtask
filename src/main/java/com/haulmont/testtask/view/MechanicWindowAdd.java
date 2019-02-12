@@ -25,7 +25,7 @@ public class MechanicWindowAdd extends MechanicWindowAbstract {
 			BigDecimal wages = (BigDecimal) super.dcf.parse(txtWages.getValue());
 			mechanic.setWages(wages);
 			mechanicDao.create(mechanic);
-			UI.getCurrent().getNavigator().navigateTo("mechanic");
+			UI.getCurrent().getNavigator().navigateTo(MechanicView.NAME);
 			close();
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block

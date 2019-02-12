@@ -22,7 +22,7 @@ public class ClientWindowAdd extends ClientWindowAbstract {
 		client.setPhone(txtPhone.getValue());		
 		try {
 			clientDao.create(client);
-			UI.getCurrent().getNavigator().navigateTo("client");
+			UI.getCurrent().getNavigator().navigateTo(ClientView.NAME);
 			close();
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block

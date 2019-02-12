@@ -2,6 +2,9 @@ package com.haulmont.testtask.view;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.haulmont.testtask.dao.ClientDao;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.OrdersDao;
@@ -19,6 +22,8 @@ import com.vaadin.ui.TextField;
 
 @SuppressWarnings("serial")
 public class OrderView extends AbstractView implements View {
+	private static final Logger LOG = LogManager.getLogger();
+	public static final String NAME = "orders";
 	private DaoFactory hsqlDaoFactory;
 	private OrdersDao orderDao;
 	private ClientDao clientDao;
@@ -52,7 +57,10 @@ public class OrderView extends AbstractView implements View {
 			grid.setColumnOrder("id", "description", "clientFio", "mechanicFio", "status", "dateCreat",
 					"completionDate", "price");
 			this.addComponent(grid);
+//			throw new UiException("!!!Тестище!!!");
 		} catch (Exception e) {
+//			getUI().getNavigator().navigateTo(ErrorView.NAME);
+			LOG.error(e);
 			throw new UiException(e);
 		}
 	}
@@ -61,7 +69,10 @@ public class OrderView extends AbstractView implements View {
 		try {
 			List<OrdersWithFio> orders = orderDao.findAll();
 			grid.setItems(orders);
+//			throw new Exception("!!!Тестище!!!");
 		} catch (Exception e) {
+//			getUI().getNavigator().navigateTo(ErrorView.NAME);
+			LOG.error(e);
 			throw new UiException(e);
 		}
 	}
