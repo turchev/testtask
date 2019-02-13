@@ -33,7 +33,7 @@ class DaoFactoryHSQLDB extends DaoFactory {
 	}
 
 	@Override
-	public OrdersDao getOrderDao() throws DaoException {
+	public OrdersDao getOrdersDao() throws DaoException {
 		return new OrdersDaoJdbc(ds);
 	}
 

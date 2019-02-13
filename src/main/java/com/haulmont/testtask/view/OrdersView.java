@@ -18,10 +18,12 @@ import com.vaadin.ui.Grid;
 import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.NativeSelect;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.TextField;
 
 @SuppressWarnings("serial")
-public class OrderView extends AbstractView implements View {
+public class OrdersView extends AbstractView implements View {
 	private static final Logger LOG = LogManager.getLogger();
 	public static final String NAME = "orders";
 	private DaoFactory hsqlDaoFactory;
@@ -33,7 +35,7 @@ public class OrderView extends AbstractView implements View {
 	private Button btnAppleFilter, btnCleanFilter;
 	private Grid<OrdersWithFio> grid = new Grid<>();;
 
-	public OrderView() throws UiException {
+	public OrdersView() throws UiException {
 		init();
 		showAll();
 	}
@@ -41,7 +43,7 @@ public class OrderView extends AbstractView implements View {
 	private void init() throws UiException {
 		try {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
-			orderDao = hsqlDaoFactory.getOrderDao();
+			orderDao = hsqlDaoFactory.getOrdersDao();
 			clientDao = hsqlDaoFactory.getClientDAO();
 			this.addComponent(getFilterPanel());
 			grid.setWidth(100.0f, Unit.PERCENTAGE);
@@ -57,9 +59,7 @@ public class OrderView extends AbstractView implements View {
 			grid.setColumnOrder("id", "description", "clientFio", "mechanicFio", "status", "dateCreat",
 					"completionDate", "price");
 			this.addComponent(grid);
-//			throw new UiException("!!!Тестище!!!");
 		} catch (Exception e) {
-//			getUI().getNavigator().navigateTo(ErrorView.NAME);
 			LOG.error(e);
 			throw new UiException(e);
 		}
@@ -68,10 +68,8 @@ public class OrderView extends AbstractView implements View {
 	private void showAll() throws UiException {
 		try {
 			List<OrdersWithFio> orders = orderDao.findAll();
-			grid.setItems(orders);
-//			throw new Exception("!!!Тестище!!!");
+			grid.setItems(orders);			
 		} catch (Exception e) {
-//			getUI().getNavigator().navigateTo(ErrorView.NAME);
 			LOG.error(e);
 			throw new UiException(e);
 		}
@@ -116,8 +114,10 @@ public class OrderView extends AbstractView implements View {
 
 			List<OrdersWithFio> orders = orderDao.findUsingFilter(findDescription, status, clientFio);
 			grid.setItems(orders);
+//			throw new UiException("!!!Тестище!!!");
 		} catch (Exception e) {
-			e.printStackTrace();
+			Notification.show("Не удалось применить фильтр", Type.WARNING_MESSAGE);	
+			LOG.warn(e);	
 		}
 	}
 
@@ -126,9 +126,10 @@ public class OrderView extends AbstractView implements View {
 			filterDescription.clear();
 			filterStatus.clear();
 			filterClient.clear();
-			showAll();
+			showAll();			
 		} catch (UiException e) {
-			e.printStackTrace();
+			Notification.show("Не удалось очистить фильтр", Type.WARNING_MESSAGE);	
+			LOG.warn(e);	
 		}
 	}
 

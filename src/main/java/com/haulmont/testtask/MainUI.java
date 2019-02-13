@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import com.haulmont.testtask.view.ClientView;
 import com.haulmont.testtask.view.ErrorView;
 import com.haulmont.testtask.view.MechanicView;
-import com.haulmont.testtask.view.OrderView;
+import com.haulmont.testtask.view.OrdersView;
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
@@ -24,7 +24,7 @@ public class MainUI extends UI {
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
 		try {
-			Button btnOrders = new Button("Заказы", e -> getNavigator().navigateTo(OrderView.NAME));
+			Button btnOrders = new Button("Заказы", e -> getNavigator().navigateTo(OrdersView.NAME));
 			btnOrders.addStyleNames(ValoTheme.BUTTON_QUIET, ValoTheme.MENU_TITLE);
 			
 			Button btnClient = new Button("Клиент", e -> getNavigator().navigateTo(ClientView.NAME));
@@ -45,12 +45,12 @@ public class MainUI extends UI {
 			setContent(mainLayout);
 
 			Navigator navigator = new Navigator(this, viewContainer);
-			navigator.addView(OrderView.NAME, OrderView.class);
+			navigator.addView(OrdersView.NAME, OrdersView.class);
 			navigator.addView(ClientView.NAME, ClientView.class);
 			navigator.addView(MechanicView.NAME, MechanicView.class);
 			navigator.addView(ErrorView.NAME, ErrorView.class);	
 			navigator.setErrorView(ErrorView.class);
-			getNavigator().navigateTo(OrderView.NAME);	
+			getNavigator().navigateTo(OrdersView.NAME);	
 			
 //			btnOrders.setErrorHandler(new DefaultErrorHandler() {
 //			    @Override

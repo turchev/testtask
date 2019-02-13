@@ -18,7 +18,7 @@ class DaoFactoryH2 extends DaoFactory{
 
 	@Override
 	public
-	OrdersDao getOrderDao() throws DaoException {
+	OrdersDao getOrdersDao() throws DaoException {
 		// TODO Auto-generated method stub
 		return null;
 	}

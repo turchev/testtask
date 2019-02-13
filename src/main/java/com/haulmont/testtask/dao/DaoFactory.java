@@ -23,6 +23,6 @@ public abstract class DaoFactory {
 
 	public abstract MechanicDao getMechanicDao() throws DaoException;
 
-	public abstract OrdersDao getOrderDao() throws DaoException;
+	public abstract OrdersDao getOrdersDao() throws DaoException;
 
 }
