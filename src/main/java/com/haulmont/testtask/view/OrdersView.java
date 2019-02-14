@@ -33,7 +33,7 @@ public class OrdersView extends AbstractView implements View {
 	private NativeSelect<String> filterClient;
 	private NativeSelect<OrderStatusType> filterStatus;
 	private Button btnAppleFilter, btnCleanFilter;
-	private Grid<OrdersWithFio> grid = new Grid<>();;
+	private Grid<OrdersWithFio> grid = new Grid<>();
 
 	public OrdersView() throws UiException {
 		init();

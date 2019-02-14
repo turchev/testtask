@@ -22,7 +22,7 @@ public abstract class OrdersWindowAbstract extends Window {
 	protected OrdersDao ordersDao;
 	protected ComboBox<String> cmbClient, cmbMechanic;
 	protected NativeSelect<OrderStatusType> ntsStatus;
-	protected Label lblDateCreat, lblCompletionDate;
+//	protected Label lblDateCreat, lblCompletionDate;
 	protected DateTimeField dtfDateCreat, dtfCompletionDate;
 	protected TextField txtPrice;
 
@@ -38,14 +38,18 @@ public abstract class OrdersWindowAbstract extends Window {
 	}
 
 	private void init() {
-//		txtLastName = new TextField("Фамилия");
-//		txtLastName.setSizeFull();
-//		txtFirstName = new TextField("Имя");
-//		txtFirstName.setSizeFull();		
-//		txtPatronnymic = new TextField("Отчество");
-//		txtPatronnymic.setSizeFull();
-//		txtPhone = new TextField("Телефон");
-//		txtPhone.setSizeFull();
+		ntsStatus = new NativeSelect<>("Статус");
+//		ntsStatus.setSizeFull();		
+		cmbClient = new ComboBox<>("Клиент ФИО");
+//		cmbClient.setSizeFull();
+		cmbMechanic	= new ComboBox<>("Механик ФИО");
+//		cmbMechanic.setSizeFull();	
+		dtfDateCreat = new DateTimeField("Дата создания заявки");
+//		dtfDateCreat.setSizeFull();
+		dtfCompletionDate = new DateTimeField("Дата окончания работ");
+		txtPrice = new TextField("Цена");
+		
+
 //		VerticalLayout vlLayout = new VerticalLayout(txtLastName, txtFirstName, txtPatronnymic, txtPhone);
 //		this.setWidth(400.0f, Unit.PIXELS);
 //		this.setModal(true);
