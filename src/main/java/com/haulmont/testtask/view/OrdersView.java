@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.haulmont.testtask.dao.ClientDao;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.OrdersDao;
@@ -21,6 +20,7 @@ import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
 public class OrdersView extends AbstractView implements View {
@@ -135,7 +135,8 @@ public class OrdersView extends AbstractView implements View {
 
 	@Override
 	void btnAddClick() {
-		// TODO Auto-generated method stub
+		OrdersWindowAdd subWindowAdd = new OrdersWindowAdd();
+		UI.getCurrent().addWindow(subWindowAdd);
 	}
 
 	@Override

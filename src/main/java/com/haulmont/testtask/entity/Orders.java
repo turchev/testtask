@@ -16,8 +16,8 @@ public class Orders extends AbstractEntity {
 	private String description = "";
 
 	@ManyToOne
-	@JoinColumn(name = "client_id")	
-	private Long clientId;		
+	@JoinColumn(name = "client_id")
+	private Long clientId;
 
 	@ManyToOne
 	@JoinColumn(name = "mechanic_id")
@@ -35,18 +35,28 @@ public class Orders extends AbstractEntity {
 	@Column(name = "price")
 	private BigDecimal price;
 
+	public Orders() {
+	}
+
+	public Orders(String description, Long clientId, Long mechanicId) {
+	}
+
+	public Orders(String description, Long clientId, Long mechanicId, Timestamp dateCreat, Timestamp completionDate,
+			BigDecimal price) {
+	}
+
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
-	}	
+	}
 
 	public Timestamp getDateCreat() {
 		return dateCreat;
 	}
-	
+
 	public Long getClientId() {
 		return clientId;
 	}
@@ -94,5 +104,5 @@ public class Orders extends AbstractEntity {
 	@Override
 	public String toString() {
 		return description + " " + status;
-	}	
+	}
 }
