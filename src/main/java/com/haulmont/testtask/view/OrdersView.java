@@ -34,6 +34,7 @@ public class OrdersView extends AbstractView implements View {
 	private NativeSelect<OrderStatusType> filterStatus;
 	private Button btnAppleFilter, btnCleanFilter;
 	private Grid<OrdersWithFio> grid = new Grid<>();
+	private List<OrdersWithFio> orders;
 
 	public OrdersView() throws UiException {
 		init();
@@ -67,7 +68,7 @@ public class OrdersView extends AbstractView implements View {
 
 	private void showAll() throws UiException {
 		try {
-			List<OrdersWithFio> orders = orderDao.findAll();
+			orders = orderDao.findAll();
 			grid.setItems(orders);			
 		} catch (Exception e) {
 			LOG.error(e);
@@ -114,7 +115,6 @@ public class OrdersView extends AbstractView implements View {
 
 			List<OrdersWithFio> orders = orderDao.findUsingFilter(findDescription, status, clientFio);
 			grid.setItems(orders);
-//			throw new UiException("!!!Тестище!!!");
 		} catch (Exception e) {
 			Notification.show("Не удалось применить фильтр", Type.WARNING_MESSAGE);	
 			LOG.warn(e);	
@@ -135,7 +135,7 @@ public class OrdersView extends AbstractView implements View {
 
 	@Override
 	void btnAddClick() {
-		OrdersWindowAdd subWindowAdd = new OrdersWindowAdd();
+		OrdersWindowAdd subWindowAdd = new OrdersWindowAdd(this.orders);
 		UI.getCurrent().addWindow(subWindowAdd);
 	}
 

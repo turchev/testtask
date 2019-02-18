@@ -28,5 +28,5 @@ public class OrdersWithFio extends Orders {
 
 	public void setMechanicFio(String mechanicFio) {
 		this.mechanicFio = mechanicFio;
-	}
+	}	
 }

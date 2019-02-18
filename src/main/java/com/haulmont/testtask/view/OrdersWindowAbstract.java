@@ -2,11 +2,11 @@ package com.haulmont.testtask.view;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.OrdersDao;
 import com.haulmont.testtask.ds.DsType;
 import com.haulmont.testtask.entity.OrderStatusType;
+import com.haulmont.testtask.entity.OrdersWithFio;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.DateTimeField;
@@ -23,7 +23,7 @@ import com.vaadin.ui.Window;
 public abstract class OrdersWindowAbstract extends Window {
 	private static final Logger LOG = LogManager.getLogger();
 	protected OrdersDao ordersDao;
-	protected ComboBox<String> cmbClient, cmbMechanic;
+	protected ComboBox<OrdersWithFio> cmbClient, cmbMechanic;
 	protected NativeSelect<OrderStatusType> ntsStatus;
 //	protected Label lblDateCreat, lblCompletionDate;
 	protected DateTimeField dtfDateCreat, dtfCompletionDate;
@@ -49,7 +49,7 @@ public abstract class OrdersWindowAbstract extends Window {
 		cmbMechanic = new ComboBox<>("Механик ФИО");
 //		cmbMechanic.setSizeFull();	
 		dtfDateCreat = new DateTimeField("Дата создания заявки");
-//		dtfDateCreat.setSizeFull();
+//		dtfDateCreat.setValue(LocalDateTime.now());
 		dtfCompletionDate = new DateTimeField("Дата окончания работ");
 		txtPrice = new TextField("Цена");
 		txrDescription = new TextArea("Описание заявки");

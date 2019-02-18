@@ -1,10 +1,23 @@
 package com.haulmont.testtask.view;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import com.haulmont.testtask.entity.OrdersWithFio;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
+
 @SuppressWarnings("serial")
 public class OrdersWindowAdd extends OrdersWindowAbstract {
+	private List<OrdersWithFio> orders;
 
-	public OrdersWindowAdd() {
+	public OrdersWindowAdd(List<OrdersWithFio> orders) {
+		this.orders = orders;
 		super.setCaption("Создать заявку");
+		super.dtfDateCreat.setValue(LocalDateTime.now());
+		super.dtfCompletionDate.setValue(LocalDateTime.now());
+		cmbClient.setItems(orders.get(0));
+		cmbMechanic.setItems(orders.get(1));
 		ntsStatus.setVisible(false);
 	}
 
@@ -14,8 +27,22 @@ public class OrdersWindowAdd extends OrdersWindowAbstract {
 	}
 
 	@Override
-	protected void btnAppleClick() {
-//		Orders orders = new Orders(txtLastName.getValue(), txtFirstName.getValue(), txtPatronnymic.getValue());
+	protected synchronized void btnAppleClick() {
+		
+		Notification.show(cmbClient.getValue() + "  " + cmbMechanic.getValue());
+		if (cmbClient.getValue() == null) {
+			Notification.show("Выберите клиента из списка или создайте новую запись", Type.WARNING_MESSAGE);
+			return;
+		}
+		
+		if (cmbMechanic.getValue() == null) {
+			Notification.show("Выберите механика из списка или создайте новую запись", Type.WARNING_MESSAGE);
+			return;
+		}
+		Notification.show(cmbClient.getValue() + "  " + cmbMechanic.getValue());
+//		Orders orders = new Orders(txrDescription.getValue(), cmbClient.getValue(), cmbMechanic.getValue());
+//		String description, Long clientId, Long mechanicId, Timestamp dateCreat, Timestamp completionDate,
+//		BigDecimal price
 //		try {
 //			BigDecimal wages = (BigDecimal) super.dcf.parse(txtWages.getValue());
 //			orders.setWages(wages);
