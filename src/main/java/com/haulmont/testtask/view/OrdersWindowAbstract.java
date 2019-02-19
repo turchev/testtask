@@ -1,5 +1,7 @@
 package com.haulmont.testtask.view;
 
+import java.util.List;
+
 //import org.apache.logging.log4j.LogManager;
 //import org.apache.logging.log4j.Logger;
 
@@ -29,8 +31,9 @@ public abstract class OrdersWindowAbstract extends Window {
 	protected DateTimeField dtfDateCreat, dtfCompletionDate;
 	protected TextField txtPrice;
 	protected TextArea txrDescription;
+	private List<OrdersWithFio> orders;
 
-	public OrdersWindowAbstract() {
+	public OrdersWindowAbstract(List<OrdersWithFio> orders) {
 //		try {
 //			ordersDao = DaoFactory.getFactory(DsType.HSQLDB).getOrdersDao();
 //		} catch (Exception e) {
@@ -44,9 +47,11 @@ public abstract class OrdersWindowAbstract extends Window {
 	private void init() {
 		ntsStatus = new NativeSelect<>("Статус");		
 		cmbClient = new ComboBox<>("Клиент ФИО");
+		cmbClient.setItems(orders);		
 		cmbClient.setItemCaptionGenerator(ordersWithFio -> ordersWithFio.getClientFio());	
 		cmbClient.setWidth(300.0f, Unit.PIXELS);
 		cmbMechanic = new ComboBox<>("Механик ФИО");
+		cmbMechanic.setItems(orders);
 		cmbMechanic.setItemCaptionGenerator(ordersWithFio -> ordersWithFio.getMechanicFio());
 		cmbMechanic.setWidth(300.0f, Unit.PIXELS);
 		dtfDateCreat = new DateTimeField("Дата создания заявки");

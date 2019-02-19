@@ -10,14 +10,13 @@ import com.vaadin.ui.Notification.Type;
 @SuppressWarnings("serial")
 public class OrdersWindowAdd extends OrdersWindowAbstract {
 	private List<OrdersWithFio> orders;
-
-	public OrdersWindowAdd(List<OrdersWithFio> orders) {
-		this.orders = orders;
+	
+	public OrdersWindowAdd(List<OrdersWithFio> orders) {	
+		super(orders);
+		this.orders = orders;		
 		super.setCaption("Создать заявку");
 		super.dtfDateCreat.setValue(LocalDateTime.now());
-		super.dtfCompletionDate.setValue(LocalDateTime.now());
-		cmbClient.setItems(orders);
-		cmbMechanic.setItems(orders);
+		super.dtfCompletionDate.setValue(LocalDateTime.now());		
 		ntsStatus.setVisible(false);
 	}
 
@@ -27,9 +26,8 @@ public class OrdersWindowAdd extends OrdersWindowAbstract {
 	}
 
 	@Override
-	protected synchronized void btnAppleClick() {
+	protected synchronized void btnAppleClick() {		
 		
-		Notification.show(cmbClient.getValue() + "  " + cmbMechanic.getValue());
 		if (cmbClient.getValue() == null) {
 			Notification.show("Выберите клиента из списка или создайте новую запись", Type.WARNING_MESSAGE);
 			return;
@@ -39,7 +37,7 @@ public class OrdersWindowAdd extends OrdersWindowAbstract {
 			Notification.show("Выберите механика из списка или создайте новую запись", Type.WARNING_MESSAGE);
 			return;
 		}
-		Notification.show(cmbClient.getValue() + "  " + cmbMechanic.getValue());
+		Notification.show(cmbClient.getValue() + " \n " + cmbMechanic.getValue());
 //		Orders orders = new Orders(txrDescription.getValue(), cmbClient.getValue(), cmbMechanic.getValue());
 //		String description, Long clientId, Long mechanicId, Timestamp dateCreat, Timestamp completionDate,
 //		BigDecimal price
