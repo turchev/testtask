@@ -16,8 +16,8 @@ public class OrdersWindowAdd extends OrdersWindowAbstract {
 		super.setCaption("Создать заявку");
 		super.dtfDateCreat.setValue(LocalDateTime.now());
 		super.dtfCompletionDate.setValue(LocalDateTime.now());
-		cmbClient.setItems(orders.get(0));
-		cmbMechanic.setItems(orders.get(1));
+		cmbClient.setItems(orders);
+		cmbMechanic.setItems(orders);
 		ntsStatus.setVisible(false);
 	}
 

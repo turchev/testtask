@@ -135,7 +135,7 @@ public class OrdersView extends AbstractView implements View {
 
 	@Override
 	void btnAddClick() {
-		OrdersWindowAdd subWindowAdd = new OrdersWindowAdd(this.orders);
+		OrdersWindowAdd subWindowAdd = new OrdersWindowAdd(orders);
 		UI.getCurrent().addWindow(subWindowAdd);
 	}
 
