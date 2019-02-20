@@ -12,12 +12,12 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
-public abstract class ClientWindowAbstract extends Window {
+abstract class ClientWindowAbstract extends Window {
 	private static final Logger LOG = LogManager.getLogger();
 	protected ClientDao clientDao;	
 	protected TextField txtFirstName, txtLastName, txtPatronnymic, txtPhone;
 
-	public ClientWindowAbstract() {
+	protected ClientWindowAbstract() {
 		try {
 			clientDao = DaoFactory.getFactory(DsType.HSQLDB).getClientDAO();
 		} catch (Exception e) {

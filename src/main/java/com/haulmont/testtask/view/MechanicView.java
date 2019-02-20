@@ -59,13 +59,13 @@ public class MechanicView extends AbstractView implements View {
 	}
 
 	@Override
-	void btnAddClick() {
+	protected void btnAddClick() {
 		MechanicWindowAdd subWindowAdd = new MechanicWindowAdd();
 		UI.getCurrent().addWindow(subWindowAdd);
 	}
 
 	@Override
-	void btnChangeClick() {
+	protected void btnChangeClick() {
 		if (grid.asSingleSelect().isEmpty()) {
 			Notification.show("Выберите механика из списка");
 			return;
@@ -76,7 +76,7 @@ public class MechanicView extends AbstractView implements View {
 	}
 
 	@Override
-	void btnDeleteClick() {
+	protected void btnDeleteClick() {
 		try {
 			if (grid.asSingleSelect().isEmpty()) {
 				Notification.show("Выберите механика из списка");

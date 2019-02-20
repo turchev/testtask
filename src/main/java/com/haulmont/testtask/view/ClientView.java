@@ -59,12 +59,14 @@ public class ClientView extends AbstractView implements View {
 	}
 
 	@Override
+	protected
 	void btnAddClick() {
 		ClientWindowAdd subWindowAdd = new ClientWindowAdd();
 		UI.getCurrent().addWindow(subWindowAdd);
 	}
 
 	@Override
+	protected
 	void btnChangeClick() {
 		if (grid.asSingleSelect().isEmpty()) {
 			Notification.show("Выберите клиента из списка");
@@ -76,6 +78,7 @@ public class ClientView extends AbstractView implements View {
 	}
 
 	@Override
+	protected
 	void btnDeleteClick() {
 	}
 

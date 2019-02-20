@@ -134,17 +134,20 @@ public class OrdersView extends AbstractView implements View {
 	}
 
 	@Override
+	protected
 	void btnAddClick() {
 		OrdersWindowAdd subWindowAdd = new OrdersWindowAdd(orders);
 		UI.getCurrent().addWindow(subWindowAdd);
 	}
 
 	@Override
+	protected
 	void btnChangeClick() {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
+	protected
 	void btnDeleteClick() {
 		// TODO Auto-generated method stub
 	}

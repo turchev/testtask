@@ -15,13 +15,13 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
-public abstract class MechanicWindowAbstract extends Window {
+abstract class MechanicWindowAbstract extends Window {
 	private static final Logger LOG = LogManager.getLogger();
 	protected MechanicDao mechanicDao;	
 	protected TextField txtLastName, txtFirstName, txtPatronnymic, txtWages;
 	protected DecimalFormat dcf = new DecimalFormat();	
 
-	public MechanicWindowAbstract() {
+	protected MechanicWindowAbstract() {
 		try {
 			mechanicDao = DaoFactory.getFactory(DsType.HSQLDB).getMechanicDao();
 			dcf.setParseBigDecimal(true);

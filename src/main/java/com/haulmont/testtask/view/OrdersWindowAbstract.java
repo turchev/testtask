@@ -1,5 +1,6 @@
 package com.haulmont.testtask.view;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 //import org.apache.logging.log4j.LogManager;
@@ -23,7 +24,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
-public abstract class OrdersWindowAbstract extends Window {
+abstract class OrdersWindowAbstract extends Window {
 //	private static final Logger LOG = LogManager.getLogger();
 //	protected OrdersDao ordersDao;
 	protected ComboBox<OrdersWithFio> cmbClient, cmbMechanic;
@@ -33,14 +34,8 @@ public abstract class OrdersWindowAbstract extends Window {
 	protected TextArea txrDescription;
 	private List<OrdersWithFio> orders;
 
-	public OrdersWindowAbstract(List<OrdersWithFio> orders) {
-//		try {
-//			ordersDao = DaoFactory.getFactory(DsType.HSQLDB).getOrdersDao();
-//		} catch (Exception e) {
-//			Notification.show("Не удалось загрузить из источника данных", Type.ERROR_MESSAGE);
-//			LOG.error(e);
-//			close();
-//		}
+	protected OrdersWindowAbstract(List<OrdersWithFio> orders) {
+		this.orders = orders;
 		init();
 	}
 
@@ -48,14 +43,16 @@ public abstract class OrdersWindowAbstract extends Window {
 		ntsStatus = new NativeSelect<>("Статус");		
 		cmbClient = new ComboBox<>("Клиент ФИО");
 		cmbClient.setItems(orders);		
-		cmbClient.setItemCaptionGenerator(ordersWithFio -> ordersWithFio.getClientFio());	
+		cmbClient.setItemCaptionGenerator(OrdersWithFio::getClientFio);	
 		cmbClient.setWidth(300.0f, Unit.PIXELS);
 		cmbMechanic = new ComboBox<>("Механик ФИО");
 		cmbMechanic.setItems(orders);
-		cmbMechanic.setItemCaptionGenerator(ordersWithFio -> ordersWithFio.getMechanicFio());
+		cmbMechanic.setItemCaptionGenerator(OrdersWithFio::getMechanicFio);
 		cmbMechanic.setWidth(300.0f, Unit.PIXELS);
 		dtfDateCreat = new DateTimeField("Дата создания заявки");
+		dtfDateCreat.setValue(LocalDateTime.now());			
 		dtfCompletionDate = new DateTimeField("Дата окончания работ");
+		dtfCompletionDate.setValue(LocalDateTime.now());
 		txtPrice = new TextField("Цена");
 		txrDescription = new TextArea("Описание заявки");
 		txrDescription.setSizeFull();

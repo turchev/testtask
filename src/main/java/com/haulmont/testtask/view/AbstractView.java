@@ -5,7 +5,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
-public abstract class AbstractView extends VerticalLayout {	
+abstract class AbstractView extends VerticalLayout {	
 	
 	HorizontalLayout groupButtons;	
 	
@@ -19,16 +19,13 @@ public abstract class AbstractView extends VerticalLayout {
 		Button btnAdd = new Button("Добавить");
 		Button btnChange = new Button("Изменить");
 		Button btnDelete = new Button("Удалить");
-		btnAdd.addClickListener(event -> {
-//			Notification.show("TODO", "Добавить", Notification.Type.HUMANIZED_MESSAGE);			
+		btnAdd.addClickListener(event -> {		
 			btnAddClick();
 		});
 		btnChange.addClickListener(event -> {
-//			Notification.show("TODO", "Изменить", Notification.Type.HUMANIZED_MESSAGE);
 			btnChangeClick();
 		});
 		btnDelete.addClickListener(event -> {
-//			Notification.show("TODO", "Удалить", Notification.Type.HUMANIZED_MESSAGE);
 			btnDeleteClick();
 		});
 		groupButtons.addComponent(btnAdd);
@@ -37,9 +34,9 @@ public abstract class AbstractView extends VerticalLayout {
 		return groupButtons;
 	}
 	
-	abstract void btnAddClick();
+	protected abstract void btnAddClick();
 	
-	abstract void btnChangeClick();
+	protected abstract void btnChangeClick();
 	
-	abstract void btnDeleteClick();
+	protected abstract void btnDeleteClick();
 }
