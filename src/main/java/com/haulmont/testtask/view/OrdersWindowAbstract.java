@@ -40,7 +40,8 @@ abstract class OrdersWindowAbstract extends Window {
 	}
 
 	private void init() {
-		ntsStatus = new NativeSelect<>("Статус");		
+		ntsStatus = new NativeSelect<>("Статус");	
+		ntsStatus.setItems(OrderStatusType.values());
 		cmbClient = new ComboBox<>("Клиент ФИО");
 		cmbClient.setItems(orders);		
 		cmbClient.setItemCaptionGenerator(OrdersWithFio::getClientFio);	
@@ -51,8 +52,7 @@ abstract class OrdersWindowAbstract extends Window {
 		cmbMechanic.setWidth(300.0f, Unit.PIXELS);
 		dtfDateCreat = new DateTimeField("Дата создания заявки");
 		dtfDateCreat.setValue(LocalDateTime.now());			
-		dtfCompletionDate = new DateTimeField("Дата окончания работ");
-		dtfCompletionDate.setValue(LocalDateTime.now());
+		dtfCompletionDate = new DateTimeField("Дата окончания работ");		
 		txtPrice = new TextField("Цена");
 		txrDescription = new TextArea("Описание заявки");
 		txrDescription.setSizeFull();
