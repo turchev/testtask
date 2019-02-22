@@ -4,7 +4,6 @@ import java.text.DecimalFormat;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.MechanicDao;
 import com.haulmont.testtask.ds.DsType;
