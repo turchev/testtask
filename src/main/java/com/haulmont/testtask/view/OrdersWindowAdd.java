@@ -35,7 +35,7 @@ public class OrdersWindowAdd extends OrdersWindowAbstract {
 		if (ntsStatus.isEmpty()) {
 			Notification.show("Задайте статус заявки", Type.WARNING_MESSAGE);
 			return;
-		}		
+		}
 		if (txrDescription.isEmpty()) {
 			Notification.show("Описание заявки не может быть пустым", Type.WARNING_MESSAGE);
 			return;
@@ -43,12 +43,10 @@ public class OrdersWindowAdd extends OrdersWindowAbstract {
 		if (dtfDateCreat.isEmpty()) {
 			Notification.show("Укажите дату заявки", Type.WARNING_MESSAGE);
 			return;
-		}		
-		
+		}
 		
 		Notification.show("Клиент: " + cmbClient.getValue().getClientFio() + " " + cmbClient.getValue().getClientId()
 				+ "\n " + "Механик: " + cmbMechanic.getValue().getMechanicFio() + " "
 				+ cmbMechanic.getValue().getMechanicId());
-
 	}
 }
