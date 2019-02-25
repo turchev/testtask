@@ -8,6 +8,13 @@ import javax.persistence.Table;
 @Table(name = "orders_with_fio")
 public class OrdersWithFio extends Orders {
 
+	public OrdersWithFio() {		
+	}
+
+	public OrdersWithFio(String description, Long clientId, Long mechanicId) {
+		super(description, clientId, mechanicId);
+	}	
+	
 	@Column(name = "client_fio")	
 	private String clientFio;	
 

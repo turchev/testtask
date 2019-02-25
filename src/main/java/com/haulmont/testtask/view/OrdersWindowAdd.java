@@ -3,15 +3,13 @@ package com.haulmont.testtask.view;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.List;
-
 import com.haulmont.testtask.dao.DaoException;
-import com.haulmont.testtask.entity.Mechanic;
 import com.haulmont.testtask.entity.OrderStatusType;
 import com.haulmont.testtask.entity.Orders;
 import com.haulmont.testtask.entity.OrdersWithFio;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.Notification.Type;
+import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
 public class OrdersWindowAdd extends OrdersWindowAbstract {
@@ -51,11 +49,12 @@ public class OrdersWindowAdd extends OrdersWindowAbstract {
 			return;
 		}
 				
-		Orders orders = new Orders(txrDescription.getValue(), cmbClient.getValue().getClientId(), cmbMechanic.getValue().getMechanicId());
+		OrdersWithFio order = new OrdersWithFio(txrDescription.getValue(), cmbClient.getValue().getClientId(), cmbMechanic.getValue().getMechanicId());
 		try {
-			BigDecimal wages = (BigDecimal) super.dcf.parse(txtWages.getValue());
-			orders.setWages(wages);
-			mechanicDao.create(orders);
+			BigDecimal price = (BigDecimal) super.dcf.parse(txtPrice.getValue());
+			order.setPrice(price);
+			order.setDateCreat(dtfDateCreat.getValue());
+			ordersDao.create(order);
 			UI.getCurrent().getNavigator().navigateTo(MechanicView.NAME);
 			close();
 		} catch (DaoException e) {

@@ -39,11 +39,7 @@ public class Orders extends AbstractEntity {
 	}
 
 	public Orders(String description, Long clientId, Long mechanicId) {
-	}
-
-	public Orders(String description, Long clientId, Long mechanicId, Timestamp dateCreat, Timestamp completionDate,
-			BigDecimal price) {
-	}
+	}	
 
 	public String getDescription() {
 		return description;

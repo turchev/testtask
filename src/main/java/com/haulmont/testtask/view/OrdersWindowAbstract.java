@@ -1,14 +1,13 @@
 package com.haulmont.testtask.view;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.List;
-
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
-
-//import com.haulmont.testtask.dao.DaoFactory;
-//import com.haulmont.testtask.dao.OrdersDao;
-//import com.haulmont.testtask.ds.DsType;
+import com.haulmont.testtask.dao.DaoFactory;
+import com.haulmont.testtask.dao.OrdersDao;
+import com.haulmont.testtask.ds.DsType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import com.haulmont.testtask.entity.OrderStatusType;
 import com.haulmont.testtask.entity.OrdersWithFio;
 import com.vaadin.ui.Button;
@@ -16,8 +15,6 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.DateTimeField;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.NativeSelect;
-//import com.vaadin.ui.Notification;
-//import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -25,17 +22,25 @@ import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
 abstract class OrdersWindowAbstract extends Window {
-//	private static final Logger LOG = LogManager.getLogger();
-//	protected OrdersDao ordersDao;
+	private static final Logger LOG = LogManager.getLogger();
+	protected OrdersDao ordersDao;
 	protected ComboBox<OrdersWithFio> cmbClient, cmbMechanic;
 	protected NativeSelect<OrderStatusType> ntsStatus;
 	protected DateTimeField dtfDateCreat, dtfCompletionDate;
 	protected TextField txtPrice;
-	protected TextArea txrDescription;
-	private List<OrdersWithFio> orders;
+	protected TextArea txrDescription;		
+	protected DecimalFormat dcf = new DecimalFormat();
+	private List<OrdersWithFio> ordersWithFio;
 
 	protected OrdersWindowAbstract(List<OrdersWithFio> orders) {
-		this.orders = orders;
+		this.ordersWithFio = orders;
+		try {
+			ordersDao = DaoFactory.getFactory(DsType.HSQLDB).getOrdersDao();
+			dcf.setParseBigDecimal(true);
+		} catch (Exception e) {
+			LOG.error("No orders data source", e);
+			close();
+		}
 		init();
 	}
 
@@ -43,11 +48,11 @@ abstract class OrdersWindowAbstract extends Window {
 		ntsStatus = new NativeSelect<>("Статус");	
 		ntsStatus.setItems(OrderStatusType.values());
 		cmbClient = new ComboBox<>("Клиент ФИО");
-		cmbClient.setItems(orders);		
+		cmbClient.setItems(ordersWithFio);		
 		cmbClient.setItemCaptionGenerator(OrdersWithFio::getClientFio);	
 		cmbClient.setWidth(300.0f, Unit.PIXELS);
 		cmbMechanic = new ComboBox<>("Механик ФИО");
-		cmbMechanic.setItems(orders);
+		cmbMechanic.setItems(ordersWithFio);
 		cmbMechanic.setItemCaptionGenerator(OrdersWithFio::getMechanicFio);
 		cmbMechanic.setWidth(300.0f, Unit.PIXELS);
 		dtfDateCreat = new DateTimeField("Дата создания заявки");
