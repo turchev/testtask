@@ -3,9 +3,9 @@ package com.haulmont.testtask.view;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.List;
+
 import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.entity.OrderStatusType;
-import com.haulmont.testtask.entity.Orders;
 import com.haulmont.testtask.entity.OrdersWithFio;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
@@ -48,14 +48,16 @@ public class OrdersWindowAdd extends OrdersWindowAbstract {
 			Notification.show("Укажите дату заявки", Type.WARNING_MESSAGE);
 			return;
 		}
-				
-		OrdersWithFio order = new OrdersWithFio(txrDescription.getValue(), cmbClient.getValue().getClientId(), cmbMechanic.getValue().getMechanicId());
+
+		OrdersWithFio order = new OrdersWithFio(txrDescription.getValue(), cmbClient.getValue().getClientId(),
+				cmbMechanic.getValue().getMechanicId());
 		try {
 			BigDecimal price = (BigDecimal) super.dcf.parse(txtPrice.getValue());
 			order.setPrice(price);
 			order.setDateCreat(dtfDateCreat.getValue());
+			order.setCompletionDate(dtfCompletionDate.getValue());
 			ordersDao.create(order);
-			UI.getCurrent().getNavigator().navigateTo(MechanicView.NAME);
+			UI.getCurrent().getNavigator().navigateTo(OrdersView.NAME);
 			close();
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
@@ -64,7 +66,7 @@ public class OrdersWindowAdd extends OrdersWindowAbstract {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+
 		Notification.show("Клиент: " + cmbClient.getValue().getClientFio() + " " + cmbClient.getValue().getClientId()
 				+ "\n " + "Механик: " + cmbMechanic.getValue().getMechanicFio() + " "
 				+ cmbMechanic.getValue().getMechanicId());

@@ -32,8 +32,8 @@ class OrdersDaoJdbc implements OrdersDao {
 				orders.setClientFio(rs.getString("client_fio"));
 				orders.setMechanicFio(rs.getString("mechanic_fio"));
 				orders.setStatus(OrderStatusType.valueOf(rs.getString("status")));
-				orders.setDateCreat(rs.getTimestamp("date_creat"));
-				orders.setCompletionDate(rs.getTimestamp("completion_date"));
+				orders.setDateCreat(rs.getTimestamp("date_creat").toLocalDateTime());
+				orders.setCompletionDate(rs.getTimestamp("completion_date").toLocalDateTime());
 				orders.setPrice(rs.getBigDecimal("price"));
 				result.add(orders);
 			}
@@ -83,8 +83,8 @@ class OrdersDaoJdbc implements OrdersDao {
 				orders.setClientFio(rs.getString("client_fio"));
 				orders.setMechanicFio(rs.getString("mechanic_fio"));
 				orders.setStatus(OrderStatusType.valueOf(rs.getString("status")));
-				orders.setDateCreat(rs.getTimestamp("date_creat"));
-				orders.setCompletionDate(rs.getTimestamp("completion_date"));
+				orders.setDateCreat(rs.getTimestamp("date_creat").toLocalDateTime());
+				orders.setCompletionDate(rs.getTimestamp("completion_date").toLocalDateTime());
 				orders.setPrice(rs.getBigDecimal("price"));
 				result.add(orders);
 			}
@@ -109,8 +109,8 @@ class OrdersDaoJdbc implements OrdersDao {
 			orders.setClientFio(rs.getString("client_fio"));
 			orders.setMechanicFio(rs.getString("mechanic_fio"));
 			orders.setStatus(OrderStatusType.valueOf(rs.getString("status")));
-			orders.setDateCreat(rs.getTimestamp("date_creat"));
-			orders.setCompletionDate(rs.getTimestamp("completion_date"));
+			orders.setDateCreat(rs.getTimestamp("date_creat").toLocalDateTime());
+			orders.setCompletionDate(rs.getTimestamp("completion_date").toLocalDateTime());
 			orders.setPrice(rs.getBigDecimal("price"));
 			return orders;
 		} catch (Exception e) {
@@ -124,8 +124,20 @@ class OrdersDaoJdbc implements OrdersDao {
 	}
 
 	@Override
-	public void create(OrdersWithFio order) throws DaoException {
-		// TODO Auto-generated method stub
+	public synchronized void create(OrdersWithFio order) throws DaoException {
+		final String SQL = "INSERT INTO orders (description, client_id, mechanic_id, status, date_creat, completion_date, price) VALUES (?,?,?,?,?,?,?);";
+		try (Connection connection = ds.getConnection(); PreparedStatement pstmt = connection.prepareStatement(SQL)) {
+//			pstmt.setString(1, order.getDescription());
+//			pstmt.setLong(2, order.getClientId());
+//			pstmt.setLong(3, order.getMechanicId());
+//			pstmt.setString(4, order.getStatus().toString());	
+//			pstmt.setBigDecimal(, order.getStatus());
+//			pstmt.setBigDecimal(4, order.getStatus());
+//			pstmt.setBigDecimal(4, order.getStatus());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			throw new DaoException(e);
+		}	
 		
 	}
 

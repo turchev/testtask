@@ -1,7 +1,8 @@
 package com.haulmont.testtask.entity;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -27,10 +28,10 @@ public class Orders extends AbstractEntity {
 	private OrderStatusType status;
 
 	@Column(name = "date_creat")
-	private Timestamp dateCreat;
+	private LocalDateTime dateCreat;
 
 	@Column(name = "completion_date")
-	private Timestamp completionDate;
+	private LocalDateTime completionDate;
 
 	@Column(name = "price")
 	private BigDecimal price;
@@ -49,7 +50,7 @@ public class Orders extends AbstractEntity {
 		this.description = description;
 	}
 
-	public Timestamp getDateCreat() {
+	public LocalDateTime getDateCreat() {
 		return dateCreat;
 	}
 
@@ -69,15 +70,15 @@ public class Orders extends AbstractEntity {
 		this.mechanicId = mechanicId;
 	}
 
-	public void setDateCreat(Timestamp dateCreat) {
+	public void setDateCreat(LocalDateTime dateCreat) {
 		this.dateCreat = dateCreat;
 	}
 
-	public Timestamp getCompletionDate() {
+	public LocalDateTime getCompletionDate() {
 		return completionDate;
 	}
 
-	public void setCompletionDate(Timestamp completionDate) {
+	public void setCompletionDate(LocalDateTime completionDate) {
 		this.completionDate = completionDate;
 	}
 

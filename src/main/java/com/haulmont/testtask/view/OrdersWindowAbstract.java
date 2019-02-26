@@ -61,9 +61,10 @@ abstract class OrdersWindowAbstract extends Window {
 		txtPrice = new TextField("Цена");
 		txrDescription = new TextArea("Описание заявки");
 		txrDescription.setSizeFull();
+		HorizontalLayout hltStatusPrice = new HorizontalLayout(ntsStatus, txtPrice);
 		HorizontalLayout hltDate = new HorizontalLayout(dtfDateCreat, dtfCompletionDate);
 		HorizontalLayout hltClientMechanic = new HorizontalLayout(cmbClient, cmbMechanic);
-		VerticalLayout vlLayout = new VerticalLayout(txrDescription, ntsStatus, hltDate, hltClientMechanic);
+		VerticalLayout vlLayout = new VerticalLayout(txrDescription, hltStatusPrice, hltDate, hltClientMechanic);
 		this.setWidth(800.0f, Unit.PIXELS);
 		this.setModal(true);
 		this.setResizable(false);
