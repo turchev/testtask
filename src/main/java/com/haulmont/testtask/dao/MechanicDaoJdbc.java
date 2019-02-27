@@ -13,7 +13,7 @@ import com.haulmont.testtask.entity.Mechanic;
 
 class MechanicDaoJdbc implements MechanicDao {
 
-	private DataSource ds = null;	
+	private DataSource ds = null;
 
 	public MechanicDaoJdbc(DataSource ds) {
 		this.ds = ds;
@@ -43,8 +43,7 @@ class MechanicDaoJdbc implements MechanicDao {
 	@Override
 	public synchronized Mechanic findById(long id) throws DaoException {
 		final String SQL = "select * from mechanic where id=?;";
-		try (Connection connection = ds.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(SQL);) {
+		try (Connection connection = ds.getConnection(); PreparedStatement pstmt = connection.prepareStatement(SQL);) {
 			pstmt.setLong(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			rs.next();
@@ -76,26 +75,25 @@ class MechanicDaoJdbc implements MechanicDao {
 	}
 
 	@Override
-	public void create(Mechanic mechanic) throws DaoException {
+	public synchronized void create(Mechanic mechanic) throws DaoException {
 		final String SQL = "INSERT INTO mechanic (last_name, first_name, patronnymic, wages) VALUES (?,?,?,?);";
 		try (Connection connection = ds.getConnection(); PreparedStatement pstmt = connection.prepareStatement(SQL)) {
 			pstmt.setString(1, mechanic.getLastName());
 			pstmt.setString(2, mechanic.getFirstName());
 			pstmt.setString(3, mechanic.getPatronnymic());
-			pstmt.setBigDecimal(4, mechanic.getWages());			
+			pstmt.setBigDecimal(4, mechanic.getWages());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			throw new DaoException(e);
-		}		
+		}
 	}
 
 	@Override
-	public void delete(long id) throws DaoException {
+	public synchronized void delete(long id) throws DaoException {
 		final String SQL = "DELETE FROM mechanic WHERE id=?;";
-		try (Connection connection = ds.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(SQL);) {
+		try (Connection connection = ds.getConnection(); PreparedStatement pstmt = connection.prepareStatement(SQL);) {
 			pstmt.setLong(1, id);
-			pstmt.executeUpdate();								
+			pstmt.executeUpdate();
 		} catch (Exception e) {
 			throw new DaoException(e);
 		}

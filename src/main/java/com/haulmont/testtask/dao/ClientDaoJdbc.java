@@ -38,7 +38,7 @@ class ClientDaoJdbc implements ClientDao {
 	}
 
 	@Override
-	public List<String> getLastNameList() throws DaoException {
+	public synchronized List<String> getLastNameList() throws DaoException {
 		List<String> result = new ArrayList<String>();
 		final String SQL = "select last_name from client;";
 		try (Connection connection = ds.getConnection(); Statement statement = connection.createStatement();) {
@@ -87,7 +87,7 @@ class ClientDaoJdbc implements ClientDao {
 	}
 
 	@Override
-	public void create(Client client) throws DaoException {
+	public synchronized void create(Client client) throws DaoException {
 		final String SQL = "INSERT INTO client (last_name, first_name, patronnymic, phone) VALUES (?,?,?,?);";
 		try (Connection connection = ds.getConnection(); PreparedStatement pstmt = connection.prepareStatement(SQL)) {
 			pstmt.setString(1, client.getLastName());
@@ -101,7 +101,7 @@ class ClientDaoJdbc implements ClientDao {
 	}
 
 	@Override
-	public void delete(long id) throws DaoException {
+	public synchronized void delete(long id) throws DaoException {
 		// TODO Auto-generated method stub
 		
 	}

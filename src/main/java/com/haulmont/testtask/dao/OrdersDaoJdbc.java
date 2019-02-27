@@ -19,7 +19,7 @@ class OrdersDaoJdbc implements OrdersDao {
 	}
 
 	@Override
-	public List<OrdersWithFio> findAll() throws DaoException {
+	public synchronized List<OrdersWithFio> findAll() throws DaoException {
 		List<OrdersWithFio> result = new ArrayList<OrdersWithFio>();
 		try (Connection connection = ds.getConnection(); Statement statement = connection.createStatement();) {
 			ResultSet rs = statement.executeQuery("SELECT * FROM orders_with_fio;");
@@ -44,15 +44,14 @@ class OrdersDaoJdbc implements OrdersDao {
 	}
 
 	@Override
-	public List<OrdersWithFio> findUsingFilter(String findDescription, String status, String clientFio)
+	public synchronized List<OrdersWithFio> findUsingFilter(String findDescription, String status, String clientFio)
 			throws DaoException {
 
 		List<OrdersWithFio> result = new ArrayList<OrdersWithFio>();
-		
-		String sqlLikeDescription, sqlLikeStatus, sqlLikeClientFio;		
-		try (Connection connection = ds.getConnection();
-				Statement statement = connection.createStatement();) {
-			
+
+		String sqlLikeDescription, sqlLikeStatus, sqlLikeClientFio;
+		try (Connection connection = ds.getConnection(); Statement statement = connection.createStatement();) {
+
 			if (findDescription == null || findDescription.isEmpty()) {
 				sqlLikeDescription = "'%'";
 			} else {
@@ -72,7 +71,7 @@ class OrdersDaoJdbc implements OrdersDao {
 			String sqlResult = "SELECT * FROM orders_with_fio WHERE LOWER(description) LIKE LOWER(" + sqlLikeDescription
 					+ ") AND LOWER(status) LIKE LOWER(" + sqlLikeStatus + ") AND LOWER(client_fio) LIKE LOWER("
 					+ sqlLikeClientFio + ");";
-			
+
 			ResultSet rs = statement.executeQuery(sqlResult);
 			while (rs.next()) {
 				OrdersWithFio orders = new OrdersWithFio();
@@ -127,23 +126,23 @@ class OrdersDaoJdbc implements OrdersDao {
 	public synchronized void create(OrdersWithFio order) throws DaoException {
 		final String SQL = "INSERT INTO orders (description, client_id, mechanic_id, status, date_creat, completion_date, price) VALUES (?,?,?,?,?,?,?);";
 		try (Connection connection = ds.getConnection(); PreparedStatement pstmt = connection.prepareStatement(SQL)) {
-//			pstmt.setString(1, order.getDescription());
-//			pstmt.setLong(2, order.getClientId());
-//			pstmt.setLong(3, order.getMechanicId());
-//			pstmt.setString(4, order.getStatus().toString());	
-//			pstmt.setBigDecimal(, order.getStatus());
-//			pstmt.setBigDecimal(4, order.getStatus());
+			pstmt.setString(1, order.getDescription());
+			pstmt.setLong(2, order.getClientId());
+			pstmt.setLong(3, order.getMechanicId());
+			pstmt.setString(4, order.getStatus().toString());	
+			pstmt.setBigDecimal(, order.getStatus());
+			pstmt.setBigDecimal(4, order.getStatus());
 //			pstmt.setBigDecimal(4, order.getStatus());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			throw new DaoException(e);
-		}	
-		
+		}
+
 	}
 
 	@Override
-	public void delete(long id) throws DaoException {
+	public synchronized void delete(long id) throws DaoException {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
