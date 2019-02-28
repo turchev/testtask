@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
@@ -129,20 +130,24 @@ class OrdersDaoJdbc implements OrdersDao {
 			pstmt.setString(1, order.getDescription());
 			pstmt.setLong(2, order.getClientId());
 			pstmt.setLong(3, order.getMechanicId());
-			pstmt.setString(4, order.getStatus().toString());	
-			pstmt.setBigDecimal(, order.getStatus());
-			pstmt.setBigDecimal(4, order.getStatus());
-//			pstmt.setBigDecimal(4, order.getStatus());
+			pstmt.setString(4, order.getStatus().toString());
+			pstmt.setTimestamp(5, Timestamp.valueOf(order.getDateCreat()));
+			pstmt.setTimestamp(6, Timestamp.valueOf(order.getCompletionDate()));
+			pstmt.setBigDecimal(7, order.getPrice());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			throw new DaoException(e);
 		}
-
 	}
 
 	@Override
 	public synchronized void delete(long id) throws DaoException {
-		// TODO Auto-generated method stub
-
+		final String SQL = "DELETE FROM orders WHERE id=?;";
+		try (Connection connection = ds.getConnection(); PreparedStatement pstmt = connection.prepareStatement(SQL);) {
+			pstmt.setLong(1, id);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			throw new DaoException(e);
+		}
 	}
 }

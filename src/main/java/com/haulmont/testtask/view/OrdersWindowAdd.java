@@ -51,11 +51,13 @@ public class OrdersWindowAdd extends OrdersWindowAbstract {
 
 		OrdersWithFio order = new OrdersWithFio(txrDescription.getValue(), cmbClient.getValue().getClientId(),
 				cmbMechanic.getValue().getMechanicId());
+
 		try {
 			BigDecimal price = (BigDecimal) super.dcf.parse(txtPrice.getValue());
 			order.setPrice(price);
 			order.setDateCreat(dtfDateCreat.getValue());
 			order.setCompletionDate(dtfCompletionDate.getValue());
+			order.setStatus(ntsStatus.getValue());
 			ordersDao.create(order);
 			UI.getCurrent().getNavigator().navigateTo(OrdersView.NAME);
 			close();
@@ -66,9 +68,5 @@ public class OrdersWindowAdd extends OrdersWindowAbstract {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		Notification.show("Клиент: " + cmbClient.getValue().getClientFio() + " " + cmbClient.getValue().getClientId()
-				+ "\n " + "Механик: " + cmbMechanic.getValue().getMechanicFio() + " "
-				+ cmbMechanic.getValue().getMechanicId());
 	}
 }

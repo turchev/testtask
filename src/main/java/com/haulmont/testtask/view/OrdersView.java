@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.vaadin.dialogs.ConfirmDialog;
+
 import com.haulmont.testtask.dao.ClientDao;
+import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.OrdersDao;
 import com.haulmont.testtask.ds.DsType;
@@ -149,7 +152,39 @@ public class OrdersView extends AbstractView implements View {
 	@Override
 	protected
 	void btnDeleteClick() {
-		// TODO Auto-generated method stub
+		try {
+			if (grid.asSingleSelect().isEmpty()) {
+				Notification.show("Выберите заказ из списка");
+				return;
+			}
+			OrdersWithFio selectedOrders = grid.asSingleSelect().getValue();
+			final String MESSAGE_1 = "Удалить запись №" + selectedOrders.getId() + " "
+					+ selectedOrders.getDescription() + "?";
+
+			ConfirmDialog.show(getUI(), "Внимание", MESSAGE_1, "Подтвердить", "Отменить", new ConfirmDialog.Listener() {
+				public void onClose(ConfirmDialog dialog) {
+					if (dialog.isConfirmed()) {
+						try {
+							orderDao.delete(selectedOrders.getId());							
+							try {
+								showAll();
+							} catch (UiException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						} catch (DaoException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} else {
+						return;
+					}
+				}
+			});
+
+		} catch (Exception e) {
+			Notification.show("Не удалось выполнить удаление", Type.ERROR_MESSAGE);
+		}	
 	}
 
 	@Override

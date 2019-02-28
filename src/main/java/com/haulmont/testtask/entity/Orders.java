@@ -40,6 +40,9 @@ public class Orders extends AbstractEntity {
 	}
 
 	public Orders(String description, Long clientId, Long mechanicId) {
+		this.description = description;
+		this.clientId = clientId;
+		this.mechanicId = mechanicId;
 	}	
 
 	public String getDescription() {
