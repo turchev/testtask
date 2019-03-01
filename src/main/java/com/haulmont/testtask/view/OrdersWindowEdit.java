@@ -8,15 +8,15 @@ import com.haulmont.testtask.entity.OrdersWithFio;
 public class OrdersWindowEdit extends OrdersWindowAbstract{
 
 
-	protected OrdersWindowEdit(OrdersWithFio selectedOrders) {
-		super(selectedOrders);
-		// TODO Auto-generated constructor stub
+	protected OrdersWindowEdit(List<OrdersWithFio> orders, Long selectedOrders) {
+		super(orders);
+		super.setCaption("Редактировать заявку");
+		
 	}
 
 	@Override
 	protected void btnCancelClick() {
-		// TODO Auto-generated method stub
-		
+		close();		
 	}
 
 	@Override
@@ -24,5 +24,4 @@ public class OrdersWindowEdit extends OrdersWindowAbstract{
 		// TODO Auto-generated method stub
 		
 	}
-
 }

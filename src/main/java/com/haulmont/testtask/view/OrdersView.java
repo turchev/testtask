@@ -11,7 +11,6 @@ import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.OrdersDao;
 import com.haulmont.testtask.ds.DsType;
-import com.haulmont.testtask.entity.Mechanic;
 import com.haulmont.testtask.entity.OrderStatusType;
 import com.haulmont.testtask.entity.OrdersWithFio;
 import com.vaadin.navigator.View;
@@ -151,8 +150,8 @@ public class OrdersView extends AbstractView implements View {
 			Notification.show("Выберите заказ из списка");
 			return;
 		}
-		OrdersWithFio selectedOrders = grid.asSingleSelect().getValue();
-		OrdersWindowEdit subWindowEdit = new OrdersWindowEdit(selectedOrders);
+		Long selectedOrders = grid.asSingleSelect().getValue().getId();
+		OrdersWindowEdit subWindowEdit = new OrdersWindowEdit(orders, selectedOrders);
 		UI.getCurrent().addWindow(subWindowEdit);
 	}
 
