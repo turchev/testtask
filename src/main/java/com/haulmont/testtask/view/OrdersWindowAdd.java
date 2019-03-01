@@ -2,7 +2,6 @@ package com.haulmont.testtask.view;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.util.List;
 
 import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.entity.OrderStatusType;
@@ -14,8 +13,7 @@ import com.vaadin.ui.UI;
 @SuppressWarnings("serial")
 public class OrdersWindowAdd extends OrdersWindowAbstract {
 
-	public OrdersWindowAdd(List<OrdersWithFio> orders) {
-		super(orders);
+	public OrdersWindowAdd() {
 		super.setCaption("Создать заявку");
 		ntsStatus.setValue(OrderStatusType.Принят);
 	}

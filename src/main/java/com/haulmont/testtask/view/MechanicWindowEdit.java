@@ -15,7 +15,7 @@ public class MechanicWindowEdit extends MechanicWindowAbstract {
 		super.setCaption("Редактировать данные механика");
 		this.id = id;		 
 		try {
-			Mechanic mechanic = mechanicDao.findById(this.id);
+			Mechanic mechanic = mechanicDao.findById(id);
 			super.txtFirstName.setValue(mechanic.getFirstName());
 			super.txtLastName.setValue(mechanic.getLastName());
 			super.txtPatronnymic.setValue(mechanic.getPatronnymic());			

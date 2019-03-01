@@ -97,7 +97,7 @@ class OrdersDaoJdbc implements OrdersDao {
 	@Override
 	public synchronized OrdersWithFio findById(long id) throws DaoException {
 		try (Connection connection = ds.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM orders where id=?;");) {
+				PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM orders_with_fio where id=?;");) {
 			pstmt.setLong(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			rs.next();
@@ -120,7 +120,20 @@ class OrdersDaoJdbc implements OrdersDao {
 
 	@Override
 	public synchronized void update(OrdersWithFio order) throws DaoException {
-		// TODO Auto-generated method stub
+		final String SQL = "UPDATE orders SET description=?, client_id=?, mechanic_id=?, status=?, date_creat=?, completion_date=?, price=? WHERE id=?;";
+		try (Connection connection = ds.getConnection(); PreparedStatement pstmt = connection.prepareStatement(SQL)) {
+			pstmt.setString(1, order.getDescription());
+			pstmt.setLong(2, order.getClientId());
+			pstmt.setLong(3, order.getMechanicId());
+			pstmt.setString(4, order.getStatus().toString());
+			pstmt.setTimestamp(5, Timestamp.valueOf(order.getDateCreat()));
+			pstmt.setTimestamp(6, Timestamp.valueOf(order.getCompletionDate()));
+			pstmt.setBigDecimal(7, order.getPrice());
+			pstmt.setLong(8, order.getId());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			throw new DaoException(e);
+		}
 	}
 
 	@Override

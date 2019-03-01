@@ -72,7 +72,7 @@ public class OrdersView extends AbstractView implements View {
 	private void showAll() throws UiException {
 		try {
 			orders = orderDao.findAll();
-			grid.setItems(orders);			
+			grid.setItems(orders);
 		} catch (Exception e) {
 			LOG.error(e);
 			throw new UiException(e);
@@ -109,18 +109,18 @@ public class OrdersView extends AbstractView implements View {
 
 	private void btnAppleFilterClick() {
 		try {
-			String findDescription = filterDescription.getValue();			
+			String findDescription = filterDescription.getValue();
 			String clientFio = filterClient.getValue();
-			
-			String status = null;			
+
+			String status = null;
 			if (!filterStatus.isEmpty())
-				status = filterStatus.getValue().toString();			
+				status = filterStatus.getValue().toString();
 
 			List<OrdersWithFio> orders = orderDao.findUsingFilter(findDescription, status, clientFio);
 			grid.setItems(orders);
 		} catch (Exception e) {
-			Notification.show("Не удалось применить фильтр", Type.WARNING_MESSAGE);	
-			LOG.warn(e);	
+			Notification.show("Не удалось применить фильтр", Type.WARNING_MESSAGE);
+			LOG.warn(e);
 		}
 	}
 
@@ -129,49 +129,46 @@ public class OrdersView extends AbstractView implements View {
 			filterDescription.clear();
 			filterStatus.clear();
 			filterClient.clear();
-			showAll();			
+			showAll();
 		} catch (UiException e) {
-			Notification.show("Не удалось очистить фильтр", Type.WARNING_MESSAGE);	
-			LOG.warn(e);	
+			Notification.show("Не удалось очистить фильтр", Type.WARNING_MESSAGE);
+			LOG.warn(e);
 		}
 	}
 
 	@Override
-	protected
-	void btnAddClick() {
-		OrdersWindowAdd subWindowAdd = new OrdersWindowAdd(orders);
+	protected void btnAddClick() {
+		OrdersWindowAdd subWindowAdd = new OrdersWindowAdd();
 		UI.getCurrent().addWindow(subWindowAdd);
 	}
 
 	@Override
-	protected
-	void btnChangeClick() {
+	protected void btnChangeClick() {
 		if (grid.asSingleSelect().isEmpty()) {
 			Notification.show("Выберите заказ из списка");
 			return;
 		}
-		Long selectedOrders = grid.asSingleSelect().getValue().getId();
-		OrdersWindowEdit subWindowEdit = new OrdersWindowEdit(orders, selectedOrders);
+		OrdersWithFio selectedOrders = grid.asSingleSelect().getValue();
+		OrdersWindowEdit subWindowEdit = new OrdersWindowEdit(selectedOrders.getId());
 		UI.getCurrent().addWindow(subWindowEdit);
 	}
 
 	@Override
-	protected
-	void btnDeleteClick() {
+	protected void btnDeleteClick() {
 		try {
 			if (grid.asSingleSelect().isEmpty()) {
 				Notification.show("Выберите заказ из списка");
 				return;
 			}
 			OrdersWithFio selectedOrders = grid.asSingleSelect().getValue();
-			final String MESSAGE_1 = "Удалить запись №" + selectedOrders.getId() + " "
-					+ selectedOrders.getDescription() + "?";
+			final String MESSAGE_1 = "Удалить запись №" + selectedOrders.getId() + " " + selectedOrders.getDescription()
+					+ "?";
 
 			ConfirmDialog.show(getUI(), "Внимание", MESSAGE_1, "Подтвердить", "Отменить", new ConfirmDialog.Listener() {
 				public void onClose(ConfirmDialog dialog) {
 					if (dialog.isConfirmed()) {
 						try {
-							orderDao.delete(selectedOrders.getId());							
+							orderDao.delete(selectedOrders.getId());
 							try {
 								showAll();
 							} catch (UiException e) {
@@ -190,7 +187,7 @@ public class OrdersView extends AbstractView implements View {
 
 		} catch (Exception e) {
 			Notification.show("Не удалось выполнить удаление", Type.ERROR_MESSAGE);
-		}	
+		}
 	}
 
 	@Override

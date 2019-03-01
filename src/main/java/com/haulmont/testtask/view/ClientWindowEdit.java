@@ -11,7 +11,7 @@ public class ClientWindowEdit extends ClientWindowAbstract {
 		super.setCaption("Редактировать данные клиента");
 		this.id = id;		 
 		try {
-			Client client = clientDao.findById(this.id);
+			Client client = clientDao.findById(id);
 			super.txtFirstName.setValue(client.getFirstName());
 			super.txtLastName.setValue(client.getLastName());
 			super.txtPatronnymic.setValue(client.getPatronnymic());

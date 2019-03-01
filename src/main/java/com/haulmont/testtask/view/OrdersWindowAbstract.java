@@ -29,13 +29,13 @@ abstract class OrdersWindowAbstract extends Window {
 	protected DateTimeField dtfDateCreat, dtfCompletionDate;
 	protected TextField txtPrice;
 	protected TextArea txrDescription;		
-	protected DecimalFormat dcf = new DecimalFormat();
-	private List<OrdersWithFio> ordersWithFio;
+	protected DecimalFormat dcf = new DecimalFormat();	
+	protected List<OrdersWithFio> ordersWithFio;
 
-	protected OrdersWindowAbstract(List<OrdersWithFio> orders) {
-		this.ordersWithFio = orders;
+	protected OrdersWindowAbstract() {		
 		try {
 			ordersDao = DaoFactory.getFactory(DsType.HSQLDB).getOrdersDao();
+			ordersWithFio = ordersDao.findAll();
 			dcf.setParseBigDecimal(true);
 		} catch (Exception e) {
 			LOG.error("No orders data source", e);
