@@ -50,25 +50,7 @@ public class MainUI extends UI {
 			navigator.addView(MechanicView.NAME, MechanicView.class);
 			navigator.addView(ErrorView.NAME, ErrorView.class);	
 			navigator.setErrorView(ErrorView.class);
-			getNavigator().navigateTo(OrdersView.NAME);	
-			
-//			btnOrders.setErrorHandler(new DefaultErrorHandler() {
-//			    @Override
-//			    public void error(com.vaadin.server.ErrorEvent event) {
-//			        // Find the final cause
-//			        String cause = "<b> !!!!!!!!!!!!! The click failed because:</b><br/>";
-//			        for (Throwable t = event.getThrowable(); t != null;
-//			             t = t.getCause())
-//			            if (t.getCause() == null) // We're at final cause
-//			                cause += t.getClass().getName() + "<br/>";
-//
-//			        // Display the error message in a custom fashion
-//			        menu.addComponent(new Label(cause, ContentMode.HTML));
-//
-//			        // Do the default error handling (optional)
-//			        doDefault(event);
-//			    }
-//			});
+			getNavigator().navigateTo(OrdersView.NAME);		
 
 		} catch (Exception e) {
 			LOG.error(e);
