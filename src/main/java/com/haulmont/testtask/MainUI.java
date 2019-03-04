@@ -23,14 +23,15 @@ public class MainUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
+		LOG.debug("Starting the Vaadin Interface");
 		try {
 			Button btnOrders = new Button("Заказы", e -> getNavigator().navigateTo(OrdersView.NAME));
 			btnOrders.addStyleNames(ValoTheme.BUTTON_QUIET, ValoTheme.MENU_TITLE);
-			
+
 			Button btnClient = new Button("Клиент", e -> getNavigator().navigateTo(ClientView.NAME));
 			btnClient.addStyleNames(ValoTheme.BUTTON_QUIET, ValoTheme.MENU_TITLE);
 			Button btnMechanic = new Button("Механик", e -> getNavigator().navigateTo(MechanicView.NAME));
-			btnMechanic.addStyleNames(ValoTheme.BUTTON_QUIET, ValoTheme.MENU_TITLE);	
+			btnMechanic.addStyleNames(ValoTheme.BUTTON_QUIET, ValoTheme.MENU_TITLE);
 
 			CssLayout menu = new CssLayout(btnOrders, btnClient, btnMechanic);
 			menu.addStyleName(ValoTheme.MENU_ROOT);
@@ -48,13 +49,14 @@ public class MainUI extends UI {
 			navigator.addView(OrdersView.NAME, OrdersView.class);
 			navigator.addView(ClientView.NAME, ClientView.class);
 			navigator.addView(MechanicView.NAME, MechanicView.class);
-			navigator.addView(ErrorView.NAME, ErrorView.class);	
+			navigator.addView(ErrorView.NAME, ErrorView.class);
 			navigator.setErrorView(ErrorView.class);
-			getNavigator().navigateTo(OrdersView.NAME);		
+			getNavigator().navigateTo(OrdersView.NAME);
+			LOG.debug("Starting the Vaadin Interface completed successfully");
 
 		} catch (Exception e) {
-			LOG.error(e);
-			getNavigator().navigateTo(ErrorView.NAME);			
+			LOG.error("Starting the Vaadin Interface failed: {}", e);
+			getNavigator().navigateTo(ErrorView.NAME);
 		}
 	}
 }

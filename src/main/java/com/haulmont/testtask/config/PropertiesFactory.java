@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,8 +13,10 @@ public final class PropertiesFactory {
 
 	private static final Logger LOG = LogManager.getLogger();
 	private static Map<String, Properties> propHashMap = new HashMap<String, Properties>();
-	private static final String CONFIG_DIRECTORY = "etc"; // Директория для конфигурационных файлов
-	private static boolean configured = false; // Флаг готовности
+	// Директория для конфигурационных файлов
+	private static final String CONFIG_DIRECTORY = "etc";
+	// Флаг готовности
+	private static boolean configured = false;
 
 	private PropertiesFactory() {
 	}
@@ -21,13 +24,13 @@ public final class PropertiesFactory {
 	public Map<String, Properties> getPropHashMap() {
 		return propHashMap;
 	}
-	
+
 	public Properties getPropertiesByKey(String shortFileName) {
 		return propHashMap.get(shortFileName);
 	}
 
-	public static PropertiesFactory getInstans() throws ConfigException {		
-		if (configured == false) {			
+	public static PropertiesFactory getInstans() throws ConfigException {
+		if (configured == false) {
 			try {
 				File configDir = new File(CONFIG_DIRECTORY);
 				String[] files = configDir.list();
@@ -51,10 +54,10 @@ public final class PropertiesFactory {
 			} catch (Exception e) {
 				propHashMap.clear();
 				configured = false;
-				throw new ConfigException(e);				
-			}			
+				throw new ConfigException(e);
+			}
 			configured = true;
-		}		
+		}
 		return SingletonHandler.INSTANS;
 	}
 

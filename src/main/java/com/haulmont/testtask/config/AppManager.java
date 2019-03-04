@@ -30,12 +30,13 @@ public class AppManager {
 
 		@Override
 		public void contextInitialized(ServletContextEvent sce) {
+			LOG.debug("Application initialization");
 			try {				
 				// Загрузка конфигурации с файлов (некоторые не требуются в программе, используются просто
-				// для тестирования)
+				// для тестирования)				
 				propFactory = PropertiesFactory.getInstans();
 				for (String key : propFactory.getPropHashMap().keySet()) {
-					System.out.println("Uploaded property files: " + key);
+					LOG.debug("Uploaded property files: {}", key);					
 				}
 				
 				// Проверка пула соединений с базой данных HSQLDB	
@@ -58,6 +59,7 @@ public class AppManager {
 		public void contextDestroyed(ServletContextEvent sce) {
 			try {
 				dsfHSQLDB.shutdown();
+				LOG.debug("Application shutdown");
 			} catch (Exception e) {
 				LOG.error(e);
 			}

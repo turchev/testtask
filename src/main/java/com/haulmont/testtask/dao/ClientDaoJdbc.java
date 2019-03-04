@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.sql.DataSource;
+
 import com.haulmont.testtask.entity.Client;
 
 class ClientDaoJdbc implements ClientDao {
@@ -95,6 +97,7 @@ class ClientDaoJdbc implements ClientDao {
 			pstmt.setString(3, client.getPatronnymic());
 			pstmt.setString(4, client.getPhone());			
 			pstmt.execute();
+//			throw new DaoException("Лови оплеуху!!!");
 		} catch (Exception e) {
 			throw new DaoException(e);
 		}
@@ -102,7 +105,12 @@ class ClientDaoJdbc implements ClientDao {
 
 	@Override
 	public synchronized void delete(long id) throws DaoException {
-		// TODO Auto-generated method stub
-		
+		final String SQL = "DELETE FROM client WHERE id=?;";
+		try (Connection connection = ds.getConnection(); PreparedStatement pstmt = connection.prepareStatement(SQL);) {
+			pstmt.setLong(1, id);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			throw new DaoException(e);
+		}		
 	}
 }

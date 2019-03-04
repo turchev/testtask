@@ -22,8 +22,7 @@ class DsHSQLDB extends DsFactory {
 	private DsHSQLDB() {
 	}
 
-	public static DsFactory getInstans() throws DaoException {
-		// Начальная конфигурация пула HSQLDB
+	public static DsFactory getInstans() throws DaoException {		
 		if (ds == null)
 			try {
 				prop = PropertiesFactory.getInstans().getPropertiesByKey("ds.properties");
@@ -36,7 +35,9 @@ class DsHSQLDB extends DsFactory {
 				pool.setUser(user);
 				pool.setPassword(password);
 				ds = pool;
+				LOG.debug("Creating an HSQLDB Instance Data Source Factory");
 			} catch (Exception e) {
+				LOG.error(e);
 				throw new DaoException(e);
 			}
 		return SingletonHandler.INSTANCE;
@@ -55,8 +56,7 @@ class DsHSQLDB extends DsFactory {
 			pool.close(WAIT_SHUTDOWN_SECONDS);
 		} catch (Exception e) {
 			throw new DsException(e);
-		}
-		LOG.debug("DataSource closed!");
+		}		
 	}
 
 	@Override
@@ -66,11 +66,11 @@ class DsHSQLDB extends DsFactory {
 		try (Connection conn = ds.getConnection(); Statement stmnt = conn.createStatement();) {
 			ResultSet rs = stmnt.executeQuery("SELECT * FROM INFORMATION_SCHEMA.SYSTEM_SESSIONS " + "WHERE USER_NAME='"
 					+ prop.getProperty("ds.user") + "'");
-			if (rs.next() == true) {
+			if (rs.next() == true) {				
 				return true;
 			}
 		} catch (Exception e) {
-			LOG.error("Test connection failed: \n ", e);
+			LOG.debug("Test connection failed: \n ", e);
 			return false;
 		}
 		return false;
