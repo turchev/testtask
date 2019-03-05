@@ -60,19 +60,29 @@ public class ClientView extends AbstractView implements View {
 
 	@Override
 	protected void btnAddClick() {
-		ClientWindowAdd subWindowAdd = new ClientWindowAdd();
-		UI.getCurrent().addWindow(subWindowAdd);
+		try {
+			ClientWindowAdd subWindowAdd = new ClientWindowAdd();
+			UI.getCurrent().addWindow(subWindowAdd);
+		} catch (Exception e) {
+			LOG.error(e);	
+			Notification.show("Ошибка при создании диалогового окна создания клиента");
+		}		
 	}
 
 	@Override
 	protected void btnChangeClick() {
-		if (grid.asSingleSelect().isEmpty()) {
-			Notification.show("Выберите клиента из списка");
-			return;
-		}
-		Client selectedClient = grid.asSingleSelect().getValue();
-		ClientWindowEdit subWindowEdit = new ClientWindowEdit(selectedClient.getId());
-		UI.getCurrent().addWindow(subWindowEdit);
+		try {
+			if (grid.asSingleSelect().isEmpty()) {
+				Notification.show("Выберите клиента из списка");
+				return;
+			}
+			Client selectedClient = grid.asSingleSelect().getValue();
+			ClientWindowEdit subWindowEdit = new ClientWindowEdit(selectedClient.getId());
+			UI.getCurrent().addWindow(subWindowEdit);
+		} catch (Exception e) {
+			LOG.error(e);	
+			Notification.show("Ошибка при создании диалогового окна редактирования клиента");
+		}		
 	}
 
 	@Override

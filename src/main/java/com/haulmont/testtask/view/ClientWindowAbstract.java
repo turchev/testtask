@@ -1,10 +1,5 @@
 package com.haulmont.testtask.view;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import com.haulmont.testtask.dao.ClientDao;
-import com.haulmont.testtask.dao.DaoFactory;
-import com.haulmont.testtask.ds.DsType;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
@@ -12,22 +7,12 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
-abstract class ClientWindowAbstract extends Window {
-	private static final Logger LOG = LogManager.getLogger();
-	protected ClientDao clientDao;	
+abstract class ClientWindowAbstract extends Window {	
+		
 	protected TextField txtFirstName, txtLastName, txtPatronnymic, txtPhone;
 
-	protected ClientWindowAbstract() {
-		try {
-			clientDao = DaoFactory.getFactory(DsType.HSQLDB).getClientDAO();
-		} catch (Exception e) {
-			LOG.error("No client data source", e);
-			close();
-		}
-		init();
-	}
-
-	private void init() {
+	protected ClientWindowAbstract() throws UiException {
+		
 		txtLastName = new TextField("Фамилия");
 		txtLastName.setSizeFull();
 		txtFirstName = new TextField("Имя");
@@ -50,9 +35,10 @@ abstract class ClientWindowAbstract extends Window {
 		});
 		HorizontalLayout hLayout = new HorizontalLayout(btnApple, btnCancel);
 		vlLayout.addComponent(hLayout);
-		this.setContent(vlLayout);
+		this.setContent(vlLayout);		
 	}
 
+	
 	protected abstract void btnCancelClick();
 
 	protected abstract void btnAppleClick();

@@ -3,11 +3,13 @@ package com.haulmont.testtask.view;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.OrdersDao;
 import com.haulmont.testtask.ds.DsType;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import com.haulmont.testtask.entity.OrderStatusType;
 import com.haulmont.testtask.entity.OrdersWithFio;
 import com.vaadin.ui.Button;
