@@ -2,9 +2,10 @@ package com.haulmont.testtask.view;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.vaadin.dialogs.ConfirmDialog;
 
-import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.MechanicDao;
 import com.haulmont.testtask.ds.DsType;
@@ -19,6 +20,7 @@ import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
 public class MechanicView extends AbstractView implements View {
+	private static final Logger LOG = LogManager.getLogger();
 	public static final String NAME = "mechanic";
 	private DaoFactory hsqlDaoFactory;
 	private MechanicDao mechanicDao;
@@ -30,7 +32,7 @@ public class MechanicView extends AbstractView implements View {
 	}
 
 	private void init() throws UiException {
-		try {			
+		try {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			mechanicDao = hsqlDaoFactory.getMechanicDao();
 			grid = new Grid<>();
@@ -40,11 +42,10 @@ public class MechanicView extends AbstractView implements View {
 			grid.addColumn(Mechanic::getLastName).setId("lastName").setCaption("Фамилия").setWidth(500);
 			grid.addColumn(Mechanic::getFirstName).setId("firstName").setCaption("Имя");
 			grid.addColumn(Mechanic::getPatronnymic).setId("patronnymic").setCaption("Отчество");
-			grid.addColumn(Mechanic::getWages).setId("wages").setCaption("Почасовая оплата");			
+			grid.addColumn(Mechanic::getWages).setId("wages").setCaption("Почасовая оплата");
 			grid.setColumnOrder("id", "lastName", "firstName", "patronnymic", "wages");
 			this.addComponent(grid);
 		} catch (Exception e) {
-//			UI.getCurrent().getNavigator().navigateTo(ErrorView.NAME);
 			throw new UiException(e);
 		}
 	}
@@ -52,7 +53,7 @@ public class MechanicView extends AbstractView implements View {
 	private void showAll() throws UiException {
 		try {
 			List<Mechanic> mechanic = mechanicDao.findAll();
-			grid.setItems(mechanic);			
+			grid.setItems(mechanic);
 		} catch (Exception e) {
 			throw new UiException(e);
 		}
@@ -60,19 +61,29 @@ public class MechanicView extends AbstractView implements View {
 
 	@Override
 	protected void btnAddClick() {
-		MechanicWindowAdd subWindowAdd = new MechanicWindowAdd();
-		UI.getCurrent().addWindow(subWindowAdd);
+		try {
+			MechanicWindowAdd subWindowAdd = new MechanicWindowAdd();
+			UI.getCurrent().addWindow(subWindowAdd);
+		} catch (Exception e) {
+			LOG.error(e);
+			Notification.show("Ошибка диалогового окна создания механика");
+		}
 	}
 
 	@Override
 	protected void btnChangeClick() {
-		if (grid.asSingleSelect().isEmpty()) {
-			Notification.show("Выберите механика из списка");
-			return;
+		try {
+			if (grid.asSingleSelect().isEmpty()) {
+				Notification.show("Выберите механика из списка");
+				return;
+			}
+			Mechanic selectedMachanic = grid.asSingleSelect().getValue();
+			MechanicWindowEdit subWindowEdit = new MechanicWindowEdit(selectedMachanic.getId());
+			UI.getCurrent().addWindow(subWindowEdit);
+		} catch (Exception e) {
+			LOG.error(e);
+			Notification.show("Ошибка диалогового окна редактирования механика");
 		}
-		Mechanic selectedMachanic = grid.asSingleSelect().getValue();
-		MechanicWindowEdit subWindowEdit = new MechanicWindowEdit(selectedMachanic.getId());
-		UI.getCurrent().addWindow(subWindowEdit);
 	}
 
 	@Override
@@ -86,34 +97,27 @@ public class MechanicView extends AbstractView implements View {
 			final String MESSAGE_1 = "Удаление записи " + selectedMachanic.getLastName() + " "
 					+ selectedMachanic.getFirstName() + " " + selectedMachanic.getPatronnymic() + "?";
 
-			ConfirmDialog.show(getUI(), "Внимание", MESSAGE_1, "Подтвердить", "Отменить", new ConfirmDialog.Listener() {
-				public void onClose(ConfirmDialog dialog) {
-					if (dialog.isConfirmed()) {
-						try {
-							mechanicDao.delete(selectedMachanic.getId());							
-							try {
-								showAll();
-							} catch (UiException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						} catch (DaoException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					} else {
-						return;
+			ConfirmDialog.show(getUI(), "Внимание", MESSAGE_1, "Подтвердить", "Отменить", dialog -> {
+				if (dialog.isConfirmed()) {
+					try {
+						mechanicDao.delete(selectedMachanic.getId());
+						showAll();
+					} catch (Exception ex) {
+						LOG.error(ex);
 					}
+				} else {
+					return;
 				}
 			});
 
 		} catch (Exception e) {
+			LOG.error(e);
 			Notification.show("Не удалось выполнить удаление", Type.ERROR_MESSAGE);
-		}	
+		}
 	}
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-//		Notification.show("Welcome to Mechanic View");
+		LOG.debug("Welcome to Mechanic View");
 	}
 }

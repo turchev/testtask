@@ -22,8 +22,7 @@ public class MainUI extends UI {
 	private static final Logger LOG = LogManager.getLogger();
 
 	@Override
-	protected void init(VaadinRequest vaadinRequest) {
-		LOG.debug("Starting the Vaadin Interface");
+	protected void init(VaadinRequest vaadinRequest) {		
 		try {
 			Button btnOrders = new Button("Заказы", e -> getNavigator().navigateTo(OrdersView.NAME));
 			btnOrders.addStyleNames(ValoTheme.BUTTON_QUIET, ValoTheme.MENU_TITLE);
@@ -52,7 +51,7 @@ public class MainUI extends UI {
 			navigator.addView(ErrorView.NAME, ErrorView.class);
 			navigator.setErrorView(ErrorView.class);
 			getNavigator().navigateTo(OrdersView.NAME);
-			LOG.debug("Starting the Vaadin Interface completed successfully");
+			LOG.debug("Vaadin Interface completed successfully");
 
 		} catch (Exception e) {
 			LOG.error("Starting the Vaadin Interface failed: {}", e);

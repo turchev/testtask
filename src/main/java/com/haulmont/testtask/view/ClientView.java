@@ -65,7 +65,7 @@ public class ClientView extends AbstractView implements View {
 			UI.getCurrent().addWindow(subWindowAdd);
 		} catch (Exception e) {
 			LOG.error(e);	
-			Notification.show("Ошибка при создании диалогового окна создания клиента");
+			Notification.show("Ошибка диалогового окна создания клиента");
 		}		
 	}
 
@@ -81,7 +81,7 @@ public class ClientView extends AbstractView implements View {
 			UI.getCurrent().addWindow(subWindowEdit);
 		} catch (Exception e) {
 			LOG.error(e);	
-			Notification.show("Ошибка при создании диалогового окна редактирования клиента");
+			Notification.show("Ошибка диалогового окна редактирования клиента");
 		}		
 	}
 

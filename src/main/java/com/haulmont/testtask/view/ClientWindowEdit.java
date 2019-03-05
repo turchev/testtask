@@ -7,6 +7,7 @@ import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.ds.DsType;
 import com.haulmont.testtask.entity.Client;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
@@ -24,12 +25,11 @@ public class ClientWindowEdit extends ClientWindowAbstract {
 			super.txtFirstName.setValue(client.getFirstName());
 			super.txtLastName.setValue(client.getLastName());
 			super.txtPatronnymic.setValue(client.getPatronnymic());
-			super.txtPhone.setValue(client.getPhone());
-			LOG.debug("Created ClientWindowEdit");
-//			throw new UiException("Лови затрещину от ClientWindowEdit!!!");			
+			super.txtPhone.setValue(client.getPhone());	
 		} catch (Exception e) {						
 			throw new UiException(e);			
 		}		
+		LOG.debug("Created ClientWindowEdit");
 	}	
 	
 	@Override
@@ -38,16 +38,17 @@ public class ClientWindowEdit extends ClientWindowAbstract {
 	}
 
 	@Override
-	protected synchronized void btnAppleClick() {
-		Client client = new Client(txtLastName.getValue(), txtFirstName.getValue(), txtPatronnymic.getValue());	
-		client.setPhone(txtPhone.getValue());
-		client.setId(id);
+	protected synchronized void btnAppleClick() {		
 		try {
+			Client client = new Client(txtLastName.getValue(), txtFirstName.getValue(), txtPatronnymic.getValue());	
+			client.setPhone(txtPhone.getValue());
+			client.setId(id);
 			clientDao.update(client);
 			UI.getCurrent().getNavigator().navigateTo(ClientView.NAME);
 			close();
 		} catch (DaoException e) {
 			LOG.error(e);
+			Notification.show("Не удалось сохранить запись");
 		}
 	}
 }

@@ -35,7 +35,7 @@ public final class PropertiesFactory {
 				File configDir = new File(CONFIG_DIRECTORY);
 				String[] files = configDir.list();
 				for (String fileName : files) {
-					LOG.debug("Configuration File: {}", fileName);
+					LOG.debug("Found file: {}", fileName);
 					try (FileInputStream fis = new FileInputStream(CONFIG_DIRECTORY + "/" + fileName);) {
 						Properties prop = new Properties();
 						fileName = fileName.toLowerCase();

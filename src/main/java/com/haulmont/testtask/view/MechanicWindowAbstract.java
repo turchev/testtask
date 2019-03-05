@@ -2,11 +2,6 @@ package com.haulmont.testtask.view;
 
 import java.text.DecimalFormat;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import com.haulmont.testtask.dao.DaoFactory;
-import com.haulmont.testtask.dao.MechanicDao;
-import com.haulmont.testtask.ds.DsType;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
@@ -15,27 +10,16 @@ import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
 abstract class MechanicWindowAbstract extends Window {
-	private static final Logger LOG = LogManager.getLogger();
-	protected MechanicDao mechanicDao;	
+
 	protected TextField txtLastName, txtFirstName, txtPatronnymic, txtWages;
-	protected DecimalFormat dcf = new DecimalFormat();	
+	protected DecimalFormat dcf = new DecimalFormat();
 
 	protected MechanicWindowAbstract() {
-		try {
-			mechanicDao = DaoFactory.getFactory(DsType.HSQLDB).getMechanicDao();
-			dcf.setParseBigDecimal(true);
-		} catch (Exception e) {
-			LOG.error("No mechanic data source", e);
-			close();
-		}
-		init();
-	}
-
-	private void init() {
+		dcf.setParseBigDecimal(true);
 		txtLastName = new TextField("Фамилия");
 		txtLastName.setSizeFull();
 		txtFirstName = new TextField("Имя");
-		txtFirstName.setSizeFull();		
+		txtFirstName.setSizeFull();
 		txtPatronnymic = new TextField("Отчество");
 		txtPatronnymic.setSizeFull();
 		txtWages = new TextField("Почасовая оплата");

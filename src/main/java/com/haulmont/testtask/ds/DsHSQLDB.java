@@ -22,7 +22,7 @@ class DsHSQLDB extends DsFactory {
 	private DsHSQLDB() {
 	}
 
-	public static DsFactory getInstans() throws DaoException {		
+	public static DsFactory getInstans() throws DaoException {
 		if (ds == null)
 			try {
 				prop = PropertiesFactory.getInstans().getPropertiesByKey("ds.properties");
@@ -56,7 +56,7 @@ class DsHSQLDB extends DsFactory {
 			pool.close(WAIT_SHUTDOWN_SECONDS);
 		} catch (Exception e) {
 			throw new DsException(e);
-		}		
+		}
 	}
 
 	@Override
@@ -66,7 +66,7 @@ class DsHSQLDB extends DsFactory {
 		try (Connection conn = ds.getConnection(); Statement stmnt = conn.createStatement();) {
 			ResultSet rs = stmnt.executeQuery("SELECT * FROM INFORMATION_SCHEMA.SYSTEM_SESSIONS " + "WHERE USER_NAME='"
 					+ prop.getProperty("ds.user") + "'");
-			if (rs.next() == true) {				
+			if (rs.next() == true) {
 				return true;
 			}
 		} catch (Exception e) {
@@ -74,6 +74,11 @@ class DsHSQLDB extends DsFactory {
 			return false;
 		}
 		return false;
+	}
+
+	@Override
+	public String toString() {
+		return  pool.getDescription() +" "+ pool.getURL();
 	}
 
 	private static class SingletonHandler {

@@ -1,29 +1,38 @@
 package com.haulmont.testtask.view;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.haulmont.testtask.dao.DaoException;
+import com.haulmont.testtask.dao.DaoFactory;
+import com.haulmont.testtask.dao.MechanicDao;
+import com.haulmont.testtask.ds.DsType;
 import com.haulmont.testtask.entity.Mechanic;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
 public class MechanicWindowEdit extends MechanicWindowAbstract {
+	private static final Logger LOG = LogManager.getLogger();
 	private Long id;
+	private MechanicDao mechanicDao;
 
-	public MechanicWindowEdit(Long id) {
-		super.setCaption("Редактировать данные механика");
-		this.id = id;		 
+	public MechanicWindowEdit(Long id) throws UiException {				 
 		try {
+			super.setCaption("Редактировать данные механика");
+			this.id = id;
+			mechanicDao = DaoFactory.getFactory(DsType.HSQLDB).getMechanicDao();
 			Mechanic mechanic = mechanicDao.findById(id);
 			super.txtFirstName.setValue(mechanic.getFirstName());
 			super.txtLastName.setValue(mechanic.getLastName());
 			super.txtPatronnymic.setValue(mechanic.getPatronnymic());			
 			super.txtWages.setValue(mechanic.getWages().toString());
 		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new UiException(e);	
 		}
+		LOG.debug("Created MechanicWindowEdit");
 	}	
 	
 	@Override
@@ -40,12 +49,9 @@ public class MechanicWindowEdit extends MechanicWindowAbstract {
 			mechanicDao.update(mechanic);
 			UI.getCurrent().getNavigator().navigateTo(MechanicView.NAME);
 			close();
-		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			LOG.error(e);
+			Notification.show("Не удалось сохранить запись");
 		}
 	}
 }

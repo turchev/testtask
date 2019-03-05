@@ -7,16 +7,15 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
-abstract class ClientWindowAbstract extends Window {	
-		
+abstract class ClientWindowAbstract extends Window {
+
 	protected TextField txtFirstName, txtLastName, txtPatronnymic, txtPhone;
 
-	protected ClientWindowAbstract() throws UiException {
-		
+	protected ClientWindowAbstract() {
 		txtLastName = new TextField("Фамилия");
 		txtLastName.setSizeFull();
 		txtFirstName = new TextField("Имя");
-		txtFirstName.setSizeFull();		
+		txtFirstName.setSizeFull();
 		txtPatronnymic = new TextField("Отчество");
 		txtPatronnymic.setSizeFull();
 		txtPhone = new TextField("Телефон");
@@ -35,10 +34,9 @@ abstract class ClientWindowAbstract extends Window {
 		});
 		HorizontalLayout hLayout = new HorizontalLayout(btnApple, btnCancel);
 		vlLayout.addComponent(hLayout);
-		this.setContent(vlLayout);		
+		this.setContent(vlLayout);
 	}
 
-	
 	protected abstract void btnCancelClick();
 
 	protected abstract void btnAppleClick();
