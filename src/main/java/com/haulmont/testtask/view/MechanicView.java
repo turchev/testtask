@@ -52,9 +52,19 @@ public class MechanicView extends AbstractView implements View {
 		}		
 	}
 	
-	private void btnShowStatClick() {
-		// TODO Auto-generated method stub
-		
+	private void btnShowStatClick() {		
+		try {
+			if (grid.asSingleSelect().isEmpty()) {
+				Notification.show("Выберите механика из списка");
+				return;
+			}
+			Mechanic selectedMachanic = grid.asSingleSelect().getValue();
+			MechanicWindowStat subWindowEdit = new MechanicWindowStat(selectedMachanic.getId());
+			UI.getCurrent().addWindow(subWindowEdit);
+		} catch (Exception e) {
+			LOG.error(e);
+			Notification.show("Ошибка диалогового окна");
+		}		
 	}
 
 	private void showAll() throws UiException {
