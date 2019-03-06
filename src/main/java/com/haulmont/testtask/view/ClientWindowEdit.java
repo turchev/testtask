@@ -1,4 +1,5 @@
 package com.haulmont.testtask.view;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,7 +17,7 @@ public class ClientWindowEdit extends ClientWindowAbstract {
 	private ClientDao clientDao;
 	private Long id;
 
-	public ClientWindowEdit(Long id) throws UiException {				 
+	public ClientWindowEdit(Long id) throws UiException {
 		try {
 			super.setCaption("Редактировать данные клиента");
 			this.id = id;
@@ -25,22 +26,22 @@ public class ClientWindowEdit extends ClientWindowAbstract {
 			super.txtFirstName.setValue(client.getFirstName());
 			super.txtLastName.setValue(client.getLastName());
 			super.txtPatronnymic.setValue(client.getPatronnymic());
-			super.txtPhone.setValue(client.getPhone());	
-		} catch (Exception e) {						
-			throw new UiException(e);			
-		}		
+			super.txtPhone.setValue(client.getPhone());
+		} catch (Exception e) {
+			throw new UiException(e);
+		}
 		LOG.debug("Created ClientWindowEdit");
-	}	
-	
+	}
+
 	@Override
 	protected void btnCancelClick() {
 		close();
 	}
 
 	@Override
-	protected synchronized void btnAppleClick() {		
+	protected synchronized void btnAppleClick() {
 		try {
-			Client client = new Client(txtLastName.getValue(), txtFirstName.getValue(), txtPatronnymic.getValue());	
+			Client client = new Client(txtLastName.getValue(), txtFirstName.getValue(), txtPatronnymic.getValue());
 			client.setPhone(txtPhone.getValue());
 			client.setId(id);
 			clientDao.update(client);

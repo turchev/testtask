@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 import org.vaadin.dialogs.ConfirmDialog;
 
 import com.haulmont.testtask.dao.ClientDao;
-import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.OrdersDao;
 import com.haulmont.testtask.ds.DsType;
@@ -36,15 +35,9 @@ public class OrdersView extends AbstractView implements View {
 	private NativeSelect<String> filterClient;
 	private NativeSelect<OrderStatusType> filterStatus;
 	private Button btnAppleFilter, btnCleanFilter;
-	private Grid<OrdersWithFio> grid = new Grid<>();
-	private List<OrdersWithFio> orders;
+	private Grid<OrdersWithFio> grid = new Grid<>();	
 
 	public OrdersView() throws UiException {
-		init();
-		showAll();
-	}
-
-	private void init() throws UiException {
 		try {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			orderDao = hsqlDaoFactory.getOrdersDao();
@@ -63,18 +56,17 @@ public class OrdersView extends AbstractView implements View {
 			grid.setColumnOrder("id", "description", "clientFio", "mechanicFio", "status", "dateCreat",
 					"completionDate", "price");
 			this.addComponent(grid);
-		} catch (Exception e) {
-			LOG.error(e);
+			showAll();
+		} catch (Exception e) {			
 			throw new UiException(e);
-		}
+		}		
 	}
 
 	private void showAll() throws UiException {
 		try {
-			orders = orderDao.findAll();
+			List<OrdersWithFio> orders = orderDao.findAll();
 			grid.setItems(orders);
-		} catch (Exception e) {
-			LOG.error(e);
+		} catch (Exception e) {			
 			throw new UiException(e);
 		}
 	}
@@ -138,19 +130,29 @@ public class OrdersView extends AbstractView implements View {
 
 	@Override
 	protected void btnAddClick() {
-		OrdersWindowAdd subWindowAdd = new OrdersWindowAdd();
-		UI.getCurrent().addWindow(subWindowAdd);
+		try {
+			OrdersWindowAdd subWindowAdd = new OrdersWindowAdd();
+			UI.getCurrent().addWindow(subWindowAdd);
+		} catch (Exception e) {
+			LOG.error(e);
+			Notification.show("Ошибка диалогового окна создания записи");
+		}
 	}
 
 	@Override
 	protected void btnChangeClick() {
-		if (grid.asSingleSelect().isEmpty()) {
-			Notification.show("Выберите заказ из списка");
-			return;
+		try {
+			if (grid.asSingleSelect().isEmpty()) {
+				Notification.show("Выберите заказ из списка");
+				return;
+			}
+			OrdersWithFio selectedOrders = grid.asSingleSelect().getValue();
+			OrdersWindowEdit subWindowEdit = new OrdersWindowEdit(selectedOrders.getId());
+			UI.getCurrent().addWindow(subWindowEdit);
+		} catch (Exception e) {
+			LOG.error(e);
+			Notification.show("Ошибка диалогового окна редактирования");
 		}
-		OrdersWithFio selectedOrders = grid.asSingleSelect().getValue();
-		OrdersWindowEdit subWindowEdit = new OrdersWindowEdit(selectedOrders.getId());
-		UI.getCurrent().addWindow(subWindowEdit);
 	}
 
 	@Override
@@ -164,24 +166,16 @@ public class OrdersView extends AbstractView implements View {
 			final String MESSAGE_1 = "Удалить запись №" + selectedOrders.getId() + " " + selectedOrders.getDescription()
 					+ "?";
 
-			ConfirmDialog.show(getUI(), "Внимание", MESSAGE_1, "Подтвердить", "Отменить", new ConfirmDialog.Listener() {
-				public void onClose(ConfirmDialog dialog) {
-					if (dialog.isConfirmed()) {
-						try {
-							orderDao.delete(selectedOrders.getId());
-							try {
-								showAll();
-							} catch (UiException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						} catch (DaoException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					} else {
-						return;
+			ConfirmDialog.show(getUI(), "Внимание", MESSAGE_1, "Подтвердить", "Отменить", dialog -> {
+				if (dialog.isConfirmed()) {
+					try {
+						orderDao.delete(selectedOrders.getId());
+						showAll();
+					} catch (Exception ex) {
+						LOG.error(ex);
 					}
+				} else {
+					return;
 				}
 			});
 
@@ -192,6 +186,6 @@ public class OrdersView extends AbstractView implements View {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-//		Notification.show("Welcome to Orders View");
+		LOG.debug("Welcome to Orders View");
 	}
 }

@@ -12,6 +12,7 @@ import com.haulmont.testtask.ds.DsType;
 import com.haulmont.testtask.entity.Mechanic;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.Notification;
@@ -25,16 +26,16 @@ public class MechanicView extends AbstractView implements View {
 	private DaoFactory hsqlDaoFactory;
 	private MechanicDao mechanicDao;
 	private Grid<Mechanic> grid;
+	private Button btnShowStat = new Button("Показать статистику");
 
 	public MechanicView() throws UiException {
-		init();
-		showAll();
-	}
-
-	private void init() throws UiException {
 		try {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			mechanicDao = hsqlDaoFactory.getMechanicDao();
+			this.addComponent(btnShowStat);
+			btnShowStat.addClickListener(event -> {
+				btnShowStatClick();
+			});
 			grid = new Grid<>();
 			grid.setWidth(100.0f, Unit.PERCENTAGE);
 			grid.setSelectionMode(SelectionMode.SINGLE);
@@ -45,9 +46,15 @@ public class MechanicView extends AbstractView implements View {
 			grid.addColumn(Mechanic::getWages).setId("wages").setCaption("Почасовая оплата");
 			grid.setColumnOrder("id", "lastName", "firstName", "patronnymic", "wages");
 			this.addComponent(grid);
+			showAll();
 		} catch (Exception e) {
 			throw new UiException(e);
-		}
+		}		
+	}
+	
+	private void btnShowStatClick() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private void showAll() throws UiException {
@@ -66,7 +73,7 @@ public class MechanicView extends AbstractView implements View {
 			UI.getCurrent().addWindow(subWindowAdd);
 		} catch (Exception e) {
 			LOG.error(e);
-			Notification.show("Ошибка диалогового окна создания механика");
+			Notification.show("Ошибка диалогового окна создания записи");
 		}
 	}
 
@@ -82,7 +89,7 @@ public class MechanicView extends AbstractView implements View {
 			UI.getCurrent().addWindow(subWindowEdit);
 		} catch (Exception e) {
 			LOG.error(e);
-			Notification.show("Ошибка диалогового окна редактирования механика");
+			Notification.show("Ошибка диалогового окна редактирования");
 		}
 	}
 

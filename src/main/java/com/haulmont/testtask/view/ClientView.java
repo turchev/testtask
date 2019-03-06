@@ -27,11 +27,6 @@ public class ClientView extends AbstractView implements View {
 	private Grid<Client> grid = new Grid<>();
 
 	public ClientView() throws UiException {
-		init();
-		showAll();		
-	}
-
-	private void init() throws UiException {
 		try {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			clientDao = hsqlDaoFactory.getClientDAO();
@@ -44,10 +39,11 @@ public class ClientView extends AbstractView implements View {
 			grid.addColumn(Client::getPhone).setId("phone").setCaption("Телефон");
 			grid.setColumnOrder("id", "lastName", "firstName", "patronnymic", "phone");
 			this.addComponent(grid);
+			showAll();
 		} catch (Exception e) {
 			throw new UiException(e);
-		}
-	}
+		}				
+	}	
 
 	private void showAll() throws UiException {
 		try {
@@ -65,7 +61,7 @@ public class ClientView extends AbstractView implements View {
 			UI.getCurrent().addWindow(subWindowAdd);
 		} catch (Exception e) {
 			LOG.error(e);	
-			Notification.show("Ошибка диалогового окна создания клиента");
+			Notification.show("Ошибка диалогового окна создания записи");
 		}		
 	}
 
@@ -81,7 +77,7 @@ public class ClientView extends AbstractView implements View {
 			UI.getCurrent().addWindow(subWindowEdit);
 		} catch (Exception e) {
 			LOG.error(e);	
-			Notification.show("Ошибка диалогового окна редактирования клиента");
+			Notification.show("Ошибка диалогового окна редактирования");
 		}		
 	}
 

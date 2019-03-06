@@ -21,8 +21,6 @@ public class MechanicWindowAdd extends MechanicWindowAbstract {
 		super.setCaption("Создать запись о механике");
 		try {
 			mechanicDao = DaoFactory.getFactory(DsType.HSQLDB).getMechanicDao();
-//			dcf.setParseBigDecimal(true);
-//			throw new UiException("Лови затрещину от MechanicWindowAdd!!!");
 		} catch (Exception e) {
 			throw new UiException(e);
 		}
