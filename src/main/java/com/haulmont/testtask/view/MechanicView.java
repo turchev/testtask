@@ -89,7 +89,7 @@ public class MechanicView extends AbstractView implements View {
 
 	@Override
 	protected void btnChangeClick() {
-		try {
+		try {			
 			if (grid.asSingleSelect().isEmpty()) {
 				Notification.show("Выберите механика из списка");
 				return;
