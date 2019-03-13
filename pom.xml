@@ -80,14 +80,9 @@
 			<version>3.2.0</version>
 		</dependency>
 		<dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>dcharts-widget</artifactId>
-			<version>1.7.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.vaadin.addon</groupId>
-			<artifactId>jfreechartwrapper</artifactId>
-			<version>4.0.0</version>
+			<groupId>com.byteowls</groupId>
+			<artifactId>vaadin-chartjs</artifactId>
+			<version>1.4.0</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
