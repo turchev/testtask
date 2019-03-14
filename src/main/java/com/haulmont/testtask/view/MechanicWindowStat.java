@@ -15,7 +15,9 @@ import com.byteowls.vaadin.chartjs.options.elements.Rectangle.RectangleEdge;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.MechanicDao;
 import com.haulmont.testtask.ds.DsType;
+import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
@@ -28,10 +30,12 @@ public class MechanicWindowStat extends Window {
 	public MechanicWindowStat(long id) throws UiException {
 		try {
 			this.id = id;
+			this.setWidth(800.0f, Unit.PIXELS);
+			this.setHeight(800.0f, Unit.PIXELS);
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			mechanicDao = hsqlDaoFactory.getMechanicDao();
-//			VerticalLayout vlLayout = new VerticalLayout(getChart());
-//			this.setContent(vlLayout);
+			VerticalLayout vlLayout = new VerticalLayout(getChart());
+			this.setContent(vlLayout);
 		} catch (Exception e) {
 			throw new UiException(e);
 		}
@@ -61,8 +65,6 @@ public class MechanicWindowStat extends Window {
 
 		ChartJs chart = new ChartJs(barConfig);
 		chart.setJsLoggingEnabled(true);
-//        chart.addClickListener((a,b) -> DemoUtils.notification(a, b, barConfig.data().getDatasets().get(a)));
 		return chart;
 	}
-
 }
