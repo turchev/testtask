@@ -1,6 +1,7 @@
 package com.haulmont.testtask.view;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +16,6 @@ import com.byteowls.vaadin.chartjs.options.elements.Rectangle.RectangleEdge;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.MechanicDao;
 import com.haulmont.testtask.ds.DsType;
-import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
@@ -30,8 +30,8 @@ public class MechanicWindowStat extends Window {
 	public MechanicWindowStat(long id) throws UiException {
 		try {
 			this.id = id;
-			this.setWidth(800.0f, Unit.PIXELS);
-			this.setHeight(800.0f, Unit.PIXELS);
+			this.setWidth(1000.0f, Unit.PIXELS);
+			this.setHeight(1000.0f, Unit.PIXELS);
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			mechanicDao = hsqlDaoFactory.getMechanicDao();
 			VerticalLayout vlLayout = new VerticalLayout(getChart());
@@ -44,9 +44,10 @@ public class MechanicWindowStat extends Window {
 
 	public Component getChart() {
 		BarChartConfig barConfig = new BarChartConfig();
-		barConfig.horizontal();
-		barConfig.data().labels("January", "February", "March", "April", "May", "June", "July")
-				.addDataset(new BarDataset().backgroundColor("rgba(220,220,220,0.5)").label("Dataset 1"))
+		barConfig.horizontal();			
+		List<String> lbs = Arrays.asList("January", "February", "March", "April", "May", "June", "July");
+		barConfig.data().labelsAsList(lbs);
+		barConfig.data().addDataset(new BarDataset().backgroundColor("rgba(220,220,220,0.5)").label("Dataset 1"))
 				.addDataset(new BarDataset().backgroundColor("rgba(151,187,205,0.5)").label("Dataset 2").hidden(true))
 				.addDataset(new BarDataset().backgroundColor("rgba(151,187,205,0.5)").label("Dataset 3")).and()
 				.options().responsive(true).title().display(true).text("Chart.js Horizontal Bar Chart").and().elements()
@@ -65,6 +66,8 @@ public class MechanicWindowStat extends Window {
 
 		ChartJs chart = new ChartJs(barConfig);
 		chart.setJsLoggingEnabled(true);
+		chart.setWidth(800.0f, Unit.PIXELS);
+		chart.setHeight(800.0f, Unit.PIXELS);
 		return chart;
 	}
 }
