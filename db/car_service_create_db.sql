@@ -29,14 +29,43 @@ CREATE TABLE orders (
 	FOREIGN KEY (mechanic_id) REFERENCES mechanic(id)
 );  
 
-
 CREATE VIEW orders_with_fio AS
 SELECT orders.id, orders.description, orders.client_id, orders.mechanic_id, 
 		orders.status, orders.date_creat, orders.completion_date, orders.price,
-	CONCAT(client.last_name, ' ', client.first_name, ' ', client.patronnymic) AS client_fio,
-	CONCAT(mechanic.last_name, ' ', mechanic.first_name) AS mechanic_fio
+	CONCAT(client.last_name, ' ', LEFT(client.first_name, 1), '.', LEFT(client.patronnymic, 1),'.') AS client_fio,
+	CONCAT(mechanic.last_name, ' ', LEFT(mechanic.first_name, 1), '.', LEFT(mechanic.patronnymic, 1),'.') AS mechanic_fio
 FROM orders
 LEFT JOIN client ON orders.client_id = client.id
 LEFT JOIN mechanic ON orders.mechanic_id = mechanic.id;
+
+SELECT mechanic.id,
+    CONCAT(mechanic.last_name, ' ', LEFT(mechanic.first_name, 1), '.', LEFT(mechanic.patronnymic, 1),'.') AS mechanic_f_i_o,
+    SUM(orders.price) AS price_all,
+    orders.date_creat, orders.completion_date
+FROM orders
+LEFT JOIN mechanic ON orders.mechanic_id = mechanic.id
+WHERE orders.status = 'Выполнен'
+GROUP BY orders.mechanic_id, mechanic.id;
+
+SELECT mechanic.id,
+    CONCAT(mechanic.last_name, ' ', LEFT(mechanic.first_name, 1), '.', LEFT(mechanic.patronnymic, 1),'.') AS mechanic_f_i_o,
+    SUM(orders.price) AS price_all    
+FROM orders
+LEFT JOIN mechanic ON orders.mechanic_id = mechanic.id
+WHERE orders.status = 'Выполнен'
+GROUP BY orders.mechanic_id, mechanic_f_i_o, mechanic.id;
+
+SELECT mechanic_id, mechanic_fio, SUM(price) AS price_all    
+FROM orders_with_fio
+LEFT JOIN mechanic ON orders_with_fio.mechanic_id = mechanic.id
+WHERE orders_with_fio.status = 'Выполнен'
+GROUP BY orders_with_fio.mechanic_fio, orders_with_fio.mechanic_id;
+
+SELECT mechanic.id, mechanic.last_name, mechanic.first_name, mechanic.patronnymic, SUM(orders.price) AS price_all    
+FROM orders
+LEFT JOIN mechanic ON orders.mechanic_id = mechanic.id
+WHERE orders.status = 'Выполнен'
+GROUP BY mechanic.id;
+
 
 SHUTDOWN;

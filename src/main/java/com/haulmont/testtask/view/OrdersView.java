@@ -29,7 +29,7 @@ public class OrdersView extends AbstractView implements View {
 	private static final Logger LOG = LogManager.getLogger();
 	public static final String NAME = "orders";
 	private DaoFactory hsqlDaoFactory;
-	private OrdersDao orderDao;
+	private OrdersDao ordersDao;
 	private ClientDao clientDao;
 	private TextField filterDescription;
 	private NativeSelect<String> filterClient;
@@ -40,7 +40,7 @@ public class OrdersView extends AbstractView implements View {
 	public OrdersView() throws UiException {
 		try {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
-			orderDao = hsqlDaoFactory.getOrdersDao();
+			ordersDao = hsqlDaoFactory.getOrdersDao();
 			clientDao = hsqlDaoFactory.getClientDAO();
 			this.addComponent(getFilterPanel());
 			grid.setWidth(100.0f, Unit.PERCENTAGE);
@@ -64,7 +64,7 @@ public class OrdersView extends AbstractView implements View {
 
 	private void showAll() throws UiException {
 		try {
-			List<OrdersWithFio> orders = orderDao.findAll();
+			List<OrdersWithFio> orders = ordersDao.findAll();
 			grid.setItems(orders);
 		} catch (Exception e) {			
 			throw new UiException(e);
@@ -108,7 +108,7 @@ public class OrdersView extends AbstractView implements View {
 			if (!filterStatus.isEmpty())
 				status = filterStatus.getValue().toString();
 
-			List<OrdersWithFio> orders = orderDao.findUsingFilter(findDescription, status, clientFio);
+			List<OrdersWithFio> orders = ordersDao.findUsingFilter(findDescription, status, clientFio);
 			grid.setItems(orders);
 		} catch (Exception e) {
 			Notification.show("Не удалось применить фильтр", Type.WARNING_MESSAGE);
@@ -169,7 +169,7 @@ public class OrdersView extends AbstractView implements View {
 			ConfirmDialog.show(getUI(), "Внимание", MESSAGE_1, "Подтвердить", "Отменить", dialog -> {
 				if (dialog.isConfirmed()) {
 					try {
-						orderDao.delete(selectedOrders.getId());
+						ordersDao.delete(selectedOrders.getId());
 						showAll();
 					} catch (Exception ex) {
 						LOG.error(ex);
