@@ -45,37 +45,13 @@ LEFT JOIN mechanic ON orders.mechanic_id = mechanic.id;
 -- FROM orders
 -- LEFT JOIN mechanic ON orders.mechanic_id = mechanic.id
 -- WHERE orders.status = 'Выполнен'
--- GROUP BY orders.mechanic_id, mechanic.id;
-
--- SELECT mechanic.id,
-    -- CONCAT(mechanic.last_name, ' ', LEFT(mechanic.first_name, 1), '.', LEFT(mechanic.patronnymic, 1),'.') AS mechanic_f_i_o,
-    -- SUM(orders.price) AS price_all    
--- FROM orders
--- LEFT JOIN mechanic ON orders.mechanic_id = mechanic.id
--- WHERE orders.status = 'Выполнен'
--- GROUP BY orders.mechanic_id, mechanic_f_i_o, mechanic.id;
-
--- SELECT orders_with_fio.mechanic_id, orders_with_fio.mechanic_fio, 
-	-- SUM(orders_with_fio.price) AS price_all, 
-	-- DATEDIFF(month, orders_with_fio.date_creat, orders_with_fio.completion_date) AS DateDiff;    
--- FROM orders_with_fio
--- LEFT JOIN mechanic ON orders_with_fio.mechanic_id = mechanic.id
--- WHERE orders_with_fio.status = 'Выполнен'
--- GROUP BY orders_with_fio.mechanic_fio, orders_with_fio.mechanic_id;
-
--- SELECT mechanic.id, mechanic.last_name, mechanic.first_name, mechanic.patronnymic, SUM(orders.price) AS price_all    
--- FROM orders
--- LEFT JOIN mechanic ON orders.mechanic_id = mechanic.id
--- WHERE orders.status = 'Выполнен'
--- GROUP BY mechanic.id;
+-- -- GROUP BY orders.mechanic_id, mechanic.id;
 
 -- SELECT 
 	-- COUNT(orders_with_fio.id) AS orders_sum, 
-	-- SUM(DATEDIFF(hour, orders_with_fio.date_creat, orders_with_fio.completion_date)) AS hour_sum,
+	-- SUM(DATEDIFF(mi, orders_with_fio.date_creat, orders_with_fio.completion_date)) AS minute_sum,
 	-- SUM(orders_with_fio.price) AS price_sum
 -- FROM orders_with_fio
 -- WHERE  orders_with_fio.mechanic_id = '0' AND orders_with_fio.status = 'Выполнен';
-
--- geany
 
 SHUTDOWN;
