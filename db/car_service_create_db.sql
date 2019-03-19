@@ -30,13 +30,24 @@ CREATE TABLE orders (
 );  
 
 CREATE VIEW orders_with_fio AS
-SELECT orders.id, orders.description, orders.client_id, orders.mechanic_id, 
+	SELECT orders.id, orders.description, orders.client_id, orders.mechanic_id, 
 		orders.status, orders.date_creat, orders.completion_date, orders.price,
-	CONCAT(client.last_name, ' ', LEFT(client.first_name, 1), '.', LEFT(client.patronnymic, 1),'.') AS client_fio,
-	CONCAT(mechanic.last_name, ' ', LEFT(mechanic.first_name, 1), '.', LEFT(mechanic.patronnymic, 1),'.') AS mechanic_fio
-FROM orders
-LEFT JOIN client ON orders.client_id = client.id
-LEFT JOIN mechanic ON orders.mechanic_id = mechanic.id;
+		CONCAT(client.last_name, ' ', LEFT(client.first_name, 1), '.', LEFT(client.patronnymic, 1),'.') AS client_fio,
+		CONCAT(mechanic.last_name, ' ', LEFT(mechanic.first_name, 1), '.', LEFT(mechanic.patronnymic, 1),'.') AS mechanic_fio
+	FROM orders
+	LEFT JOIN client ON orders.client_id = client.id
+	LEFT JOIN mechanic ON orders.mechanic_id = mechanic.id;
+
+CREATE FUNCTION minutes_to_hours (in_mi INT) 
+	RETURNS DECIMAL(12,2)
+	LANGUAGE SQL
+	BEGIN ATOMIC                    
+		RETURN CAST((in_mi) AS DECIMAL(12,2)) / 60;                    
+	END  
+	
+	     
+    
+-- select CAST(TIMESTAMPDIFF ( SQL_TSI_HOUR, date_creat, completion_date) AS DECIMAL(12,2)) / 60 from orders_with_fio;
 
 -- SELECT mechanic.id,
     -- CONCAT(mechanic.last_name, ' ', LEFT(mechanic.first_name, 1), '.', LEFT(mechanic.patronnymic, 1),'.') AS mechanic_f_i_o,
