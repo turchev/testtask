@@ -29,6 +29,9 @@ CREATE TABLE orders (
 	FOREIGN KEY (mechanic_id) REFERENCES mechanic(id)
 );  
 
+-- #################### Баловство для общего развития ##################
+
+-- Представление, отображающее в себе все заявки и ФИО вместо forreig_key
 CREATE VIEW orders_with_fio AS
 	SELECT orders.id, orders.description, orders.client_id, orders.mechanic_id, 
 		orders.status, orders.date_creat, orders.completion_date, orders.price,
@@ -37,13 +40,38 @@ CREATE VIEW orders_with_fio AS
 	FROM orders
 	LEFT JOIN client ON orders.client_id = client.id
 	LEFT JOIN mechanic ON orders.mechanic_id = mechanic.id;
-
-CREATE FUNCTION minutes_to_hours (in_mi INTEGER) 
+	
+-- Функция, возвращающая разницу между двумя датами в часах в формате DECIMAL 
+CREATE FUNCTION time_diff_out_decimal (date1 TIMESTAMP, date2 TIMESTAMP) 
 	RETURNS DECIMAL(12,2)
 	LANGUAGE SQL READS SQL DATA	
-	BEGIN ATOMIC                    
-		RETURN CAST((in_mi) AS DECIMAL(12,2)) / 60;                    
-	END  
+	BEGIN ATOMIC            
+		DECLARE interval_mi INTEGER;
+		SET interval_mi = DATEDIFF(minute, date1, date2);
+		RETURN CAST((interval_mi) AS DECIMAL(12,2)) / 60;                    
+	END 
+	
+-- Процедура для вывода статистики механика
+CREATE PROCEDURE mechanic_stat (IN in_id BIGINT)
+	LANGUAGE SQL READS SQL DATA	
+	DYNAMIC RESULT SETS 1		
+	BEGIN ATOMIC		
+		DECLARE cursor_res CURSOR FOR 
+			SELECT COUNT(orders_with_fio.id) AS orders_sum, 
+				SUM(time_diff_out_decimal(date_creat, completion_date)) AS hh_sum,		
+				SUM(orders_with_fio.price) AS price_sum
+			FROM orders_with_fio
+			WHERE  orders_with_fio.mechanic_id = in_id AND orders_with_fio.status = 'Выполнен'
+			FOR READ ONLY; 
+		OPEN cursor_res;    
+	END
+	
+	-- CREATE FUNCTION minutes_to_hours (in_mi INTEGER) 
+	-- RETURNS DECIMAL(12,2)
+	-- LANGUAGE SQL READS SQL DATA	
+	-- BEGIN ATOMIC                    
+		-- RETURN CAST((in_mi) AS DECIMAL(12,2)) / 60;                    
+	-- END  
 	
 -- CREATE PROCEDURE mechanic_stat (IN in_id BIGINT)
 	-- LANGUAGE SQL READS SQL DATA	
@@ -71,56 +99,6 @@ CREATE FUNCTION minutes_to_hours (in_mi INTEGER)
 			-- WHERE  orders_with_fio.mechanic_id = in_id AND orders_with_fio.status = 'Выполнен'; 
 		-- OPEN result;    
 	-- END
-	
-	-- CREATE PROCEDURE mechanic_stat (in_id BIGINT)
-	-- LANGUAGE SQL READS SQL DATA	
-	-- DYNAMIC RESULT SETS 1	
-			
-		-- DECLARE @order_counter, @minute_sum INTEGER;
-		-- DECLARE @res CURSOR FOR 
-			-- SELECT @order_counter AS orders_sum, 
-				-- minutes_to_hours(@minute_sum) AS hh_sum,		
-				-- SUM(orders_with_fio.price) AS price_sum
-			-- FROM orders_with_fio
-			-- WHERE  orders_with_fio.mechanic_id = in_id AND orders_with_fio.status = 'Выполнен'; 
-		-- SET @order_counter = (SELECT COUNT(orders_with_fio.id) 
-								-- FROM orders_with_fio 
-								-- WHERE orders_with_fio.mechanic_id = in_id);				
-		-- SET @minute_sum = (SELECT SUM(TIMESTAMPDIFF( SQL_TSI_HOUR, date_creat, completion_date)) 
-							-- FROM orders_with_fio
-							-- WHERE orders_with_fio.mechanic_id = in_id);		
-		
-		-- OPEN res;    
-	-- END
-     
-     
--- DECLARE @name VARCHAR(50) -- database name 
--- DECLARE @path VARCHAR(256) -- path for backup files 
--- DECLARE @fileName VARCHAR(256) -- filename for backup 
--- DECLARE @fileDate VARCHAR(20) -- used for file name 
-
--- SET @path = 'C:\Backup\' 
-
--- SELECT @fileDate = CONVERT(VARCHAR(20),GETDATE(),112) 
-
--- DECLARE db_cursor CURSOR FOR 
--- SELECT name 
--- FROM MASTER.dbo.sysdatabases 
--- WHERE name NOT IN ('master','model','msdb','tempdb') 
-
--- OPEN db_cursor  
--- FETCH NEXT FROM db_cursor INTO @name  
-
--- WHILE @@FETCH_STATUS = 0  
--- BEGIN  
-      -- SET @fileName = @path + @name + '_' + @fileDate + '.BAK' 
-      -- BACKUP DATABASE @name TO DISK = @fileName 
-
-      -- FETCH NEXT FROM db_cursor INTO @name 
--- END 
-
--- CLOSE db_cursor  
--- DEALLOCATE db_cursor 
 
    -- SIGNAL SQLSTATE '45000' set message_text = 'You cannot vote for yourself, dude!'
 -- select CAST(TIMESTAMPDIFF ( SQL_TSI_HOUR, date_creat, completion_date) AS DECIMAL(12,2)) / 60 from orders_with_fio;
