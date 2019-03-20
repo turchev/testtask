@@ -38,15 +38,91 @@ CREATE VIEW orders_with_fio AS
 	LEFT JOIN client ON orders.client_id = client.id
 	LEFT JOIN mechanic ON orders.mechanic_id = mechanic.id;
 
-CREATE FUNCTION minutes_to_hours (in_mi INT) 
+CREATE FUNCTION minutes_to_hours (in_mi INTEGER) 
 	RETURNS DECIMAL(12,2)
-	LANGUAGE SQL
+	LANGUAGE SQL READS SQL DATA	
 	BEGIN ATOMIC                    
 		RETURN CAST((in_mi) AS DECIMAL(12,2)) / 60;                    
 	END  
 	
-	     
-    
+-- CREATE PROCEDURE mechanic_stat (IN in_id BIGINT)
+	-- LANGUAGE SQL READS SQL DATA	
+	-- DYNAMIC RESULT SETS 1	
+	-- BEGIN ATOMIC
+		-- DECLARE order_counter INTEGER;
+		-- SET order_counter = (SELECT COUNT(orders_with_fio.id) 
+								-- FROM orders_with_fio 
+								-- WHERE orders_with_fio.mechanic_id = in_id);
+		-- IF order_counter = NULL OR order_counter <= 0 
+			-- THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'This mechanic does not want to work!'; 
+		-- END IF;
+		-- DECLARE minute_sum INTEGER;
+		-- SET minute_sum = (SELECT SUM(TIMESTAMPDIFF( SQL_TSI_HOUR, date_creat, completion_date)) 
+							-- FROM orders_with_fio
+							-- WHERE orders_with_fio.mechanic_id = in_id);
+		-- IF minute_sum = NULL 
+			-- THEN SET minute_sum = 0; 
+		-- END IF;  
+		-- DECLARE result CURSOR FOR 
+			-- SELECT order_counter AS orders_sum, 
+				-- minutes_to_hours(minute_sum) AS hh_sum,		
+				-- SUM(orders_with_fio.price) AS price_sum
+			-- FROM orders_with_fio
+			-- WHERE  orders_with_fio.mechanic_id = in_id AND orders_with_fio.status = 'Выполнен'; 
+		-- OPEN result;    
+	-- END
+	
+	-- CREATE PROCEDURE mechanic_stat (in_id BIGINT)
+	-- LANGUAGE SQL READS SQL DATA	
+	-- DYNAMIC RESULT SETS 1	
+			
+		-- DECLARE @order_counter, @minute_sum INTEGER;
+		-- DECLARE @res CURSOR FOR 
+			-- SELECT @order_counter AS orders_sum, 
+				-- minutes_to_hours(@minute_sum) AS hh_sum,		
+				-- SUM(orders_with_fio.price) AS price_sum
+			-- FROM orders_with_fio
+			-- WHERE  orders_with_fio.mechanic_id = in_id AND orders_with_fio.status = 'Выполнен'; 
+		-- SET @order_counter = (SELECT COUNT(orders_with_fio.id) 
+								-- FROM orders_with_fio 
+								-- WHERE orders_with_fio.mechanic_id = in_id);				
+		-- SET @minute_sum = (SELECT SUM(TIMESTAMPDIFF( SQL_TSI_HOUR, date_creat, completion_date)) 
+							-- FROM orders_with_fio
+							-- WHERE orders_with_fio.mechanic_id = in_id);		
+		
+		-- OPEN res;    
+	-- END
+     
+     
+-- DECLARE @name VARCHAR(50) -- database name 
+-- DECLARE @path VARCHAR(256) -- path for backup files 
+-- DECLARE @fileName VARCHAR(256) -- filename for backup 
+-- DECLARE @fileDate VARCHAR(20) -- used for file name 
+
+-- SET @path = 'C:\Backup\' 
+
+-- SELECT @fileDate = CONVERT(VARCHAR(20),GETDATE(),112) 
+
+-- DECLARE db_cursor CURSOR FOR 
+-- SELECT name 
+-- FROM MASTER.dbo.sysdatabases 
+-- WHERE name NOT IN ('master','model','msdb','tempdb') 
+
+-- OPEN db_cursor  
+-- FETCH NEXT FROM db_cursor INTO @name  
+
+-- WHILE @@FETCH_STATUS = 0  
+-- BEGIN  
+      -- SET @fileName = @path + @name + '_' + @fileDate + '.BAK' 
+      -- BACKUP DATABASE @name TO DISK = @fileName 
+
+      -- FETCH NEXT FROM db_cursor INTO @name 
+-- END 
+
+-- CLOSE db_cursor  
+-- DEALLOCATE db_cursor 
+
+   -- SIGNAL SQLSTATE '45000' set message_text = 'You cannot vote for yourself, dude!'
 -- select CAST(TIMESTAMPDIFF ( SQL_TSI_HOUR, date_creat, completion_date) AS DECIMAL(12,2)) / 60 from orders_with_fio;
 
 -- SELECT mechanic.id,
