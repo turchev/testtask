@@ -10,6 +10,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.haulmont.testtask.entity.Mechanic;
+import com.haulmont.testtask.entity.Mechanic.Stat;
 
 class MechanicDaoJdbc implements MechanicDao {
 
@@ -26,8 +27,8 @@ class MechanicDaoJdbc implements MechanicDao {
 		try (Connection connection = ds.getConnection(); Statement statement = connection.createStatement();) {
 			ResultSet rs = statement.executeQuery(SQL);
 			while (rs.next()) {
-				Mechanic mechanic = new Mechanic();
-				mechanic.setId(rs.getLong("id"));
+				Mechanic mechanic = new Mechanic(rs.getLong("id"));				
+//				mechanic.setId(rs.getLong("id"));
 				mechanic.setFirstName(rs.getString("first_name"));
 				mechanic.setLastName(rs.getString("last_name"));
 				mechanic.setPatronnymic(rs.getString("patronnymic"));
@@ -47,8 +48,8 @@ class MechanicDaoJdbc implements MechanicDao {
 			pstmt.setLong(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			rs.next();
-			Mechanic mechanic = new Mechanic();
-			mechanic.setId(rs.getLong("id"));
+			Mechanic mechanic = new Mechanic(rs.getLong("id"));
+//			mechanic.setId(rs.getLong("id"));
 			mechanic.setFirstName(rs.getString("first_name"));
 			mechanic.setLastName(rs.getString("last_name"));
 			mechanic.setPatronnymic(rs.getString("patronnymic"));
@@ -97,5 +98,12 @@ class MechanicDaoJdbc implements MechanicDao {
 		} catch (Exception e) {
 			throw new DaoException(e);
 		}
+	}
+
+	@Override
+	public List<Mechanic.Stat> getStat(Long id) throws DaoException {
+//		Mechanic mechanic = new Mechanic();
+//		mechanic.new Stat();
+		return null;
 	}
 }

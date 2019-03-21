@@ -28,8 +28,10 @@ CREATE TABLE orders (
 	FOREIGN KEY (client_id) REFERENCES client(id),
 	FOREIGN KEY (mechanic_id) REFERENCES mechanic(id)
 );  
-
--- #################### Баловство для общего развития ##################
+-- #####################################################################
+-- ##### Баловство для общего развития и повторения SQL.           #####
+-- ##### В данной задаче в них нет ни какой необходимости.         #####
+-- #####################################################################
 
 -- Представление, отображающее в себе все заявки и ФИО вместо forreig_key
 CREATE VIEW orders_with_fio AS
@@ -66,57 +68,18 @@ CREATE PROCEDURE mechanic_stat (IN in_id BIGINT)
 		OPEN cursor_res;    
 	END
 	
-	-- CREATE FUNCTION minutes_to_hours (in_mi INTEGER) 
-	-- RETURNS DECIMAL(12,2)
-	-- LANGUAGE SQL READS SQL DATA	
-	-- BEGIN ATOMIC                    
-		-- RETURN CAST((in_mi) AS DECIMAL(12,2)) / 60;                    
-	-- END  
+-- Процедура для вывода статистики всех механиков
+CREATE PROCEDURE mechanic_stat ()
+	LANGUAGE SQL READS SQL DATA	
+	DYNAMIC RESULT SETS 1		
+	BEGIN ATOMIC
+		DECLARE cursor_res CURSOR FOR SELECT orders_with_fio.mechanic_id, orders_with_fio.mechanic_fio,
+			COUNT(orders_with_fio.id) AS orders_sum, 
+			SUM(time_diff_out_decimal(orders_with_fio.date_creat, orders_with_fio.completion_date)) AS hh_sum,		
+			SUM(orders_with_fio.price) AS price_sum
+		FROM orders_with_fio
+		GROUP BY orders_with_fio.mechanic_id, orders_with_fio.mechanic_fio;
+		OPEN cursor_res;    
+	END
 	
--- CREATE PROCEDURE mechanic_stat (IN in_id BIGINT)
-	-- LANGUAGE SQL READS SQL DATA	
-	-- DYNAMIC RESULT SETS 1	
-	-- BEGIN ATOMIC
-		-- DECLARE order_counter INTEGER;
-		-- SET order_counter = (SELECT COUNT(orders_with_fio.id) 
-								-- FROM orders_with_fio 
-								-- WHERE orders_with_fio.mechanic_id = in_id);
-		-- IF order_counter = NULL OR order_counter <= 0 
-			-- THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'This mechanic does not want to work!'; 
-		-- END IF;
-		-- DECLARE minute_sum INTEGER;
-		-- SET minute_sum = (SELECT SUM(TIMESTAMPDIFF( SQL_TSI_HOUR, date_creat, completion_date)) 
-							-- FROM orders_with_fio
-							-- WHERE orders_with_fio.mechanic_id = in_id);
-		-- IF minute_sum = NULL 
-			-- THEN SET minute_sum = 0; 
-		-- END IF;  
-		-- DECLARE result CURSOR FOR 
-			-- SELECT order_counter AS orders_sum, 
-				-- minutes_to_hours(minute_sum) AS hh_sum,		
-				-- SUM(orders_with_fio.price) AS price_sum
-			-- FROM orders_with_fio
-			-- WHERE  orders_with_fio.mechanic_id = in_id AND orders_with_fio.status = 'Выполнен'; 
-		-- OPEN result;    
-	-- END
-
-   -- SIGNAL SQLSTATE '45000' set message_text = 'You cannot vote for yourself, dude!'
--- select CAST(TIMESTAMPDIFF ( SQL_TSI_HOUR, date_creat, completion_date) AS DECIMAL(12,2)) / 60 from orders_with_fio;
-
--- SELECT mechanic.id,
-    -- CONCAT(mechanic.last_name, ' ', LEFT(mechanic.first_name, 1), '.', LEFT(mechanic.patronnymic, 1),'.') AS mechanic_f_i_o,
-    -- SUM(orders.price) AS price_all,
-    -- orders.date_creat, orders.completion_date
--- FROM orders
--- LEFT JOIN mechanic ON orders.mechanic_id = mechanic.id
--- WHERE orders.status = 'Выполнен'
--- -- GROUP BY orders.mechanic_id, mechanic.id;
-
--- SELECT 
-	-- COUNT(orders_with_fio.id) AS orders_sum, 
-	-- SUM(DATEDIFF(mi, orders_with_fio.date_creat, orders_with_fio.completion_date)) AS minute_sum,
-	-- SUM(orders_with_fio.price) AS price_sum
--- FROM orders_with_fio
--- WHERE  orders_with_fio.mechanic_id = '0' AND orders_with_fio.status = 'Выполнен';
-
 SHUTDOWN;
