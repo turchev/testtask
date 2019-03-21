@@ -1,9 +1,8 @@
 package com.haulmont.testtask.dao;
 
-import java.util.List;
-
 import com.haulmont.testtask.entity.Mechanic;
+import com.haulmont.testtask.entity.Mechanic.Stat;
 
 public interface MechanicDao extends IDao<Mechanic> {
-	List<Mechanic.Stat> getStat(Long id) throws DaoException;
+	Stat getStat(Long id) throws DaoException;
 }

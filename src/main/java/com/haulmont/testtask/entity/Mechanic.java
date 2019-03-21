@@ -72,20 +72,20 @@ public class Mechanic extends AbstractEntity {
 
 		private long id;
 		private String mechanicFio;
-		private Integer orders_sum;
-		private Integer hh_sum;
-		private BigDecimal price_sum;
+		private Integer ordersSum;
+		private BigDecimal hhSum;
+		private BigDecimal priceSum;
 
 		public Stat() {
 			this.id = Mechanic.this.getId();
 		}
 
-		public Stat(String mechanicFio, Integer orders_sum, Integer hh_sum, BigDecimal price_sum) {
+		public Stat(String mechanicFio, Integer ordersSum, BigDecimal hhSum, BigDecimal priceSum) {
 			this.id = Mechanic.this.getId();
 			this.mechanicFio = mechanicFio;
-			this.orders_sum = orders_sum;
-			this.hh_sum = hh_sum;
-			this.price_sum = price_sum;
+			this.ordersSum = ordersSum;
+			this.hhSum = hhSum;
+			this.priceSum = priceSum;
 		}
 
 		public long getId() {
@@ -104,28 +104,28 @@ public class Mechanic extends AbstractEntity {
 			this.mechanicFio = mechanicFio;
 		}
 
-		public Integer getOrders_sum() {
-			return orders_sum;
+		public Integer getOrdersSum() {
+			return ordersSum;
 		}
 
-		public void setOrders_sum(Integer orders_sum) {
-			this.orders_sum = orders_sum;
+		public void setOrdersSum(Integer ordersSum) {
+			this.ordersSum = ordersSum;
 		}
 
-		public Integer getHh_sum() {
-			return hh_sum;
+		public BigDecimal getHhSum() {
+			return hhSum;
 		}
 
-		public void setHh_sum(Integer hh_sum) {
-			this.hh_sum = hh_sum;
+		public void setHhSum(BigDecimal hhSum) {
+			this.hhSum = hhSum;
 		}
 
-		public BigDecimal getPrice_sum() {
-			return price_sum;
+		public BigDecimal getPriceSum() {
+			return priceSum;
 		}
 
-		public void setPrice_sum(BigDecimal price_sum) {
-			this.price_sum = price_sum;
+		public void setPriceSum(BigDecimal priceSum) {
+			this.priceSum = priceSum;
 		}
 	}
 }

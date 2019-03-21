@@ -1,5 +1,6 @@
 package com.haulmont.testtask.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +11,6 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.haulmont.testtask.entity.Mechanic;
-import com.haulmont.testtask.entity.Mechanic.Stat;
 
 class MechanicDaoJdbc implements MechanicDao {
 
@@ -22,13 +22,12 @@ class MechanicDaoJdbc implements MechanicDao {
 
 	@Override
 	public synchronized List<Mechanic> findAll() throws DaoException {
-		final String SQL = "select * from mechanic;";
+		final String SQL = "SELECT * FROM mechanic;";
 		List<Mechanic> result = new ArrayList<Mechanic>();
 		try (Connection connection = ds.getConnection(); Statement statement = connection.createStatement();) {
 			ResultSet rs = statement.executeQuery(SQL);
 			while (rs.next()) {
-				Mechanic mechanic = new Mechanic(rs.getLong("id"));				
-//				mechanic.setId(rs.getLong("id"));
+				Mechanic mechanic = new Mechanic(rs.getLong("id"));
 				mechanic.setFirstName(rs.getString("first_name"));
 				mechanic.setLastName(rs.getString("last_name"));
 				mechanic.setPatronnymic(rs.getString("patronnymic"));
@@ -43,13 +42,12 @@ class MechanicDaoJdbc implements MechanicDao {
 
 	@Override
 	public synchronized Mechanic findById(long id) throws DaoException {
-		final String SQL = "select * from mechanic where id=?;";
+		final String SQL = "SELECT * FROM mechanic WHERE id=?;";
 		try (Connection connection = ds.getConnection(); PreparedStatement pstmt = connection.prepareStatement(SQL);) {
 			pstmt.setLong(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			rs.next();
 			Mechanic mechanic = new Mechanic(rs.getLong("id"));
-//			mechanic.setId(rs.getLong("id"));
 			mechanic.setFirstName(rs.getString("first_name"));
 			mechanic.setLastName(rs.getString("last_name"));
 			mechanic.setPatronnymic(rs.getString("patronnymic"));
@@ -101,9 +99,34 @@ class MechanicDaoJdbc implements MechanicDao {
 	}
 
 	@Override
-	public List<Mechanic.Stat> getStat(Long id) throws DaoException {
-//		Mechanic mechanic = new Mechanic();
-//		mechanic.new Stat();
+	public synchronized Mechanic.Stat getStat(Long id) throws DaoException {
+		final String SQL_0 = "SELECT CONCAT(mechanic.last_name, ' ', "
+				+ "LEFT(mechanic.first_name, 1), '.', "
+				+ "LEFT(mechanic.patronnymic, 1),'.') AS mechanic_fio "
+				+ "FROM mechanic WHERE mechanic.id = ?";			
+		final String SQL = "CALL  mechanic_stat(?);";
+		Mechanic mechanic = findById(id);	
+		Mechanic.Stat mechanicStat = mechanic.new Stat();
+		try (Connection connection = ds.getConnection(); 
+				PreparedStatement pstmt = connection.prepareStatement(SQL_0);
+				CallableStatement callStmt = connection.prepareCall(SQL);) {
+			pstmt.setLong(1, id);
+			ResultSet rs_0 = pstmt.executeQuery();
+			rs_0.next();
+			mechanicStat.setMechanicFio(rs_0.getString("mechanic_fio"));
+			callStmt.setLong(1, id);
+			callStmt.execute();
+			if (callStmt.getMoreResults()) {
+				ResultSet rs = callStmt.getResultSet();
+				rs.next();				
+				mechanicStat.setOrdersSum(rs.getInt("orders_sum"));
+				mechanicStat.setHhSum(rs.getBigDecimal("hh_sum"));
+				mechanicStat.setPriceSum(rs.getBigDecimal("price_sum"));
+				return mechanicStat;
+			}
+		} catch (Exception e) {
+			throw new DaoException(e);
+		}
 		return null;
 	}
 }
