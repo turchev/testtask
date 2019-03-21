@@ -63,7 +63,7 @@ CREATE PROCEDURE mechanic_stat (IN in_id BIGINT)
 				SUM(time_diff_out_decimal(date_creat, completion_date)) AS hh_sum,		
 				SUM(orders_with_fio.price) AS price_sum
 			FROM orders_with_fio
-			WHERE  orders_with_fio.mechanic_id = in_id AND orders_with_fio.status = 'Выполнен'
+			WHERE  orders_with_fio.mechanic_id = in_id
 			FOR READ ONLY; 
 		OPEN cursor_res;    
 	END
@@ -73,12 +73,15 @@ CREATE PROCEDURE mechanic_stat ()
 	LANGUAGE SQL READS SQL DATA	
 	DYNAMIC RESULT SETS 1		
 	BEGIN ATOMIC
-		DECLARE cursor_res CURSOR FOR SELECT orders_with_fio.mechanic_id, orders_with_fio.mechanic_fio,
+		DECLARE cursor_res CURSOR FOR SELECT mechanic.id, 
+			CONCAT(mechanic.last_name, ' ', LEFT(mechanic.first_name, 1), '.', LEFT(mechanic.patronnymic, 1),'.') AS mechanic_fio,
 			COUNT(orders_with_fio.id) AS orders_sum, 
 			SUM(time_diff_out_decimal(orders_with_fio.date_creat, orders_with_fio.completion_date)) AS hh_sum,		
 			SUM(orders_with_fio.price) AS price_sum
-		FROM orders_with_fio
-		GROUP BY orders_with_fio.mechanic_id, orders_with_fio.mechanic_fio;
+		FROM orders_with_fio		
+		RIGHT JOIN mechanic ON orders_with_fio.mechanic_id = mechanic.id
+		GROUP BY orders_with_fio.mechanic_id, orders_with_fio.mechanic_fio, mechanic.id
+		FOR READ ONLY;
 		OPEN cursor_res;    
 	END
 	
