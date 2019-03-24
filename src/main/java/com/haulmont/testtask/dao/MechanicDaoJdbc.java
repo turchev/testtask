@@ -99,15 +99,37 @@ class MechanicDaoJdbc implements MechanicDao {
 	}
 
 	@Override
+	public synchronized List<Mechanic.Stat> getStatAll() throws DaoException {
+		final String SQL = "CALL  mechanic_stat();";
+		List<Mechanic.Stat> result = new ArrayList<Mechanic.Stat>();
+		try (Connection connection = ds.getConnection(); CallableStatement callStmt = connection.prepareCall(SQL);) {
+			callStmt.execute();
+			if (callStmt.getMoreResults()) {
+				ResultSet rs = callStmt.getResultSet();
+				while (rs.next()) {
+					Mechanic mechanic = new Mechanic(rs.getLong("id"));
+					Mechanic.Stat mechanicStat = mechanic.new Stat();
+					mechanicStat.setMechanicFio(rs.getString("mechanic_fio"));
+					mechanicStat.setOrdersSum(rs.getInt("orders_sum"));
+					mechanicStat.setHhSum(rs.getBigDecimal("hh_sum"));
+					mechanicStat.setPriceSum(rs.getBigDecimal("price_sum"));
+					result.add(mechanicStat);
+				}
+			}
+		} catch (Exception e) {
+			throw new DaoException(e);
+		}
+		return result;
+	}
+
+	@Override
 	public synchronized Mechanic.Stat getStat(Long id) throws DaoException {
-		final String SQL_0 = "SELECT CONCAT(mechanic.last_name, ' ', "
-				+ "LEFT(mechanic.first_name, 1), '.', "
-				+ "LEFT(mechanic.patronnymic, 1),'.') AS mechanic_fio "
-				+ "FROM mechanic WHERE mechanic.id = ?";			
+		final String SQL_0 = "SELECT CONCAT(mechanic.last_name, ' ', " + "LEFT(mechanic.first_name, 1), '.', "
+				+ "LEFT(mechanic.patronnymic, 1),'.') AS mechanic_fio " + "FROM mechanic WHERE mechanic.id = ?";
 		final String SQL = "CALL  mechanic_stat(?);";
-		Mechanic mechanic = findById(id);	
+		Mechanic mechanic = findById(id);
 		Mechanic.Stat mechanicStat = mechanic.new Stat();
-		try (Connection connection = ds.getConnection(); 
+		try (Connection connection = ds.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(SQL_0);
 				CallableStatement callStmt = connection.prepareCall(SQL);) {
 			pstmt.setLong(1, id);
@@ -118,7 +140,7 @@ class MechanicDaoJdbc implements MechanicDao {
 			callStmt.execute();
 			if (callStmt.getMoreResults()) {
 				ResultSet rs = callStmt.getResultSet();
-				rs.next();				
+				rs.next();
 				mechanicStat.setOrdersSum(rs.getInt("orders_sum"));
 				mechanicStat.setHhSum(rs.getBigDecimal("hh_sum"));
 				mechanicStat.setPriceSum(rs.getBigDecimal("price_sum"));

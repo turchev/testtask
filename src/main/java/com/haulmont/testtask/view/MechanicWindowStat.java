@@ -13,9 +13,11 @@ import com.byteowls.vaadin.chartjs.data.BarDataset;
 import com.byteowls.vaadin.chartjs.data.Dataset;
 import com.byteowls.vaadin.chartjs.options.Position;
 import com.byteowls.vaadin.chartjs.options.elements.Rectangle.RectangleEdge;
+import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.dao.DaoFactory;
-import com.haulmont.testtask.dao.OrdersDao;
+import com.haulmont.testtask.dao.MechanicDao;
 import com.haulmont.testtask.ds.DsType;
+import com.haulmont.testtask.entity.Mechanic;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
@@ -24,15 +26,12 @@ import com.vaadin.ui.Window;
 public class MechanicWindowStat extends Window {
 	private static final Logger LOG = LogManager.getLogger();
 	private DaoFactory hsqlDaoFactory;
-	private OrdersDao ordersDao;
-	private Long id;
+	private MechanicDao mechanicDao;
 
 	public MechanicWindowStat() throws UiException {
-		try {			
-//			this.setWidth(1000.0f, Unit.PIXELS);
-//			this.setHeight(1000.0f, Unit.PIXELS);
+		try {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
-			ordersDao = hsqlDaoFactory.getOrdersDao();
+			mechanicDao = hsqlDaoFactory.getMechanicDao();
 			VerticalLayout vlLayout = new VerticalLayout(getChart());
 			this.setContent(vlLayout);
 		} catch (Exception e) {
@@ -41,7 +40,11 @@ public class MechanicWindowStat extends Window {
 		LOG.debug("Created MechanicWindowStat");
 	}
 
-	public Component getChart() {
+	public Component getChart() throws DaoException {
+
+		List<Mechanic.Stat> mechanicStat = mechanicDao.getStatAll();
+		LOG.debug(mechanicStat);
+
 		BarChartConfig barConfig = new BarChartConfig();
 		barConfig.horizontal();
 		List<String> lbs = Arrays.asList("January", "February", "March", "April", "May", "June", "July");
@@ -54,11 +57,10 @@ public class MechanicWindowStat extends Window {
 				.elements().rectangle().borderWidth(2).borderColor("rgb(0, 255, 0)").borderSkipped(RectangleEdge.LEFT)
 				.and().and().legend().fullWidth(false).position(Position.LEFT).and().done();
 
-		List<String> labels = barConfig.data().getLabels();
 		for (Dataset<?, ?> ds : barConfig.data().getDatasets()) {
 			BarDataset lds = (BarDataset) ds;
 			List<Double> data = new ArrayList<>();
-			for (int i = 0; i < labels.size(); i++) {
+			for (int i = 0; i < lbs.size(); i++) {
 				data.add((double) (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100));
 			}
 			lds.dataAsList(data);
@@ -67,7 +69,6 @@ public class MechanicWindowStat extends Window {
 		ChartJs chart = new ChartJs(barConfig);
 		chart.setJsLoggingEnabled(true);
 		chart.setWidth(1400.0f, Unit.PIXELS);
-//		chart.setHeight(800.0f, Unit.PIXELS);
 		return chart;
 	}
 }

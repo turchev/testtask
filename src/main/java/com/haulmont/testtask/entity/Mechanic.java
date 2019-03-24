@@ -80,14 +80,6 @@ public class Mechanic extends AbstractEntity {
 			this.id = Mechanic.this.getId();
 		}
 
-		public Stat(String mechanicFio, Integer ordersSum, BigDecimal hhSum, BigDecimal priceSum) {
-			this.id = Mechanic.this.getId();
-			this.mechanicFio = mechanicFio;
-			this.ordersSum = ordersSum;
-			this.hhSum = hhSum;
-			this.priceSum = priceSum;
-		}
-
 		public long getId() {
 			return id;
 		}
@@ -126,6 +118,11 @@ public class Mechanic extends AbstractEntity {
 
 		public void setPriceSum(BigDecimal priceSum) {
 			this.priceSum = priceSum;
+		}
+		
+		@Override
+		public String toString() {			
+			return "\n" + mechanicFio + ": " + ordersSum + " заказа(ов), " + hhSum + " часов, " + priceSum + " рублей";
 		}
 	}
 }

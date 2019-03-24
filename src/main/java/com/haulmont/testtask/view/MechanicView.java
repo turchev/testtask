@@ -56,8 +56,8 @@ public class MechanicView extends AbstractView implements View {
 		try {			
 			MechanicWindowStat subWindowEdit = new MechanicWindowStat();
 			UI.getCurrent().addWindow(subWindowEdit);	
-			Mechanic selectedMachanic = grid.asSingleSelect().getValue();
-			Mechanic.Stat mechanicStat = mechanicDao.getStat(selectedMachanic.getId());
+//			Mechanic selectedMachanic = grid.asSingleSelect().getValue();
+//			Mechanic.Stat mechanicStat = mechanicDao.getStat(selectedMachanic.getId());
 		} catch (Exception e) {
 			LOG.error(e);
 			Notification.show("Ошибка диалогового окна");
