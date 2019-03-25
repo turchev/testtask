@@ -41,14 +41,15 @@ public class MechanicWindowStat extends Window {
 	}
 
 	public Component getChart() throws DaoException {
-
 		List<Mechanic.Stat> mechanicStat = mechanicDao.getStatAll();
 		LOG.debug(mechanicStat);
-
+		List<String> fio = new ArrayList<>();
+		for (Mechanic.Stat itrMechanicStat : mechanicStat) {
+			fio.add(itrMechanicStat.getMechanicFio());
+		}		
 		BarChartConfig barConfig = new BarChartConfig();
 		barConfig.horizontal();
-		List<String> lbs = Arrays.asList("January", "February", "March", "April", "May", "June", "July");
-		barConfig.data().labelsAsList(lbs);
+		barConfig.data().labelsAsList(fio);
 		barConfig.data().addDataset(new BarDataset().backgroundColor("rgba(220,220,220,0.5)").label("Заявки(шт)"))
 				.addDataset(new BarDataset().backgroundColor("rgba(151,187,205,0.5)").label("Время(ч)").hidden(true))
 				.addDataset(
@@ -60,7 +61,7 @@ public class MechanicWindowStat extends Window {
 		for (Dataset<?, ?> ds : barConfig.data().getDatasets()) {
 			BarDataset lds = (BarDataset) ds;
 			List<Double> data = new ArrayList<>();
-			for (int i = 0; i < lbs.size(); i++) {
+			for (int i = 0; i < fio.size(); i++) {
 				data.add((double) (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100));
 			}
 			lds.dataAsList(data);
