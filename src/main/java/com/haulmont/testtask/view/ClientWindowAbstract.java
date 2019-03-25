@@ -2,6 +2,7 @@ package com.haulmont.testtask.view;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
@@ -19,8 +20,17 @@ abstract class ClientWindowAbstract extends Window {
 		txtPatronnymic = new TextField("Отчество");
 		txtPatronnymic.setSizeFull();
 		txtPhone = new TextField("Телефон");
+
+		TextField textField = new TextField();
+
+		textField.addValueChangeListener(event -> {
+			String origin = event.isUserOriginated() ? "user" : "application";
+			String message = origin + " entered the following: " + event.getValue();
+			Notification.show(message);
+		});
+
 		txtPhone.setSizeFull();
-		VerticalLayout vlLayout = new VerticalLayout(txtLastName, txtFirstName, txtPatronnymic, txtPhone);
+		VerticalLayout vlLayout = new VerticalLayout(txtLastName, txtFirstName, txtPatronnymic, txtPhone, textField);
 		this.setWidth(400.0f, Unit.PIXELS);
 		this.setModal(true);
 		this.setResizable(false);
