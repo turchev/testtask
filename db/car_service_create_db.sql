@@ -60,8 +60,8 @@ CREATE PROCEDURE mechanic_stat (IN in_id BIGINT)
 	BEGIN ATOMIC		
 		DECLARE cursor_res CURSOR FOR 
 			SELECT COUNT(orders_with_fio.id) AS orders_sum, 
-				SUM(time_diff_out_decimal(date_creat, completion_date)) AS hh_sum,		
-				SUM(orders_with_fio.price) AS price_sum
+				ISNULL(SUM(time_diff_out_decimal(date_creat, completion_date)), 0) AS hh_sum,		
+				ISNULL(SUM(orders_with_fio.price), 0) AS price_sum
 			FROM orders_with_fio
 			WHERE  orders_with_fio.mechanic_id = in_id
 			FOR READ ONLY; 
@@ -75,9 +75,9 @@ CREATE PROCEDURE mechanic_stat ()
 	BEGIN ATOMIC
 		DECLARE cursor_res CURSOR FOR SELECT mechanic.id, 
 			CONCAT(mechanic.last_name, ' ', LEFT(mechanic.first_name, 1), '.', LEFT(mechanic.patronnymic, 1),'.') AS mechanic_fio,
-			COUNT(orders_with_fio.id) AS orders_sum, 
-			SUM(time_diff_out_decimal(orders_with_fio.date_creat, orders_with_fio.completion_date)) AS hh_sum,		
-			SUM(orders_with_fio.price) AS price_sum
+			ISNULL(COUNT(orders_with_fio.id), 0) AS orders_sum, 
+			ISNULL(SUM(time_diff_out_decimal(orders_with_fio.date_creat, orders_with_fio.completion_date)), 0) AS hh_sum,		
+			ISNULL(SUM(orders_with_fio.price), 0) AS price_sum
 		FROM orders_with_fio		
 		RIGHT JOIN mechanic ON orders_with_fio.mechanic_id = mechanic.id
 		GROUP BY orders_with_fio.mechanic_id, orders_with_fio.mechanic_fio, mechanic.id
