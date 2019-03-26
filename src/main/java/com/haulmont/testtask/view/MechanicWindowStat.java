@@ -1,5 +1,6 @@
 package com.haulmont.testtask.view;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,8 +45,14 @@ public class MechanicWindowStat extends Window {
 		List<Mechanic.Stat> mechanicStat = mechanicDao.getStatAll();
 		LOG.debug(mechanicStat);
 		List<String> fio = new ArrayList<>();
+		List<Integer> dataOrdersSum = new ArrayList<>();
+		List<BigDecimal> dataHhSum = new ArrayList<>();
+		List<BigDecimal> dataPriceSum = new ArrayList<>();
 		for (Mechanic.Stat itrMechanicStat : mechanicStat) {
 			fio.add(itrMechanicStat.getMechanicFio());
+			dataOrdersSum.add(itrMechanicStat.getOrdersSum());
+			dataHhSum.add(itrMechanicStat.getHhSum());
+			dataPriceSum.add(itrMechanicStat.getPriceSum());
 		}		
 		BarChartConfig barConfig = new BarChartConfig();
 		barConfig.horizontal();
@@ -58,14 +65,14 @@ public class MechanicWindowStat extends Window {
 				.elements().rectangle().borderWidth(2).borderColor("rgb(0, 255, 0)").borderSkipped(RectangleEdge.LEFT)
 				.and().and().legend().fullWidth(false).position(Position.LEFT).and().done();
 
-		for (Dataset<?, ?> ds : barConfig.data().getDatasets()) {
-			BarDataset lds = (BarDataset) ds;
-			List<Double> data = new ArrayList<>();
-			for (int i = 0; i < fio.size(); i++) {
-				data.add((double) (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100));
-			}
-			lds.dataAsList(data);
-		}
+//		for (Dataset<?, ?> ds : barConfig.data().getDatasets()) { // проходит по полям графика (заявки, время, стоимость)
+//			BarDataset lds = (BarDataset) ds;
+//			List<Double> data = new ArrayList<>();
+//			for (int i = 0; i < fio.size(); i++) {  // проходит по участникам (петров, сидоров...)
+//				data.add(100d);
+//			}
+//			lds.dataAsList(data);
+//		}
 
 		ChartJs chart = new ChartJs(barConfig);
 		chart.setJsLoggingEnabled(true);
