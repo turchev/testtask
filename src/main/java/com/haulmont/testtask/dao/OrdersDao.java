@@ -2,7 +2,7 @@ package com.haulmont.testtask.dao;
 
 import java.util.List;
 
-import com.haulmont.testtask.entity.OrdersWithFio;
+import com.haulmont.testtask.domain.orders.OrdersWithFio;
 
 public interface OrdersDao extends IDao<OrdersWithFio> {	
 

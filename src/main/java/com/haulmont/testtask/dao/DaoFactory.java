@@ -19,7 +19,7 @@ public abstract class DaoFactory {
 		}
 	}
 
-	public abstract ClientDao getClientDAO() throws DaoException;
+	public abstract ClientDao getClientDao() throws DaoException;
 
 	public abstract MechanicDao getMechanicDao() throws DaoException;
 

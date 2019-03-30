@@ -1,4 +1,4 @@
-package com.haulmont.testtask.view;
+package com.haulmont.testtask.view.mechanic;
 
 import java.math.BigDecimal;
 
@@ -7,17 +7,18 @@ import org.apache.logging.log4j.Logger;
 
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.MechanicDao;
+import com.haulmont.testtask.domain.person.Mechanic;
 import com.haulmont.testtask.ds.DsType;
-import com.haulmont.testtask.entity.Mechanic;
+import com.haulmont.testtask.view.UiException;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
-public class MechanicWindowAdd extends MechanicWindowAbstract {
+class MechanicWindowAdd extends MechanicWindowAbstract {
 	private static final Logger LOG = LogManager.getLogger();
 	private MechanicDao mechanicDao;
 
-	public MechanicWindowAdd() throws UiException {
+	protected MechanicWindowAdd() throws UiException {
 		super.setCaption("Создать запись о механике");
 		try {
 			mechanicDao = DaoFactory.getFactory(DsType.HSQLDB).getMechanicDao();

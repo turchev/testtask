@@ -1,6 +1,4 @@
-package com.haulmont.testtask.view;
-
-import java.text.DecimalFormat;
+package com.haulmont.testtask.view.client;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
@@ -9,22 +7,30 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
-abstract class MechanicWindowAbstract extends Window {
+abstract class ClientWindowAbstract extends Window {
 
-	protected TextField txtLastName, txtFirstName, txtPatronnymic, txtWages;
-	protected DecimalFormat dcf = new DecimalFormat();
+	protected TextField txtFirstName, txtLastName, txtPatronnymic, txtPhone;
 
-	protected MechanicWindowAbstract() {
-		dcf.setParseBigDecimal(true);
+	protected ClientWindowAbstract() {
 		txtLastName = new TextField("Фамилия");
 		txtLastName.setSizeFull();
 		txtFirstName = new TextField("Имя");
 		txtFirstName.setSizeFull();
 		txtPatronnymic = new TextField("Отчество");
 		txtPatronnymic.setSizeFull();
-		txtWages = new TextField("Почасовая оплата");
-		txtWages.setSizeFull();
-		VerticalLayout vlLayout = new VerticalLayout(txtLastName, txtFirstName, txtPatronnymic, txtWages);
+		txtPhone = new TextField("Телефон");
+
+//		TextField textField = new TextField();
+//
+//		textField.addValueChangeListener(event -> {
+//			String origin = event.isUserOriginated() ? "user" : "application";
+//			String message = origin + " entered the following: " + event.getValue();
+//			Notification.show(message);
+//		});
+
+		txtPhone.setSizeFull();
+//		VerticalLayout vlLayout = new VerticalLayout(txtLastName, txtFirstName, txtPatronnymic, txtPhone, textField);
+		VerticalLayout vlLayout = new VerticalLayout(txtLastName, txtFirstName, txtPatronnymic, txtPhone);
 		this.setWidth(400.0f, Unit.PIXELS);
 		this.setModal(true);
 		this.setResizable(false);

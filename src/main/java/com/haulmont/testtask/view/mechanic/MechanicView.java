@@ -1,4 +1,4 @@
-package com.haulmont.testtask.view;
+package com.haulmont.testtask.view.mechanic;
 
 import java.util.List;
 
@@ -8,8 +8,10 @@ import org.vaadin.dialogs.ConfirmDialog;
 
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.MechanicDao;
+import com.haulmont.testtask.domain.person.Mechanic;
 import com.haulmont.testtask.ds.DsType;
-import com.haulmont.testtask.entity.Mechanic;
+import com.haulmont.testtask.view.AbstractView;
+import com.haulmont.testtask.view.UiException;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;

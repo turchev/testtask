@@ -1,33 +1,53 @@
-package com.haulmont.testtask.view;
+package com.haulmont.testtask.view.orders;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.haulmont.testtask.dao.ClientDao;
 import com.haulmont.testtask.dao.DaoFactory;
+import com.haulmont.testtask.dao.MechanicDao;
 import com.haulmont.testtask.dao.OrdersDao;
+import com.haulmont.testtask.domain.ShortName;
+import com.haulmont.testtask.domain.orders.OrdersWithFio;
+import com.haulmont.testtask.domain.person.Client;
+import com.haulmont.testtask.domain.person.Mechanic;
 import com.haulmont.testtask.ds.DsType;
-import com.haulmont.testtask.entity.OrdersWithFio;
+import com.haulmont.testtask.view.UiException;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
-public class OrdersWindowEdit extends OrdersWindowAbstract {
+class OrdersWindowEdit extends OrdersWindowAbstract {
 	private static final Logger LOG = LogManager.getLogger();
 	private OrdersDao ordersDao;
+	private ClientDao clientDao;
+	private MechanicDao mechanicDao;
 	private Long id;
+	List<ShortName<Mechanic>> mechanicShortName;
+	List<ShortName<Client>> clientShortName;
 
 	protected OrdersWindowEdit(Long id) throws UiException {
 		try {
 			super.setCaption("Редактировать заявку");
 			this.id = id;
 			ordersDao = DaoFactory.getFactory(DsType.HSQLDB).getOrdersDao();
+			clientDao = DaoFactory.getFactory(DsType.HSQLDB).getClientDao();
+			mechanicDao = DaoFactory.getFactory(DsType.HSQLDB).getMechanicDao();
+
 			OrdersWithFio order = ordersDao.findById(id);
+			mechanicShortName = mechanicDao.findAllShortName();
+			ShortName<Mechanic> mechanicFio = mechanicDao.getFioById(order.getMechanicId());
+			ShortName<Client> clientFio = clientDao.getFioById(order.getClientId());
+			clientShortName = clientDao.findAllShortName();
+			super.cmbClient.setItems(clientShortName);
+			super.cmbMechanic.setItems(mechanicShortName);			
+			cmbClient.setSelectedItem(clientFio);
+			cmbMechanic.setSelectedItem(mechanicFio);
 			ntsStatus.setValue(order.getStatus());
-			cmbClient.setSelectedItem(order);
-			cmbMechanic.setSelectedItem(order);
 			dtfDateCreat.setValue(order.getDateCreat());
 			dtfCompletionDate.setValue(order.getCompletionDate());
 			txtPrice.setValue(order.getPrice().toString());
@@ -45,7 +65,7 @@ public class OrdersWindowEdit extends OrdersWindowAbstract {
 
 	@Override
 	protected void btnAppleClick() {
-		
+
 		if (cmbClient.isEmpty()) {
 			Notification.show("Выберите клиента из списка или создайте новую запись", Type.WARNING_MESSAGE);
 			return;
@@ -68,8 +88,8 @@ public class OrdersWindowEdit extends OrdersWindowAbstract {
 		}
 
 		try {
-			OrdersWithFio order = new OrdersWithFio(txrDescription.getValue(), cmbClient.getValue().getClientId(),
-					cmbMechanic.getValue().getMechanicId());
+			OrdersWithFio order = new OrdersWithFio(txrDescription.getValue(), cmbClient.getValue().getId(),
+					cmbMechanic.getValue().getId());
 			BigDecimal price = (BigDecimal) super.dcf.parse(txtPrice.getValue());
 			order.setPrice(price);
 			order.setDateCreat(dtfDateCreat.getValue());

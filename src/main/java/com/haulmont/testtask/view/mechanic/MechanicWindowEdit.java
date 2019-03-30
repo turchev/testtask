@@ -1,4 +1,4 @@
-package com.haulmont.testtask.view;
+package com.haulmont.testtask.view.mechanic;
 
 import java.math.BigDecimal;
 
@@ -8,18 +8,19 @@ import org.apache.logging.log4j.Logger;
 import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.MechanicDao;
+import com.haulmont.testtask.domain.person.Mechanic;
 import com.haulmont.testtask.ds.DsType;
-import com.haulmont.testtask.entity.Mechanic;
+import com.haulmont.testtask.view.UiException;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
-public class MechanicWindowEdit extends MechanicWindowAbstract {
+class MechanicWindowEdit extends MechanicWindowAbstract {
 	private static final Logger LOG = LogManager.getLogger();
 	private Long id;
 	private MechanicDao mechanicDao;
 
-	public MechanicWindowEdit(Long id) throws UiException {				 
+	protected MechanicWindowEdit(Long id) throws UiException {				 
 		try {
 			super.setCaption("Редактировать данные механика");
 			this.id = id;

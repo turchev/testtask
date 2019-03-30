@@ -1,4 +1,4 @@
-package com.haulmont.testtask.view;
+package com.haulmont.testtask.view.mechanic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,19 +13,20 @@ import com.byteowls.vaadin.chartjs.options.Position;
 import com.byteowls.vaadin.chartjs.options.elements.Rectangle.RectangleEdge;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.MechanicDao;
+import com.haulmont.testtask.domain.person.Mechanic;
 import com.haulmont.testtask.ds.DsType;
-import com.haulmont.testtask.entity.Mechanic;
+import com.haulmont.testtask.view.UiException;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
-public class MechanicWindowStat extends Window {
+class MechanicWindowStat extends Window {
 	private static final Logger LOG = LogManager.getLogger();
 	private DaoFactory hsqlDaoFactory;
 	private MechanicDao mechanicDao;
 
-	public MechanicWindowStat() throws UiException {
+	protected MechanicWindowStat() throws UiException {
 		try {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			mechanicDao = hsqlDaoFactory.getMechanicDao();
@@ -37,7 +38,7 @@ public class MechanicWindowStat extends Window {
 		LOG.debug("Created MechanicWindowStat");
 	}
 
-	public Component getChart() throws UiException {
+	protected Component getChart() throws UiException {
 		// Разбираться в дебрях ChartJs не стал, просто подогнал под свою задачу один из
 		// примеров
 				

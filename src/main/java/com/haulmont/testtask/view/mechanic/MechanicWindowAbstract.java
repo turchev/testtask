@@ -1,36 +1,30 @@
-package com.haulmont.testtask.view;
+package com.haulmont.testtask.view.mechanic;
+
+import java.text.DecimalFormat;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
-abstract class ClientWindowAbstract extends Window {
+abstract class MechanicWindowAbstract extends Window {
 
-	protected TextField txtFirstName, txtLastName, txtPatronnymic, txtPhone;
+	protected TextField txtLastName, txtFirstName, txtPatronnymic, txtWages;
+	protected DecimalFormat dcf = new DecimalFormat();
 
-	protected ClientWindowAbstract() {
+	protected MechanicWindowAbstract() {
+		dcf.setParseBigDecimal(true);
 		txtLastName = new TextField("Фамилия");
 		txtLastName.setSizeFull();
 		txtFirstName = new TextField("Имя");
 		txtFirstName.setSizeFull();
 		txtPatronnymic = new TextField("Отчество");
 		txtPatronnymic.setSizeFull();
-		txtPhone = new TextField("Телефон");
-
-		TextField textField = new TextField();
-
-		textField.addValueChangeListener(event -> {
-			String origin = event.isUserOriginated() ? "user" : "application";
-			String message = origin + " entered the following: " + event.getValue();
-			Notification.show(message);
-		});
-
-		txtPhone.setSizeFull();
-		VerticalLayout vlLayout = new VerticalLayout(txtLastName, txtFirstName, txtPatronnymic, txtPhone, textField);
+		txtWages = new TextField("Почасовая оплата");
+		txtWages.setSizeFull();
+		VerticalLayout vlLayout = new VerticalLayout(txtLastName, txtFirstName, txtPatronnymic, txtWages);
 		this.setWidth(400.0f, Unit.PIXELS);
 		this.setModal(true);
 		this.setResizable(false);

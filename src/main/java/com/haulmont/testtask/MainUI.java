@@ -3,10 +3,10 @@ package com.haulmont.testtask;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.haulmont.testtask.view.ClientView;
 import com.haulmont.testtask.view.ErrorView;
-import com.haulmont.testtask.view.MechanicView;
-import com.haulmont.testtask.view.OrdersView;
+import com.haulmont.testtask.view.client.ClientView;
+import com.haulmont.testtask.view.mechanic.MechanicView;
+import com.haulmont.testtask.view.orders.OrdersView;
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
