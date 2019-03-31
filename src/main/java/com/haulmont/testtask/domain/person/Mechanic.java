@@ -12,6 +12,9 @@ public class Mechanic extends APerson {
 	@Column(name = "wages")
 	private BigDecimal wages;
 
+	public Mechanic() {
+	}
+
 	public Mechanic(Long id) {
 		setId(id);
 	}

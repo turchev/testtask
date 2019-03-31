@@ -5,10 +5,7 @@ import java.math.BigDecimal;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.haulmont.testtask.dao.DaoFactory;
-import com.haulmont.testtask.dao.MechanicDao;
 import com.haulmont.testtask.domain.person.Mechanic;
-import com.haulmont.testtask.ds.DsType;
 import com.haulmont.testtask.view.UiException;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
@@ -16,12 +13,10 @@ import com.vaadin.ui.UI;
 @SuppressWarnings("serial")
 class MechanicWindowAdd extends MechanicWindowAbstract {
 	private static final Logger LOG = LogManager.getLogger();
-	private MechanicDao mechanicDao;
 
 	protected MechanicWindowAdd() throws UiException {
-		super.setCaption("Создать запись о механике");
 		try {
-			mechanicDao = DaoFactory.getFactory(DsType.HSQLDB).getMechanicDao();
+			super.setCaption("Создать запись о механике");
 		} catch (Exception e) {
 			throw new UiException(e);
 		}
@@ -40,7 +35,7 @@ class MechanicWindowAdd extends MechanicWindowAbstract {
 					txtPatronnymic.getValue());
 			BigDecimal wages = (BigDecimal) super.dcf.parse(txtWages.getValue());
 			mechanic.setWages(wages);
-			mechanicDao.create(mechanic);
+			super.mechanicDao.create(mechanic);
 			UI.getCurrent().getNavigator().navigateTo(MechanicView.NAME);
 			close();
 		} catch (Exception e) {
