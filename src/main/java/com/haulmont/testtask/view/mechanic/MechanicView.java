@@ -51,17 +51,17 @@ public class MechanicView extends AbstractView implements View {
 			showAll();
 		} catch (Exception e) {
 			throw new UiException(e);
-		}		
+		}
 	}
-	
-	private void btnShowStatClick() {	
-		try {			
+
+	private void btnShowStatClick() {
+		try {
 			MechanicWindowStat subWindowEdit = new MechanicWindowStat();
-			UI.getCurrent().addWindow(subWindowEdit);	
+			UI.getCurrent().addWindow(subWindowEdit);
 		} catch (Exception e) {
 			LOG.error(e);
 			Notification.show("Вывод статистического отчета завершился ошибкой");
-		}		
+		}
 	}
 
 	private void showAll() throws UiException {
@@ -76,6 +76,7 @@ public class MechanicView extends AbstractView implements View {
 	@Override
 	protected void btnAddClick() {
 		try {
+//			MechanicWindowsTest subWindowAdd = new MechanicWindowsTest();
 			MechanicWindowAdd subWindowAdd = new MechanicWindowAdd();
 			UI.getCurrent().addWindow(subWindowAdd);
 		} catch (Exception e) {
@@ -86,7 +87,7 @@ public class MechanicView extends AbstractView implements View {
 
 	@Override
 	protected void btnChangeClick() {
-		try {			
+		try {
 			if (grid.asSingleSelect().isEmpty()) {
 				Notification.show("Выберите механика из списка");
 				return;
