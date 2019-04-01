@@ -1,4 +1,4 @@
-package com.haulmont.testtask.entity;
+package com.haulmont.testtask.domain.orders;
 
 public enum OrderStatusType {
 	Запланирован,

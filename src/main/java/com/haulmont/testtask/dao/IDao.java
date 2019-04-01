@@ -1,9 +1,10 @@
 package com.haulmont.testtask.dao;
 
 import java.util.List;
-import com.haulmont.testtask.entity.AbstractEntity;
 
-public interface IDao<T extends AbstractEntity> {
+import com.haulmont.testtask.domain.AEntity;
+
+public interface IDao<T extends AEntity> {
 
 	T findById(long id) throws DaoException;
 

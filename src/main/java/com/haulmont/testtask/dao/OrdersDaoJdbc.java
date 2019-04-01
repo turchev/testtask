@@ -8,8 +8,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
-import com.haulmont.testtask.entity.OrderStatusType;
-import com.haulmont.testtask.entity.OrdersWithFio;
+
+import com.haulmont.testtask.domain.orders.OrderStatusType;
+import com.haulmont.testtask.domain.orders.OrdersWithFio;
 
 class OrdersDaoJdbc implements OrdersDao {
 

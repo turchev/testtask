@@ -10,7 +10,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.haulmont.testtask.entity.Mechanic;
+import com.haulmont.testtask.domain.ShortName;
+import com.haulmont.testtask.domain.person.Mechanic;
 
 class MechanicDaoJdbc implements MechanicDao {
 
@@ -123,32 +124,19 @@ class MechanicDaoJdbc implements MechanicDao {
 	}
 
 	@Override
-	public synchronized Mechanic.Stat getStat(Long id) throws DaoException {
-		final String SQL_0 = "SELECT CONCAT(mechanic.last_name, ' ', " + "LEFT(mechanic.first_name, 1), '.', "
-				+ "LEFT(mechanic.patronnymic, 1),'.') AS mechanic_fio " + "FROM mechanic WHERE mechanic.id = ?";
-		final String SQL = "CALL  mechanic_stat(?);";
+	public ShortName<Mechanic> getFioById(Long id) throws DaoException {
 		Mechanic mechanic = findById(id);
-		Mechanic.Stat mechanicStat = mechanic.new Stat();
-		try (Connection connection = ds.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(SQL_0);
-				CallableStatement callStmt = connection.prepareCall(SQL);) {
-			pstmt.setLong(1, id);
-			ResultSet rs_0 = pstmt.executeQuery();
-			rs_0.next();
-			mechanicStat.setMechanicFio(rs_0.getString("mechanic_fio"));
-			callStmt.setLong(1, id);
-			callStmt.execute();
-			if (callStmt.getMoreResults()) {
-				ResultSet rs = callStmt.getResultSet();
-				rs.next();
-				mechanicStat.setOrdersSum(rs.getInt("orders_sum"));
-				mechanicStat.setHhSum(rs.getBigDecimal("hh_sum"));
-				mechanicStat.setPriceSum(rs.getBigDecimal("price_sum"));
-				return mechanicStat;
-			}
-		} catch (Exception e) {
-			throw new DaoException(e);
+		ShortName<Mechanic> mechanicShortName = new ShortName<Mechanic>(mechanic);
+		return mechanicShortName;
+	}
+
+	@Override
+	public List<ShortName<Mechanic>> findAllShortName() throws DaoException {
+		List<Mechanic> mechanic = findAll();
+		List<ShortName<Mechanic>> mechanicShortName = new ArrayList<ShortName<Mechanic>>();
+		for (Mechanic itrMechanic : mechanic) {
+			mechanicShortName.add(new ShortName<Mechanic>(itrMechanic));
 		}
-		return null;
+		return mechanicShortName;
 	}
 }

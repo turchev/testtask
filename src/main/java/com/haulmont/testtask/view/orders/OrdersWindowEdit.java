@@ -1,33 +1,34 @@
-package com.haulmont.testtask.view;
+package com.haulmont.testtask.view.orders;
 
 import java.math.BigDecimal;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.haulmont.testtask.dao.DaoFactory;
-import com.haulmont.testtask.dao.OrdersDao;
-import com.haulmont.testtask.ds.DsType;
-import com.haulmont.testtask.entity.OrdersWithFio;
+import com.haulmont.testtask.domain.ShortName;
+import com.haulmont.testtask.domain.orders.OrdersWithFio;
+import com.haulmont.testtask.domain.person.Client;
+import com.haulmont.testtask.domain.person.Mechanic;
+import com.haulmont.testtask.view.UiException;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
-public class OrdersWindowEdit extends OrdersWindowAbstract {
+class OrdersWindowEdit extends OrdersWindowAbstract {
 	private static final Logger LOG = LogManager.getLogger();
-	private OrdersDao ordersDao;
 	private Long id;
 
 	protected OrdersWindowEdit(Long id) throws UiException {
 		try {
 			super.setCaption("Редактировать заявку");
 			this.id = id;
-			ordersDao = DaoFactory.getFactory(DsType.HSQLDB).getOrdersDao();
 			OrdersWithFio order = ordersDao.findById(id);
+			ShortName<Mechanic> mechanicFio = super.mechanicDao.getFioById(order.getMechanicId());
+			ShortName<Client> clientFio = super.clientDao.getFioById(order.getClientId());		
+			cmbClient.setSelectedItem(clientFio);
+			cmbMechanic.setSelectedItem(mechanicFio);
 			ntsStatus.setValue(order.getStatus());
-			cmbClient.setSelectedItem(order);
-			cmbMechanic.setSelectedItem(order);
 			dtfDateCreat.setValue(order.getDateCreat());
 			dtfCompletionDate.setValue(order.getCompletionDate());
 			txtPrice.setValue(order.getPrice().toString());
@@ -45,7 +46,7 @@ public class OrdersWindowEdit extends OrdersWindowAbstract {
 
 	@Override
 	protected void btnAppleClick() {
-		
+
 		if (cmbClient.isEmpty()) {
 			Notification.show("Выберите клиента из списка или создайте новую запись", Type.WARNING_MESSAGE);
 			return;
@@ -68,8 +69,8 @@ public class OrdersWindowEdit extends OrdersWindowAbstract {
 		}
 
 		try {
-			OrdersWithFio order = new OrdersWithFio(txrDescription.getValue(), cmbClient.getValue().getClientId(),
-					cmbMechanic.getValue().getMechanicId());
+			OrdersWithFio order = new OrdersWithFio(txrDescription.getValue(), cmbClient.getValue().getId(),
+					cmbMechanic.getValue().getId());
 			BigDecimal price = (BigDecimal) super.dcf.parse(txtPrice.getValue());
 			order.setPrice(price);
 			order.setDateCreat(dtfDateCreat.getValue());

@@ -1,27 +1,23 @@
-package com.haulmont.testtask.view;
+package com.haulmont.testtask.view.client;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.haulmont.testtask.dao.ClientDao;
 import com.haulmont.testtask.dao.DaoException;
-import com.haulmont.testtask.dao.DaoFactory;
-import com.haulmont.testtask.ds.DsType;
-import com.haulmont.testtask.entity.Client;
+import com.haulmont.testtask.domain.person.Client;
+import com.haulmont.testtask.view.UiException;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
-public class ClientWindowEdit extends ClientWindowAbstract {
+class ClientWindowEdit extends ClientWindowAbstract {
 	private static final Logger LOG = LogManager.getLogger();
-	private ClientDao clientDao;
 	private Long id;
 
-	public ClientWindowEdit(Long id) throws UiException {
+	protected ClientWindowEdit(Long id) throws UiException {
 		try {
 			super.setCaption("Редактировать данные клиента");
 			this.id = id;
-			clientDao = DaoFactory.getFactory(DsType.HSQLDB).getClientDAO();
 			Client client = clientDao.findById(id);
 			super.txtFirstName.setValue(client.getFirstName());
 			super.txtLastName.setValue(client.getLastName());

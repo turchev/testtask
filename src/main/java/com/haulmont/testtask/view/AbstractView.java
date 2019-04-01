@@ -5,7 +5,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
-abstract class AbstractView extends VerticalLayout {	
+public abstract class AbstractView extends VerticalLayout {	
 	
 	HorizontalLayout groupButtons;	
 	

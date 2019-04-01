@@ -1,26 +1,22 @@
-package com.haulmont.testtask.view;
+package com.haulmont.testtask.view.mechanic;
 
 import java.math.BigDecimal;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.haulmont.testtask.dao.DaoFactory;
-import com.haulmont.testtask.dao.MechanicDao;
-import com.haulmont.testtask.ds.DsType;
-import com.haulmont.testtask.entity.Mechanic;
+import com.haulmont.testtask.domain.person.Mechanic;
+import com.haulmont.testtask.view.UiException;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
-public class MechanicWindowAdd extends MechanicWindowAbstract {
+class MechanicWindowAdd extends MechanicWindowAbstract {
 	private static final Logger LOG = LogManager.getLogger();
-	private MechanicDao mechanicDao;
 
-	public MechanicWindowAdd() throws UiException {
-		super.setCaption("Создать запись о механике");
+	protected MechanicWindowAdd() throws UiException {
 		try {
-			mechanicDao = DaoFactory.getFactory(DsType.HSQLDB).getMechanicDao();
+			super.setCaption("Создать запись о механике");
 		} catch (Exception e) {
 			throw new UiException(e);
 		}
@@ -39,7 +35,7 @@ public class MechanicWindowAdd extends MechanicWindowAbstract {
 					txtPatronnymic.getValue());
 			BigDecimal wages = (BigDecimal) super.dcf.parse(txtWages.getValue());
 			mechanic.setWages(wages);
-			mechanicDao.create(mechanic);
+			super.mechanicDao.create(mechanic);
 			UI.getCurrent().getNavigator().navigateTo(MechanicView.NAME);
 			close();
 		} catch (Exception e) {

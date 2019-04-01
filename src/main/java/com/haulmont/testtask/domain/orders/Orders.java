@@ -1,4 +1,4 @@
-package com.haulmont.testtask.entity;
+package com.haulmont.testtask.domain.orders;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -9,9 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.haulmont.testtask.domain.AEntity;
+
 @Entity
 @Table(name = "orders")
-public class Orders extends AbstractEntity {
+public class Orders extends AEntity {
 
 	@Column(name = "description", length = 5000)
 	private String description = "";

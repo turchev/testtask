@@ -1,4 +1,4 @@
-package com.haulmont.testtask.view;
+package com.haulmont.testtask.view.client;
 
 import java.util.List;
 
@@ -8,8 +8,10 @@ import org.vaadin.dialogs.ConfirmDialog;
 
 import com.haulmont.testtask.dao.ClientDao;
 import com.haulmont.testtask.dao.DaoFactory;
+import com.haulmont.testtask.domain.person.Client;
 import com.haulmont.testtask.ds.DsType;
-import com.haulmont.testtask.entity.Client;
+import com.haulmont.testtask.view.AbstractView;
+import com.haulmont.testtask.view.UiException;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Grid;
@@ -29,7 +31,7 @@ public class ClientView extends AbstractView implements View {
 	public ClientView() throws UiException {
 		try {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
-			clientDao = hsqlDaoFactory.getClientDAO();
+			clientDao = hsqlDaoFactory.getClientDao();
 			grid.setWidth(100.0f, Unit.PERCENTAGE);
 			grid.setSelectionMode(SelectionMode.SINGLE);
 			grid.addColumn(Client::getId).setId("id").setCaption("№");

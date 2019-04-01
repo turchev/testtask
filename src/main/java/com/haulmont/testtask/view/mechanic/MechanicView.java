@@ -1,4 +1,4 @@
-package com.haulmont.testtask.view;
+package com.haulmont.testtask.view.mechanic;
 
 import java.util.List;
 
@@ -8,8 +8,10 @@ import org.vaadin.dialogs.ConfirmDialog;
 
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.MechanicDao;
+import com.haulmont.testtask.domain.person.Mechanic;
 import com.haulmont.testtask.ds.DsType;
-import com.haulmont.testtask.entity.Mechanic;
+import com.haulmont.testtask.view.AbstractView;
+import com.haulmont.testtask.view.UiException;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
@@ -56,24 +58,10 @@ public class MechanicView extends AbstractView implements View {
 		try {			
 			MechanicWindowStat subWindowEdit = new MechanicWindowStat();
 			UI.getCurrent().addWindow(subWindowEdit);	
-//			Mechanic selectedMachanic = grid.asSingleSelect().getValue();
-//			Mechanic.Stat mechanicStat = mechanicDao.getStat(selectedMachanic.getId());
 		} catch (Exception e) {
 			LOG.error(e);
-			Notification.show("Ошибка диалогового окна");
+			Notification.show("Вывод статистического отчета завершился ошибкой");
 		}		
-//		try {
-//			if (grid.asSingleSelect().isEmpty()) {
-//				Notification.show("Выберите механика из списка");
-//				return;
-//			}
-//			Mechanic selectedMachanic = grid.asSingleSelect().getValue();
-//			MechanicWindowStat subWindowEdit = new MechanicWindowStat(selectedMachanic.getId());
-//			UI.getCurrent().addWindow(subWindowEdit);
-//		} catch (Exception e) {
-//			LOG.error(e);
-//			Notification.show("Ошибка диалогового окна");
-//		}		
 	}
 
 	private void showAll() throws UiException {

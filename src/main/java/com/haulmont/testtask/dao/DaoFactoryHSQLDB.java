@@ -23,7 +23,7 @@ class DaoFactoryHSQLDB extends DaoFactory {
 	}
 
 	@Override
-	public ClientDao getClientDAO() throws DaoException {
+	public ClientDao getClientDao() throws DaoException {
 		return new ClientDaoJdbc(ds);
 	}
 

@@ -1,4 +1,4 @@
-package com.haulmont.testtask.entity;
+package com.haulmont.testtask.domain.orders;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
