@@ -2,7 +2,6 @@ package com.haulmont.testtask.view;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -65,14 +64,15 @@ public class MechanicWindowStat extends Window {
 				.elements().rectangle().borderWidth(2).borderColor("rgb(0, 255, 0)").borderSkipped(RectangleEdge.LEFT)
 				.and().and().legend().fullWidth(false).position(Position.LEFT).and().done();
 
-//		for (Dataset<?, ?> ds : barConfig.data().getDatasets()) { // проходит по полям графика (заявки, время, стоимость)
-//			BarDataset lds = (BarDataset) ds;
-//			List<Double> data = new ArrayList<>();
-//			for (int i = 0; i < fio.size(); i++) {  // проходит по участникам (петров, сидоров...)
-//				data.add(100d);
-//			}
-//			lds.dataAsList(data);
-//		}
+		for (Dataset<?, ?> ds : barConfig.data().getDatasets()) { // проходит по полям графика (заявки, время, стоимость)
+			BarDataset lds = (BarDataset) ds;
+			List<Double> data = new ArrayList<>();
+			for (int i = 0; i < fio.size(); i++) {  // проходит по участникам (петров, сидоров...)
+				data.add(100d);
+			}
+			lds.dataAsList(data);
+			System.out.println("!!!!");
+		}
 
 		ChartJs chart = new ChartJs(barConfig);
 		chart.setJsLoggingEnabled(true);
