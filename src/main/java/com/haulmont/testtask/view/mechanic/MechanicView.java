@@ -39,7 +39,7 @@ public class MechanicView extends AbstractView implements View {
 				btnShowStatClick();
 			});
 			grid = new Grid<>();
-			grid.setWidth(100.0f, Unit.PERCENTAGE);
+			grid.setWidth(100.0f, Unit.PERCENTAGE);			
 			grid.setSelectionMode(SelectionMode.SINGLE);
 			grid.addColumn(Mechanic::getId).setId("id").setCaption("№");
 			grid.addColumn(Mechanic::getLastName).setId("lastName").setCaption("Фамилия").setWidth(500);
@@ -91,7 +91,7 @@ public class MechanicView extends AbstractView implements View {
 				Notification.show("Выберите механика из списка");
 				return;
 			}
-			Mechanic selectedMachanic = grid.asSingleSelect().getValue();
+			Mechanic selectedMachanic = grid.asSingleSelect().getValue();			
 			MechanicWindowEdit subWindowEdit = new MechanicWindowEdit(selectedMachanic.getId());
 			UI.getCurrent().addWindow(subWindowEdit);
 		} catch (Exception e) {

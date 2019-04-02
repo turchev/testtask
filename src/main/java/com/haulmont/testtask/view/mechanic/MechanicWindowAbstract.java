@@ -2,6 +2,7 @@ package com.haulmont.testtask.view.mechanic;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Locale;
 
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.MechanicDao;
@@ -53,10 +54,11 @@ abstract class MechanicWindowAbstract extends Window {
 			txtPatronnymic.setSizeFull();
 
 			txtWages = new TextField("Почасовая оплата");
+			txtWages.setLocale(new Locale("en", "US"));
 			txtWages.setValueChangeMode(ValueChangeMode.EAGER);
 			try {
 				binder.forField(txtWages).withNullRepresentation("")
-						.withConverter(new StringToBigDecimalConverter("Введите сумму в формате 00000,00"))
+						.withConverter(new StringToBigDecimalConverter("Введите сумму в формате 00000.00"))
 						.withValidator(new BigDecimalRangeValidator("Столько механики не зарабатывают", new BigDecimal(10),
 								new BigDecimal(10000)))
 						.bind(Mechanic::getWages, Mechanic::setWages);

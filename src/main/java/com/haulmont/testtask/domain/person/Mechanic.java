@@ -1,6 +1,8 @@
 package com.haulmont.testtask.domain.person;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -25,7 +27,7 @@ public class Mechanic extends APerson {
 		super.patronnymic = patronnymic;
 	}
 
-	public BigDecimal getWages() {
+	public BigDecimal getWages() {			
 		return wages;
 	}
 

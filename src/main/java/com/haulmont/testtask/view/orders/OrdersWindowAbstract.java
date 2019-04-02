@@ -3,6 +3,7 @@ package com.haulmont.testtask.view.orders;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 
 import com.haulmont.testtask.dao.ClientDao;
 import com.haulmont.testtask.dao.DaoFactory;
@@ -59,6 +60,7 @@ abstract class OrdersWindowAbstract extends Window {
 			dtfDateCreat.setValue(LocalDateTime.now());
 			dtfCompletionDate = new DateTimeField("Дата окончания работ");
 			txtPrice = new TextField("Цена");
+			txtPrice.setLocale(new Locale("en", "US"));
 			txrDescription = new TextArea("Описание заявки");
 			txrDescription.setSizeFull();
 			HorizontalLayout hltStatusPrice = new HorizontalLayout(ntsStatus, txtPrice);

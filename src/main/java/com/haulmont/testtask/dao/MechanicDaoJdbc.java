@@ -22,7 +22,7 @@ class MechanicDaoJdbc implements MechanicDao {
 	}
 
 	@Override
-	public synchronized List<Mechanic> findAll() throws DaoException {
+	public synchronized List<Mechanic> findAll() throws DaoException {		
 		final String SQL = "SELECT * FROM mechanic;";
 		List<Mechanic> result = new ArrayList<Mechanic>();
 		try (Connection connection = ds.getConnection(); Statement statement = connection.createStatement();) {

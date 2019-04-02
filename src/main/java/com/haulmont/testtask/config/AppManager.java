@@ -1,5 +1,7 @@
 package com.haulmont.testtask.config;
 
+import java.util.Locale;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -32,6 +34,8 @@ public class AppManager {
 		public void contextInitialized(ServletContextEvent sce) {
 			LOG.debug("Application initialization");
 			try {				
+				
+				Locale.setDefault(new Locale("ru", "RU"));
 				// Загрузка конфигурации с файлов (некоторые не требуются в программе, используются просто
 				// для тестирования)				
 				propFactory = PropertiesFactory.getInstans();

@@ -23,7 +23,8 @@ public class MainUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {		
-		try {
+		try {			
+			
 			Button btnOrders = new Button("Заказы", e -> getNavigator().navigateTo(OrdersView.NAME));
 			btnOrders.addStyleNames(ValoTheme.BUTTON_QUIET, ValoTheme.MENU_TITLE);
 
