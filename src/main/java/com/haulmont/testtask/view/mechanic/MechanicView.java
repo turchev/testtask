@@ -76,7 +76,6 @@ public class MechanicView extends AbstractView implements View {
 	@Override
 	protected void btnAddClick() {
 		try {
-//			MechanicWindowsTest subWindowAdd = new MechanicWindowsTest();
 			MechanicWindowAdd subWindowAdd = new MechanicWindowAdd();
 			UI.getCurrent().addWindow(subWindowAdd);
 		} catch (Exception e) {

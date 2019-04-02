@@ -30,19 +30,19 @@ abstract class ClientWindowAbstract extends Window {
 
 			txtFirstName = new TextField("Имя");
 			binder.forField(txtFirstName)
-					.withValidator(new StringLengthValidator("Maximum of 40 characters allowed", 0, 40))
+					.withValidator(new StringLengthValidator("Максимум 40 символов", 0, 40))
 					.bind(Client::getFirstName, Client::setFirstName);
 			txtFirstName.setSizeFull();
 
 			txtLastName = new TextField("Фамилия");
 			binder.forField(txtLastName)
-					.withValidator(new StringLengthValidator("Maximum of 40 characters allowed", 0, 40))
+					.withValidator(new StringLengthValidator("Максимум 40 символов", 0, 40))
 					.bind(Client::getLastName, Client::setLastName);
 			txtLastName.setSizeFull();
 
 			txtPatronnymic = new TextField("Отчество");
 			binder.forField(txtPatronnymic)
-					.withValidator(new StringLengthValidator("Maximum of 40 characters allowed", 0, 40))
+					.withValidator(new StringLengthValidator("Максимум 40 символов", 0, 40))
 					.bind(Client::getPatronnymic, Client::setPatronnymic);
 			txtPatronnymic.setSizeFull();
 
