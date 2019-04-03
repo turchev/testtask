@@ -20,11 +20,12 @@ abstract class ClientWindowAbstract extends Window {
 
 	protected TextField txtLastName, txtFirstName, txtPatronnymic, txtPhone;
 	protected ClientDao clientDao;
-	protected Binder<Client> binder = new Binder<>(Client.class);	
+	protected Binder<Client> binder;	
 	
 	protected ClientWindowAbstract() throws UiException {
 		try {
 			clientDao = DaoFactory.getFactory(DsType.HSQLDB).getClientDao();
+			binder = new Binder<>(Client.class);
 			binder.setBean(new Client());
 
 			txtFirstName = new TextField("Имя");

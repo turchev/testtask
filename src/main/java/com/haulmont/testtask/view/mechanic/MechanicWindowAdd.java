@@ -1,12 +1,11 @@
 package com.haulmont.testtask.view.mechanic;
 
-import java.math.BigDecimal;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.haulmont.testtask.domain.person.Mechanic;
 import com.haulmont.testtask.view.UiException;
+import com.vaadin.data.ValidationException;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
@@ -31,13 +30,14 @@ class MechanicWindowAdd extends MechanicWindowAbstract {
 	@Override
 	protected void btnAppleClick() {
 		try {
-			Mechanic mechanic = new Mechanic(txtLastName.getValue(), txtFirstName.getValue(),
-					txtPatronnymic.getValue());
-			BigDecimal wages = (BigDecimal) super.dcf.parse(txtWages.getValue());
-			mechanic.setWages(wages);
+			Mechanic mechanic = new Mechanic();
+			binder.writeBean(mechanic);
 			super.mechanicDao.create(mechanic);
 			UI.getCurrent().getNavigator().navigateTo(MechanicView.NAME);
 			close();
+		} catch (ValidationException ev) {
+			LOG.debug(ev);
+			Notification.show("Проверьте корректность заполнения полей данных");			
 		} catch (Exception e) {
 			LOG.error(e);
 			Notification.show("Не удалось сохранить запись");

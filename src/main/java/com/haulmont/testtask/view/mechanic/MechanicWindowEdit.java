@@ -1,12 +1,11 @@
 package com.haulmont.testtask.view.mechanic;
 
-import java.math.BigDecimal;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.haulmont.testtask.domain.person.Mechanic;
 import com.haulmont.testtask.view.UiException;
+import com.vaadin.data.ValidationException;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
@@ -37,17 +36,34 @@ class MechanicWindowEdit extends MechanicWindowAbstract {
 
 	@Override
 	protected synchronized void btnAppleClick() {
+		
 		try {
-			Mechanic mechanic = new Mechanic(super.txtLastName.getValue(), super.txtFirstName.getValue(),
-					super.txtPatronnymic.getValue());
-			mechanic.setWages((BigDecimal) super.dcf.parse(super.txtWages.getValue()));
+			Mechanic mechanic = new Mechanic();
+			binder.writeBean(mechanic);
 			mechanic.setId(id);
 			super.mechanicDao.update(mechanic);
 			UI.getCurrent().getNavigator().navigateTo(MechanicView.NAME);
 			close();
+		} catch (ValidationException ev) {
+			LOG.debug(ev);
+			Notification.show("Проверьте корректность заполнения полей данных");			
 		} catch (Exception e) {
 			LOG.error(e);
 			Notification.show("Не удалось сохранить запись");
 		}
 	}
+	
+//		try {
+//			Mechanic mechanic = new Mechanic(super.txtLastName.getValue(), super.txtFirstName.getValue(),
+//					super.txtPatronnymic.getValue());
+//			mechanic.setWages((BigDecimal) super.dcf.parse(super.txtWages.getValue()));
+//			mechanic.setId(id);
+//			super.mechanicDao.update(mechanic);
+//			UI.getCurrent().getNavigator().navigateTo(MechanicView.NAME);
+//			close();
+//		} catch (Exception e) {
+//			LOG.error(e);
+//			Notification.show("Не удалось сохранить запись");
+//		}
+//	}
 }

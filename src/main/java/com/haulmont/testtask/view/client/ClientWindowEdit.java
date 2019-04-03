@@ -3,9 +3,9 @@ package com.haulmont.testtask.view.client;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.domain.person.Client;
 import com.haulmont.testtask.view.UiException;
+import com.vaadin.data.ValidationException;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
@@ -37,13 +37,16 @@ class ClientWindowEdit extends ClientWindowAbstract {
 	@Override
 	protected synchronized void btnAppleClick() {
 		try {
-			Client client = new Client(txtLastName.getValue(), txtFirstName.getValue(), txtPatronnymic.getValue());
-			client.setPhone(txtPhone.getValue());
+			Client client = new Client();
+			super.binder.writeBean(client);			
 			client.setId(id);
-			clientDao.update(client);
+			super.clientDao.update(client);
 			UI.getCurrent().getNavigator().navigateTo(ClientView.NAME);
 			close();
-		} catch (DaoException e) {
+		} catch (ValidationException ev) {
+			LOG.debug(ev);
+			Notification.show("Проверьте корректность заполнения полей данных");			
+		} catch (Exception e) {
 			LOG.error(e);
 			Notification.show("Не удалось сохранить запись");
 		}

@@ -27,13 +27,13 @@ abstract class MechanicWindowAbstract extends Window {
 	protected TextField txtLastName, txtFirstName, txtPatronnymic, txtWages;
 	protected DecimalFormat dcf = new DecimalFormat();
 	protected MechanicDao mechanicDao;
+	protected Binder<Mechanic> binder;
 
 	protected MechanicWindowAbstract() throws UiException {
 		try {
-			mechanicDao = DaoFactory.getFactory(DsType.HSQLDB).getMechanicDao();
 			dcf.setParseBigDecimal(true);
-
-			Binder<Mechanic> binder = new Binder<>(Mechanic.class);
+			mechanicDao = DaoFactory.getFactory(DsType.HSQLDB).getMechanicDao();
+			binder = new Binder<>(Mechanic.class);
 			binder.setBean(new Mechanic());
 
 			txtLastName = new TextField("Фамилия");
