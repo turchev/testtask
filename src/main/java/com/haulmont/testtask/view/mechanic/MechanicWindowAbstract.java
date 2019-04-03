@@ -12,6 +12,7 @@ import com.haulmont.testtask.view.UiException;
 import com.vaadin.data.Binder;
 import com.vaadin.data.converter.StringToBigDecimalConverter;
 import com.vaadin.data.validator.BigDecimalRangeValidator;
+import com.vaadin.data.validator.RegexpValidator;
 import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.ui.Button;
@@ -37,18 +38,24 @@ abstract class MechanicWindowAbstract extends Window {
 
 			txtLastName = new TextField("Фамилия");
 			binder.forField(txtLastName)
+					.withValidator(new RegexpValidator("Допустимы только символы русского алфавита и дефис ",
+							"[а-яА-Я]+-?[а-яА-Я]+"))
 					.withValidator(new StringLengthValidator("Максимум 40 символов", 0, 40))
 					.bind(Mechanic::getLastName, Mechanic::setLastName);
 			txtLastName.setSizeFull();
 
 			txtFirstName = new TextField("Имя");
 			binder.forField(txtFirstName)
+					.withValidator(new RegexpValidator("Допустимы только символы русского алфавита и дефис ",
+							"[а-яА-Я]+-?[а-яА-Я]+"))
 					.withValidator(new StringLengthValidator("Максимум 40 символов", 0, 40))
 					.bind(Mechanic::getFirstName, Mechanic::setFirstName);
 			txtFirstName.setSizeFull();
 
 			txtPatronnymic = new TextField("Отчество");
 			binder.forField(txtPatronnymic)
+					.withValidator(new RegexpValidator("Допустимы только символы русского алфавита и дефис ",
+							"[а-яА-Я]+-?[а-яА-Я]+"))
 					.withValidator(new StringLengthValidator("Максимум 40 символов", 0, 40))
 					.bind(Mechanic::getPatronnymic, Mechanic::setPatronnymic);
 			txtPatronnymic.setSizeFull();
@@ -59,8 +66,8 @@ abstract class MechanicWindowAbstract extends Window {
 			try {
 				binder.forField(txtWages).withNullRepresentation("")
 						.withConverter(new StringToBigDecimalConverter("Введите сумму в формате 00000.00"))
-						.withValidator(new BigDecimalRangeValidator("Столько механики не зарабатывают", new BigDecimal(10),
-								new BigDecimal(10000)))
+						.withValidator(new BigDecimalRangeValidator("Столько механики не зарабатывают",
+								new BigDecimal(10), new BigDecimal(10000)))
 						.bind(Mechanic::getWages, Mechanic::setWages);
 			} catch (Exception e) {
 				e.printStackTrace();

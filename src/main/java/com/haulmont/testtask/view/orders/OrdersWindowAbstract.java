@@ -42,6 +42,8 @@ abstract class OrdersWindowAbstract extends Window {
 
 	protected OrdersWindowAbstract() throws UiException {
 		try {
+//			Binder<OrdersWithFio> binder = new Binder<>(OrdersWithFio.class);
+//			binder.setBean(new OrdersWithFio());
 			mechanicDao = DaoFactory.getFactory(DsType.HSQLDB).getMechanicDao();
 			ordersDao = DaoFactory.getFactory(DsType.HSQLDB).getOrdersDao();
 			clientDao = DaoFactory.getFactory(DsType.HSQLDB).getClientDao();
