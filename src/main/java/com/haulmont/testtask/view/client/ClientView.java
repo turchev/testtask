@@ -34,7 +34,7 @@ public class ClientView extends AbstractView implements View {
 			clientDao = hsqlDaoFactory.getClientDao();
 			grid.setWidth(100.0f, Unit.PERCENTAGE);
 			grid.setSelectionMode(SelectionMode.SINGLE);
-			grid.addColumn(Client::getId).setId("id").setCaption("№");
+			grid.addColumn(Client::getId).setId("id").setCaption("Id");
 			grid.addColumn(Client::getLastName).setId("lastName").setCaption("Фамилия").setWidth(500);
 			grid.addColumn(Client::getFirstName).setId("firstName").setCaption("Имя");
 			grid.addColumn(Client::getPatronnymic).setId("patronnymic").setCaption("Отчество");

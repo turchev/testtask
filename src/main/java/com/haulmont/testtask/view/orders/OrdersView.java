@@ -47,7 +47,7 @@ public class OrdersView extends AbstractView implements View {
 			this.addComponent(getFilterPanel());
 			grid.setWidth(100.0f, Unit.PERCENTAGE);
 			grid.setSelectionMode(SelectionMode.SINGLE);
-			grid.addColumn(OrdersWithFio::getId).setId("id").setCaption("№");
+			grid.addColumn(OrdersWithFio::getId).setId("id").setCaption("Id");
 			grid.addColumn(OrdersWithFio::getDescription).setId("description").setCaption("Описание").setWidth(500);
 			grid.addColumn(OrdersWithFio::getClientFio).setId("clientFio").setCaption("Клиент ФИО");
 			grid.addColumn(OrdersWithFio::getMechanicFio).setId("mechanicFio").setCaption("Механик ФИО");

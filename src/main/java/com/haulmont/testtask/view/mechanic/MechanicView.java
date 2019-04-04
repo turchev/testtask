@@ -41,7 +41,7 @@ public class MechanicView extends AbstractView implements View {
 			grid = new Grid<>();
 			grid.setWidth(100.0f, Unit.PERCENTAGE);			
 			grid.setSelectionMode(SelectionMode.SINGLE);
-			grid.addColumn(Mechanic::getId).setId("id").setCaption("№");
+			grid.addColumn(Mechanic::getId).setId("id").setCaption("Id");
 			grid.addColumn(Mechanic::getLastName).setId("lastName").setCaption("Фамилия").setWidth(500);
 			grid.addColumn(Mechanic::getFirstName).setId("firstName").setCaption("Имя");
 			grid.addColumn(Mechanic::getPatronnymic).setId("patronnymic").setCaption("Отчество");
