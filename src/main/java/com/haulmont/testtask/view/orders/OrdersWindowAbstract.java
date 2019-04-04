@@ -1,7 +1,7 @@
 package com.haulmont.testtask.view.orders;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 
@@ -11,10 +11,16 @@ import com.haulmont.testtask.dao.MechanicDao;
 import com.haulmont.testtask.dao.OrdersDao;
 import com.haulmont.testtask.domain.ShortName;
 import com.haulmont.testtask.domain.orders.OrderStatusType;
+import com.haulmont.testtask.domain.orders.OrdersWithFio;
 import com.haulmont.testtask.domain.person.Client;
 import com.haulmont.testtask.domain.person.Mechanic;
 import com.haulmont.testtask.ds.DsType;
 import com.haulmont.testtask.view.UiException;
+import com.vaadin.data.Binder;
+import com.vaadin.data.converter.StringToBigDecimalConverter;
+import com.vaadin.data.validator.BigDecimalRangeValidator;
+import com.vaadin.data.validator.StringLengthValidator;
+import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.DateTimeField;
@@ -39,17 +45,17 @@ abstract class OrdersWindowAbstract extends Window {
 	protected ClientDao clientDao;
 	protected List<ShortName<Mechanic>> mechanicShortName;
 	protected List<ShortName<Client>> clientShortName;
+	protected Binder<OrdersWithFio> binder;
 
 	protected OrdersWindowAbstract() throws UiException {
 		try {
-//			Binder<OrdersWithFio> binder = new Binder<>(OrdersWithFio.class);
-//			binder.setBean(new OrdersWithFio());
+			binder = new Binder<>(OrdersWithFio.class);
+			binder.setBean(new OrdersWithFio());
 			mechanicDao = DaoFactory.getFactory(DsType.HSQLDB).getMechanicDao();
 			ordersDao = DaoFactory.getFactory(DsType.HSQLDB).getOrdersDao();
 			clientDao = DaoFactory.getFactory(DsType.HSQLDB).getClientDao();
 			mechanicShortName = mechanicDao.findAllShortName();
 			clientShortName = clientDao.findAllShortName();
-			dcf.setParseBigDecimal(true);
 			ntsStatus = new NativeSelect<>("Статус");
 			ntsStatus.setItems(OrderStatusType.values());
 			cmbClient = new ComboBox<>("Клиент ФИО");
@@ -59,12 +65,23 @@ abstract class OrdersWindowAbstract extends Window {
 			cmbMechanic.setWidth(300.0f, Unit.PIXELS);
 			cmbMechanic.setItems(mechanicShortName);
 			dtfDateCreat = new DateTimeField("Дата создания заявки");
-			dtfDateCreat.setValue(LocalDateTime.now());
 			dtfCompletionDate = new DateTimeField("Дата окончания работ");
+
+			txrDescription = new TextArea("Описание заявки");
+			binder.forField(txrDescription)
+					.withValidator(new StringLengthValidator("Минимум 10, максимум 4500 символов", 10, 4500))
+					.bind(OrdersWithFio::getDescription, OrdersWithFio::setDescription);
+			txrDescription.setSizeFull();			
+
 			txtPrice = new TextField("Цена");
 			txtPrice.setLocale(new Locale("en", "US"));
-			txrDescription = new TextArea("Описание заявки");
-			txrDescription.setSizeFull();
+			txtPrice.setValueChangeMode(ValueChangeMode.EAGER);
+			binder.forField(txtPrice).withNullRepresentation("")
+					.withConverter(new StringToBigDecimalConverter("Введите сумму в формате 00000.00"))
+					.withValidator(new BigDecimalRangeValidator("Таких цен не бывает:)", new BigDecimal(0),
+							new BigDecimal(100000000)))
+					.bind(OrdersWithFio::getPrice, OrdersWithFio::setPrice);
+
 			HorizontalLayout hltStatusPrice = new HorizontalLayout(ntsStatus, txtPrice);
 			HorizontalLayout hltDate = new HorizontalLayout(dtfDateCreat, dtfCompletionDate);
 			HorizontalLayout hltClientMechanic = new HorizontalLayout(cmbClient, cmbMechanic);

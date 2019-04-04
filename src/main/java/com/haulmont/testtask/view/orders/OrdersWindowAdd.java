@@ -1,6 +1,6 @@
 package com.haulmont.testtask.view.orders;
 
-import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,6 +8,8 @@ import org.apache.logging.log4j.Logger;
 import com.haulmont.testtask.domain.orders.OrderStatusType;
 import com.haulmont.testtask.domain.orders.OrdersWithFio;
 import com.haulmont.testtask.view.UiException;
+import com.vaadin.data.ValidationException;
+import com.vaadin.data.validator.DateTimeRangeValidator;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.UI;
@@ -16,11 +18,30 @@ import com.vaadin.ui.UI;
 class OrdersWindowAdd extends OrdersWindowAbstract {
 	private static final Logger LOG = LogManager.getLogger();
 
-
 	protected OrdersWindowAdd() throws UiException {
 		try {
 			super.setCaption("Создать заявку");
 			super.ntsStatus.setValue(OrderStatusType.Принят);
+
+			/**
+			 * При оформлении новой записи ограничения создания с текущей даты -1час до
+			 * +10дней
+			 */
+			binder.forField(super.dtfDateCreat)
+					.withValidator(new DateTimeRangeValidator("Введите корректную дату создания заявки",
+							LocalDateTime.now().minusHours(1), LocalDateTime.now().plusDays(10)))
+					.bind(OrdersWithFio::getDateCreat, OrdersWithFio::setDateCreat);
+			super.dtfDateCreat.setValue(LocalDateTime.now());
+
+			/**
+			 * При оформлении новой записи ограничения на завершения работ с текущей даты
+			 * -1час до +5лет
+			 */
+			binder.forField(dtfCompletionDate)
+					.withValidator(new DateTimeRangeValidator("Введите корректную дату завершения работ",
+							LocalDateTime.now().minusHours(1), LocalDateTime.now().plusYears(5)))
+					.bind(OrdersWithFio::getCompletionDate, OrdersWithFio::setCompletionDate);
+
 		} catch (Exception e) {
 			throw new UiException(e);
 		}
@@ -34,7 +55,10 @@ class OrdersWindowAdd extends OrdersWindowAbstract {
 
 	@Override
 	protected synchronized void btnAppleClick() {
-
+		if (txrDescription.isEmpty()) {
+			Notification.show("Описание заявки не может быть пустым", Type.WARNING_MESSAGE);
+			return;
+		}
 		if (cmbClient.isEmpty()) {
 			Notification.show("Выберите клиента из списка или создайте новую запись", Type.WARNING_MESSAGE);
 			return;
@@ -47,26 +71,24 @@ class OrdersWindowAdd extends OrdersWindowAbstract {
 			Notification.show("Задайте статус заявки", Type.WARNING_MESSAGE);
 			return;
 		}
-		if (txrDescription.isEmpty()) {
-			Notification.show("Описание заявки не может быть пустым", Type.WARNING_MESSAGE);
-			return;
-		}
 		if (dtfDateCreat.isEmpty()) {
 			Notification.show("Укажите дату заявки", Type.WARNING_MESSAGE);
 			return;
 		}
 
 		try {
-			OrdersWithFio order = new OrdersWithFio(txrDescription.getValue(), cmbClient.getValue().getId(),
-					cmbMechanic.getValue().getId());
-			BigDecimal price = (BigDecimal) super.dcf.parse(txtPrice.getValue());
-			order.setPrice(price);
-			order.setDateCreat(dtfDateCreat.getValue());
-			order.setCompletionDate(dtfCompletionDate.getValue());
+			OrdersWithFio order = new OrdersWithFio();
+			super.binder.writeBean(order);
+			order.setClientId(cmbClient.getValue().getId());
+			order.setMechanicId(cmbMechanic.getValue().getId());
+			;
 			order.setStatus(ntsStatus.getValue());
-			ordersDao.create(order);
+			super.ordersDao.create(order);
 			UI.getCurrent().getNavigator().navigateTo(OrdersView.NAME);
 			close();
+		} catch (ValidationException ev) {
+			LOG.debug(ev);
+			Notification.show("Проверьте корректность заполнения полей данных");
 		} catch (Exception e) {
 			LOG.error(e);
 			Notification.show("Не удалось сохранить запись");

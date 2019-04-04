@@ -63,15 +63,11 @@ abstract class MechanicWindowAbstract extends Window {
 			txtWages = new TextField("Почасовая оплата");
 			txtWages.setLocale(new Locale("en", "US"));
 			txtWages.setValueChangeMode(ValueChangeMode.EAGER);
-			try {
-				binder.forField(txtWages).withNullRepresentation("")
-						.withConverter(new StringToBigDecimalConverter("Введите сумму в формате 00000.00"))
-						.withValidator(new BigDecimalRangeValidator("Столько механики не зарабатывают",
-								new BigDecimal(10), new BigDecimal(10000)))
-						.bind(Mechanic::getWages, Mechanic::setWages);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			binder.forField(txtWages).withNullRepresentation("")
+					.withConverter(new StringToBigDecimalConverter("Введите сумму в формате 00000.00"))
+					.withValidator(new BigDecimalRangeValidator("Столько механики не зарабатывают", new BigDecimal(10),
+							new BigDecimal(10000)))
+					.bind(Mechanic::getWages, Mechanic::setWages);
 			txtWages.setSizeFull();
 
 			VerticalLayout vlLayout = new VerticalLayout(txtLastName, txtFirstName, txtPatronnymic, txtWages);
