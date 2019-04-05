@@ -1,6 +1,6 @@
 package com.haulmont.testtask.domain.person;
 
-public class Client extends APerson {
+public class Client extends AbstractPerson {
 	private String phone;
 
 	public Client() {

@@ -2,7 +2,7 @@ package com.haulmont.testtask.domain.person;
 
 import java.math.BigDecimal;
 
-public class Mechanic extends APerson {
+public class Mechanic extends AbstractPerson {
 	private BigDecimal wages;
 
 	public Mechanic() {

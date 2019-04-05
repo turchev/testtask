@@ -3,6 +3,7 @@ package com.haulmont.testtask.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -109,6 +110,8 @@ class ClientDaoJdbc implements ClientDao {
 		try (Connection connection = ds.getConnection(); PreparedStatement pstmt = connection.prepareStatement(SQL);) {
 			pstmt.setLong(1, id);
 			pstmt.executeUpdate();
+		} catch (SQLIntegrityConstraintViolationException ex) {
+			throw new DaoException("Предварительно удалите все заказы, связанные с этой записью");
 		} catch (Exception e) {
 			throw new DaoException(e);
 		}

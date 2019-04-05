@@ -1,8 +1,8 @@
 package com.haulmont.testtask.domain.person;
 
-import com.haulmont.testtask.domain.AEntity;
+import com.haulmont.testtask.domain.AbstractEntity;
 
-public abstract class APerson extends AEntity {
+public abstract class AbstractPerson extends AbstractEntity {
 	protected String lastName;
 	protected String firstName;
 	protected String patronnymic;

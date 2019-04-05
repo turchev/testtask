@@ -3,9 +3,9 @@ package com.haulmont.testtask.domain.orders;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import com.haulmont.testtask.domain.AEntity;
+import com.haulmont.testtask.domain.AbstractEntity;
 
-public class Orders extends AEntity {
+public class Orders extends AbstractEntity {
 
 	private String description;
 	private Long clientId;

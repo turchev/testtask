@@ -1,7 +1,7 @@
 
 package com.haulmont.testtask.domain;
 
-public abstract class AEntity {
+public abstract class AbstractEntity {
   
     private long id;
     

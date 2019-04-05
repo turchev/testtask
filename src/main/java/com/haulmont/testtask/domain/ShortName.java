@@ -1,8 +1,8 @@
 package com.haulmont.testtask.domain;
 
-import com.haulmont.testtask.domain.person.APerson;
+import com.haulmont.testtask.domain.person.AbstractPerson;
 
-public class ShortName<T extends APerson> {
+public class ShortName<T extends AbstractPerson> {
 	private Long id;
 	private String fio;
 

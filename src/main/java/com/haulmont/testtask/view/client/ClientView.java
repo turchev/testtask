@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.vaadin.dialogs.ConfirmDialog;
 
 import com.haulmont.testtask.dao.ClientDao;
+import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.domain.person.Client;
 import com.haulmont.testtask.ds.DsType;
@@ -17,7 +18,6 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
@@ -44,8 +44,8 @@ public class ClientView extends AbstractView implements View {
 			showAll();
 		} catch (Exception e) {
 			throw new UiException(e);
-		}				
-	}	
+		}
+	}
 
 	private void showAll() throws UiException {
 		try {
@@ -62,9 +62,9 @@ public class ClientView extends AbstractView implements View {
 			ClientWindowAdd subWindowAdd = new ClientWindowAdd();
 			UI.getCurrent().addWindow(subWindowAdd);
 		} catch (Exception e) {
-			LOG.error(e);	
+			LOG.error(e);
 			Notification.show("Ошибка диалогового окна создания записи");
-		}		
+		}
 	}
 
 	@Override
@@ -78,9 +78,9 @@ public class ClientView extends AbstractView implements View {
 			ClientWindowEdit subWindowEdit = new ClientWindowEdit(selectedClient.getId());
 			UI.getCurrent().addWindow(subWindowEdit);
 		} catch (Exception e) {
-			LOG.error(e);	
+			LOG.error(e);
 			Notification.show("Ошибка диалогового окна редактирования");
-		}		
+		}
 	}
 
 	@Override
@@ -99,8 +99,12 @@ public class ClientView extends AbstractView implements View {
 					try {
 						clientDao.delete(selectedClient.getId());
 						showAll();
-					} catch (Exception ex) {
-						LOG.error(ex);
+					} catch (DaoException ex) {
+						LOG.debug(ex);
+						Notification.show(ex.getMessage());
+					} catch (UiException xe) {
+						LOG.error(xe);
+						Notification.show("Не удалось выполнить удаление");
 					}
 				} else {
 					return;
@@ -109,7 +113,7 @@ public class ClientView extends AbstractView implements View {
 
 		} catch (Exception e) {
 			LOG.error(e);
-			Notification.show("Не удалось выполнить удаление", Type.ERROR_MESSAGE);
+			Notification.show("Не удалось выполнить удаление");
 		}
 	}
 

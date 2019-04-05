@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.vaadin.dialogs.ConfirmDialog;
 
+import com.haulmont.testtask.dao.DaoException;
 import com.haulmont.testtask.dao.DaoFactory;
 import com.haulmont.testtask.dao.MechanicDao;
 import com.haulmont.testtask.domain.person.Mechanic;
@@ -18,7 +19,6 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
@@ -39,7 +39,7 @@ public class MechanicView extends AbstractView implements View {
 				btnShowStatClick();
 			});
 			grid = new Grid<>();
-			grid.setWidth(100.0f, Unit.PERCENTAGE);			
+			grid.setWidth(100.0f, Unit.PERCENTAGE);
 			grid.setSelectionMode(SelectionMode.SINGLE);
 			grid.addColumn(Mechanic::getId).setId("id").setCaption("Id");
 			grid.addColumn(Mechanic::getLastName).setId("lastName").setCaption("Фамилия").setWidth(500);
@@ -91,7 +91,7 @@ public class MechanicView extends AbstractView implements View {
 				Notification.show("Выберите механика из списка");
 				return;
 			}
-			Mechanic selectedMachanic = grid.asSingleSelect().getValue();			
+			Mechanic selectedMachanic = grid.asSingleSelect().getValue();
 			MechanicWindowEdit subWindowEdit = new MechanicWindowEdit(selectedMachanic.getId());
 			UI.getCurrent().addWindow(subWindowEdit);
 		} catch (Exception e) {
@@ -116,8 +116,12 @@ public class MechanicView extends AbstractView implements View {
 					try {
 						mechanicDao.delete(selectedMachanic.getId());
 						showAll();
-					} catch (Exception ex) {
-						LOG.error(ex);
+					} catch (DaoException ex) {
+						LOG.debug(ex);
+						Notification.show(ex.getMessage());
+					} catch (UiException xe) {
+						LOG.error(xe);
+						Notification.show("Не удалось выполнить удаление");
 					}
 				} else {
 					return;
@@ -126,7 +130,7 @@ public class MechanicView extends AbstractView implements View {
 
 		} catch (Exception e) {
 			LOG.error(e);
-			Notification.show("Не удалось выполнить удаление", Type.ERROR_MESSAGE);
+			Notification.show("Не удалось выполнить удаление");
 		}
 	}
 
