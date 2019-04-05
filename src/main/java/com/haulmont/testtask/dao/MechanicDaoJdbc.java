@@ -22,7 +22,7 @@ class MechanicDaoJdbc implements MechanicDao {
 	}
 
 	@Override
-	public synchronized List<Mechanic> findAll() throws DaoException {		
+	public synchronized List<Mechanic> findAll() throws DaoException {
 		final String SQL = "SELECT * FROM mechanic;";
 		List<Mechanic> result = new ArrayList<Mechanic>();
 		try (Connection connection = ds.getConnection(); Statement statement = connection.createStatement();) {
@@ -112,7 +112,6 @@ class MechanicDaoJdbc implements MechanicDao {
 					Mechanic.Stat mechanicStat = mechanic.new Stat();
 					mechanicStat.setMechanicFio(rs.getString("mechanic_fio"));
 					mechanicStat.setOrdersSum(rs.getInt("orders_sum"));
-					mechanicStat.setHhSum(rs.getBigDecimal("hh_sum"));
 					mechanicStat.setPriceSum(rs.getBigDecimal("price_sum"));
 					result.add(mechanicStat);
 				}

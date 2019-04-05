@@ -1,19 +1,11 @@
 package com.haulmont.testtask.domain.person;
 
-import javax.persistence.Column;
-
 import com.haulmont.testtask.domain.AEntity;
 
 public abstract class APerson extends AEntity {
-	
-	@Column(name = "last_name")
-	protected String lastName = "";
-
-	@Column(name = "first_name")
-	protected String firstName = "";
-
-	@Column(name = "patronnymic")
-	protected String patronnymic = "";
+	protected String lastName;
+	protected String firstName;
+	protected String patronnymic;
 
 	public String getFirstName() {
 		return firstName;
@@ -37,5 +29,5 @@ public abstract class APerson extends AEntity {
 
 	public void setPatronnymic(String patronnymic) {
 		this.patronnymic = patronnymic;
-	}	
+	}
 }

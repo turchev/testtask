@@ -2,15 +2,7 @@ package com.haulmont.testtask.domain.person;
 
 import java.math.BigDecimal;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "mechanic")
 public class Mechanic extends APerson {
-
-	@Column(name = "wages")
 	private BigDecimal wages;
 
 	public Mechanic() {
@@ -20,13 +12,7 @@ public class Mechanic extends APerson {
 		setId(id);
 	}
 
-	public Mechanic(String lastName, String firstName, String patronnymic) {
-		super.lastName = lastName;
-		super.firstName = firstName;
-		super.patronnymic = patronnymic;
-	}
-
-	public BigDecimal getWages() {			
+	public BigDecimal getWages() {
 		return wages;
 	}
 
@@ -40,11 +26,9 @@ public class Mechanic extends APerson {
 	}
 
 	public class Stat {
-
 		private long id;
 		private String mechanicFio;
 		private Integer ordersSum;
-		private BigDecimal hhSum;
 		private BigDecimal priceSum;
 
 		public Stat() {
@@ -75,14 +59,6 @@ public class Mechanic extends APerson {
 			this.ordersSum = ordersSum;
 		}
 
-		public BigDecimal getHhSum() {
-			return hhSum;
-		}
-
-		public void setHhSum(BigDecimal hhSum) {
-			this.hhSum = hhSum;
-		}
-
 		public BigDecimal getPriceSum() {
 			return priceSum;
 		}
@@ -93,7 +69,7 @@ public class Mechanic extends APerson {
 
 		@Override
 		public String toString() {
-			return "\n" + mechanicFio + ": " + ordersSum + " заказа(ов), " + hhSum + " часов, " + priceSum + " рублей";
+			return "\n" + mechanicFio + ": " + ordersSum + " заказа(ов), " + priceSum + " рублей";
 		}
 	}
 }

@@ -1,26 +1,12 @@
 package com.haulmont.testtask.domain.orders;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "orders_with_fio")
 public class OrdersWithFio extends Orders {
+	private String clientFio;
+	private String mechanicFio;
 
-	public OrdersWithFio() {		
+	public OrdersWithFio() {
 	}
 
-	public OrdersWithFio(String description, Long clientId, Long mechanicId) {
-		super(description, clientId, mechanicId);
-	}	
-	
-	@Column(name = "client_fio")	
-	private String clientFio;	
-
-	@Column(name = "mechanic_fio")
-	private String mechanicFio;
-	
 	public String getClientFio() {
 		return clientFio;
 	}
@@ -35,5 +21,5 @@ public class OrdersWithFio extends Orders {
 
 	public void setMechanicFio(String mechanicFio) {
 		this.mechanicFio = mechanicFio;
-	}	
+	}
 }

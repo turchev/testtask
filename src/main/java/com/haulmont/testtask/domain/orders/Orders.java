@@ -3,49 +3,20 @@ package com.haulmont.testtask.domain.orders;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import com.haulmont.testtask.domain.AEntity;
 
-@Entity
-@Table(name = "orders")
 public class Orders extends AEntity {
 
-	@Column(name = "description", length = 5000)
-	private String description = "";
-
-	@ManyToOne
-	@JoinColumn(name = "client_id")
+	private String description;
 	private Long clientId;
-
-	@ManyToOne
-	@JoinColumn(name = "mechanic_id")
 	private Long mechanicId;
-
-	@Column(name = "status")
 	private OrderStatusType status;
-
-	@Column(name = "date_creat")
 	private LocalDateTime dateCreat;
-
-	@Column(name = "completion_date")
 	private LocalDateTime completionDate;
-
-	@Column(name = "price")
 	private BigDecimal price;
 
 	public Orders() {
 	}
-
-	public Orders(String description, Long clientId, Long mechanicId) {
-		this.description = description;
-		this.clientId = clientId;
-		this.mechanicId = mechanicId;
-	}	
 
 	public String getDescription() {
 		return description;

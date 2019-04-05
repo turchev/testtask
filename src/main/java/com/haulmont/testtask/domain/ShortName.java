@@ -5,8 +5,8 @@ import com.haulmont.testtask.domain.person.APerson;
 public class ShortName<T extends APerson> {
 	private Long id;
 	private String fio;
-	
-	public ShortName() {		
+
+	public ShortName() {
 	}
 
 	public ShortName(T person) {
@@ -30,9 +30,9 @@ public class ShortName<T extends APerson> {
 	public void setFio(String fio) {
 		this.fio = fio;
 	}
-		
+
 	@Override
-	public String toString() {		
+	public String toString() {
 		return fio;
 	}
 }
