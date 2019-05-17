@@ -1,4 +1,4 @@
-package com.haulmont.testtask.domain.orders;
+package com.haulmont.carrepairshop.domain.orders;
 
 public class OrdersWithFio extends Orders {
 	private String clientFio;

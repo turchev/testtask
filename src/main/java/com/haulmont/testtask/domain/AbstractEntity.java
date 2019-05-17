@@ -1,5 +1,5 @@
 
-package com.haulmont.testtask.domain;
+package com.haulmont.carrepairshop.domain;
 
 public abstract class AbstractEntity {
   

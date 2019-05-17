@@ -1,9 +1,9 @@
-package com.haulmont.testtask.dao;
+package com.haulmont.carrepairshop.dao;
 
 import java.util.List;
 
-import com.haulmont.testtask.domain.ShortName;
-import com.haulmont.testtask.domain.person.Client;
+import com.haulmont.carrepairshop.domain.ShortName;
+import com.haulmont.carrepairshop.domain.person.Client;
 
 public interface ClientDao extends IDao<Client> {
 

@@ -1,9 +1,9 @@
-package com.haulmont.testtask.domain.orders;
+package com.haulmont.carrepairshop.domain.orders;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import com.haulmont.testtask.domain.AbstractEntity;
+import com.haulmont.carrepairshop.domain.AbstractEntity;
 
 public class Orders extends AbstractEntity {
 

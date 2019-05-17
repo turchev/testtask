@@ -1,4 +1,4 @@
-package com.haulmont.testtask.dao;
+package com.haulmont.carrepairshop.dao;
 
 class DaoFactoryH2 extends DaoFactory{
 

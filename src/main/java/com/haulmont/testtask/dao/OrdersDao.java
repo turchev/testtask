@@ -1,8 +1,8 @@
-package com.haulmont.testtask.dao;
+package com.haulmont.carrepairshop.dao;
 
 import java.util.List;
 
-import com.haulmont.testtask.domain.orders.OrdersWithFio;
+import com.haulmont.carrepairshop.domain.orders.OrdersWithFio;
 
 public interface OrdersDao extends IDao<OrdersWithFio> {	
 

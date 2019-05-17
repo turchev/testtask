@@ -1,4 +1,4 @@
-package com.haulmont.testtask.ds;
+package com.haulmont.carrepairshop.ds;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,8 +8,8 @@ import javax.sql.DataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hsqldb.jdbc.JDBCPool;
-import com.haulmont.testtask.config.PropertiesFactory;
-import com.haulmont.testtask.dao.DaoException;
+import com.haulmont.carrepairshop.config.PropertiesFactory;
+import com.haulmont.carrepairshop.dao.DaoException;
 
 class DsHSQLDB extends DsFactory {
 	private static final Logger LOG = LogManager.getLogger();

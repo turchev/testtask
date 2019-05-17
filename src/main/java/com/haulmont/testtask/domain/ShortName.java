@@ -1,6 +1,6 @@
-package com.haulmont.testtask.domain;
+package com.haulmont.carrepairshop.domain;
 
-import com.haulmont.testtask.domain.person.AbstractPerson;
+import com.haulmont.carrepairshop.domain.person.AbstractPerson;
 
 public class ShortName<T extends AbstractPerson> {
 	private Long id;

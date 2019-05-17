@@ -1,4 +1,4 @@
-package com.haulmont.testtask.view;
+package com.haulmont.carrepairshop.view;
 
 @SuppressWarnings("serial")
 public class UiException extends Exception {

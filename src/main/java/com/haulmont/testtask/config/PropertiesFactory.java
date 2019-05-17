@@ -1,4 +1,4 @@
-package com.haulmont.testtask.config;
+package com.haulmont.carrepairshop.config;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -1,8 +1,8 @@
-package com.haulmont.testtask.dao;
+package com.haulmont.carrepairshop.dao;
 
 import java.util.List;
 
-import com.haulmont.testtask.domain.AbstractEntity;
+import com.haulmont.carrepairshop.domain.AbstractEntity;
 
 public interface IDao<T extends AbstractEntity> {
 

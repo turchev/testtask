@@ -1,12 +1,12 @@
-package com.haulmont.testtask;
+package com.haulmont.carrepairshop;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.haulmont.testtask.view.ErrorView;
-import com.haulmont.testtask.view.client.ClientView;
-import com.haulmont.testtask.view.mechanic.MechanicView;
-import com.haulmont.testtask.view.orders.OrdersView;
+import com.haulmont.carrepairshop.view.ErrorView;
+import com.haulmont.carrepairshop.view.client.ClientView;
+import com.haulmont.carrepairshop.view.mechanic.MechanicView;
+import com.haulmont.carrepairshop.view.orders.OrdersView;
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
@@ -20,16 +20,17 @@ import com.vaadin.ui.themes.ValoTheme;
 @SuppressWarnings("serial")
 public class MainUI extends UI {
 	private static final Logger LOG = LogManager.getLogger();
-
+	
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {		
 		try {			
-			
+						
 			Button btnOrders = new Button("Заказы", e -> getNavigator().navigateTo(OrdersView.NAME));
 			btnOrders.addStyleNames(ValoTheme.BUTTON_QUIET, ValoTheme.MENU_TITLE);
 
 			Button btnClient = new Button("Клиент", e -> getNavigator().navigateTo(ClientView.NAME));
 			btnClient.addStyleNames(ValoTheme.BUTTON_QUIET, ValoTheme.MENU_TITLE);
+			
 			Button btnMechanic = new Button("Механик", e -> getNavigator().navigateTo(MechanicView.NAME));
 			btnMechanic.addStyleNames(ValoTheme.BUTTON_QUIET, ValoTheme.MENU_TITLE);
 

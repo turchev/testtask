@@ -1,10 +1,10 @@
-package com.haulmont.testtask.view.client;
+package com.haulmont.carrepairshop.view.client;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.haulmont.testtask.domain.person.Client;
-import com.haulmont.testtask.view.UiException;
+import com.haulmont.carrepairshop.domain.person.Client;
+import com.haulmont.carrepairshop.view.UiException;
 import com.vaadin.data.ValidationException;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;

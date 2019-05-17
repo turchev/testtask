@@ -1,4 +1,4 @@
-package com.haulmont.testtask.config;
+package com.haulmont.carrepairshop.config;
 
 import java.util.Locale;
 
@@ -10,9 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.haulmont.testtask.MainUI;
-import com.haulmont.testtask.ds.DsFactory;
-import com.haulmont.testtask.ds.DsType;
+import com.haulmont.carrepairshop.MainUI;
+import com.haulmont.carrepairshop.ds.DsFactory;
+import com.haulmont.carrepairshop.ds.DsType;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinServlet;
 

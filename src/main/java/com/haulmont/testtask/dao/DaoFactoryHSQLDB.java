@@ -1,9 +1,9 @@
-package com.haulmont.testtask.dao;
+package com.haulmont.carrepairshop.dao;
 
 import javax.sql.DataSource;
 import org.hsqldb.jdbc.JDBCPool;
-import com.haulmont.testtask.ds.DsFactory;
-import com.haulmont.testtask.ds.DsType;
+import com.haulmont.carrepairshop.ds.DsFactory;
+import com.haulmont.carrepairshop.ds.DsType;
 
 class DaoFactoryHSQLDB extends DaoFactory {	
 	private static JDBCPool pool;

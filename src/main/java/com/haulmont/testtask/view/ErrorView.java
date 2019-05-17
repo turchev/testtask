@@ -1,4 +1,4 @@
-package com.haulmont.testtask.view;
+package com.haulmont.carrepairshop.view;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.View;

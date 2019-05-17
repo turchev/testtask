@@ -1,4 +1,4 @@
-package com.haulmont.testtask.domain.orders;
+package com.haulmont.carrepairshop.domain.orders;
 
 public enum OrderStatusType {
 	Запланирован,

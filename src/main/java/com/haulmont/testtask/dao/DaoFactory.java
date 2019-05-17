@@ -1,6 +1,6 @@
-package com.haulmont.testtask.dao;
+package com.haulmont.carrepairshop.dao;
 
-import com.haulmont.testtask.ds.DsType;
+import com.haulmont.carrepairshop.ds.DsType;
 
 public abstract class DaoFactory {
 

@@ -1,4 +1,4 @@
-package com.haulmont.testtask.domain.person;
+package com.haulmont.carrepairshop.domain.person;
 
 import java.math.BigDecimal;
 

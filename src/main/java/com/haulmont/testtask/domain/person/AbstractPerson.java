@@ -1,6 +1,6 @@
-package com.haulmont.testtask.domain.person;
+package com.haulmont.carrepairshop.domain.person;
 
-import com.haulmont.testtask.domain.AbstractEntity;
+import com.haulmont.carrepairshop.domain.AbstractEntity;
 
 public abstract class AbstractPerson extends AbstractEntity {
 	protected String lastName;

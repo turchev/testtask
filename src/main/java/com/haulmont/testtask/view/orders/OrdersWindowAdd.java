@@ -1,13 +1,13 @@
-package com.haulmont.testtask.view.orders;
+package com.haulmont.carrepairshop.view.orders;
 
 import java.time.LocalDateTime;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.haulmont.testtask.domain.orders.OrderStatusType;
-import com.haulmont.testtask.domain.orders.OrdersWithFio;
-import com.haulmont.testtask.view.UiException;
+import com.haulmont.carrepairshop.domain.orders.OrderStatusType;
+import com.haulmont.carrepairshop.domain.orders.OrdersWithFio;
+import com.haulmont.carrepairshop.view.UiException;
 import com.vaadin.data.ValidationException;
 import com.vaadin.data.validator.DateTimeRangeValidator;
 import com.vaadin.ui.Notification;

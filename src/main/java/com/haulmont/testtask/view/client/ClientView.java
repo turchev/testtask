@@ -1,4 +1,4 @@
-package com.haulmont.testtask.view.client;
+package com.haulmont.carrepairshop.view.client;
 
 import java.util.List;
 
@@ -6,13 +6,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.vaadin.dialogs.ConfirmDialog;
 
-import com.haulmont.testtask.dao.ClientDao;
-import com.haulmont.testtask.dao.DaoException;
-import com.haulmont.testtask.dao.DaoFactory;
-import com.haulmont.testtask.domain.person.Client;
-import com.haulmont.testtask.ds.DsType;
-import com.haulmont.testtask.view.AbstractView;
-import com.haulmont.testtask.view.UiException;
+import com.haulmont.carrepairshop.dao.ClientDao;
+import com.haulmont.carrepairshop.dao.DaoException;
+import com.haulmont.carrepairshop.dao.DaoFactory;
+import com.haulmont.carrepairshop.domain.person.Client;
+import com.haulmont.carrepairshop.ds.DsType;
+import com.haulmont.carrepairshop.view.AbstractView;
+import com.haulmont.carrepairshop.view.UiException;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Grid;

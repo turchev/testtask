@@ -1,4 +1,4 @@
-package com.haulmont.testtask.dao;
+package com.haulmont.carrepairshop.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -11,8 +11,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.haulmont.testtask.domain.ShortName;
-import com.haulmont.testtask.domain.person.Mechanic;
+import com.haulmont.carrepairshop.domain.ShortName;
+import com.haulmont.carrepairshop.domain.person.Mechanic;
 
 class MechanicDaoJdbc implements MechanicDao {
 

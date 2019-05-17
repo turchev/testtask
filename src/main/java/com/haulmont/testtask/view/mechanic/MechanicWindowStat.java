@@ -1,4 +1,4 @@
-package com.haulmont.testtask.view.mechanic;
+package com.haulmont.carrepairshop.view.mechanic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +13,11 @@ import com.byteowls.vaadin.chartjs.options.Position;
 import com.byteowls.vaadin.chartjs.options.elements.Rectangle;
 import com.byteowls.vaadin.chartjs.options.scale.Axis;
 import com.byteowls.vaadin.chartjs.options.scale.LinearScale;
-import com.haulmont.testtask.dao.DaoFactory;
-import com.haulmont.testtask.dao.MechanicDao;
-import com.haulmont.testtask.domain.person.Mechanic;
-import com.haulmont.testtask.ds.DsType;
-import com.haulmont.testtask.view.UiException;
+import com.haulmont.carrepairshop.dao.DaoFactory;
+import com.haulmont.carrepairshop.dao.MechanicDao;
+import com.haulmont.carrepairshop.domain.person.Mechanic;
+import com.haulmont.carrepairshop.ds.DsType;
+import com.haulmont.carrepairshop.view.UiException;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;

@@ -1,4 +1,4 @@
-package com.haulmont.testtask.dao;
+package com.haulmont.carrepairshop.dao;
 
 @SuppressWarnings("serial")
 public class DaoException extends Exception {

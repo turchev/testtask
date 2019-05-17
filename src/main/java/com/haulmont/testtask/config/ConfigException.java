@@ -1,4 +1,4 @@
-package com.haulmont.testtask.config;
+package com.haulmont.carrepairshop.config;
 
 @SuppressWarnings("serial")
 public class ConfigException extends Exception {

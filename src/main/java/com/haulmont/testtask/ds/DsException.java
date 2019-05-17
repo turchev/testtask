@@ -1,4 +1,4 @@
-package com.haulmont.testtask.ds;
+package com.haulmont.carrepairshop.ds;
 
 @SuppressWarnings("serial")
 public class DsException extends Exception {

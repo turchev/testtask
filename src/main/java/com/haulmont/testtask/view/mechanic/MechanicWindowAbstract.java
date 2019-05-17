@@ -1,14 +1,14 @@
-package com.haulmont.testtask.view.mechanic;
+package com.haulmont.carrepairshop.view.mechanic;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Locale;
 
-import com.haulmont.testtask.dao.DaoFactory;
-import com.haulmont.testtask.dao.MechanicDao;
-import com.haulmont.testtask.domain.person.Mechanic;
-import com.haulmont.testtask.ds.DsType;
-import com.haulmont.testtask.view.UiException;
+import com.haulmont.carrepairshop.dao.DaoFactory;
+import com.haulmont.carrepairshop.dao.MechanicDao;
+import com.haulmont.carrepairshop.domain.person.Mechanic;
+import com.haulmont.carrepairshop.ds.DsType;
+import com.haulmont.carrepairshop.view.UiException;
 import com.vaadin.data.Binder;
 import com.vaadin.data.converter.StringToBigDecimalConverter;
 import com.vaadin.data.validator.BigDecimalRangeValidator;

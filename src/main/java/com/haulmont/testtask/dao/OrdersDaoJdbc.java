@@ -1,4 +1,4 @@
-package com.haulmont.testtask.dao;
+package com.haulmont.carrepairshop.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
 
-import com.haulmont.testtask.domain.orders.OrderStatusType;
-import com.haulmont.testtask.domain.orders.OrdersWithFio;
+import com.haulmont.carrepairshop.domain.orders.OrderStatusType;
+import com.haulmont.carrepairshop.domain.orders.OrdersWithFio;
 
 class OrdersDaoJdbc implements OrdersDao {
 

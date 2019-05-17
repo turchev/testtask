@@ -1,10 +1,10 @@
-package com.haulmont.testtask.view.client;
+package com.haulmont.carrepairshop.view.client;
 
-import com.haulmont.testtask.dao.ClientDao;
-import com.haulmont.testtask.dao.DaoFactory;
-import com.haulmont.testtask.domain.person.Client;
-import com.haulmont.testtask.ds.DsType;
-import com.haulmont.testtask.view.UiException;
+import com.haulmont.carrepairshop.dao.ClientDao;
+import com.haulmont.carrepairshop.dao.DaoFactory;
+import com.haulmont.carrepairshop.domain.person.Client;
+import com.haulmont.carrepairshop.ds.DsType;
+import com.haulmont.carrepairshop.view.UiException;
 import com.vaadin.data.Binder;
 import com.vaadin.data.validator.RegexpValidator;
 import com.vaadin.data.validator.StringLengthValidator;

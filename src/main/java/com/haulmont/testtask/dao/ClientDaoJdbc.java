@@ -1,4 +1,4 @@
-package com.haulmont.testtask.dao;
+package com.haulmont.carrepairshop.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,8 +10,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.haulmont.testtask.domain.ShortName;
-import com.haulmont.testtask.domain.person.Client;
+import com.haulmont.carrepairshop.domain.ShortName;
+import com.haulmont.carrepairshop.domain.person.Client;
 
 class ClientDaoJdbc implements ClientDao {
 	private DataSource ds = null;
