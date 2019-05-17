@@ -1,5 +1,3 @@
-Test Task
-=========
 
 Prerequisites
 -------------
