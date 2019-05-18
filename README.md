@@ -1,7 +1,7 @@
  
 Technical specification
 -------------
-https://github.com/turchev/car-repair-shop.wiki.git
+https://github.com/turchev/car-repair-shop/wiki
 
 Prerequisites
 -------------
