@@ -1,0 +1,47 @@
+#=== Exclude ===
+db/**
+
+#=== target directory ===
+target/
+
+#=== eclipse ===
+.settings/
+.project
+.classpath
+
+#=== modelio ===
+.runtime/
+data/
+project.conf
+
+#=== netbeans ===
+#netbeans
+#nb*.xml
+
+#=== idea ===
+#.idea/
+#*.iml
+
+#===  package ===
+*.jar
+*.war
+*.ear
+
+#=== archive ===
+*.zip
+*.gz
+*.bz2
+*.7z
+
+#=== classes  ===
+*.class
+
+#=== other ===
+other/
+tmp/
+out/
+*.log
+*.pdf
+.directory
+
+
