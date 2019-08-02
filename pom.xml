@@ -59,6 +59,13 @@
 		</pluginRepository>
 	</pluginRepositories>
 	<dependencies>
+		<!-- Adding Vaadin 10 dependencies -->
+		<!-- dependencies Vaadin 8 save -->
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin</artifactId>
+			<version>10.0.16</version>
+		</dependency>
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-server</artifactId>
