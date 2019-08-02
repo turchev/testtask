@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.vaadin.dialogs.ConfirmDialog;
 
+import com.github.turchev.carrepairshop.MainLayout;
 import com.github.turchev.carrepairshop.dao.ClientDao;
 import com.github.turchev.carrepairshop.dao.DaoException;
 import com.github.turchev.carrepairshop.dao.DaoFactory;
@@ -13,6 +14,8 @@ import com.github.turchev.carrepairshop.domain.person.Client;
 import com.github.turchev.carrepairshop.ds.DsType;
 import com.github.turchev.carrepairshop.view.AbstractView;
 import com.github.turchev.carrepairshop.view.UiException;
+import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Grid;
@@ -21,6 +24,8 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
+@Route(value = ClientView.NAME, layout = MainLayout.class)
+@PageTitle(ClientView.NAME)
 public class ClientView extends AbstractView implements View {
 	private static final Logger LOG = LogManager.getLogger();
 	public static final String NAME = "client";
@@ -32,7 +37,7 @@ public class ClientView extends AbstractView implements View {
 		try {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			clientDao = hsqlDaoFactory.getClientDao();
-			grid.setWidth(100.0f, Unit.PERCENTAGE);
+//			grid.setWidth(100.0f, Unit.PERCENTAGE);
 			grid.setSelectionMode(SelectionMode.SINGLE);
 			grid.addColumn(Client::getId).setId("id").setCaption("Id");
 			grid.addColumn(Client::getLastName).setId("lastName").setCaption("Фамилия").setWidth(500);
@@ -40,7 +45,7 @@ public class ClientView extends AbstractView implements View {
 			grid.addColumn(Client::getPatronnymic).setId("patronnymic").setCaption("Отчество");
 			grid.addColumn(Client::getPhone).setId("phone").setCaption("Телефон");
 			grid.setColumnOrder("id", "lastName", "firstName", "patronnymic", "phone");
-			this.addComponent(grid);
+//			this.addComponent(grid);
 			showAll();
 		} catch (Exception e) {
 			throw new UiException(e);
@@ -85,36 +90,36 @@ public class ClientView extends AbstractView implements View {
 
 	@Override
 	protected void btnDeleteClick() {
-		try {
-			if (grid.asSingleSelect().isEmpty()) {
-				Notification.show("Выберите клиента из списка");
-				return;
-			}
-			Client selectedClient = grid.asSingleSelect().getValue();
-			final String MESSAGE_1 = "Удаление записи " + selectedClient.getLastName() + " "
-					+ selectedClient.getFirstName() + " " + selectedClient.getPatronnymic() + "?";
-
-			ConfirmDialog.show(getUI(), "Внимание", MESSAGE_1, "Подтвердить", "Отменить", dialog -> {
-				if (dialog.isConfirmed()) {
-					try {
-						clientDao.delete(selectedClient.getId());
-						showAll();
-					} catch (DaoException ex) {
-						LOG.debug(ex);
-						Notification.show(ex.getMessage());
-					} catch (UiException xe) {
-						LOG.error(xe);
-						Notification.show("Не удалось выполнить удаление");
-					}
-				} else {
-					return;
-				}
-			});
-
-		} catch (Exception e) {
-			LOG.error(e);
-			Notification.show("Не удалось выполнить удаление");
-		}
+//		try {
+//			if (grid.asSingleSelect().isEmpty()) {
+//				Notification.show("Выберите клиента из списка");
+//				return;
+//			}
+//			Client selectedClient = grid.asSingleSelect().getValue();
+//			final String MESSAGE_1 = "Удаление записи " + selectedClient.getLastName() + " "
+//					+ selectedClient.getFirstName() + " " + selectedClient.getPatronnymic() + "?";
+//
+//			ConfirmDialog.show(getUI(), "Внимание", MESSAGE_1, "Подтвердить", "Отменить", dialog -> {
+//				if (dialog.isConfirmed()) {
+//					try {
+//						clientDao.delete(selectedClient.getId());
+//						showAll();
+//					} catch (DaoException ex) {
+//						LOG.debug(ex);
+//						Notification.show(ex.getMessage());
+//					} catch (UiException xe) {
+//						LOG.error(xe);
+//						Notification.show("Не удалось выполнить удаление");
+//					}
+//				} else {
+//					return;
+//				}
+//			});
+//
+//		} catch (Exception e) {
+//			LOG.error(e);
+//			Notification.show("Не удалось выполнить удаление");
+//		}
 	}
 
 	@Override

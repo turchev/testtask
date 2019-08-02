@@ -13,9 +13,9 @@ import com.github.turchev.carrepairshop.domain.person.Mechanic;
 import com.github.turchev.carrepairshop.ds.DsType;
 import com.github.turchev.carrepairshop.view.AbstractView;
 import com.github.turchev.carrepairshop.view.UiException;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.Notification;
@@ -34,12 +34,12 @@ public class MechanicView extends AbstractView implements View {
 		try {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			mechanicDao = hsqlDaoFactory.getMechanicDao();
-			this.addComponent(btnShowStat);
+			this.add(btnShowStat);
 			btnShowStat.addClickListener(event -> {
 				btnShowStatClick();
 			});
 			grid = new Grid<>();
-			grid.setWidth(100.0f, Unit.PERCENTAGE);
+//			grid.setWidth(100.0f, Unit.PERCENTAGE);
 			grid.setSelectionMode(SelectionMode.SINGLE);
 			grid.addColumn(Mechanic::getId).setId("id").setCaption("Id");
 			grid.addColumn(Mechanic::getLastName).setId("lastName").setCaption("Фамилия").setWidth(500);
@@ -47,7 +47,7 @@ public class MechanicView extends AbstractView implements View {
 			grid.addColumn(Mechanic::getPatronnymic).setId("patronnymic").setCaption("Отчество");
 			grid.addColumn(Mechanic::getWages).setId("wages").setCaption("Почасовая оплата");
 			grid.setColumnOrder("id", "lastName", "firstName", "patronnymic", "wages");
-			this.addComponent(grid);
+//			this.addComponent(grid);
 			showAll();
 		} catch (Exception e) {
 			throw new UiException(e);
@@ -102,36 +102,36 @@ public class MechanicView extends AbstractView implements View {
 
 	@Override
 	protected void btnDeleteClick() {
-		try {
-			if (grid.asSingleSelect().isEmpty()) {
-				Notification.show("Выберите механика из списка");
-				return;
-			}
-			Mechanic selectedMachanic = grid.asSingleSelect().getValue();
-			final String MESSAGE_1 = "Удаление записи " + selectedMachanic.getLastName() + " "
-					+ selectedMachanic.getFirstName() + " " + selectedMachanic.getPatronnymic() + "?";
-
-			ConfirmDialog.show(getUI(), "Внимание", MESSAGE_1, "Подтвердить", "Отменить", dialog -> {
-				if (dialog.isConfirmed()) {
-					try {
-						mechanicDao.delete(selectedMachanic.getId());
-						showAll();
-					} catch (DaoException ex) {
-						LOG.debug(ex);
-						Notification.show(ex.getMessage());
-					} catch (UiException xe) {
-						LOG.error(xe);
-						Notification.show("Не удалось выполнить удаление");
-					}
-				} else {
-					return;
-				}
-			});
-
-		} catch (Exception e) {
-			LOG.error(e);
-			Notification.show("Не удалось выполнить удаление");
-		}
+//		try {
+//			if (grid.asSingleSelect().isEmpty()) {
+//				Notification.show("Выберите механика из списка");
+//				return;
+//			}
+//			Mechanic selectedMachanic = grid.asSingleSelect().getValue();
+//			final String MESSAGE_1 = "Удаление записи " + selectedMachanic.getLastName() + " "
+//					+ selectedMachanic.getFirstName() + " " + selectedMachanic.getPatronnymic() + "?";
+//
+//			ConfirmDialog.show(getUI(), "Внимание", MESSAGE_1, "Подтвердить", "Отменить", dialog -> {
+//				if (dialog.isConfirmed()) {
+//					try {
+//						mechanicDao.delete(selectedMachanic.getId());
+//						showAll();
+//					} catch (DaoException ex) {
+//						LOG.debug(ex);
+//						Notification.show(ex.getMessage());
+//					} catch (UiException xe) {
+//						LOG.error(xe);
+//						Notification.show("Не удалось выполнить удаление");
+//					}
+//				} else {
+//					return;
+//				}
+//			});
+//
+//		} catch (Exception e) {
+//			LOG.error(e);
+//			Notification.show("Не удалось выполнить удаление");
+//		}
 	}
 
 	@Override

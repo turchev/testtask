@@ -5,24 +5,20 @@ import java.util.Locale;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-import javax.servlet.annotation.WebServlet;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.github.turchev.carrepairshop.MainUI;
 import com.github.turchev.carrepairshop.ds.DsFactory;
 import com.github.turchev.carrepairshop.ds.DsType;
-import com.vaadin.annotations.VaadinServletConfiguration;
-import com.vaadin.server.VaadinServlet;
 
 public class AppManager {
 
-	@SuppressWarnings("serial")
-	@WebServlet("/*")
-	@VaadinServletConfiguration(ui = MainUI.class, productionMode = false)
-	public static class AppVaadinServlet extends VaadinServlet {
-	}
+//	@SuppressWarnings("serial")
+//	@WebServlet("/orders")
+//	@VaadinServletConfiguration(ui = MainUI.class, productionMode = false)
+//	public static class AppVaadinServlet extends VaadinServlet {
+//	}
 
 	@WebListener
 	public static class AppServletContextListener implements ServletContextListener {

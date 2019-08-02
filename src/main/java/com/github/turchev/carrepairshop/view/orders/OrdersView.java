@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.vaadin.dialogs.ConfirmDialog;
 
+import com.github.turchev.carrepairshop.MainLayout;
 import com.github.turchev.carrepairshop.dao.ClientDao;
 import com.github.turchev.carrepairshop.dao.DaoFactory;
 import com.github.turchev.carrepairshop.dao.OrdersDao;
@@ -14,6 +15,8 @@ import com.github.turchev.carrepairshop.domain.orders.OrdersWithFio;
 import com.github.turchev.carrepairshop.ds.DsType;
 import com.github.turchev.carrepairshop.view.AbstractView;
 import com.github.turchev.carrepairshop.view.UiException;
+import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
@@ -27,6 +30,8 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
+@Route(value = OrdersView.NAME, layout = MainLayout.class)
+@PageTitle(OrdersView.NAME)
 public class OrdersView extends AbstractView implements View {
 	private static final Logger LOG = LogManager.getLogger();
 	public static final String NAME = "orders";
@@ -44,8 +49,8 @@ public class OrdersView extends AbstractView implements View {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			ordersDao = hsqlDaoFactory.getOrdersDao();
 			clientDao = hsqlDaoFactory.getClientDao();
-			this.addComponent(getFilterPanel());
-			grid.setWidth(100.0f, Unit.PERCENTAGE);
+//			this.addComponent(getFilterPanel());
+//			grid.setWidth(100.0f, Unit.PERCENTAGE);
 			grid.setSelectionMode(SelectionMode.SINGLE);
 			grid.addColumn(OrdersWithFio::getId).setId("id").setCaption("Id");
 			grid.addColumn(OrdersWithFio::getDescription).setId("description").setCaption("Описание").setWidth(500);
@@ -57,7 +62,7 @@ public class OrdersView extends AbstractView implements View {
 			grid.addColumn(OrdersWithFio::getStatus).setId("status").setCaption("Статус");
 			grid.setColumnOrder("id", "description", "clientFio", "mechanicFio", "status", "dateCreat",
 					"completionDate", "price");
-			this.addComponent(grid);
+//			this.addComponent(grid);
 			showAll();
 		} catch (Exception e) {			
 			throw new UiException(e);
@@ -159,31 +164,31 @@ public class OrdersView extends AbstractView implements View {
 
 	@Override
 	protected void btnDeleteClick() {
-		try {
-			if (grid.asSingleSelect().isEmpty()) {
-				Notification.show("Выберите заказ из списка");
-				return;
-			}
-			OrdersWithFio selectedOrders = grid.asSingleSelect().getValue();
-			final String MESSAGE_1 = "Удалить запись №" + selectedOrders.getId() + " " + selectedOrders.getDescription()
-					+ "?";
-
-			ConfirmDialog.show(getUI(), "Внимание", MESSAGE_1, "Подтвердить", "Отменить", dialog -> {
-				if (dialog.isConfirmed()) {
-					try {
-						ordersDao.delete(selectedOrders.getId());
-						showAll();
-					} catch (Exception ex) {
-						LOG.error(ex);
-					}
-				} else {
-					return;
-				}
-			});
-
-		} catch (Exception e) {
-			Notification.show("Не удалось выполнить удаление", Type.ERROR_MESSAGE);
-		}
+//		try {
+//			if (grid.asSingleSelect().isEmpty()) {
+//				Notification.show("Выберите заказ из списка");
+//				return;
+//			}
+//			OrdersWithFio selectedOrders = grid.asSingleSelect().getValue();
+//			final String MESSAGE_1 = "Удалить запись №" + selectedOrders.getId() + " " + selectedOrders.getDescription()
+//					+ "?";
+//
+//			ConfirmDialog.show(getUI(), "Внимание", MESSAGE_1, "Подтвердить", "Отменить", dialog -> {
+//				if (dialog.isConfirmed()) {
+//					try {
+//						ordersDao.delete(selectedOrders.getId());
+//						showAll();
+//					} catch (Exception ex) {
+//						LOG.error(ex);
+//					}
+//				} else {
+//					return;
+//				}
+//			});
+//
+//		} catch (Exception e) {
+//			Notification.show("Не удалось выполнить удаление", Type.ERROR_MESSAGE);
+//		}
 	}
 
 	@Override

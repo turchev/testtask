@@ -1,8 +1,8 @@
 package com.github.turchev.carrepairshop.view;
 
-import com.vaadin.ui.Button;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 @SuppressWarnings("serial")
 public abstract class AbstractView extends VerticalLayout {	
@@ -10,8 +10,8 @@ public abstract class AbstractView extends VerticalLayout {
 	HorizontalLayout groupButtons;	
 	
 	protected AbstractView() {		
-		this.setMargin(true);	
-		this.addComponent(getLowerGroupButtons());
+		setMargin(true);	
+		add(getLowerGroupButtons());
 	}
 	
 	private HorizontalLayout getLowerGroupButtons() {
@@ -28,9 +28,9 @@ public abstract class AbstractView extends VerticalLayout {
 		btnDelete.addClickListener(event -> {
 			btnDeleteClick();
 		});
-		groupButtons.addComponent(btnAdd);
-		groupButtons.addComponent(btnChange);
-		groupButtons.addComponent(btnDelete);
+		groupButtons.add(btnAdd);
+		groupButtons.add(btnChange);
+		groupButtons.add(btnDelete);
 		return groupButtons;
 	}
 	
