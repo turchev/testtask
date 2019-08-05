@@ -2,6 +2,8 @@ package com.github.turchev.carrepairshop;
 
 import com.github.turchev.carrepairshop.view.client.ClientView;
 import com.github.turchev.carrepairshop.view.mechanic.MechanicView;
+//import com.github.turchev.carrepairshop.view.client.ClientView;
+//import com.github.turchev.carrepairshop.view.mechanic.MechanicView;
 import com.github.turchev.carrepairshop.view.orders.OrdersView;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;

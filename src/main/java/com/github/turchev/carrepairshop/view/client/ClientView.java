@@ -4,29 +4,28 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.vaadin.dialogs.ConfirmDialog;
 
 import com.github.turchev.carrepairshop.MainLayout;
 import com.github.turchev.carrepairshop.dao.ClientDao;
-import com.github.turchev.carrepairshop.dao.DaoException;
 import com.github.turchev.carrepairshop.dao.DaoFactory;
 import com.github.turchev.carrepairshop.domain.person.Client;
 import com.github.turchev.carrepairshop.ds.DsType;
 import com.github.turchev.carrepairshop.view.AbstractView;
 import com.github.turchev.carrepairshop.view.UiException;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.Grid.SelectionMode;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.ui.Grid;
-import com.vaadin.ui.Grid.SelectionMode;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.UI;
+
 
 @SuppressWarnings("serial")
 @Route(value = ClientView.NAME, layout = MainLayout.class)
 @PageTitle(ClientView.NAME)
-public class ClientView extends AbstractView implements View {
+public class ClientView extends AbstractView {
 	private static final Logger LOG = LogManager.getLogger();
 	public static final String NAME = "client";
 	private DaoFactory hsqlDaoFactory;
@@ -39,12 +38,12 @@ public class ClientView extends AbstractView implements View {
 			clientDao = hsqlDaoFactory.getClientDao();
 //			grid.setWidth(100.0f, Unit.PERCENTAGE);
 			grid.setSelectionMode(SelectionMode.SINGLE);
-			grid.addColumn(Client::getId).setId("id").setCaption("Id");
-			grid.addColumn(Client::getLastName).setId("lastName").setCaption("Фамилия").setWidth(500);
-			grid.addColumn(Client::getFirstName).setId("firstName").setCaption("Имя");
-			grid.addColumn(Client::getPatronnymic).setId("patronnymic").setCaption("Отчество");
-			grid.addColumn(Client::getPhone).setId("phone").setCaption("Телефон");
-			grid.setColumnOrder("id", "lastName", "firstName", "patronnymic", "phone");
+//			grid.addColumn(Client::getId).setId("id").setCaption("Id");
+//			grid.addColumn(Client::getLastName).setId("lastName").setCaption("Фамилия").setWidth(500);
+//			grid.addColumn(Client::getFirstName).setId("firstName").setCaption("Имя");
+//			grid.addColumn(Client::getPatronnymic).setId("patronnymic").setCaption("Отчество");
+//			grid.addColumn(Client::getPhone).setId("phone").setCaption("Телефон");
+//			grid.setColumnOrder("id", "lastName", "firstName", "patronnymic", "phone");
 //			this.addComponent(grid);
 			showAll();
 		} catch (Exception e) {
@@ -65,7 +64,7 @@ public class ClientView extends AbstractView implements View {
 	protected void btnAddClick() {
 		try {
 			ClientWindowAdd subWindowAdd = new ClientWindowAdd();
-			UI.getCurrent().addWindow(subWindowAdd);
+//			UI.getCurrent().addWindow(subWindowAdd);
 		} catch (Exception e) {
 			LOG.error(e);
 			Notification.show("Ошибка диалогового окна создания записи");
@@ -81,7 +80,7 @@ public class ClientView extends AbstractView implements View {
 			}
 			Client selectedClient = grid.asSingleSelect().getValue();
 			ClientWindowEdit subWindowEdit = new ClientWindowEdit(selectedClient.getId());
-			UI.getCurrent().addWindow(subWindowEdit);
+//			UI.getCurrent().addWindow(subWindowEdit);
 		} catch (Exception e) {
 			LOG.error(e);
 			Notification.show("Ошибка диалогового окна редактирования");
@@ -122,8 +121,8 @@ public class ClientView extends AbstractView implements View {
 //		}
 	}
 
-	@Override
-	public void enter(ViewChangeEvent event) {
-		LOG.debug("Welcome to Client View");
-	}
+//	@Override
+//	public void enter(ViewChangeEvent event) {
+//		LOG.debug("Welcome to Client View");
+//	}
 }
