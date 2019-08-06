@@ -12,16 +12,12 @@ import com.github.turchev.carrepairshop.domain.person.Mechanic;
 import com.github.turchev.carrepairshop.ds.DsType;
 import com.github.turchev.carrepairshop.view.AbstractView;
 import com.github.turchev.carrepairshop.view.UiException;
-import com.github.turchev.carrepairshop.view.client.ClientView;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 
 
 @Route(value = MechanicView.NAME, layout = MainLayout.class)
@@ -44,15 +40,13 @@ public class MechanicView extends AbstractView {
 				btnShowStatClick();
 			});
 			grid = new Grid<>();
-//			grid.setWidth(100.0f, Unit.PERCENTAGE);
 			grid.setSelectionMode(SelectionMode.SINGLE);
-//			grid.addColumn(Mechanic::getId).setId("id").setCaption("Id");
-//			grid.addColumn(Mechanic::getLastName).setId("lastName").setCaption("Фамилия").setWidth(500);
-//			grid.addColumn(Mechanic::getFirstName).setId("firstName").setCaption("Имя");
-//			grid.addColumn(Mechanic::getPatronnymic).setId("patronnymic").setCaption("Отчество");
-//			grid.addColumn(Mechanic::getWages).setId("wages").setCaption("Почасовая оплата");
-//			grid.setColumnOrder("id", "lastName", "firstName", "patronnymic", "wages");
-//			this.addComponent(grid);
+			grid.addColumn(Mechanic::getId).setHeader("Id").setId("id");
+			grid.addColumn(Mechanic::getLastName).setHeader("Фамилия").setId("lastName");
+			grid.addColumn(Mechanic::getFirstName).setHeader("Имя").setId("firstName");
+			grid.addColumn(Mechanic::getPatronnymic).setHeader("Отчество").setId("patronnymic");
+			grid.addColumn(Mechanic::getWages).setHeader("Почасовая оплата").setId("wages");		
+			this.add(grid);
 			showAll();
 		} catch (Exception e) {
 			throw new UiException(e);
@@ -71,6 +65,7 @@ public class MechanicView extends AbstractView {
 
 	private void showAll() throws UiException {
 		try {
+			Notification.show("Mechanic!!!!!");
 			List<Mechanic> mechanic = mechanicDao.findAll();
 			grid.setItems(mechanic);
 		} catch (Exception e) {

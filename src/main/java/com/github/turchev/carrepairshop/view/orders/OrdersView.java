@@ -19,10 +19,10 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.ui.NativeSelect;
 
 @SuppressWarnings("serial")
 @Route(value = OrdersView.NAME, layout = MainLayout.class)
@@ -34,8 +34,8 @@ public class OrdersView extends AbstractView {
 	private OrdersDao ordersDao;
 	private ClientDao clientDao;
 	private TextField filterDescription;
-	private NativeSelect<String> filterClient;
-	private NativeSelect<OrderStatusType> filterStatus;
+	private Select<String> filterClient;
+	private Select<OrderStatusType> filterStatus;
 	private Button btnAppleFilter, btnCleanFilter;
 	private Grid<OrdersWithFio> grid = new Grid<>();
 
@@ -44,20 +44,17 @@ public class OrdersView extends AbstractView {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			ordersDao = hsqlDaoFactory.getOrdersDao();
 			clientDao = hsqlDaoFactory.getClientDao();
-//			this.addComponent(getFilterPanel());
-//			grid.setWidth(100.0f, Unit.PERCENTAGE);
+			this.add(getFilterPanel());						
 			grid.setSelectionMode(SelectionMode.SINGLE);
-//			grid.addColumn(OrdersWithFio::getId).setId("id").setCaption("Id");
-//			grid.addColumn(OrdersWithFio::getDescription).setId("description").setCaption("Описание").setWidth(500);
-//			grid.addColumn(OrdersWithFio::getClientFio).setId("clientFio").setCaption("Клиент ФИО");
-//			grid.addColumn(OrdersWithFio::getMechanicFio).setId("mechanicFio").setCaption("Механик ФИО");
-//			grid.addColumn(OrdersWithFio::getDateCreat).setId("dateCreat").setCaption("Дата создания заявки");
-//			grid.addColumn(OrdersWithFio::getCompletionDate).setId("completionDate").setCaption("Дата окончания работ");
-//			grid.addColumn(OrdersWithFio::getPrice).setId("price").setCaption("Цена");
-//			grid.addColumn(OrdersWithFio::getStatus).setId("status").setCaption("Статус");
-//			grid.setColumnOrder("id", "description", "clientFio", "mechanicFio", "status", "dateCreat",
-//					"completionDate", "price");
-//			this.addComponent(grid);
+			grid.addColumn(OrdersWithFio::getId).setHeader("Id").setId("id");	
+			grid.addColumn(OrdersWithFio::getDescription).setHeader("Описание").setWidth("25%").setId("description");
+			grid.addColumn(OrdersWithFio::getClientFio).setHeader("Клиент ФИО").setId("clientFio");
+			grid.addColumn(OrdersWithFio::getMechanicFio).setHeader("Механик ФИО").setId("mechanicFio");
+			grid.addColumn(OrdersWithFio::getDateCreat).setHeader("Дата создания заявки").setId("dateCreat");
+			grid.addColumn(OrdersWithFio::getCompletionDate).setHeader("Дата окончания работ").setId("completionDate");
+			grid.addColumn(OrdersWithFio::getPrice).setHeader("Цена").setId("price");
+			grid.addColumn(OrdersWithFio::getStatus).setHeader("Статус").setId("status");	
+			this.add(grid);
 			showAll();
 		} catch (Exception e) {
 			throw new UiException(e);
@@ -66,6 +63,7 @@ public class OrdersView extends AbstractView {
 
 	private void showAll() throws UiException {
 		try {
+			Notification.show("Orders!!!!!");
 			List<OrdersWithFio> orders = ordersDao.findAll();
 			grid.setItems(orders);
 		} catch (Exception e) {
@@ -78,11 +76,11 @@ public class OrdersView extends AbstractView {
 		try {
 			filterDescription = new TextField("Описание");
 
-//			filterStatus = new NativeSelect<>("Статус");
+//			filterStatus = new Select<>("Статус");
 //			filterStatus.setItems(OrderStatusType.values());
-//
-//			filterClient = new NativeSelect<>("Фамилия клиента");
-//			filterClient.setItems(clientDao.getLastNameList());
+
+			filterClient = new Select<>("Фамилия клиента");
+			filterClient.setItems(clientDao.getLastNameList());
 
 			btnAppleFilter = new Button("Применить фильтр");
 			btnAppleFilter.addClickListener(event -> {

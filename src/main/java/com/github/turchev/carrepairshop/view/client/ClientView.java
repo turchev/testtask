@@ -12,14 +12,11 @@ import com.github.turchev.carrepairshop.domain.person.Client;
 import com.github.turchev.carrepairshop.ds.DsType;
 import com.github.turchev.carrepairshop.view.AbstractView;
 import com.github.turchev.carrepairshop.view.UiException;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 
 
 @SuppressWarnings("serial")
@@ -35,16 +32,14 @@ public class ClientView extends AbstractView {
 	public ClientView() throws UiException {
 		try {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
-			clientDao = hsqlDaoFactory.getClientDao();
-//			grid.setWidth(100.0f, Unit.PERCENTAGE);
+			clientDao = hsqlDaoFactory.getClientDao();			
 			grid.setSelectionMode(SelectionMode.SINGLE);
-//			grid.addColumn(Client::getId).setId("id").setCaption("Id");
-//			grid.addColumn(Client::getLastName).setId("lastName").setCaption("Фамилия").setWidth(500);
-//			grid.addColumn(Client::getFirstName).setId("firstName").setCaption("Имя");
-//			grid.addColumn(Client::getPatronnymic).setId("patronnymic").setCaption("Отчество");
-//			grid.addColumn(Client::getPhone).setId("phone").setCaption("Телефон");
-//			grid.setColumnOrder("id", "lastName", "firstName", "patronnymic", "phone");
-//			this.addComponent(grid);
+			grid.addColumn(Client::getId).setHeader("Id").setId("id");
+			grid.addColumn(Client::getLastName).setHeader("Фамилия").setId("lastName");
+			grid.addColumn(Client::getFirstName).setHeader("Имя").setId("firstName");
+			grid.addColumn(Client::getPatronnymic).setHeader("Отчество").setId("patronnymic");
+			grid.addColumn(Client::getPhone).setHeader("Телефон").setId("phone");			
+			this.add(grid);
 			showAll();
 		} catch (Exception e) {
 			throw new UiException(e);
@@ -53,6 +48,7 @@ public class ClientView extends AbstractView {
 
 	private void showAll() throws UiException {
 		try {
+			Notification.show("Client!!!!!");
 			List<Client> clients = clientDao.findAll();
 			grid.setItems(clients);
 		} catch (Exception e) {
