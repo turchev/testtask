@@ -16,27 +16,28 @@ import com.github.turchev.carrepairshop.domain.person.Client;
 import com.github.turchev.carrepairshop.domain.person.Mechanic;
 import com.github.turchev.carrepairshop.ds.DsType;
 import com.github.turchev.carrepairshop.view.UiException;
-import com.vaadin.data.Binder;
-import com.vaadin.data.converter.StringToBigDecimalConverter;
-import com.vaadin.data.validator.BigDecimalRangeValidator;
-import com.vaadin.data.validator.StringLengthValidator;
-import com.vaadin.shared.ui.ValueChangeMode;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.ComboBox;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.datepicker.DatePicker;
+import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.select.Select;
+import com.vaadin.flow.component.textfield.TextArea;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.converter.StringToBigDecimalConverter;
+import com.vaadin.flow.data.validator.BigDecimalRangeValidator;
+import com.vaadin.flow.data.validator.StringLengthValidator;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.ui.DateTimeField;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.NativeSelect;
-import com.vaadin.ui.TextArea;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
-abstract class OrdersWindowAbstract extends Window {
+abstract class OrdersWindowAbstract extends Dialog {
 	protected ComboBox<ShortName<Client>> cmbClient;
 	protected ComboBox<ShortName<Mechanic>> cmbMechanic;
-	protected NativeSelect<OrderStatusType> ntsStatus;
-	protected DateTimeField dtfDateCreat, dtfCompletionDate;
+	protected Select<OrderStatusType> ntsStatus;
+	protected DatePicker dtfDateCreat, dtfCompletionDate;
 	protected TextField txtPrice;
 	protected TextArea txrDescription;
 	protected DecimalFormat dcf = new DecimalFormat();
@@ -55,17 +56,18 @@ abstract class OrdersWindowAbstract extends Window {
 			ordersDao = DaoFactory.getFactory(DsType.HSQLDB).getOrdersDao();
 			clientDao = DaoFactory.getFactory(DsType.HSQLDB).getClientDao();
 			mechanicShortName = mechanicDao.findAllShortName();
-			clientShortName = clientDao.findAllShortName();
-			ntsStatus = new NativeSelect<>("Статус");
+			clientShortName = clientDao.findAllShortName();			
+			ntsStatus = new Select<>();
+			ntsStatus.setLabel("Статус");
 			ntsStatus.setItems(OrderStatusType.values());
 			cmbClient = new ComboBox<>("Клиент ФИО");
 			cmbClient.setItems(clientShortName);
-			cmbClient.setWidth(300.0f, Unit.PIXELS);
+			cmbClient.setWidth("300.0px");
 			cmbMechanic = new ComboBox<>("Механик ФИО");
-			cmbMechanic.setWidth(300.0f, Unit.PIXELS);
+			cmbMechanic.setWidth("300.0px");
 			cmbMechanic.setItems(mechanicShortName);
-			dtfDateCreat = new DateTimeField("Дата создания заявки");
-			dtfCompletionDate = new DateTimeField("Дата окончания работ");
+			dtfDateCreat = new DatePicker("Дата создания заявки");
+			dtfCompletionDate = new DatePicker("Дата окончания работ");
 
 			txrDescription = new TextArea("Описание заявки");
 			binder.forField(txrDescription)
@@ -74,7 +76,7 @@ abstract class OrdersWindowAbstract extends Window {
 			txrDescription.setSizeFull();			
 
 			txtPrice = new TextField("Цена");
-			txtPrice.setLocale(new Locale("en", "US"));
+//			txtPrice.setLocale(new Locale("en", "US"));
 			txtPrice.setValueChangeMode(ValueChangeMode.EAGER);
 			binder.forField(txtPrice).withNullRepresentation("")
 					.withConverter(new StringToBigDecimalConverter("Введите сумму в формате 00000.00"))
@@ -82,13 +84,14 @@ abstract class OrdersWindowAbstract extends Window {
 							new BigDecimal(100000000)))
 					.bind(OrdersWithFio::getPrice, OrdersWithFio::setPrice);
 
-			HorizontalLayout hltStatusPrice = new HorizontalLayout(ntsStatus, txtPrice);
+			HorizontalLayout hltStatusPrice = new HorizontalLayout();
+			hltStatusPrice.add(ntsStatus, txtPrice);
 			HorizontalLayout hltDate = new HorizontalLayout(dtfDateCreat, dtfCompletionDate);
 			HorizontalLayout hltClientMechanic = new HorizontalLayout(cmbClient, cmbMechanic);
 			VerticalLayout vlLayout = new VerticalLayout(txrDescription, hltStatusPrice, hltDate, hltClientMechanic);
-			this.setWidth(800.0f, Unit.PIXELS);
-			this.setModal(true);
-			this.setResizable(false);
+			this.setWidth("800.0px");
+//			this.setModal(true);
+//			this.setResizable(false);
 			Button btnApple = new Button("Ok");
 			btnApple.addClickListener(event -> {
 				btnAppleClick();
@@ -98,8 +101,8 @@ abstract class OrdersWindowAbstract extends Window {
 				btnCancelClick();
 			});
 			HorizontalLayout hltButton = new HorizontalLayout(btnApple, btnCancel);
-			vlLayout.addComponent(hltButton);
-			this.setContent(vlLayout);
+			vlLayout.add(hltButton);
+			this.add(vlLayout);
 		} catch (Exception e) {
 			throw new UiException(e);
 		}

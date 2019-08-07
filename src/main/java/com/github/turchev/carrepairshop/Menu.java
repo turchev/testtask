@@ -15,8 +15,7 @@ import com.vaadin.flow.router.RouterLink;
 
 public class Menu extends VerticalLayout {
 
-	private static final long serialVersionUID = 1946084039439880360L;
-	private static final String SHOW_TABS = "show-tabs";
+	private static final long serialVersionUID = 1946084039439880360L;	
 	private Tabs tabs = new Tabs();
 
 	public Menu() {
@@ -44,13 +43,6 @@ public class Menu extends VerticalLayout {
 		this.setSizeUndefined();		
 	}
 
-	/**
-	 * Add a view to the navigation menu
-	 *
-	 * @param viewClass that has a {@code Route} annotation
-	 * @param caption   view caption in the menu
-	 * @param icon      view icon in the menu
-	 */
 	public void addView(Class<? extends Component> viewClass, String caption, Icon icon) {		
 		RouterLink routerLink = new RouterLink(null, viewClass);
 		routerLink.setClassName("menu-link");

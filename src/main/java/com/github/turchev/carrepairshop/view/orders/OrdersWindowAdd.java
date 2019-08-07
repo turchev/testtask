@@ -8,11 +8,13 @@ import org.apache.logging.log4j.Logger;
 import com.github.turchev.carrepairshop.domain.orders.OrderStatusType;
 import com.github.turchev.carrepairshop.domain.orders.OrdersWithFio;
 import com.github.turchev.carrepairshop.view.UiException;
-import com.vaadin.data.ValidationException;
-import com.vaadin.data.validator.DateTimeRangeValidator;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.Notification.Type;
-import com.vaadin.ui.UI;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.Notification.Position;
+import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.data.validator.DateTimeRangeValidator;
+import com.vaadin.flow.shared.ui.Dependency.Type;
+
 
 @SuppressWarnings("serial")
 class OrdersWindowAdd extends OrdersWindowAbstract {
@@ -20,27 +22,27 @@ class OrdersWindowAdd extends OrdersWindowAbstract {
 
 	protected OrdersWindowAdd() throws UiException {
 		try {
-			super.setCaption("Создать заявку");
+//			super.setCaption("Создать заявку");
 			super.ntsStatus.setValue(OrderStatusType.Принят);
 
 			/**
 			 * При оформлении новой записи ограничения создания с текущей даты -1час до
 			 * +10дней
 			 */
-			binder.forField(super.dtfDateCreat)
-					.withValidator(new DateTimeRangeValidator("Введите корректную дату создания заявки",
-							LocalDateTime.now().minusHours(1), LocalDateTime.now().plusDays(10)))
-					.bind(OrdersWithFio::getDateCreat, OrdersWithFio::setDateCreat);
-			super.dtfDateCreat.setValue(LocalDateTime.now());
+//			binder.forField(super.dtfDateCreat)
+//					.withValidator(new DateTimeRangeValidator("Введите корректную дату создания заявки",
+//							LocalDateTime.now().minusHours(1), LocalDateTime.now().plusDays(10)))
+//					.bind(OrdersWithFio::getDateCreat, OrdersWithFio::setDateCreat);
+//			super.dtfDateCreat.setValue(LocalDateTime.now());
 
 			/**
 			 * При оформлении новой записи ограничения на завершения работ с текущей даты
 			 * -1час до +5лет
 			 */
-			binder.forField(dtfCompletionDate)
-					.withValidator(new DateTimeRangeValidator("Введите корректную дату завершения работ",
-							LocalDateTime.now().minusHours(1), LocalDateTime.now().plusYears(5)))
-					.bind(OrdersWithFio::getCompletionDate, OrdersWithFio::setCompletionDate);
+//			binder.forField(dtfCompletionDate)
+//					.withValidator(new DateTimeRangeValidator("Введите корректную дату завершения работ",
+//							LocalDateTime.now().minusHours(1), LocalDateTime.now().plusYears(5)))
+//					.bind(OrdersWithFio::getCompletionDate, OrdersWithFio::setCompletionDate);
 
 		} catch (Exception e) {
 			throw new UiException(e);
@@ -56,23 +58,23 @@ class OrdersWindowAdd extends OrdersWindowAbstract {
 	@Override
 	protected synchronized void btnAppleClick() {
 		if (txrDescription.isEmpty()) {
-			Notification.show("Описание заявки не может быть пустым", Type.WARNING_MESSAGE);
+			Notification.show("Описание заявки не может быть пустым", 4000, Position.MIDDLE);
 			return;
 		}
 		if (cmbClient.isEmpty()) {
-			Notification.show("Выберите клиента из списка или создайте новую запись", Type.WARNING_MESSAGE);
+			Notification.show("Выберите клиента из списка или создайте новую запись", 4000, Position.MIDDLE);
 			return;
 		}
 		if (cmbMechanic.isEmpty()) {
-			Notification.show("Выберите механика из списка или создайте новую запись", Type.WARNING_MESSAGE);
+			Notification.show("Выберите механика из списка или создайте новую запись", 4000, Position.MIDDLE);
 			return;
 		}
 		if (ntsStatus.isEmpty()) {
-			Notification.show("Задайте статус заявки", Type.WARNING_MESSAGE);
+			Notification.show("Задайте статус заявки", 4000, Position.MIDDLE);
 			return;
 		}
 		if (dtfDateCreat.isEmpty()) {
-			Notification.show("Укажите дату заявки", Type.WARNING_MESSAGE);
+			Notification.show("Укажите дату заявки", 4000, Position.MIDDLE);
 			return;
 		}
 
@@ -84,7 +86,7 @@ class OrdersWindowAdd extends OrdersWindowAbstract {
 			;
 			order.setStatus(ntsStatus.getValue());
 			super.ordersDao.create(order);
-			UI.getCurrent().getNavigator().navigateTo(OrdersView.NAME);
+//			UI.getCurrent().getNavigator().navigateTo(OrdersView.NAME);
 			close();
 		} catch (ValidationException ev) {
 			LOG.debug(ev);

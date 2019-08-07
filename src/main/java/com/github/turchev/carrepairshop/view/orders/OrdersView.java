@@ -18,6 +18,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
@@ -62,8 +63,7 @@ public class OrdersView extends AbstractView {
 	}
 
 	private void showAll() throws UiException {
-		try {
-			Notification.show("Orders!!!!!");
+		try {			
 			List<OrdersWithFio> orders = ordersDao.findAll();
 			grid.setItems(orders);
 		} catch (Exception e) {
@@ -76,11 +76,16 @@ public class OrdersView extends AbstractView {
 		try {
 			filterDescription = new TextField("Описание");
 
-//			filterStatus = new Select<>("Статус");
-//			filterStatus.setItems(OrderStatusType.values());
-
-			filterClient = new Select<>("Фамилия клиента");
-			filterClient.setItems(clientDao.getLastNameList());
+			filterStatus = new Select<>(OrderStatusType.values());
+			filterStatus.setEmptySelectionAllowed(true);
+			filterStatus.setEmptySelectionCaption("Выберите статус");
+			filterStatus.setLabel("Статус");						
+		
+			filterClient = new Select<>();
+			filterClient.setLabel("Фамилия клиента");
+			filterClient.setEmptySelectionAllowed(true);
+			filterClient.setEmptySelectionCaption("Выберите клиента");
+			filterClient.setItems(clientDao.getLastNameList());							
 
 			btnAppleFilter = new Button("Применить фильтр");
 			btnAppleFilter.addClickListener(event -> {
@@ -91,12 +96,7 @@ public class OrdersView extends AbstractView {
 				btnCleanFilterClick();
 			});
 			HorizontalLayout filterPanel = new HorizontalLayout();
-			filterPanel.add(filterDescription);
-			filterPanel.add(btnAppleFilter);
-			filterPanel.add(btnCleanFilter);
-//			HorizontalLayout filterPanel = new HorizontalLayout(filterDescription, filterStatus, filterClient,
-//					btnAppleFilter, btnCleanFilter);
-
+			filterPanel.add(filterDescription, filterStatus, filterClient, btnAppleFilter, btnCleanFilter);
 			return filterPanel;
 
 		} catch (Exception e) {
@@ -114,10 +114,9 @@ public class OrdersView extends AbstractView {
 				status = filterStatus.getValue().toString();
 
 			List<OrdersWithFio> orders = ordersDao.findUsingFilter(findDescription, status, clientFio);
-			grid.setItems(orders);
+			grid.setItems(orders);			
 		} catch (Exception e) {
-//			Notification.show("Не удалось применить фильтр", Type.WARNING_MESSAGE);
-			Notification.show("Не удалось применить фильтр");
+			Notification.show("Не удалось применить фильтр", 4000, Position.MIDDLE);
 			LOG.warn(e);
 		}
 	}
@@ -127,10 +126,9 @@ public class OrdersView extends AbstractView {
 			filterDescription.clear();
 			filterStatus.clear();
 			filterClient.clear();
-			showAll();
+			showAll();			
 		} catch (UiException e) {
-//			Notification.show("Не удалось очистить фильтр", Type.WARNING_MESSAGE);
-			Notification.show("Не удалось очистить фильтр");
+			Notification.show("Не удалось очистить фильтр", 4000, Position.MIDDLE);
 			LOG.warn(e);
 		}
 	}
