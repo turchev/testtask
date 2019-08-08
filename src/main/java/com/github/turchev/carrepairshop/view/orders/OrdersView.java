@@ -15,12 +15,13 @@ import com.github.turchev.carrepairshop.ds.DsType;
 import com.github.turchev.carrepairshop.view.AbstractView;
 import com.github.turchev.carrepairshop.view.UiException;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.confirmdialog.ConfirmDialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -35,8 +36,8 @@ public class OrdersView extends AbstractView {
 	private OrdersDao ordersDao;
 	private ClientDao clientDao;
 	private TextField filterDescription;
-	private Select<String> filterClient;
-	private Select<OrderStatusType> filterStatus;
+	private ComboBox<String> filterClient;
+	private ComboBox<OrderStatusType> filterStatus;
 	private Button btnAppleFilter, btnCleanFilter;
 	private Grid<OrdersWithFio> grid = new Grid<>();
 
@@ -45,16 +46,16 @@ public class OrdersView extends AbstractView {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			ordersDao = hsqlDaoFactory.getOrdersDao();
 			clientDao = hsqlDaoFactory.getClientDao();
-			this.add(getFilterPanel());						
+			this.add(getFilterPanel());
 			grid.setSelectionMode(SelectionMode.SINGLE);
-			grid.addColumn(OrdersWithFio::getId).setHeader("Id").setId("id");	
+			grid.addColumn(OrdersWithFio::getId).setHeader("Id").setId("id");
 			grid.addColumn(OrdersWithFio::getDescription).setHeader("Описание").setWidth("25%").setId("description");
 			grid.addColumn(OrdersWithFio::getClientFio).setHeader("Клиент ФИО").setId("clientFio");
 			grid.addColumn(OrdersWithFio::getMechanicFio).setHeader("Механик ФИО").setId("mechanicFio");
 			grid.addColumn(OrdersWithFio::getDateCreat).setHeader("Дата создания заявки").setId("dateCreat");
 			grid.addColumn(OrdersWithFio::getCompletionDate).setHeader("Дата окончания работ").setId("completionDate");
 			grid.addColumn(OrdersWithFio::getPrice).setHeader("Цена").setId("price");
-			grid.addColumn(OrdersWithFio::getStatus).setHeader("Статус").setId("status");	
+			grid.addColumn(OrdersWithFio::getStatus).setHeader("Статус").setId("status");
 			this.add(grid);
 			showAll();
 		} catch (Exception e) {
@@ -63,7 +64,7 @@ public class OrdersView extends AbstractView {
 	}
 
 	private void showAll() throws UiException {
-		try {			
+		try {
 			List<OrdersWithFio> orders = ordersDao.findAll();
 			grid.setItems(orders);
 		} catch (Exception e) {
@@ -76,16 +77,9 @@ public class OrdersView extends AbstractView {
 		try {
 			filterDescription = new TextField("Описание");
 
-			filterStatus = new Select<>(OrderStatusType.values());
-			filterStatus.setEmptySelectionAllowed(true);
-			filterStatus.setEmptySelectionCaption("Выберите статус");
-			filterStatus.setLabel("Статус");						
-		
-			filterClient = new Select<>();
-			filterClient.setLabel("Фамилия клиента");
-			filterClient.setEmptySelectionAllowed(true);
-			filterClient.setEmptySelectionCaption("Выберите клиента");
-			filterClient.setItems(clientDao.getLastNameList());							
+			filterStatus = new ComboBox<>("Статус", OrderStatusType.values());
+
+			filterClient = new ComboBox<>("Фамилия клиента", clientDao.getLastNameList());
 
 			btnAppleFilter = new Button("Применить фильтр");
 			btnAppleFilter.addClickListener(event -> {
@@ -114,9 +108,9 @@ public class OrdersView extends AbstractView {
 				status = filterStatus.getValue().toString();
 
 			List<OrdersWithFio> orders = ordersDao.findUsingFilter(findDescription, status, clientFio);
-			grid.setItems(orders);			
+			grid.setItems(orders);
 		} catch (Exception e) {
-			Notification.show("Не удалось применить фильтр", 4000, Position.MIDDLE);
+			Notification.show("Не удалось применить фильтр", 10000, Position.MIDDLE);
 			LOG.warn(e);
 		}
 	}
@@ -126,9 +120,9 @@ public class OrdersView extends AbstractView {
 			filterDescription.clear();
 			filterStatus.clear();
 			filterClient.clear();
-			showAll();			
+			showAll();
 		} catch (UiException e) {
-			Notification.show("Не удалось очистить фильтр", 4000, Position.MIDDLE);
+			Notification.show("Не удалось очистить фильтр", 10000, Position.MIDDLE);
 			LOG.warn(e);
 		}
 	}
@@ -137,10 +131,10 @@ public class OrdersView extends AbstractView {
 	protected void btnAddClick() {
 		try {
 			OrdersWindowAdd subWindowAdd = new OrdersWindowAdd();
-//			UI.getCurrent().addWindow(subWindowAdd);
+			subWindowAdd.open();
 		} catch (Exception e) {
 			LOG.error(e);
-			Notification.show("Ошибка диалогового окна создания записи");
+			Notification.show("Ошибка диалогового окна создания записи", 10000, Position.MIDDLE);
 		}
 	}
 
@@ -148,49 +142,43 @@ public class OrdersView extends AbstractView {
 	protected void btnChangeClick() {
 		try {
 			if (grid.asSingleSelect().isEmpty()) {
-				Notification.show("Выберите заказ из списка");
+				Notification.show("Выберите заказ из списка", 4000, Position.MIDDLE);
 				return;
 			}
 			OrdersWithFio selectedOrders = grid.asSingleSelect().getValue();
 			OrdersWindowEdit subWindowEdit = new OrdersWindowEdit(selectedOrders.getId());
-//			UI.getCurrent().addWindow(subWindowEdit);
+			subWindowEdit.open();
 		} catch (Exception e) {
 			LOG.error(e);
-			Notification.show("Ошибка диалогового окна редактирования");
+			Notification.show("Ошибка диалогового окна редактирования", 10000, Position.MIDDLE);
 		}
 	}
 
 	@Override
 	protected void btnDeleteClick() {
-//		try {
-//			if (grid.asSingleSelect().isEmpty()) {
-//				Notification.show("Выберите заказ из списка");
-//				return;
-//			}
-//			OrdersWithFio selectedOrders = grid.asSingleSelect().getValue();
-//			final String MESSAGE_1 = "Удалить запись №" + selectedOrders.getId() + " " + selectedOrders.getDescription()
-//					+ "?";
-//
-//			ConfirmDialog.show(getUI(), "Внимание", MESSAGE_1, "Подтвердить", "Отменить", dialog -> {
-//				if (dialog.isConfirmed()) {
-//					try {
-//						ordersDao.delete(selectedOrders.getId());
-//						showAll();
-//					} catch (Exception ex) {
-//						LOG.error(ex);
-//					}
-//				} else {
-//					return;
-//				}
-//			});
-//
-//		} catch (Exception e) {
-//			Notification.show("Не удалось выполнить удаление", Type.ERROR_MESSAGE);
-//		}
-	}
+		try {
+			if (grid.asSingleSelect().isEmpty()) {
+				Notification.show("Выберите заказ из списка");
+				return;
+			}
+			OrdersWithFio selectedOrders = grid.asSingleSelect().getValue();
+			final String MESSAGE_1 = "Удалить запись №" + selectedOrders.getId() + " " + selectedOrders.getDescription()
+					+ "?";
 
-//	@Override
-//	public void enter(ViewChangeEvent event) {
-//		LOG.debug("Welcome to Orders View");
-//	}
+			ConfirmDialog dialog = new ConfirmDialog("Внимание", MESSAGE_1, "Подтвердить", event -> {
+				try {
+					ordersDao.delete(selectedOrders.getId());
+					showAll();
+				} catch (Exception ex) {
+					LOG.error(ex);
+				}
+			}, "Отменить", event -> {
+				return;
+			});
+			dialog.open();
+
+		} catch (Exception e) {
+			Notification.show("Не удалось выполнить удаление", 10000, Position.MIDDLE);
+		}
+	}
 }

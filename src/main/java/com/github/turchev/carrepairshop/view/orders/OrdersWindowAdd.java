@@ -1,7 +1,5 @@
 package com.github.turchev.carrepairshop.view.orders;
 
-import java.time.LocalDateTime;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,20 +7,20 @@ import com.github.turchev.carrepairshop.domain.orders.OrderStatusType;
 import com.github.turchev.carrepairshop.domain.orders.OrdersWithFio;
 import com.github.turchev.carrepairshop.view.UiException;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.data.binder.ValidationException;
-import com.vaadin.flow.data.validator.DateTimeRangeValidator;
-import com.vaadin.flow.shared.ui.Dependency.Type;
 
 
 @SuppressWarnings("serial")
 class OrdersWindowAdd extends OrdersWindowAbstract {
 	private static final Logger LOG = LogManager.getLogger();
+	private static final String LABEL = "Создание заявки";
 
 	protected OrdersWindowAdd() throws UiException {
 		try {
-//			super.setCaption("Создать заявку");
+			super.add(new Label(LABEL));
 			super.ntsStatus.setValue(OrderStatusType.Принят);
 
 			/**
@@ -82,10 +80,13 @@ class OrdersWindowAdd extends OrdersWindowAbstract {
 			OrdersWithFio order = new OrdersWithFio();
 			super.binder.writeBean(order);
 			order.setClientId(cmbClient.getValue().getId());
-			order.setMechanicId(cmbMechanic.getValue().getId());
-			;
+			order.setMechanicId(cmbMechanic.getValue().getId());			
 			order.setStatus(ntsStatus.getValue());
 			super.ordersDao.create(order);
+//			btnOrders.addClickListener(e -> {
+//				btnOrders.getUI().ifPresent(ui -> ui.navigate(OrdersView.NAME));
+//			});
+			UI.getCurrent().navigate(OrdersView.NAME);
 //			UI.getCurrent().getNavigator().navigateTo(OrdersView.NAME);
 			close();
 		} catch (ValidationException ev) {

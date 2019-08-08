@@ -3,7 +3,6 @@ package com.github.turchev.carrepairshop.view.orders;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.List;
-import java.util.Locale;
 
 import com.github.turchev.carrepairshop.dao.ClientDao;
 import com.github.turchev.carrepairshop.dao.DaoFactory;
@@ -22,7 +21,6 @@ import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
@@ -30,13 +28,12 @@ import com.vaadin.flow.data.converter.StringToBigDecimalConverter;
 import com.vaadin.flow.data.validator.BigDecimalRangeValidator;
 import com.vaadin.flow.data.validator.StringLengthValidator;
 import com.vaadin.flow.data.value.ValueChangeMode;
-import com.vaadin.ui.DateTimeField;
 
 @SuppressWarnings("serial")
 abstract class OrdersWindowAbstract extends Dialog {
 	protected ComboBox<ShortName<Client>> cmbClient;
 	protected ComboBox<ShortName<Mechanic>> cmbMechanic;
-	protected Select<OrderStatusType> ntsStatus;
+	protected ComboBox<OrderStatusType> ntsStatus;
 	protected DatePicker dtfDateCreat, dtfCompletionDate;
 	protected TextField txtPrice;
 	protected TextArea txrDescription;
@@ -57,14 +54,12 @@ abstract class OrdersWindowAbstract extends Dialog {
 			clientDao = DaoFactory.getFactory(DsType.HSQLDB).getClientDao();
 			mechanicShortName = mechanicDao.findAllShortName();
 			clientShortName = clientDao.findAllShortName();			
-			ntsStatus = new Select<>();
+			ntsStatus = new ComboBox<>();
 			ntsStatus.setLabel("Статус");
 			ntsStatus.setItems(OrderStatusType.values());
 			cmbClient = new ComboBox<>("Клиент ФИО");
 			cmbClient.setItems(clientShortName);
-			cmbClient.setWidth("300.0px");
 			cmbMechanic = new ComboBox<>("Механик ФИО");
-			cmbMechanic.setWidth("300.0px");
 			cmbMechanic.setItems(mechanicShortName);
 			dtfDateCreat = new DatePicker("Дата создания заявки");
 			dtfCompletionDate = new DatePicker("Дата окончания работ");
@@ -76,7 +71,6 @@ abstract class OrdersWindowAbstract extends Dialog {
 			txrDescription.setSizeFull();			
 
 			txtPrice = new TextField("Цена");
-//			txtPrice.setLocale(new Locale("en", "US"));
 			txtPrice.setValueChangeMode(ValueChangeMode.EAGER);
 			binder.forField(txtPrice).withNullRepresentation("")
 					.withConverter(new StringToBigDecimalConverter("Введите сумму в формате 00000.00"))
@@ -89,7 +83,6 @@ abstract class OrdersWindowAbstract extends Dialog {
 			HorizontalLayout hltDate = new HorizontalLayout(dtfDateCreat, dtfCompletionDate);
 			HorizontalLayout hltClientMechanic = new HorizontalLayout(cmbClient, cmbMechanic);
 			VerticalLayout vlLayout = new VerticalLayout(txrDescription, hltStatusPrice, hltDate, hltClientMechanic);
-			this.setWidth("800.0px");
 //			this.setModal(true);
 //			this.setResizable(false);
 			Button btnApple = new Button("Ok");
