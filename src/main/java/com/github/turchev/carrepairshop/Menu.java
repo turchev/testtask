@@ -4,6 +4,7 @@ import com.github.turchev.carrepairshop.view.client.ClientView;
 import com.github.turchev.carrepairshop.view.mechanic.MechanicView;
 import com.github.turchev.carrepairshop.view.orders.OrdersView;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Span;
@@ -41,6 +42,8 @@ public class Menu extends VerticalLayout {
 
 		add(btnOrders, btnClient, btnMechanic);		
 		this.setSizeUndefined();		
+		UI.getCurrent().navigate(OrdersView.NAME);
+		UI.getCurrent().getPage().reload();	
 	}
 
 	public void addView(Class<? extends Component> viewClass, String caption, Icon icon) {		
@@ -49,6 +52,6 @@ public class Menu extends VerticalLayout {
 		routerLink.add(icon);
 		routerLink.add(new Span(caption));
 		Tab tab = new Tab(routerLink);
-		tabs.add(tab);
+		tabs.add(tab);		
 	}
 }

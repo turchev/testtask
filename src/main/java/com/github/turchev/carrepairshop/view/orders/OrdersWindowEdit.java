@@ -1,7 +1,5 @@
 package com.github.turchev.carrepairshop.view.orders;
 
-import java.time.LocalDateTime;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,22 +8,21 @@ import com.github.turchev.carrepairshop.domain.orders.OrdersWithFio;
 import com.github.turchev.carrepairshop.domain.person.Client;
 import com.github.turchev.carrepairshop.domain.person.Mechanic;
 import com.github.turchev.carrepairshop.view.UiException;
-import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.data.binder.ValidationException;
-import com.vaadin.flow.data.validator.DateTimeRangeValidator;
-import com.vaadin.flow.shared.ui.Dependency.Type;
 
 
 @SuppressWarnings("serial")
 class OrdersWindowEdit extends OrdersWindowAbstract {
 	private static final Logger LOG = LogManager.getLogger();
+	private static final String LABEL = "Редактирование заявки";
 	private Long id;
 
 	protected OrdersWindowEdit(Long id) throws UiException {
 		try {
-//			super.setCaption("Редактировать заявку");
+			super.add(new Label(LABEL));
 			this.id = id;
 			OrdersWithFio order = ordersDao.findById(id);
 			ShortName<Mechanic> mechanicFio = super.mechanicDao.getFioById(order.getMechanicId());
