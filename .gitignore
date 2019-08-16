@@ -1,5 +1,5 @@
 #=== Exclude ===
-db/**
+#db/**
 
 #=== target directory ===
 target/
