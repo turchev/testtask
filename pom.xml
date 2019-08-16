@@ -15,9 +15,9 @@
 	</prerequisites>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>1.9</java.version>
 		<vaadin.version>8.7.0</vaadin.version>
-		<jetty.version>9.4.11.v20180605</jetty.version>
+		<jetty.version>9.4.19.v20190610</jetty.version>
 		<javax.servlet.version>3.1.0</javax.servlet.version>
 		<!-- <hibernate.core.version>5.3.3.Final</hibernate.core.version> -->
 		<maven.compiler.plugin.version>3.5.1</maven.compiler.plugin.version>
@@ -59,13 +59,23 @@
 		</pluginRepository>
 	</pluginRepositories>
 	<dependencies>
-		<!-- Adding Vaadin 10 dependencies -->
+		<!-- Adding Vaadin Flow dependencies -->
 		<!-- dependencies Vaadin 8 save -->
+		<!-- <dependency> -->
+		<!-- <groupId>com.vaadin</groupId> -->
+		<!-- <artifactId>vaadin</artifactId> -->
+		<!-- <version>13.0.10</version> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin</artifactId>
-			<version>13.0.10</version>
+			<version>14.0.0</version>
 		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>com.vaadin</groupId> -->
+		<!-- <artifactId>flow-server-compatibility-mode</artifactId> -->
+		<!-- <version>2.0.7</version> -->
+		<!-- </dependency> -->
 		<!-- Added to provide logging output as Flow uses -->
 		<!-- the unbound SLF4J no-operation (NOP) logger implementation -->
 		<dependency>
@@ -136,22 +146,22 @@
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
 		<plugins>
-			<plugin>
-				<groupId>com.vaadin</groupId>
-				<artifactId>vaadin-maven-plugin</artifactId>
-				<version>${vaadin.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>update-theme</goal>
-							<goal>update-widgetset</goal>
-							<goal>compile</goal>
-							<!-- Comment out compile-theme goal to use on-the-fly theme compilation -->
-							<goal>compile-theme</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>com.vaadin</groupId> -->
+<!-- 				<artifactId>vaadin-maven-plugin</artifactId> -->
+<!-- 				<version>${vaadin.version}</version> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<goals> -->
+<!-- 							<goal>update-theme</goal> -->
+<!-- 							<goal>update-widgetset</goal> -->
+<!-- 							<goal>compile</goal> -->
+<!-- 							Comment out compile-theme goal to use on-the-fly theme compilation -->
+<!-- 							<goal>compile-theme</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -168,6 +178,19 @@
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.vaadin</groupId>
+				<artifactId>vaadin-maven-plugin</artifactId>
+				<version>14.0.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-frontend</goal>
+							<goal>build-frontend</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
