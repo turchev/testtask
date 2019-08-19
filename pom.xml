@@ -146,22 +146,22 @@
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
 		<plugins>
-			<!-- <plugin> -->
-			<!-- <groupId>com.vaadin</groupId> -->
-			<!-- <artifactId>vaadin-maven-plugin</artifactId> -->
-			<!-- <version>${vaadin.version}</version> -->
-			<!-- <executions> -->
-			<!-- <execution> -->
-			<!-- <goals> -->
-			<!-- <goal>update-theme</goal> -->
-			<!-- <goal>update-widgetset</goal> -->
-			<!-- <goal>compile</goal> -->
-			<!-- Comment out compile-theme goal to use on-the-fly theme compilation -->
-			<!-- <goal>compile-theme</goal> -->
-			<!-- </goals> -->
-			<!-- </execution> -->
-			<!-- </executions> -->
-			<!-- </plugin> -->
+<!-- 			<plugin> -->
+<!-- 				<groupId>com.vaadin</groupId> -->
+<!-- 				<artifactId>vaadin-maven-plugin</artifactId> -->
+<!-- 				<version>${vaadin.version}</version> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<goals> -->
+<!-- 							<goal>update-theme</goal> -->
+<!-- 							<goal>update-widgetset</goal> -->
+<!-- 							<goal>compile</goal> -->
+<!-- 							Comment out compile-theme goal to use on-the-fly theme compilation -->
+<!-- 							<goal>compile-theme</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -178,15 +178,6 @@
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>com.github.eirslett</groupId>
-				<artifactId>frontend-maven-plugin</artifactId>
-				<configuration>
-					<nodeVersion>v11.6.0</nodeVersion>
-					<!-- <npmVersion>2.15.9</npmVersion> -->
-				</configuration>
-				<version>1.8.0</version>
 			</plugin>
 			<plugin>
 				<groupId>com.vaadin</groupId>
