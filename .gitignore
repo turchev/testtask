@@ -40,8 +40,10 @@ project.conf
 other/
 tmp/
 out/
+node_modules/
 *.log
 *.pdf
 .directory
+*.js
 
 
