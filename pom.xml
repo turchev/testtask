@@ -20,7 +20,7 @@
 		<jetty.version>9.4.19.v20190610</jetty.version>
 		<log4j.version>2.12.1</log4j.version>
 		<hsqldb.version>2.5.0</hsqldb.version>
-		<vaadin.version>14.0.3</vaadin.version>
+		<vaadin.version>14.0.4</vaadin.version>
 	</properties>
 
 	<repositories>
@@ -63,7 +63,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.vaadin</groupId>
-			<artifactId>vaadin-core</artifactId>
+			<artifactId>vaadin</artifactId>
 		</dependency>
 
 		<!-- Added to provide logging output as Flow uses -->
@@ -83,16 +83,16 @@
 			<version>${hsqldb.version}</version>
 			<!-- <scope>test</scope> -->
 		</dependency>
-		<dependency>
-			<groupId>org.vaadin.addon</groupId>
-			<artifactId>confirmdialog</artifactId>
-			<version>3.2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>6.0.13.Final</version>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.vaadin.addon</groupId> -->
+		<!-- <artifactId>confirmdialog</artifactId> -->
+		<!-- <version>3.2.0</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.hibernate.validator</groupId> -->
+		<!-- <artifactId>hibernate-validator</artifactId> -->
+		<!-- <version>6.0.13.Final</version> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
