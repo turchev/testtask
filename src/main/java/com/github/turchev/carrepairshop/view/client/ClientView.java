@@ -61,6 +61,7 @@ public class ClientView extends AbstractView {
 		try {
 			ClientWindowAdd subWindowAdd = new ClientWindowAdd();
 //			UI.getCurrent().addWindow(subWindowAdd);
+			subWindowAdd.open();
 		} catch (Exception e) {
 			LOG.error(e);
 			Notification.show("Ошибка диалогового окна создания записи");

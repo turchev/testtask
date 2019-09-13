@@ -5,18 +5,23 @@ import org.apache.logging.log4j.Logger;
 
 import com.github.turchev.carrepairshop.domain.person.Mechanic;
 import com.github.turchev.carrepairshop.view.UiException;
-import com.vaadin.data.ValidationException;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.UI;
+import com.github.turchev.carrepairshop.view.client.ClientView;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.data.binder.ValidationException;
+
 
 @SuppressWarnings("serial")
 class MechanicWindowEdit extends MechanicWindowAbstract {
 	private static final Logger LOG = LogManager.getLogger();
+	private static final String LABEL = "Редактировать данные механика";
 	private Long id;
 
 	protected MechanicWindowEdit(Long id) throws UiException {
 		try {
-			super.setCaption("Редактировать данные механика");
+//			super.setCaption("Редактировать данные механика");
+			super.add(new Label(LABEL));
 			this.id = id;
 			Mechanic mechanic = super.mechanicDao.findById(id);
 			super.txtFirstName.setValue(mechanic.getFirstName());
@@ -42,7 +47,8 @@ class MechanicWindowEdit extends MechanicWindowAbstract {
 			binder.writeBean(mechanic);
 			mechanic.setId(id);
 			super.mechanicDao.update(mechanic);
-			UI.getCurrent().getNavigator().navigateTo(MechanicView.NAME);
+//			UI.getCurrent().getNavigator().navigateTo(MechanicView.NAME);
+			UI.getCurrent().navigate(MechanicView.NAME);
 			close();
 		} catch (ValidationException ev) {
 			LOG.debug(ev);

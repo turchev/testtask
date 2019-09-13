@@ -5,18 +5,18 @@ import com.github.turchev.carrepairshop.dao.DaoFactory;
 import com.github.turchev.carrepairshop.domain.person.Client;
 import com.github.turchev.carrepairshop.ds.DsType;
 import com.github.turchev.carrepairshop.view.UiException;
-import com.vaadin.data.Binder;
-import com.vaadin.data.validator.RegexpValidator;
-import com.vaadin.data.validator.StringLengthValidator;
-import com.vaadin.shared.ui.ValueChangeMode;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.validator.RegexpValidator;
+import com.vaadin.flow.data.validator.StringLengthValidator;
+import com.vaadin.flow.data.value.ValueChangeMode;
 
 @SuppressWarnings("serial")
-abstract class ClientWindowAbstract extends Window {
+abstract class ClientWindowAbstract extends Dialog {
 
 	protected TextField txtLastName, txtFirstName, txtPatronnymic, txtPhone;
 	protected ClientDao clientDao;
@@ -61,9 +61,9 @@ abstract class ClientWindowAbstract extends Window {
 			txtPhone.setSizeFull();
 
 			VerticalLayout vlLayout = new VerticalLayout(txtLastName, txtFirstName, txtPatronnymic, txtPhone);
-			this.setWidth(600.0f, Unit.PIXELS);
-			this.setModal(true);
-			this.setResizable(false);
+//			this.setWidth(600.0f, Unit.PIXELS);
+//			this.setModal(true);
+//			this.setResizable(false);
 			Button btnApple = new Button("Ok");
 			btnApple.addClickListener(event -> {
 				btnAppleClick();
@@ -73,8 +73,8 @@ abstract class ClientWindowAbstract extends Window {
 				btnCancelClick();
 			});
 			HorizontalLayout hLayout = new HorizontalLayout(btnApple, btnCancel);
-			vlLayout.addComponent(hLayout);
-			this.setContent(vlLayout);
+			vlLayout.add(hLayout);
+			this.add(vlLayout);
 		} catch (Exception e) {
 			throw new UiException(e);
 		}

@@ -5,18 +5,22 @@ import org.apache.logging.log4j.Logger;
 
 import com.github.turchev.carrepairshop.domain.person.Client;
 import com.github.turchev.carrepairshop.view.UiException;
-import com.vaadin.data.ValidationException;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.UI;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.data.binder.ValidationException;
+
 
 @SuppressWarnings("serial")
 class ClientWindowEdit extends ClientWindowAbstract {
 	private static final Logger LOG = LogManager.getLogger();
+	private static final String LABEL = "Редактировать данные клиента";
 	private Long id;
 
 	protected ClientWindowEdit(Long id) throws UiException {
 		try {
-			super.setCaption("Редактировать данные клиента");
+			super.add(new Label(LABEL));
+//			super.setCaption("Редактировать данные клиента");
 			this.id = id;
 			Client client = clientDao.findById(id);
 			super.txtFirstName.setValue(client.getFirstName());
@@ -41,7 +45,8 @@ class ClientWindowEdit extends ClientWindowAbstract {
 			super.binder.writeBean(client);			
 			client.setId(id);
 			super.clientDao.update(client);
-			UI.getCurrent().getNavigator().navigateTo(ClientView.NAME);
+//			UI.getCurrent().getNavigator().navigateTo(ClientView.NAME);
+			UI.getCurrent().navigate(ClientView.NAME);
 			close();
 		} catch (ValidationException ev) {
 			LOG.debug(ev);

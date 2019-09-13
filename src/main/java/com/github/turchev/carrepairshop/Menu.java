@@ -43,7 +43,7 @@ public class Menu extends VerticalLayout {
 		add(btnOrders, btnClient, btnMechanic);		
 		this.setSizeUndefined();		
 		UI.getCurrent().navigate(OrdersView.NAME);
-		UI.getCurrent().getPage().reload();	
+//		UI.getCurrent().getPage().reload();	
 	}
 
 	public void addView(Class<? extends Component> viewClass, String caption, Icon icon) {		

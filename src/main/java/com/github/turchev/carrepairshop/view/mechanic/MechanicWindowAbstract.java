@@ -2,27 +2,26 @@ package com.github.turchev.carrepairshop.view.mechanic;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.Locale;
 
 import com.github.turchev.carrepairshop.dao.DaoFactory;
 import com.github.turchev.carrepairshop.dao.MechanicDao;
 import com.github.turchev.carrepairshop.domain.person.Mechanic;
 import com.github.turchev.carrepairshop.ds.DsType;
 import com.github.turchev.carrepairshop.view.UiException;
-import com.vaadin.data.Binder;
-import com.vaadin.data.converter.StringToBigDecimalConverter;
-import com.vaadin.data.validator.BigDecimalRangeValidator;
-import com.vaadin.data.validator.RegexpValidator;
-import com.vaadin.data.validator.StringLengthValidator;
-import com.vaadin.shared.ui.ValueChangeMode;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.converter.StringToBigDecimalConverter;
+import com.vaadin.flow.data.validator.BigDecimalRangeValidator;
+import com.vaadin.flow.data.validator.RegexpValidator;
+import com.vaadin.flow.data.validator.StringLengthValidator;
+import com.vaadin.flow.data.value.ValueChangeMode;
 
 @SuppressWarnings("serial")
-abstract class MechanicWindowAbstract extends Window {
+abstract class MechanicWindowAbstract extends Dialog {
 
 	protected TextField txtLastName, txtFirstName, txtPatronnymic, txtWages;
 	protected DecimalFormat dcf = new DecimalFormat();
@@ -61,7 +60,7 @@ abstract class MechanicWindowAbstract extends Window {
 			txtPatronnymic.setSizeFull();
 
 			txtWages = new TextField("Почасовая оплата");
-			txtWages.setLocale(new Locale("en", "US"));
+//			txtWages.setLocale(new Locale("en", "US"));
 			txtWages.setValueChangeMode(ValueChangeMode.EAGER);
 			binder.forField(txtWages).withNullRepresentation("")
 					.withConverter(new StringToBigDecimalConverter("Введите сумму в формате 00000.00"))
@@ -71,9 +70,9 @@ abstract class MechanicWindowAbstract extends Window {
 			txtWages.setSizeFull();
 
 			VerticalLayout vlLayout = new VerticalLayout(txtLastName, txtFirstName, txtPatronnymic, txtWages);
-			this.setWidth(400.0f, Unit.PIXELS);
-			this.setModal(true);
-			this.setResizable(false);
+//			this.setWidth(400.0f, Unit.PIXELS);
+//			this.setModal(true);
+//			this.setResizable(false);
 			Button btnApple = new Button("Ok");
 			btnApple.addClickListener(event -> {
 				btnAppleClick();
@@ -83,8 +82,8 @@ abstract class MechanicWindowAbstract extends Window {
 				btnCancelClick();
 			});
 			HorizontalLayout hLayout = new HorizontalLayout(btnApple, btnCancel);
-			vlLayout.addComponent(hLayout);
-			this.setContent(vlLayout);
+			vlLayout.add(hLayout);
+			this.add(vlLayout);
 		} catch (Exception e) {
 			throw new UiException(e);
 		}

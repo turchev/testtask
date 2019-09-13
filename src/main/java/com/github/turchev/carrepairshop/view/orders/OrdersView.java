@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.claspina.confirmdialog.ConfirmDialog;
 
 import com.github.turchev.carrepairshop.MainLayout;
 import com.github.turchev.carrepairshop.dao.ClientDao;
@@ -16,7 +17,6 @@ import com.github.turchev.carrepairshop.view.AbstractView;
 import com.github.turchev.carrepairshop.view.UiException;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
-import com.vaadin.flow.component.confirmdialog.ConfirmDialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.notification.Notification;
@@ -165,17 +165,26 @@ public class OrdersView extends AbstractView {
 			final String MESSAGE_1 = "Удалить запись №" + selectedOrders.getId() + " " + selectedOrders.getDescription()
 					+ "?";
 
-			ConfirmDialog dialog = new ConfirmDialog("Внимание", MESSAGE_1, "Подтвердить", event -> {
-				try {
-					ordersDao.delete(selectedOrders.getId());
-					showAll();
-				} catch (Exception ex) {
-					LOG.error(ex);
-				}
-			}, "Отменить", event -> {
-				return;
-			});
-			dialog.open();
+//			ConfirmDialog.createQuestion()
+//		    .withCaption("System alert")
+//		    .withMessage("Do you want to continue?")
+//		    .withOkButton(() -> {
+//		        System.out.println("YES. Implement logic here.")
+//		    }, ButtonOption.focus(), ButtonOption.caption("YES"))
+//		    .withCancelButton(ButtonOption.caption("NO"))
+//		    .open();
+			
+//			ConfirmDialog dialog = new ConfirmDialog("Внимание", MESSAGE_1, "Подтвердить", event -> {
+//				try {
+//					ordersDao.delete(selectedOrders.getId());
+//					showAll();
+//				} catch (Exception ex) {
+//					LOG.error(ex);
+//				}
+//			}, "Отменить", event -> {
+//				return;
+//			});
+//			dialog.open();
 
 		} catch (Exception e) {
 			Notification.show("Не удалось выполнить удаление", 10000, Position.MIDDLE);
