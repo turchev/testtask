@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.claspina.confirmdialog.ButtonOption;
 import org.claspina.confirmdialog.ConfirmDialog;
 
 import com.github.turchev.carrepairshop.MainLayout;
@@ -165,15 +166,21 @@ public class OrdersView extends AbstractView {
 			final String MESSAGE_1 = "Удалить запись №" + selectedOrders.getId() + " " + selectedOrders.getDescription()
 					+ "?";
 
-//			ConfirmDialog.createQuestion()
-//		    .withCaption("System alert")
-//		    .withMessage("Do you want to continue?")
-//		    .withOkButton(() -> {
-//		        System.out.println("YES. Implement logic here.")
-//		    }, ButtonOption.focus(), ButtonOption.caption("YES"))
-//		    .withCancelButton(ButtonOption.caption("NO"))
-//		    .open();
-			
+			ConfirmDialog
+					.createQuestion()
+					.withCaption("Внимание")
+					.withMessage(MESSAGE_1)
+					.withOkButton(() -> {
+						try {
+							ordersDao.delete(selectedOrders.getId());
+							showAll();
+						} catch (Exception ex) {
+							LOG.error(ex);
+						}
+					}, ButtonOption.focus(), ButtonOption.caption("Подтвердить"))
+					.withCancelButton(ButtonOption.caption("Отменить"))
+					.open();
+
 //			ConfirmDialog dialog = new ConfirmDialog("Внимание", MESSAGE_1, "Подтвердить", event -> {
 //				try {
 //					ordersDao.delete(selectedOrders.getId());

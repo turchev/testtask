@@ -1,5 +1,6 @@
 package com.github.turchev.carrepairshop.view.orders;
 
+import com.vaadin.flow.data.validator.DateTimeRangeValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,6 +13,8 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.data.binder.ValidationException;
+
+import java.time.LocalDateTime;
 
 
 @SuppressWarnings("serial")
@@ -27,30 +30,30 @@ class OrdersWindowEdit extends OrdersWindowAbstract {
 			OrdersWithFio order = ordersDao.findById(id);
 			ShortName<Mechanic> mechanicFio = super.mechanicDao.getFioById(order.getMechanicId());
 			ShortName<Client> clientFio = super.clientDao.getFioById(order.getClientId());
-//			cmbClient.setSelectedItem(clientFio);
-//			cmbMechanic.setSelectedItem(mechanicFio);
-
+			cmbClient.setValue(clientFio);
+			cmbMechanic.setValue(mechanicFio);
+	
 			/**
 			 * При редактировании записи ограничения создания заявки -5 лет от текущей даты
 			 * до +5 лет
 			 */
-//			binder.forField(dtfDateCreat)
-//					.withValidator(new DateTimeRangeValidator("Дата создания вне диапазона",
-//							LocalDateTime.now().minusYears(5), LocalDateTime.now().plusYears(5)))
-//					.bind(OrdersWithFio::getDateCreat, OrdersWithFio::setDateCreat);
+			binder.forField(dtfDateCreat)
+					.withValidator(new DateTimeRangeValidator("Дата создания вне диапазона",
+							LocalDateTime.now().minusYears(5), LocalDateTime.now().plusYears(5)))
+					.bind(OrdersWithFio::getDateCreat, OrdersWithFio::setDateCreat);
 
 			/**
 			 * При редактировании записи ограничения даты завершения работ -5 лет от текущей
 			 * даты до +5 лет
 			 */
-//			binder.forField(dtfCompletionDate)
-//					.withValidator(new DateTimeRangeValidator("Дата завершения работ вне диапазона",
-//							LocalDateTime.now().minusYears(5), LocalDateTime.now().plusYears(5)))
-//					.bind(OrdersWithFio::getCompletionDate, OrdersWithFio::setCompletionDate);
+			binder.forField(dtfCompletionDate)
+					.withValidator(new DateTimeRangeValidator("Дата завершения работ вне диапазона",
+							LocalDateTime.now().minusYears(5), LocalDateTime.now().plusYears(5)))
+					.bind(OrdersWithFio::getCompletionDate, OrdersWithFio::setCompletionDate);
 
 			txrDescription.setValue(order.getDescription());
-//			dtfDateCreat.setValue(order.getDateCreat());
-//			dtfCompletionDate.setValue(order.getCompletionDate());
+			dtfDateCreat.setValue(order.getDateCreat());
+			dtfCompletionDate.setValue(order.getCompletionDate());
 			ntsStatus.setValue(order.getStatus());
 			txtPrice.setValue(order.getPrice().toString());
 		} catch (Exception e) {

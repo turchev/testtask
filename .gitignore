@@ -1,26 +1,29 @@
-#=== Exclude ===
+#=== Database ===
 #db/**
+db/*.properties
+db/*.lck
+
 
 #=== target directory ===
 target/
 
-#=== eclipse ===
-.settings/
-.project
-.classpath
+##=== eclipse ===
+#.settings/
+#.project
+#.classpath
 
-#=== modelio ===
-.runtime/
-data/
-project.conf
+##=== modelio ===
+#.runtime/
+#data/
+#project.conf
 
 #=== netbeans ===
 #netbeans
 #nb*.xml
 
 #=== idea ===
-#.idea/
-#*.iml
+.idea/
+*.iml
 
 #===  package ===
 *.jar
@@ -41,9 +44,11 @@ other/
 tmp/
 out/
 node_modules/
+node/
 *.log
 *.pdf
 .directory
 *.js
+*.json
 
 

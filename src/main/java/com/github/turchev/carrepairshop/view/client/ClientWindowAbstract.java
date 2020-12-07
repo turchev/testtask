@@ -62,8 +62,6 @@ abstract class ClientWindowAbstract extends Dialog {
 
 			VerticalLayout vlLayout = new VerticalLayout(txtLastName, txtFirstName, txtPatronnymic, txtPhone);
 //			this.setWidth(600.0f, Unit.PIXELS);
-//			this.setModal(true);
-//			this.setResizable(false);
 			Button btnApple = new Button("Ok");
 			btnApple.addClickListener(event -> {
 				btnAppleClick();

@@ -2,6 +2,7 @@ package com.github.turchev.carrepairshop.view.mechanic;
 
 import java.util.List;
 
+import com.github.turchev.carrepairshop.dao.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,6 +19,8 @@ import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import org.claspina.confirmdialog.ButtonOption;
+import org.claspina.confirmdialog.ConfirmDialog;
 
 
 @Route(value = MechanicView.NAME, layout = MainLayout.class)
@@ -56,7 +59,7 @@ public class MechanicView extends AbstractView {
 	private void btnShowStatClick() {
 		try {
 			MechanicWindowStat subWindowEdit = new MechanicWindowStat();
-//			UI.getCurrent().addWindow(subWindowEdit);
+			subWindowEdit.open();
 		} catch (Exception e) {
 			LOG.error(e);
 			Notification.show("Вывод статистического отчета завершился ошибкой");
@@ -77,7 +80,7 @@ public class MechanicView extends AbstractView {
 	protected void btnAddClick() {
 		try {
 			MechanicWindowAdd subWindowAdd = new MechanicWindowAdd();
-//			UI.getCurrent().addWindow(subWindowAdd);
+			subWindowAdd.open();
 		} catch (Exception e) {
 			LOG.error(e);
 			Notification.show("Ошибка диалогового окна создания записи");
@@ -93,7 +96,7 @@ public class MechanicView extends AbstractView {
 			}
 			Mechanic selectedMachanic = grid.asSingleSelect().getValue();
 			MechanicWindowEdit subWindowEdit = new MechanicWindowEdit(selectedMachanic.getId());
-//			UI.getCurrent().addWindow(subWindowEdit);
+			subWindowEdit.open();
 		} catch (Exception e) {
 			LOG.error(e);
 			Notification.show("Ошибка диалогового окна редактирования");
@@ -102,15 +105,33 @@ public class MechanicView extends AbstractView {
 
 	@Override
 	protected void btnDeleteClick() {
-//		try {
-//			if (grid.asSingleSelect().isEmpty()) {
-//				Notification.show("Выберите механика из списка");
-//				return;
-//			}
-//			Mechanic selectedMachanic = grid.asSingleSelect().getValue();
-//			final String MESSAGE_1 = "Удаление записи " + selectedMachanic.getLastName() + " "
-//					+ selectedMachanic.getFirstName() + " " + selectedMachanic.getPatronnymic() + "?";
-//
+		try {
+			if (grid.asSingleSelect().isEmpty()) {
+				Notification.show("Выберите механика из списка");
+				return;
+			}
+			Mechanic selectedMachanic = grid.asSingleSelect().getValue();
+			final String MESSAGE_1 = "Удаление записи " + selectedMachanic.getLastName() + " "
+					+ selectedMachanic.getFirstName() + " " + selectedMachanic.getPatronnymic() + "?";
+			ConfirmDialog
+					.createWarning()
+					.withCaption("Внимание")
+					.withMessage(MESSAGE_1)
+					.withOkButton(() -> {
+						try {
+							mechanicDao.delete(selectedMachanic.getId());
+							showAll();
+						} catch (DaoException ex) {
+							LOG.debug(ex);
+							Notification.show(ex.getMessage());
+						} catch (UiException xe) {
+							LOG.error(xe);
+							Notification.show("Не удалось выполнить удаление");
+						}
+					}, ButtonOption.focus(), ButtonOption.caption("Подтвердить"))
+					.withCancelButton(ButtonOption.caption("Отменить"))
+					.open();
+
 //			ConfirmDialog.show(getUI(), "Внимание", MESSAGE_1, "Подтвердить", "Отменить", dialog -> {
 //				if (dialog.isConfirmed()) {
 //					try {
@@ -127,15 +148,10 @@ public class MechanicView extends AbstractView {
 //					return;
 //				}
 //			});
-//
-//		} catch (Exception e) {
-//			LOG.error(e);
-//			Notification.show("Не удалось выполнить удаление");
-//		}
-	}
 
-//	@Override
-//	public void enter(ViewChangeEvent event) {
-//		LOG.debug("Welcome to Mechanic View");
-//	}
+		} catch (Exception e) {
+			LOG.error(e);
+			Notification.show("Не удалось выполнить удаление");
+		}
+	}
 }

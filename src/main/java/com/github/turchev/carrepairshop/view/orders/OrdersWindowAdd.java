@@ -1,5 +1,6 @@
 package com.github.turchev.carrepairshop.view.orders;
 
+import com.vaadin.flow.data.validator.DateTimeRangeValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,6 +12,8 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.data.binder.ValidationException;
+
+import java.time.LocalDateTime;
 
 
 @SuppressWarnings("serial")
@@ -27,20 +30,20 @@ class OrdersWindowAdd extends OrdersWindowAbstract {
 			 * При оформлении новой записи ограничения создания с текущей даты -1час до
 			 * +10дней
 			 */
-//			binder.forField(super.dtfDateCreat)
-//					.withValidator(new DateTimeRangeValidator("Введите корректную дату создания заявки",
-//							LocalDateTime.now().minusHours(1), LocalDateTime.now().plusDays(10)))
-//					.bind(OrdersWithFio::getDateCreat, OrdersWithFio::setDateCreat);
-//			super.dtfDateCreat.setValue(LocalDateTime.now());
+			binder.forField(super.dtfDateCreat)
+					.withValidator(new DateTimeRangeValidator("Введите корректную дату создания заявки",
+							LocalDateTime.now().minusHours(1), LocalDateTime.now().plusDays(10)))
+					.bind(OrdersWithFio::getDateCreat, OrdersWithFio::setDateCreat);
+			super.dtfDateCreat.setValue(LocalDateTime.now());
 
 			/**
 			 * При оформлении новой записи ограничения на завершения работ с текущей даты
 			 * -1час до +5лет
 			 */
-//			binder.forField(dtfCompletionDate)
-//					.withValidator(new DateTimeRangeValidator("Введите корректную дату завершения работ",
-//							LocalDateTime.now().minusHours(1), LocalDateTime.now().plusYears(5)))
-//					.bind(OrdersWithFio::getCompletionDate, OrdersWithFio::setCompletionDate);
+			binder.forField(dtfCompletionDate)
+					.withValidator(new DateTimeRangeValidator("Введите корректную дату завершения работ",
+							LocalDateTime.now().minusHours(1), LocalDateTime.now().plusYears(5)))
+					.bind(OrdersWithFio::getCompletionDate, OrdersWithFio::setCompletionDate);
 
 		} catch (Exception e) {
 			throw new UiException(e);
