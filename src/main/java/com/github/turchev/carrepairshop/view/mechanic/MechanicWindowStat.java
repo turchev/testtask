@@ -1,14 +1,15 @@
 package com.github.turchev.carrepairshop.view.mechanic;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.github.appreciated.apexcharts.ApexChartsBuilder;
+import com.github.appreciated.apexcharts.config.builder.*;
+import com.github.appreciated.apexcharts.config.chart.Type;
+import com.github.appreciated.apexcharts.config.plotoptions.bar.builder.ColorsBuilder;
+import com.github.appreciated.apexcharts.config.plotoptions.builder.BarBuilder;
+import com.github.appreciated.apexcharts.helper.Series;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-//import com.byteowls.vaadin.chartjs.ChartJs;
-//import com.byteowls.vaadin.chartjs.config.BarChartConfig;
-//import com.byteowls.vaadin.chartjs.data.BarDataset;
 import com.github.turchev.carrepairshop.dao.DaoFactory;
 import com.github.turchev.carrepairshop.dao.MechanicDao;
 import com.github.turchev.carrepairshop.domain.person.Mechanic;
@@ -17,6 +18,9 @@ import com.github.turchev.carrepairshop.view.UiException;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("serial")
 class MechanicWindowStat extends Dialog {
@@ -28,76 +32,87 @@ class MechanicWindowStat extends Dialog {
 		try {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			mechanicDao = hsqlDaoFactory.getMechanicDao();
-//			VerticalLayout vlLayout = new VerticalLayout(getChart());
-//			this.add(vlLayout);
+			VerticalLayout vlLayout = new VerticalLayout(getChart());
+			vlLayout.setSizeFull();
+			this.add(vlLayout);
+			setSizeFull();
 		} catch (Exception e) {
 			throw new UiException(e);
 		}
 		LOG.debug("Created MechanicWindowStat");
 	}
 
-//	protected Component getChart() throws UiException {
-//		/**
-//		 * Разбираться в дебрях ChartJs не стал, просто подогнал под свою задачу один из
-//		 * примеров
-//		 */
-//
-//		try {
-//			List<Mechanic.Stat> mechanicStat = mechanicDao.getStatAll();
-//			LOG.debug(mechanicStat);
-//			List<String> fio = new ArrayList<>();
-//			List<Double> dataOrdersSum = new ArrayList<>();
-//			List<Double> dataPriceSum = new ArrayList<>();
-//			for (Mechanic.Stat itrMechanicStat : mechanicStat) {
-//				fio.add(itrMechanicStat.getMechanicFio());
-//				dataOrdersSum.add(itrMechanicStat.getOrdersSum().doubleValue());
-//				dataPriceSum.add(itrMechanicStat.getPriceSum().doubleValue());
-//			}
-//			
-//			BarChartConfig barConfig = new BarChartConfig();
-//			barConfig.horizontal();
-//			barConfig.data().labelsAsList(fio);
-////			barConfig.data().addDataset(new BarDataset().backgroundColor("rgba(220,220,220,0.5)").label("Заявки(шт)"))
-////					.and().options().responsive(true).title().display(true).text("Общее количество заявок").and()
-////					.scales()
-////					.add(Axis.X,
-////							new LinearScale().display(true).scaleLabel().display(true).and().ticks().suggestedMin(0)
-////									.and().position(Position.LEFT))
-////					.and().elements().rectangle().borderWidth(2).borderColor("rgb(0, 255, 0)")
-////					.borderSkipped(Rectangle.RectangleEdge.LEFT).and().and().legend().fullWidth(false)
-////					.position(Position.LEFT).and().done();
-//
-//			BarDataset bds = (BarDataset) barConfig.data().getDatasetAtIndex(0);
-//			bds.dataAsList(dataOrdersSum);
-//		
-//			ChartJs chart = new ChartJs(barConfig);
-////			chart.setWidth(1400.0f, Unit.PIXELS);
-////			chart.setHeight(300.0f, Unit.PIXELS);
-//			
-//			BarChartConfig barConfig2 = new BarChartConfig();
-//			barConfig2.horizontal();
-//			barConfig2.data().labelsAsList(fio);
-////			barConfig2.data().addDataset(new BarDataset().backgroundColor("rgba(220,220,220,0.5)").label("Стоимость(руб)"))
-////					.and().options().responsive(true).title().display(true).text("Суммарная стоимость работ").and()
-////					.scales()
-////					.add(Axis.X,
-////							new LinearScale().display(true).scaleLabel().display(true).and().ticks().suggestedMin(0)
-////									.and().position(Position.LEFT))
-////					.and().elements().rectangle().borderWidth(2).borderColor("rgb(0, 255, 0)")
-////					.borderSkipped(Rectangle.RectangleEdge.LEFT).and().and().legend().fullWidth(false)
-////					.position(Position.LEFT).and().done();
-//
-//			BarDataset bds2 = (BarDataset) barConfig2.data().getDatasetAtIndex(0);
-//			bds2.dataAsList(dataPriceSum);
-//		
-//			ChartJs chart2 = new ChartJs(barConfig2);
-////			chart2.setWidth(1400.0f, Unit.PIXELS);
-////			chart2.setHeight(300.0f, Unit.PIXELS);		
-//
-////			return new VerticalLayout(chart, chart2);			
-//			
-//		} catch (Exception e) {
-//			throw new UiException(e);
-//		}
-//	}
+	protected Component getChart() throws UiException {
+		/**
+		 * 		https://github.com/appreciated/apexcharts-flow
+		 */
+		ApexChartsBuilder barChartOrderSum = new ApexChartsBuilder();
+		ApexChartsBuilder barChartPriceSum = new ApexChartsBuilder();
+
+		try {
+			List<Mechanic.Stat> mechanicStat = mechanicDao.getStatAll();
+			LOG.debug(mechanicStat);
+			List<String> fio = new ArrayList<>();
+			List<Double> dataOrdersSum = new ArrayList<>();
+			List<Double> dataPriceSum = new ArrayList<>();
+			for (Mechanic.Stat itrMechanicStat : mechanicStat) {
+				fio.add(itrMechanicStat.getMechanicFio());
+				dataOrdersSum.add(itrMechanicStat.getOrdersSum().doubleValue());
+				dataPriceSum.add(itrMechanicStat.getPriceSum().doubleValue());
+			}
+
+			barChartOrderSum.withChart(ChartBuilder.get()
+						.withType(Type.bar)
+						.build())
+						.withPlotOptions(PlotOptionsBuilder.get()
+								.withBar(BarBuilder.get()
+										.withHorizontal(true)
+										.withColors(ColorsBuilder.get()
+												.build())
+										.build())
+								.build())
+						.withDataLabels(DataLabelsBuilder.get()
+								.withEnabled(false).build())
+						.withStroke(StrokeBuilder.get()
+								.withShow(true)
+								.withColors("transparent")
+								.build())
+						.withSeries(new Series<>("Количество заказаов", dataOrdersSum.toArray()))
+						.withXaxis(XAxisBuilder.get().withCategories(fio).build())
+						.withFill(FillBuilder.get().build());
+			VerticalLayout chart1 = new VerticalLayout(barChartOrderSum.build());
+			chart1.setWidth("50em");
+
+			barChartPriceSum.withChart(ChartBuilder.get()
+					.withType(Type.bar)
+					.build())
+					.withPlotOptions(PlotOptionsBuilder.get()
+							.withBar(BarBuilder.get()
+									.withHorizontal(true)
+									.withColors(ColorsBuilder.get()
+											.build())
+									.build())
+							.build())
+					.withDataLabels(DataLabelsBuilder.get()
+							.withEnabled(false)
+							.build())
+					.withStroke(StrokeBuilder.get()
+							.withShow(true)
+							.withColors("transparent")
+							.build())
+					.withSeries(new Series<>("Стоимость", dataPriceSum.toArray()))
+					.withXaxis(XAxisBuilder.get().withCategories(fio).build())
+					.withFill(FillBuilder.get()
+							.build());
+			VerticalLayout chart2 = new VerticalLayout(barChartPriceSum.build());
+			chart2.setWidth("50em");
+
+			return new HorizontalLayout(chart1, chart2);
+
+		} catch (Exception e) {
+			throw new UiException(e);
+		}
+	}
 }
+
+

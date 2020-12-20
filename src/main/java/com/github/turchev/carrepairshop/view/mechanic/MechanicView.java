@@ -3,6 +3,8 @@ package com.github.turchev.carrepairshop.view.mechanic;
 import java.util.List;
 
 import com.github.turchev.carrepairshop.dao.DaoException;
+import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -131,23 +133,6 @@ public class MechanicView extends AbstractView {
 					}, ButtonOption.focus(), ButtonOption.caption("Подтвердить"))
 					.withCancelButton(ButtonOption.caption("Отменить"))
 					.open();
-
-//			ConfirmDialog.show(getUI(), "Внимание", MESSAGE_1, "Подтвердить", "Отменить", dialog -> {
-//				if (dialog.isConfirmed()) {
-//					try {
-//						mechanicDao.delete(selectedMachanic.getId());
-//						showAll();
-//					} catch (DaoException ex) {
-//						LOG.debug(ex);
-//						Notification.show(ex.getMessage());
-//					} catch (UiException xe) {
-//						LOG.error(xe);
-//						Notification.show("Не удалось выполнить удаление");
-//					}
-//				} else {
-//					return;
-//				}
-//			});
 
 		} catch (Exception e) {
 			LOG.error(e);
