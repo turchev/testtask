@@ -13,12 +13,12 @@ import com.vaadin.flow.theme.Theme;
 @PageTitle(ErrorView.NAME)
 public class ErrorView extends VerticalLayout {
 	public static final String NAME = "error";
-//
-//	public ErrorView() {
-//		this.setSizeFull();	
-//		this.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
-//		Label lblEroor = new Label("ERROR");		
-//		lblEroor.addStyleName("errorLabel");	
-//		this.addComponent(lblEroor);
-//	}
+
+	public ErrorView() {
+		this.setSizeFull();
+		this.setAlignItems(Alignment.CENTER);
+		Label lblError = new Label("ERROR");
+//		lblError.addStyleName("errorLabel");
+		this.add(lblError);
+	}
 }

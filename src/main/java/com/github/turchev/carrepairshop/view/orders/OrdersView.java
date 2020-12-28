@@ -28,7 +28,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 @SuppressWarnings("serial")
-@Route(value = OrdersView.NAME, layout = MainLayout.class)
+@Route(value ="" , layout = MainLayout.class)
 @PageTitle(OrdersView.NAME)
 public class OrdersView extends AbstractView {
 	private static final Logger LOG = LogManager.getLogger();
@@ -140,7 +140,7 @@ public class OrdersView extends AbstractView {
 	}
 
 	@Override
-	protected void btnChangeClick() {
+	protected synchronized void btnChangeClick() {
 		try {
 			if (grid.asSingleSelect().isEmpty()) {
 				Notification.show("Выберите заказ из списка", 4000, Position.MIDDLE);
@@ -180,19 +180,6 @@ public class OrdersView extends AbstractView {
 					}, ButtonOption.focus(), ButtonOption.caption("Подтвердить"))
 					.withCancelButton(ButtonOption.caption("Отменить"))
 					.open();
-
-//			ConfirmDialog dialog = new ConfirmDialog("Внимание", MESSAGE_1, "Подтвердить", event -> {
-//				try {
-//					ordersDao.delete(selectedOrders.getId());
-//					showAll();
-//				} catch (Exception ex) {
-//					LOG.error(ex);
-//				}
-//			}, "Отменить", event -> {
-//				return;
-//			});
-//			dialog.open();
-
 		} catch (Exception e) {
 			Notification.show("Не удалось выполнить удаление", 10000, Position.MIDDLE);
 		}

@@ -1,5 +1,6 @@
 package com.github.turchev.carrepairshop.view.orders;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.data.validator.DateTimeRangeValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -98,7 +99,7 @@ class OrdersWindowEdit extends OrdersWindowAbstract {
 			order.setStatus(ntsStatus.getValue());
 			order.setId(id);
 			super.ordersDao.update(order);
-//			UI.getCurrent().getNavigator().navigateTo(OrdersView.NAME);
+//			UI.getCurrent().navigate("");
 			close();
 		} catch (ValidationException ev) {
 			LOG.debug(ev);
