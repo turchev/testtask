@@ -49,21 +49,29 @@ public class ClientView extends AbstractView {
         }
     }
 
-    private void showAll() throws UiException {
+    private void showAll(){
         try {
-            Notification.show("Client!!!!!");
             List<Client> clients = clientDao.findAll();
             grid.setItems(clients);
         } catch (Exception e) {
-            throw new UiException(e);
+            LOG.error(e);
         }
+    }
+
+    private <T extends ClientDialogAbstract> void refreshGridAfterClosingDialog(T dialog) {
+        dialog.addOpenedChangeListener(event -> {
+            if (!event.isOpened()) {
+                showAll();
+            }
+        });
     }
 
     @Override
     protected void btnAddClick() {
         try {
-            ClientWindowAdd subWindowAdd = new ClientWindowAdd();
+            ClientDialogAdd subWindowAdd = new ClientDialogAdd();
             subWindowAdd.open();
+            refreshGridAfterClosingDialog(subWindowAdd);
         } catch (Exception e) {
             LOG.error(e);
             Notification.show("Ошибка диалогового окна создания записи");
@@ -78,8 +86,9 @@ public class ClientView extends AbstractView {
                 return;
             }
             Client selectedClient = grid.asSingleSelect().getValue();
-            ClientWindowEdit subWindowEdit = new ClientWindowEdit(selectedClient.getId());
+            ClientDialogEdit subWindowEdit = new ClientDialogEdit(selectedClient.getId());
             subWindowEdit.open();
+            refreshGridAfterClosingDialog(subWindowEdit);
         } catch (Exception e) {
             LOG.error(e);
             Notification.show("Ошибка диалогового окна редактирования");
@@ -107,7 +116,7 @@ public class ClientView extends AbstractView {
                         } catch (DaoException ex) {
                             LOG.debug(ex);
                             Notification.show(ex.getMessage());
-                        } catch (UiException xe) {
+                        } catch (Exception xe) {
                             LOG.error(xe);
                             Notification.show("Не удалось выполнить удаление");
                         }

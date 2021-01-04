@@ -19,12 +19,12 @@ import java.time.LocalDateTime;
 
 
 @SuppressWarnings("serial")
-class OrdersWindowEdit extends OrdersWindowAbstract {
+class OrdersDialogEdit extends OrdersDialogAbstract {
 	private static final Logger LOG = LogManager.getLogger();
 	private static final String LABEL = "Редактирование заявки";
 	private Long id;
 
-	protected OrdersWindowEdit(Long id) throws UiException {
+	protected OrdersDialogEdit(Long id) throws UiException {
 		try {
 			super.add(new Label(LABEL));
 			this.id = id;
@@ -38,10 +38,10 @@ class OrdersWindowEdit extends OrdersWindowAbstract {
 			 * При редактировании записи ограничения создания заявки -5 лет от текущей даты
 			 * до +5 лет
 			 */
-			binder.forField(dtfDateCreat)
+			binder.forField(dtfDateCreate)
 					.withValidator(new DateTimeRangeValidator("Дата создания вне диапазона",
 							LocalDateTime.now().minusYears(5), LocalDateTime.now().plusYears(5)))
-					.bind(OrdersWithFio::getDateCreat, OrdersWithFio::setDateCreat);
+					.bind(OrdersWithFio::getDateCreate, OrdersWithFio::setDateCreat);
 
 			/**
 			 * При редактировании записи ограничения даты завершения работ -5 лет от текущей
@@ -53,10 +53,10 @@ class OrdersWindowEdit extends OrdersWindowAbstract {
 					.bind(OrdersWithFio::getCompletionDate, OrdersWithFio::setCompletionDate);
 
 			txrDescription.setValue(order.getDescription());
-			dtfDateCreat.setValue(order.getDateCreat());
+			dtfDateCreate.setValue(order.getDateCreate());
 			dtfCompletionDate.setValue(order.getCompletionDate());
 			ntsStatus.setValue(order.getStatus());
-			txtPrice.setValue(order.getPrice().toString());
+			dcfPrice.setValue(order.getPrice());
 		} catch (Exception e) {
 			throw new UiException(e);
 		}
@@ -86,7 +86,7 @@ class OrdersWindowEdit extends OrdersWindowAbstract {
 			Notification.show("Задайте статус заявки", 4000, Position.MIDDLE);
 			return;
 		}
-		if (dtfDateCreat.isEmpty()) {
+		if (dtfDateCreate.isEmpty()) {
 			Notification.show("Укажите дату заявки", 4000, Position.MIDDLE);
 			return;
 		}
@@ -99,7 +99,6 @@ class OrdersWindowEdit extends OrdersWindowAbstract {
 			order.setStatus(ntsStatus.getValue());
 			order.setId(id);
 			super.ordersDao.update(order);
-//			UI.getCurrent().navigate("");
 			close();
 		} catch (ValidationException ev) {
 			LOG.debug(ev);

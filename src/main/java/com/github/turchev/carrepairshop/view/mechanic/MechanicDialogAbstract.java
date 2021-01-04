@@ -1,67 +1,71 @@
-package com.github.turchev.carrepairshop.view.client;
+package com.github.turchev.carrepairshop.view.mechanic;
 
-import com.github.turchev.carrepairshop.dao.ClientDao;
+import java.math.BigDecimal;
+
 import com.github.turchev.carrepairshop.dao.DaoFactory;
-import com.github.turchev.carrepairshop.domain.person.Client;
+import com.github.turchev.carrepairshop.dao.MechanicDao;
+import com.github.turchev.carrepairshop.domain.person.Mechanic;
 import com.github.turchev.carrepairshop.ds.DsType;
 import com.github.turchev.carrepairshop.view.UiException;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.BigDecimalField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.validator.BigDecimalRangeValidator;
 import com.vaadin.flow.data.validator.RegexpValidator;
 import com.vaadin.flow.data.validator.StringLengthValidator;
 import com.vaadin.flow.data.value.ValueChangeMode;
 
 @SuppressWarnings("serial")
-abstract class ClientWindowAbstract extends Dialog {
+abstract class MechanicDialogAbstract extends Dialog {
 
-	protected TextField txtLastName, txtFirstName, txtPatronnymic, txtPhone;
-	protected ClientDao clientDao;
-	protected Binder<Client> binder;	
-	
-	protected ClientWindowAbstract() throws UiException {
+	protected TextField txtLastName, txtFirstName, txtPatronnymic;
+	protected BigDecimalField dcfWages;
+	protected MechanicDao mechanicDao;
+	protected Binder<Mechanic> binder;
+
+	protected MechanicDialogAbstract() throws UiException {
 		try {
-			clientDao = DaoFactory.getFactory(DsType.HSQLDB).getClientDao();
-			binder = new Binder<>(Client.class);
-			binder.setBean(new Client());
-
-			txtFirstName = new TextField("Имя");
-			binder.forField(txtFirstName)
-					.withValidator(new RegexpValidator("Допустимы только символы русского алфавита и дефис ",
-							"[а-яА-Я]+-?[а-яА-Я]+"))
-					.withValidator(new StringLengthValidator("Максимум 40 символов", 0, 40))
-					.bind(Client::getFirstName, Client::setFirstName);
-			txtFirstName.setSizeFull();
+			mechanicDao = DaoFactory.getFactory(DsType.HSQLDB).getMechanicDao();
+			binder = new Binder<>(Mechanic.class);
+			binder.setBean(new Mechanic());
 
 			txtLastName = new TextField("Фамилия");
 			binder.forField(txtLastName)
 					.withValidator(new RegexpValidator("Допустимы только символы русского алфавита и дефис ",
 							"[а-яА-Я]+-?[а-яА-Я]+"))
 					.withValidator(new StringLengthValidator("Максимум 40 символов", 0, 40))
-					.bind(Client::getLastName, Client::setLastName);
+					.bind(Mechanic::getLastName, Mechanic::setLastName);
 			txtLastName.setSizeFull();
+
+			txtFirstName = new TextField("Имя");
+			binder.forField(txtFirstName)
+					.withValidator(new RegexpValidator("Допустимы только символы русского алфавита и дефис ",
+							"[а-яА-Я]+-?[а-яА-Я]+"))
+					.withValidator(new StringLengthValidator("Максимум 40 символов", 0, 40))
+					.bind(Mechanic::getFirstName, Mechanic::setFirstName);
+			txtFirstName.setSizeFull();
 
 			txtPatronnymic = new TextField("Отчество");
 			binder.forField(txtPatronnymic)
 					.withValidator(new RegexpValidator("Допустимы только символы русского алфавита и дефис ",
 							"[а-яА-Я]+-?[а-яА-Я]+"))
 					.withValidator(new StringLengthValidator("Максимум 40 символов", 0, 40))
-					.bind(Client::getPatronnymic, Client::setPatronnymic);
+					.bind(Mechanic::getPatronnymic, Mechanic::setPatronnymic);
 			txtPatronnymic.setSizeFull();
 
-			txtPhone = new TextField("Телефон");
-			txtPhone.setValueChangeMode(ValueChangeMode.EAGER);
-			binder.forField(txtPhone)
-					.withValidator(new RegexpValidator("Введите номер в формате +7(XXX)XXX-XX-XX",
-							"^\\+7\\([0-9]{3}\\)[0-9]{3}\\-[0-9]{2}\\-[0-9]{2}$"))
-					.bind(Client::getPhone, Client::setPhone);
-			txtPhone.setSizeFull();
+			dcfWages = new BigDecimalField("Почасовая оплата");
+			dcfWages.setValueChangeMode(ValueChangeMode.EAGER);
+			binder.forField(dcfWages)
+					.withValidator(new BigDecimalRangeValidator("Столько механики не зарабатывают", new BigDecimal(10),
+							new BigDecimal(10000)))
+					.bind(Mechanic::getWages, Mechanic::setWages);
+			dcfWages.setSizeFull();
 
-			VerticalLayout vlLayout = new VerticalLayout(txtLastName, txtFirstName, txtPatronnymic, txtPhone);
-//			this.setWidth(600.0f, Unit.PIXELS);
+			VerticalLayout vlLayout = new VerticalLayout(txtLastName, txtFirstName, txtPatronnymic, dcfWages);
 			Button btnApple = new Button("Ok");
 			btnApple.addClickListener(event -> {
 				btnAppleClick();

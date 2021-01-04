@@ -1,9 +1,9 @@
-package com.github.turchev.carrepairshop.view.client;
+package com.github.turchev.carrepairshop.view.mechanic;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.github.turchev.carrepairshop.domain.person.Client;
+import com.github.turchev.carrepairshop.domain.person.Mechanic;
 import com.github.turchev.carrepairshop.view.UiException;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Label;
@@ -12,13 +12,17 @@ import com.vaadin.flow.data.binder.ValidationException;
 
 
 @SuppressWarnings("serial")
-class ClientWindowAdd extends ClientWindowAbstract {
+class MechanicDialogAdd extends MechanicDialogAbstract {
 	private static final Logger LOG = LogManager.getLogger();
-	private static final String LABEL = "Создать запись о клиенте";
+	private static final String LABEL = "Создать запись о механике";
 
-	protected ClientWindowAdd() throws UiException {
-		super.add(new Label(LABEL));
-		LOG.debug("Created ClientWindowAdd");
+	protected MechanicDialogAdd() throws UiException {
+		try {
+			super.add(new Label(LABEL));
+		} catch (Exception e) {
+			throw new UiException(e);
+		}
+		LOG.debug("Created MechanicWindowAdd");
 	}
 
 	@Override
@@ -29,11 +33,9 @@ class ClientWindowAdd extends ClientWindowAbstract {
 	@Override
 	protected void btnAppleClick() {
 		try {
-			Client client = new Client();
-			super.binder.writeBean(client);
-			super.clientDao.create(client);
-			UI.getCurrent().navigate(ClientView.NAME);
-//			UI.getCurrent().getNavigator().navigateTo(ClientView.NAME);
+			Mechanic mechanic = new Mechanic();
+			binder.writeBean(mechanic);
+			super.mechanicDao.create(mechanic);
 			close();
 		} catch (ValidationException ev) {
 			LOG.debug(ev);

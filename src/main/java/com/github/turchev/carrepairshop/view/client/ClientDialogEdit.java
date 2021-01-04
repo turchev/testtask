@@ -12,12 +12,12 @@ import com.vaadin.flow.data.binder.ValidationException;
 
 
 @SuppressWarnings("serial")
-class ClientWindowEdit extends ClientWindowAbstract {
+class ClientDialogEdit extends ClientDialogAbstract {
 	private static final Logger LOG = LogManager.getLogger();
 	private static final String LABEL = "Редактировать данные клиента";
 	private Long id;
 
-	protected ClientWindowEdit(Long id) throws UiException {
+	protected ClientDialogEdit(Long id) throws UiException {
 		try {
 			super.add(new Label(LABEL));
 //			super.setCaption("Редактировать данные клиента");
@@ -45,8 +45,6 @@ class ClientWindowEdit extends ClientWindowAbstract {
 			super.binder.writeBean(client);			
 			client.setId(id);
 			super.clientDao.update(client);
-//			UI.getCurrent().getNavigator().navigateTo(ClientView.NAME);
-			UI.getCurrent().navigate(ClientView.NAME);
 			close();
 		} catch (ValidationException ev) {
 			LOG.debug(ev);

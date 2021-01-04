@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.github.turchev.carrepairshop.domain.person.Mechanic;
 import com.github.turchev.carrepairshop.view.UiException;
-import com.github.turchev.carrepairshop.view.client.ClientView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
@@ -13,21 +12,20 @@ import com.vaadin.flow.data.binder.ValidationException;
 
 
 @SuppressWarnings("serial")
-class MechanicWindowEdit extends MechanicWindowAbstract {
+class MechanicDialogEdit extends MechanicDialogAbstract {
 	private static final Logger LOG = LogManager.getLogger();
 	private static final String LABEL = "Редактировать данные механика";
 	private Long id;
 
-	protected MechanicWindowEdit(Long id) throws UiException {
+	protected MechanicDialogEdit(Long id) throws UiException {
 		try {
-//			super.setCaption("Редактировать данные механика");
 			super.add(new Label(LABEL));
 			this.id = id;
 			Mechanic mechanic = super.mechanicDao.findById(id);
 			super.txtFirstName.setValue(mechanic.getFirstName());
 			super.txtLastName.setValue(mechanic.getLastName());
 			super.txtPatronnymic.setValue(mechanic.getPatronnymic());
-			super.txtWages.setValue(mechanic.getWages().toString());
+			super.dcfWages.setValue(mechanic.getWages());
 		} catch (Exception e) {
 			throw new UiException(e);
 		}
@@ -47,8 +45,6 @@ class MechanicWindowEdit extends MechanicWindowAbstract {
 			binder.writeBean(mechanic);
 			mechanic.setId(id);
 			super.mechanicDao.update(mechanic);
-//			UI.getCurrent().getNavigator().navigateTo(MechanicView.NAME);
-			UI.getCurrent().navigate(MechanicView.NAME);
 			close();
 		} catch (ValidationException ev) {
 			LOG.debug(ev);
@@ -58,18 +54,4 @@ class MechanicWindowEdit extends MechanicWindowAbstract {
 			Notification.show("Не удалось сохранить запись");
 		}
 	}
-	
-//		try {
-//			Mechanic mechanic = new Mechanic(super.txtLastName.getValue(), super.txtFirstName.getValue(),
-//					super.txtPatronnymic.getValue());
-//			mechanic.setWages((BigDecimal) super.dcf.parse(super.txtWages.getValue()));
-//			mechanic.setId(id);
-//			super.mechanicDao.update(mechanic);
-//			UI.getCurrent().getNavigator().navigateTo(MechanicView.NAME);
-//			close();
-//		} catch (Exception e) {
-//			LOG.error(e);
-//			Notification.show("Не удалось сохранить запись");
-//		}
-//	}
 }

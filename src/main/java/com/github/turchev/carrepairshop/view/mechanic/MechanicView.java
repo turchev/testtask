@@ -3,8 +3,6 @@ package com.github.turchev.carrepairshop.view.mechanic;
 import java.util.List;
 
 import com.github.turchev.carrepairshop.dao.DaoException;
-import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -58,9 +56,26 @@ public class MechanicView extends AbstractView {
 		}
 	}
 
+	private void showAll(){
+		try {
+			List<Mechanic> mechanic = mechanicDao.findAll();
+			grid.setItems(mechanic);
+		} catch (Exception e) {
+			LOG.error(e);
+		}
+	}
+
+	private <T extends MechanicDialogAbstract> void refreshGridAfterClosingDialog(T dialog) {
+		dialog.addOpenedChangeListener(event -> {
+			if (!event.isOpened()) {
+				showAll();
+			}
+		});
+	}
+
 	private void btnShowStatClick() {
 		try {
-			MechanicWindowStat subWindowEdit = new MechanicWindowStat();
+			MechanicDialogStat subWindowEdit = new MechanicDialogStat();
 			subWindowEdit.open();
 		} catch (Exception e) {
 			LOG.error(e);
@@ -68,21 +83,12 @@ public class MechanicView extends AbstractView {
 		}
 	}
 
-	private void showAll() throws UiException {
-		try {
-			Notification.show("Mechanic!!!!!");
-			List<Mechanic> mechanic = mechanicDao.findAll();
-			grid.setItems(mechanic);
-		} catch (Exception e) {
-			throw new UiException(e);
-		}
-	}
-
 	@Override
 	protected void btnAddClick() {
 		try {
-			MechanicWindowAdd subWindowAdd = new MechanicWindowAdd();
+			MechanicDialogAdd subWindowAdd = new MechanicDialogAdd();
 			subWindowAdd.open();
+			refreshGridAfterClosingDialog(subWindowAdd);
 		} catch (Exception e) {
 			LOG.error(e);
 			Notification.show("Ошибка диалогового окна создания записи");
@@ -97,8 +103,9 @@ public class MechanicView extends AbstractView {
 				return;
 			}
 			Mechanic selectedMachanic = grid.asSingleSelect().getValue();
-			MechanicWindowEdit subWindowEdit = new MechanicWindowEdit(selectedMachanic.getId());
+			MechanicDialogEdit subWindowEdit = new MechanicDialogEdit(selectedMachanic.getId());
 			subWindowEdit.open();
+			refreshGridAfterClosingDialog(subWindowEdit);
 		} catch (Exception e) {
 			LOG.error(e);
 			Notification.show("Ошибка диалогового окна редактирования");
@@ -126,7 +133,7 @@ public class MechanicView extends AbstractView {
 						} catch (DaoException ex) {
 							LOG.debug(ex);
 							Notification.show(ex.getMessage());
-						} catch (UiException xe) {
+						} catch (Exception xe) {
 							LOG.error(xe);
 							Notification.show("Не удалось выполнить удаление");
 						}

@@ -23,12 +23,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("serial")
-class MechanicWindowStat extends Dialog {
+class MechanicDialogStat extends Dialog {
 	private static final Logger LOG = LogManager.getLogger();
 	private DaoFactory hsqlDaoFactory;
 	private MechanicDao mechanicDao;
 
-	protected MechanicWindowStat() throws UiException {
+	protected MechanicDialogStat() throws UiException {
 		try {
 			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			mechanicDao = hsqlDaoFactory.getMechanicDao();

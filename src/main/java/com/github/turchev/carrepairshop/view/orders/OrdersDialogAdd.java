@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 import com.github.turchev.carrepairshop.domain.orders.OrderStatusType;
 import com.github.turchev.carrepairshop.domain.orders.OrdersWithFio;
 import com.github.turchev.carrepairshop.view.UiException;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
@@ -17,11 +16,11 @@ import java.time.LocalDateTime;
 
 
 @SuppressWarnings("serial")
-class OrdersWindowAdd extends OrdersWindowAbstract {
+class OrdersDialogAdd extends OrdersDialogAbstract {
 	private static final Logger LOG = LogManager.getLogger();
 	private static final String LABEL = "Создание заявки";
 
-	protected OrdersWindowAdd() throws UiException {
+	protected OrdersDialogAdd() throws UiException {
 		try {
 			super.add(new Label(LABEL));
 			super.ntsStatus.setValue(OrderStatusType.Принят);
@@ -30,11 +29,11 @@ class OrdersWindowAdd extends OrdersWindowAbstract {
 			 * При оформлении новой записи ограничения создания с текущей даты -1час до
 			 * +10дней
 			 */
-			binder.forField(super.dtfDateCreat)
+			binder.forField(super.dtfDateCreate)
 					.withValidator(new DateTimeRangeValidator("Введите корректную дату создания заявки",
 							LocalDateTime.now().minusHours(1), LocalDateTime.now().plusDays(10)))
-					.bind(OrdersWithFio::getDateCreat, OrdersWithFio::setDateCreat);
-			super.dtfDateCreat.setValue(LocalDateTime.now());
+					.bind(OrdersWithFio::getDateCreate, OrdersWithFio::setDateCreat);
+			super.dtfDateCreate.setValue(LocalDateTime.now());
 
 			/**
 			 * При оформлении новой записи ограничения на завершения работ с текущей даты
@@ -62,6 +61,14 @@ class OrdersWindowAdd extends OrdersWindowAbstract {
 			Notification.show("Описание заявки не может быть пустым", 4000, Position.MIDDLE);
 			return;
 		}
+		if (dtfDateCreate.isEmpty()) {
+			Notification.show("Укажите дату и время создания заявки", 4000, Position.MIDDLE);
+			return;
+		}
+		if (dtfCompletionDate.isEmpty()) {
+			Notification.show("Укажите дату и время завершения работ", 4000, Position.MIDDLE);
+			return;
+		}
 		if (cmbClient.isEmpty()) {
 			Notification.show("Выберите клиента из списка или создайте новую запись", 4000, Position.MIDDLE);
 			return;
@@ -74,10 +81,6 @@ class OrdersWindowAdd extends OrdersWindowAbstract {
 			Notification.show("Задайте статус заявки", 4000, Position.MIDDLE);
 			return;
 		}
-		if (dtfDateCreat.isEmpty()) {
-			Notification.show("Укажите дату заявки", 4000, Position.MIDDLE);
-			return;
-		}
 
 		try {
 			OrdersWithFio order = new OrdersWithFio();
@@ -86,11 +89,6 @@ class OrdersWindowAdd extends OrdersWindowAbstract {
 			order.setMechanicId(cmbMechanic.getValue().getId());			
 			order.setStatus(ntsStatus.getValue());
 			super.ordersDao.create(order);
-//			btnOrders.addClickListener(e -> {
-//				btnOrders.getUI().ifPresent(ui -> ui.navigate(OrdersView.NAME));
-//			});
-			UI.getCurrent().navigate(OrdersView.NAME);
-//			UI.getCurrent().getNavigator().navigateTo(OrdersView.NAME);
 			close();
 		} catch (ValidationException ev) {
 			LOG.debug(ev);

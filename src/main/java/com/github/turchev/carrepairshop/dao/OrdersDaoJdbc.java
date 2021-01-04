@@ -127,7 +127,7 @@ class OrdersDaoJdbc implements OrdersDao {
 			pstmt.setLong(2, order.getClientId());
 			pstmt.setLong(3, order.getMechanicId());
 			pstmt.setString(4, order.getStatus().toString());
-			pstmt.setTimestamp(5, Timestamp.valueOf(order.getDateCreat()));
+			pstmt.setTimestamp(5, Timestamp.valueOf(order.getDateCreate()));
 			pstmt.setTimestamp(6, Timestamp.valueOf(order.getCompletionDate()));
 			pstmt.setBigDecimal(7, order.getPrice());
 			pstmt.setLong(8, order.getId());
@@ -145,7 +145,7 @@ class OrdersDaoJdbc implements OrdersDao {
 			pstmt.setLong(2, order.getClientId());
 			pstmt.setLong(3, order.getMechanicId());
 			pstmt.setString(4, order.getStatus().toString());
-			pstmt.setTimestamp(5, Timestamp.valueOf(order.getDateCreat()));
+			pstmt.setTimestamp(5, Timestamp.valueOf(order.getDateCreate()));
 			pstmt.setTimestamp(6, Timestamp.valueOf(order.getCompletionDate()));
 			pstmt.setBigDecimal(7, order.getPrice());
 			pstmt.executeUpdate();

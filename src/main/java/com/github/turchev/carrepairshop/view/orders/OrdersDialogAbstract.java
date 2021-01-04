@@ -17,29 +17,25 @@ import com.github.turchev.carrepairshop.ds.DsType;
 import com.github.turchev.carrepairshop.view.UiException;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
-import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.datetimepicker.DateTimePicker;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.BigDecimalField;
 import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.converter.StringToBigDecimalConverter;
 import com.vaadin.flow.data.validator.BigDecimalRangeValidator;
-import com.vaadin.flow.data.validator.DateTimeRangeValidator;
 import com.vaadin.flow.data.validator.StringLengthValidator;
 import com.vaadin.flow.data.value.ValueChangeMode;
 
 @SuppressWarnings("serial")
-abstract class OrdersWindowAbstract extends Dialog {
+abstract class OrdersDialogAbstract extends Dialog {
     protected ComboBox<ShortName<Client>> cmbClient;
     protected ComboBox<ShortName<Mechanic>> cmbMechanic;
     protected ComboBox<OrderStatusType> ntsStatus;
-    protected DateTimePicker dtfDateCreat, dtfCompletionDate;
-    protected TextField txtPrice;
+    protected DateTimePicker dtfDateCreate, dtfCompletionDate;
+    protected BigDecimalField dcfPrice;
     protected TextArea txrDescription;
-    protected DecimalFormat dcf = new DecimalFormat();
     protected OrdersDao ordersDao;
     protected MechanicDao mechanicDao;
     protected ClientDao clientDao;
@@ -47,7 +43,7 @@ abstract class OrdersWindowAbstract extends Dialog {
     protected List<ShortName<Client>> clientShortName;
     protected Binder<OrdersWithFio> binder;
 
-    protected OrdersWindowAbstract() throws UiException {
+    protected OrdersDialogAbstract() throws UiException {
         try {
             binder = new Binder<>(OrdersWithFio.class);
             binder.setBean(new OrdersWithFio());
@@ -63,7 +59,7 @@ abstract class OrdersWindowAbstract extends Dialog {
             cmbClient.setItems(clientShortName);
             cmbMechanic = new ComboBox<>("Механик ФИО");
             cmbMechanic.setItems(mechanicShortName);
-            dtfDateCreat = new DateTimePicker("Дата создания заявки");
+            dtfDateCreate = new DateTimePicker("Дата создания заявки");
             dtfCompletionDate = new DateTimePicker("Дата окончания работ");
 
             txrDescription = new TextArea("Описание заявки");
@@ -72,18 +68,17 @@ abstract class OrdersWindowAbstract extends Dialog {
                     .bind(OrdersWithFio::getDescription, OrdersWithFio::setDescription);
             txrDescription.setSizeFull();
 
-            txtPrice = new TextField("Цена");
-            txtPrice.setValueChangeMode(ValueChangeMode.EAGER);
-            binder.forField(txtPrice).withNullRepresentation("")
-                    .withConverter(new StringToBigDecimalConverter("Введите сумму в формате 00000.00"))
+            dcfPrice = new BigDecimalField("Цена");
+            dcfPrice.setValueChangeMode(ValueChangeMode.EAGER);
+            binder.forField(dcfPrice)
                     .withValidator(new BigDecimalRangeValidator("Таких цен не бывает:)", new BigDecimal(0),
                             new BigDecimal(100000000)))
                     .bind(OrdersWithFio::getPrice, OrdersWithFio::setPrice);
 
             HorizontalLayout hltStatusPrice = new HorizontalLayout();
-            hltStatusPrice.add(ntsStatus, txtPrice);
+            hltStatusPrice.add(ntsStatus, dcfPrice);
             HorizontalLayout hltClientMechanic = new HorizontalLayout(cmbClient, cmbMechanic);
-            VerticalLayout vlLayout = new VerticalLayout(dtfCompletionDate, txrDescription, dtfDateCreat,
+            VerticalLayout vlLayout = new VerticalLayout(dtfCompletionDate, txrDescription, dtfDateCreate,
                     dtfCompletionDate, hltStatusPrice, hltClientMechanic);
             Button btnApple = new Button("Ok");
             btnApple.addClickListener(event -> {
