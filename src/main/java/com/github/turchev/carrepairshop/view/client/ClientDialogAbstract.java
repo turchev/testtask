@@ -15,7 +15,6 @@ import com.vaadin.flow.data.validator.RegexpValidator;
 import com.vaadin.flow.data.validator.StringLengthValidator;
 import com.vaadin.flow.data.value.ValueChangeMode;
 
-@SuppressWarnings("serial")
 abstract class ClientDialogAbstract extends Dialog {
 
 	protected TextField txtLastName, txtFirstName, txtPatronnymic, txtPhone;

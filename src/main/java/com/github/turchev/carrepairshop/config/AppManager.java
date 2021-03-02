@@ -1,24 +1,15 @@
 package com.github.turchev.carrepairshop.config;
 
 import java.util.Locale;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.github.turchev.carrepairshop.ds.DsFactory;
 import com.github.turchev.carrepairshop.ds.DsType;
 
 public class AppManager {
-
-//	@SuppressWarnings("serial")
-//	@WebServlet("/orders")
-//	@VaadinServletConfiguration(ui = MainUI.class, productionMode = false)
-//	public static class AppVaadinServlet extends VaadinServlet {
-//	}
 
 	@WebListener
 	public static class AppServletContextListener implements ServletContextListener {
@@ -29,19 +20,18 @@ public class AppManager {
 		@Override
 		public void contextInitialized(ServletContextEvent sce) {
 			LOG.debug("Application initialization");
-			try {				
-				
+			try {
 				Locale.setDefault(new Locale("ru", "RU"));
-				// Загрузка конфигурации с файлов (некоторые не требуются в программе, используются просто
-				// для тестирования)				
+
+				// Loading configuration from files (some are not required in the program, they are used only for testing)
 				propFactory = PropertiesFactory.getInstans();
 				for (String key : propFactory.getPropHashMap().keySet()) {
 					LOG.debug("Uploaded property files: {}", key);					
 				}
 				
-				// Проверка пула соединений с базой данных HSQLDB	
+				// Checking the connection pool with the HSQLDB database
 				dsfHSQLDB = DsFactory.getFactory(DsType.HSQLDB);
-				if (dsfHSQLDB.testConnection() == true) {
+				if (dsfHSQLDB.testConnection()) {
 					LOG.debug("Connection pool created: {}", dsfHSQLDB.toString());
 				} else {
 					throw new ConfigException(

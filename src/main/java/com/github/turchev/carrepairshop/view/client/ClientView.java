@@ -22,19 +22,17 @@ import org.claspina.confirmdialog.ButtonOption;
 import org.claspina.confirmdialog.ConfirmDialog;
 
 
-@SuppressWarnings("serial")
 @Route(value = ClientView.NAME, layout = MainLayout.class)
 @PageTitle(ClientView.NAME)
 public class ClientView extends AbstractView {
     private static final Logger LOG = LogManager.getLogger();
     public static final String NAME = "client";
-    private DaoFactory hsqlDaoFactory;
-    private ClientDao clientDao;
-    private Grid<Client> grid = new Grid<>();
+    private final ClientDao clientDao;
+    private final Grid<Client> grid = new Grid<>();
 
     public ClientView() throws UiException {
         try {
-            hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
+            DaoFactory hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
             clientDao = hsqlDaoFactory.getClientDao();
             grid.setSelectionMode(SelectionMode.SINGLE);
             grid.addColumn(Client::getId).setHeader("Id").setId("id");

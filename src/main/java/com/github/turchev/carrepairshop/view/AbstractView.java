@@ -4,8 +4,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
-@SuppressWarnings("serial")
-public abstract class AbstractView extends VerticalLayout {	
+public abstract class AbstractView extends VerticalLayout {
 	
 	HorizontalLayout groupButtons;	
 	
@@ -19,15 +18,9 @@ public abstract class AbstractView extends VerticalLayout {
 		Button btnAdd = new Button("Добавить");
 		Button btnChange = new Button("Изменить");
 		Button btnDelete = new Button("Удалить");
-		btnAdd.addClickListener(event -> {		
-			btnAddClick();
-		});
-		btnChange.addClickListener(event -> {
-			btnChangeClick();
-		});
-		btnDelete.addClickListener(event -> {
-			btnDeleteClick();
-		});
+		btnAdd.addClickListener(event -> btnAddClick());
+		btnChange.addClickListener(event -> btnChangeClick());
+		btnDelete.addClickListener(event -> btnDeleteClick());
 		groupButtons.add(btnAdd);
 		groupButtons.add(btnChange);
 		groupButtons.add(btnDelete);

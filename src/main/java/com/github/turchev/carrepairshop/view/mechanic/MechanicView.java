@@ -22,26 +22,22 @@ import com.vaadin.flow.router.Route;
 import org.claspina.confirmdialog.ButtonOption;
 import org.claspina.confirmdialog.ConfirmDialog;
 
-
 @Route(value = MechanicView.NAME, layout = MainLayout.class)
 @PageTitle(MechanicView.NAME)
-@SuppressWarnings("serial")
+
 public class MechanicView extends AbstractView {
 	private static final Logger LOG = LogManager.getLogger();
 	public static final String NAME = "mechanic";
-	private DaoFactory hsqlDaoFactory;
-	private MechanicDao mechanicDao;
-	private Grid<Mechanic> grid;
-	private Button btnShowStat = new Button("Показать статистику");
+	private final MechanicDao mechanicDao;
+	private final Grid<Mechanic> grid;
 
 	public MechanicView() throws UiException {
 		try {
-			hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
+			DaoFactory hsqlDaoFactory = DaoFactory.getFactory(DsType.HSQLDB);
 			mechanicDao = hsqlDaoFactory.getMechanicDao();
+			Button btnShowStat = new Button("Показать статистику");
 			this.add(btnShowStat);
-			btnShowStat.addClickListener(event -> {
-				btnShowStatClick();
-			});
+			btnShowStat.addClickListener(event -> btnShowStatClick());
 			grid = new Grid<>();
 			grid.setSelectionMode(SelectionMode.SINGLE);
 			grid.addColumn(Mechanic::getId).setHeader("Id").setId("id");

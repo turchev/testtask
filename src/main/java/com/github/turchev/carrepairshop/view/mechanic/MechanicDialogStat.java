@@ -22,7 +22,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("serial")
 class MechanicDialogStat extends Dialog {
 	private static final Logger LOG = LogManager.getLogger();
 	private DaoFactory hsqlDaoFactory;

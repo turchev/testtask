@@ -5,13 +5,10 @@ import org.apache.logging.log4j.Logger;
 
 import com.github.turchev.carrepairshop.domain.person.Client;
 import com.github.turchev.carrepairshop.view.UiException;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.data.binder.ValidationException;
 
-
-@SuppressWarnings("serial")
 class ClientDialogAdd extends ClientDialogAbstract {
 	private static final Logger LOG = LogManager.getLogger();
 	private static final String LABEL = "Создать запись о клиенте";

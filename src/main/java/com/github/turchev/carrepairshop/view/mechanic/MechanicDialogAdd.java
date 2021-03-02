@@ -10,8 +10,6 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.data.binder.ValidationException;
 
-
-@SuppressWarnings("serial")
 class MechanicDialogAdd extends MechanicDialogAbstract {
 	private static final Logger LOG = LogManager.getLogger();
 	private static final String LABEL = "Создать запись о механике";

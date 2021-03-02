@@ -15,18 +15,16 @@ class DsHSQLDB extends DsFactory {
 	private static final Logger LOG = LogManager.getLogger();
 	private static final int WAIT_SHUTDOWN_SECONDS = 3;
 	private static JDBCPool pool;
-	private static DataSource ds;
 	private static Properties prop;
-	private static String jdbcUrl;
 
 	private DsHSQLDB() {
 	}
 
 	public static DsFactory getInstans() throws DaoException {
-		if (ds == null)
+		if (((DataSource)pool) == null)
 			try {
 				prop = PropertiesFactory.getInstans().getPropertiesByKey("ds.properties");
-				jdbcUrl = prop.getProperty("ds.jdbcUrl");
+				String jdbcUrl = prop.getProperty("ds.jdbcUrl");
 				String user = prop.getProperty("ds.user").trim();
 				String password = prop.getProperty("ds.password");
 				int maxPoolSize = Integer.parseInt(prop.getProperty("ds.maxPoolSize"), 10);
@@ -34,7 +32,6 @@ class DsHSQLDB extends DsFactory {
 				pool.setUrl(jdbcUrl);
 				pool.setUser(user);
 				pool.setPassword(password);
-				ds = pool;
 				LOG.debug("Creating an HSQLDB Instance Data Source Factory");
 			} catch (Exception e) {
 				LOG.error(e);
@@ -45,12 +42,12 @@ class DsHSQLDB extends DsFactory {
 
 	@Override
 	public DataSource getDataSource() {
-		return ds;
+		return ((DataSource)pool);
 	}
 
 	@Override
 	public void shutdown() throws DsException {
-		try (Connection conn = ds.getConnection(); Statement stmnt = conn.createStatement();) {
+		try (Connection conn = ((DataSource)pool).getConnection(); Statement stmnt = conn.createStatement();) {
 			stmnt.execute("SHUTDOWN");
 			LOG.debug("running database SHUTDOWN..");
 			pool.close(WAIT_SHUTDOWN_SECONDS);
@@ -60,13 +57,12 @@ class DsHSQLDB extends DsFactory {
 	}
 
 	@Override
-	// Проверка соединения с базой данных - успешное, если имя пользователя найдено
-	// в сессиях
+	// Database connection check - successful if username is found in sessions
 	public boolean testConnection() {
-		try (Connection conn = ds.getConnection(); Statement stmnt = conn.createStatement();) {
+		try (Connection conn = ((DataSource)pool).getConnection(); Statement stmnt = conn.createStatement();) {
 			ResultSet rs = stmnt.executeQuery("SELECT * FROM INFORMATION_SCHEMA.SYSTEM_SESSIONS " + "WHERE USER_NAME='"
 					+ prop.getProperty("ds.user") + "'");
-			if (rs.next() == true) {
+			if (rs.next()) {
 				return true;
 			}
 		} catch (Exception e) {
